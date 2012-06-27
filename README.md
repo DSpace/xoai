@@ -5,6 +5,8 @@ XOAI Common 2.0.0
 > 
 > XOAI is an OAI-PMH Java Toolkit developed by Lyncode
 
-XOAI Common is the library containing common Java classes to 
-implement an OAI-PMH data providers or service providers.
+XOAI Common is a java library containing common classes to 
+implement OAI-PMH data providers.
+
+Support for service providers comming soon.
 
