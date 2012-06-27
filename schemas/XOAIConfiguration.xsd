@@ -28,8 +28,8 @@
 									<xsd:sequence minOccurs="1" maxOccurs="1">
 										<xsd:element minOccurs="1" maxOccurs="1" name="Prefix" type="xsd:string"/>
 										<xsd:element minOccurs="1" maxOccurs="1" name="XSLT" type="xsd:string" />
-										<xsd:element minOccurs="1" maxOccurs="1" name="namespace" type="xsd:string" />
-										<xsd:element minOccurs="1" maxOccurs="1" name="schemaLocation" type="xsd:string" />
+										<xsd:element minOccurs="1" maxOccurs="1" name="Namespace" type="xsd:string" />
+										<xsd:element minOccurs="1" maxOccurs="1" name="SchemaLocation" type="xsd:string" />
 										<xsd:element minOccurs="0" maxOccurs="unbounded" name="Filter" type="BundleReference" />
 									</xsd:sequence>
 									<xsd:attribute name="id" type="xsd:string" />

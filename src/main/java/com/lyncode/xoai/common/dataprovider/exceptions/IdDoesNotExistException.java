@@ -16,6 +16,8 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
+import java.sql.SQLException;
+
 
 /**
  * @author DSpace @ Lyncode
@@ -43,4 +45,9 @@ public class IdDoesNotExistException extends Exception {
     public IdDoesNotExistException(String msg) {
         super(msg);
     }
+
+
+	public IdDoesNotExistException(Exception e) {
+		super(e);
+	}
 }
