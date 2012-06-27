@@ -32,7 +32,7 @@ import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration;
  * @version 2.0.0
  */
 public class XOAIManager {
-	private static final String XOAI_CONFIG = "xoai.cfg";
+	private static final String XOAI_CONFIG = "xoai.xml";
 	
     private static XOAIManager _manager = null;
     public static XOAIManager getManager () {

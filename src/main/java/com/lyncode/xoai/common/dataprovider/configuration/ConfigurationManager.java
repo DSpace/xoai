@@ -35,7 +35,7 @@ import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration;
 public class ConfigurationManager {
     public static Configuration readConfiguration (String filename) throws ConfigurationException {
         try {
-            JAXBContext context = JAXBContext.newInstance("com.lyncode.xoai.common.xml.xoaiconfig");
+            JAXBContext context = JAXBContext.newInstance(Configuration.class.getPackage().getName());
             Unmarshaller marshaller = context.createUnmarshaller();
             FileInputStream reader = new FileInputStream(filename);
             Object obj = marshaller.unmarshal(reader);
@@ -52,7 +52,7 @@ public class ConfigurationManager {
 
     public static void writeConfiguration (Configuration config, String filename) throws ConfigurationException {
         try {
-            JAXBContext context = JAXBContext.newInstance("com.XOAI.configuration.xml");
+            JAXBContext context = JAXBContext.newInstance(Configuration.class.getPackage().getName());
             Marshaller marshaller = context.createMarshaller();
             FileOutputStream writer = new FileOutputStream(filename);
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
