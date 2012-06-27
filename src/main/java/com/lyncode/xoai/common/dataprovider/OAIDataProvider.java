@@ -135,6 +135,7 @@ public class OAIDataProvider {
     }
 
     public void handle (OAIRequestParameters params, OutputStream out) throws OAIException {
+    	log.debug("Starting handling OAI request");
         ExportManager manager = new ExportManager();
         OAIPMHtype response = _factory.createOAIPMHtype();
         response.setResponseDate(this.dateToString(new Date()));
@@ -171,6 +172,7 @@ public class OAIDataProvider {
                     response.setListIdentifiers(this.build(manager, parameters, _factory.createListIdentifiersType()));
                     break;
                 case LIST_RECORDS:
+                	log.debug("List Records");
                     response.setListRecords(this.build(manager, parameters, _factory.createListRecordsType()));
                     break;
             }
@@ -255,7 +257,7 @@ public class OAIDataProvider {
 
         String id = "##DESC##";
         try {
-			manager.addMap(id, MarshallingUtils.export(description));
+			manager.addMap(id, MarshallingUtils.marshalWithoutXMLHeader(description));
 		} catch (MarshallingException e) {
 			throw new OAIException(e);
 		}
@@ -459,7 +461,8 @@ public class OAIDataProvider {
         int length = XOAIManager.getManager().getMaxListRecordsSize();
 
         if (parameters.hasSet() && !_listSets.supportSets()) throw new DoesNotSupportSetsException();
-
+        
+        log.debug("Getting items from data source");
         ListItemsResults result;
         if (!parameters.hasSet()) {
             if (parameters.hasFrom() && !parameters.hasUntil())
@@ -482,6 +485,7 @@ public class OAIDataProvider {
             else
                 result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet());
         }
+        log.debug("Items retrived from data source");
 
         List<AbstractItem> results = result.getResults();
         if (results.isEmpty()) throw new NoMatchesException();
@@ -497,6 +501,7 @@ public class OAIDataProvider {
         resToken.setValue(newToken.toString());
         listRecordsType.setResumptionToken(resToken);
 
+        log.debug("Now adding records to the OAI-PMH Output");
         for (AbstractItem i : results)
             listRecordsType.getRecord().add(this.createRecord(manager, parameters, i));
         
@@ -506,9 +511,11 @@ public class OAIDataProvider {
       
 
     private RecordType createRecord(ExportManager manager, OAIParameters parameters, AbstractItem item) throws BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
-        MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
+        log.debug("Metadata format: "+parameters.getMetadataPrefix());
+    	MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
         RecordType record = _factory.createRecordType();
         HeaderType header = _factory.createHeaderType();
+        log.debug("Item: "+item.getIdentifier());
         header.setIdentifier(item.getIdentifier());
         header.setDatestamp(this.dateToString(item.getDatestamp()));
         for (ReferenceSet s : item.getSets(_context))
@@ -517,19 +524,25 @@ public class OAIDataProvider {
         record.setHeader(header);
 
         if (!item.isDeleted()) {
+        	log.debug("Outputing Metadata");
             MetadataType metadata = _factory.createMetadataType();
             String id = "##metadata-"+item.getIdentifier()+"##";
             try {
-            	if (_context.getTransformer().hasTransformer())
+            	if (_context.getTransformer().hasTransformer()) {
+            		log.debug("Transforming metadata (with transformer)");
             		manager.addMap(id, XSLTUtils.transform(_context.getTransformer().getXSLTFile(), format.getXSLTFile(), item));
-            	else
+            	}
+            	else {
+            		log.debug("Transforming metadata (without transformer)");
             		manager.addMap(id, XSLTUtils.transform(format.getXSLTFile(), item));
+            	}
 	            metadata.setAny(id);
 	            record.setMetadata(metadata);
 			} catch (XSLTransformationException e) {
 				throw new OAIException(e);
 			}
-
+            
+            log.debug("Outputing About");
             int i = 0;
             if (item.hasAbout()) {
                 for (AbstractAbout abj : item.getAbout()) {

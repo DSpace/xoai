@@ -54,7 +54,10 @@ public class ContextManager {
                 filters.add(fm.getFilter(b.getRefid()));
             }
             
-            MetadataTransformer transformer = tm.getTransformer(ct.getTransformer().getRefid());
+            MetadataTransformer transformer = new MetadataTransformer();
+            if (ct.getTransformer() != null)
+            	if (ct.getTransformer().getRefid() != null)
+            		transformer = tm.getTransformer(ct.getTransformer().getRefid());
             
             List<StaticSet> sets = new ArrayList<StaticSet>();
             for (BundleReference b : ct.getSet()) {

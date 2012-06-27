@@ -1,5 +1,6 @@
 package com.lyncode.xoai.common.dataprovider.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.common.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.common.dataprovider.exceptions.XSLTransformationException;
@@ -23,8 +27,10 @@ import com.lyncode.xoai.common.dataprovider.xml.PrefixMapper;
 import com.lyncode.xoai.common.dataprovider.xml.xoai.Metadata;
 
 public class XSLTUtils {
+	private static Logger log = LogManager.getLogger(XSLTUtils.class);
 	public static String transform (File xslMetadataTransform, File xslSchemaFormat, AbstractItem item) throws XSLTransformationException {
 		try {
+			log.debug("Transform Called");
 			TransformerFactory tFactory = TransformerFactory.newInstance();
 			
 			// Transformer for metadata values
@@ -33,23 +39,36 @@ public class XSLTUtils {
 			Transformer schemaTransformer = tFactory.newTransformer(new StreamSource(xslSchemaFormat));
 			
 			// Pipe (for metadata)
-            PipedInputStream mdIN = new PipedInputStream();
-            PipedOutputStream mdOUT = new PipedOutputStream(mdIN);
+            ByteArrayOutputStream mdOUT = new ByteArrayOutputStream();
             
             // Pipe (for schema)
-            PipedInputStream schemaIN = new PipedInputStream();
-            PipedOutputStream schemaOUT = new PipedOutputStream(schemaIN);
+            ByteArrayOutputStream schemaOUT = new ByteArrayOutputStream();
             
             // Final result (into String)
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             
             // Marshalling all the metadata from XOAI Binding
+            log.debug("Start Marshalling");
          	MarshallingUtils.marshalWithoutXMLHeader(Metadata.class.getPackage().getName(), item.getMetadata(), new PrefixMapper(), mdOUT);
-                     
+         	log.debug("Metadata Object marshalled into one end of the Metadata Pipe Stream");
+         	// Closing Output
+         	mdOUT.close();
             // Transforming Metadata
+            ByteArrayInputStream mdIN = new ByteArrayInputStream(mdOUT.toByteArray());
+            log.debug("Start Transform (Metadata)");
             metadataTransformer.transform(new StreamSource(mdIN), new StreamResult(schemaOUT));
+            log.debug("XSL Transform applyed to the other end of the Metadata Pipe Stream, putting the result in one end of the Schema Pipe Stream");
+            // Closing Schema Output & Metadata Input
+            schemaOUT.close();
+            mdIN.close();
             // Transforming Schema Format
+            ByteArrayInputStream schemaIN = new ByteArrayInputStream(schemaOUT.toByteArray());
+            log.debug("Start Transform (Schema)");
             schemaTransformer.transform(new StreamSource(schemaIN), new StreamResult(result));
+            log.debug("XML Transform applyed to the other end of the Schema Pipe Stream, putting the result into a byte stream array");
+            // Closing Schema Input & Output
+            schemaIN.close();
+            result.close();
             
 			return result.toString();
 		} catch (TransformerConfigurationException e) {
@@ -65,37 +84,43 @@ public class XSLTUtils {
 	
 	public static String transform (File xslSchemaFormat, AbstractItem item) throws XSLTransformationException {
 		try {
+			log.debug("Transform Called");
 			TransformerFactory tFactory = TransformerFactory.newInstance();
+			
 			
 			// Tranformer for specific schema output
 			Transformer schemaTransformer = tFactory.newTransformer(new StreamSource(xslSchemaFormat));
-			
-			// Marshalling all the metadata from XOAI Binding
-            JAXBContext context = JAXBContext.newInstance(Metadata.class.getPackage().getName());
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", new PrefixMapper());
-            
             
             // Pipe (for schema)
-            PipedInputStream schemaIN = new PipedInputStream();
-            PipedOutputStream schemaOUT = new PipedOutputStream(schemaIN);
+            ByteArrayOutputStream schemaOUT = new ByteArrayOutputStream();
             
             // Final result (into String)
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             
-            marshaller.marshal(item.getMetadata(), schemaOUT);
+            log.debug("Start Marshalling");
+            MarshallingUtils.marshalWithoutXMLHeader(Metadata.class.getPackage().getName(), item.getMetadata(), new PrefixMapper(), schemaOUT);
+         	log.debug("Metadata Object marshalled into one end of the Schema Pipe Stream");
+         	// Closing Output
+            schemaOUT.close();
             
             // Transforming Schema Format
+            ByteArrayInputStream schemaIN = new ByteArrayInputStream(schemaOUT.toByteArray());
+            log.debug("Start Transform (Schema)");
             schemaTransformer.transform(new StreamSource(schemaIN), new StreamResult(result));
+            log.debug("XML Transform applyed to the other end of the Schema Pipe Stream, putting the result into a byte stream array");
+            
+            // Closing input and output
+            schemaIN.close();
+            result.close();
             
 			return result.toString();
 		} catch (TransformerConfigurationException e) {
 			throw new XSLTransformationException(e);
-		} catch (JAXBException e) {
-			throw new XSLTransformationException(e);
 		} catch (IOException e) {
 			throw new XSLTransformationException(e);
 		} catch (TransformerException e) {
+			throw new XSLTransformationException(e);
+		} catch (MarshallingException e) {
 			throw new XSLTransformationException(e);
 		}
 	}

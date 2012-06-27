@@ -77,7 +77,7 @@ public class ExportManager {
         try {
 
             ByteArrayOutputStream output = new ByteArrayOutputStream();
-            JAXBContext context = JAXBContext.newInstance("com.lyncode.xoai.common.xml.oaipmh");
+            JAXBContext context = JAXBContext.newInstance(OAIPMHtype.class.getPackage().getName());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             JAXBElement<OAIPMHtype> type = new JAXBElement<OAIPMHtype>(_OAIPMH_QNAME, OAIPMHtype.class, null, oai);
