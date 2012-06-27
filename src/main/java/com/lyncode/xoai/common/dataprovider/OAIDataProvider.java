@@ -52,10 +52,12 @@ import com.lyncode.xoai.common.dataprovider.exceptions.DoesNotSupportSetsExcepti
 import com.lyncode.xoai.common.dataprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.common.dataprovider.exceptions.IllegalVerbException;
 import com.lyncode.xoai.common.dataprovider.exceptions.InvalidContextException;
+import com.lyncode.xoai.common.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.common.dataprovider.exceptions.NoMatchesException;
 import com.lyncode.xoai.common.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.common.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.common.dataprovider.exceptions.XSLTransformationException;
+import com.lyncode.xoai.common.dataprovider.util.MarshallingUtils;
 import com.lyncode.xoai.common.dataprovider.util.XSLTUtils;
 import com.lyncode.xoai.common.dataprovider.xml.ExportManager;
 import com.lyncode.xoai.common.dataprovider.xml.oaipmh.AboutType;
@@ -252,7 +254,11 @@ public class OAIDataProvider {
         description.setValue(XOAI_DESC);
 
         String id = "##DESC##";
-        manager.addMap(id, ExportManager.export(description));
+        try {
+			manager.addMap(id, MarshallingUtils.export(description));
+		} catch (MarshallingException e) {
+			throw new OAIException(e);
+		}
         desc.setAny(id);
         ident.getDescription().add(desc);
 

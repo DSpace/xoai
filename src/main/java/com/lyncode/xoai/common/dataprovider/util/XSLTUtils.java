@@ -17,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.common.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.common.dataprovider.exceptions.XSLTransformationException;
 import com.lyncode.xoai.common.dataprovider.xml.PrefixMapper;
 import com.lyncode.xoai.common.dataprovider.xml.xoai.Metadata;
@@ -31,12 +32,7 @@ public class XSLTUtils {
 			// Tranformer for specific schema output
 			Transformer schemaTransformer = tFactory.newTransformer(new StreamSource(xslSchemaFormat));
 			
-			// Marshalling all the metadata from XOAI Binding
-            JAXBContext context = JAXBContext.newInstance(Metadata.class.getPackage().getName());
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", new PrefixMapper());
-            
-            // Pipe (for metadata)
+			// Pipe (for metadata)
             PipedInputStream mdIN = new PipedInputStream();
             PipedOutputStream mdOUT = new PipedOutputStream(mdIN);
             
@@ -47,8 +43,9 @@ public class XSLTUtils {
             // Final result (into String)
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             
-            marshaller.marshal(item.getMetadata(), mdOUT);
-            
+            // Marshalling all the metadata from XOAI Binding
+         	MarshallingUtils.marshalWithoutXMLHeader(Metadata.class.getPackage().getName(), item.getMetadata(), new PrefixMapper(), mdOUT);
+                     
             // Transforming Metadata
             metadataTransformer.transform(new StreamSource(mdIN), new StreamResult(schemaOUT));
             // Transforming Schema Format
@@ -57,11 +54,11 @@ public class XSLTUtils {
 			return result.toString();
 		} catch (TransformerConfigurationException e) {
 			throw new XSLTransformationException(e);
-		} catch (JAXBException e) {
-			throw new XSLTransformationException(e);
 		} catch (IOException e) {
 			throw new XSLTransformationException(e);
 		} catch (TransformerException e) {
+			throw new XSLTransformationException(e);
+		} catch (MarshallingException e) {
 			throw new XSLTransformationException(e);
 		}
 	}

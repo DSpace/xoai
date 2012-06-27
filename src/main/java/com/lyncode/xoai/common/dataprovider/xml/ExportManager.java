@@ -49,7 +49,6 @@ import org.xml.sax.SAXException;
 import com.lyncode.xoai.common.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.common.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHtype;
-import com.lyncode.xoai.common.dataprovider.xml.xoaidescription.XOAIDescription;
 
 
 /**
@@ -62,25 +61,6 @@ public class ExportManager {
 
     private Map<String, String> _values;
     // private Configuration _config;
-
-    public static String export (String cont, Object obj, PrefixMapper mapper) {
-        try {
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            JAXBContext context = JAXBContext.newInstance(cont);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.setProperty("com.sun.xml.internal.bind.namespacePrefixMapper", mapper);
-            marshaller.marshal(obj, output);
-            return output.toString().replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "");
-        } catch (JAXBException ex) {
-            log.error(ex.getMessage(), ex);
-            return "";
-        }
-    }
-
-    public static String export (XOAIDescription xml) {
-        return export("com.lyncode.xoai.common.xml.xoaidescription", xml, new PrefixMapper());
-    }
 
     public ExportManager () {
         _values = new HashMap<String, String>();
