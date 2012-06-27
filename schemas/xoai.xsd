@@ -9,12 +9,15 @@
 	</element>
 	
 	<complexType name="Element">
-		<choice minOccurs="0" maxOccurs="1">
-			<sequence minOccurs="0" maxOccurs="1">
-				<element name="element" type="tns:Element" minOccurs="0" maxOccurs="unbounded" />
-			</sequence>
-			<element name="value" type="string" minOccurs="0" maxOccurs="1" />
-		</choice>
+		<sequence minOccurs="0" maxOccurs="1">
+			<element name="field" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="name" type="string" use="optional" />
+					<attribute name="value" type="string" use="required" />
+				</complexType>
+			</element>
+			<element name="element" type="tns:Element" minOccurs="0" maxOccurs="unbounded" />
+		</sequence>
 		<attribute name="name" type="string" use="required" />
 	</complexType>
 </schema>
