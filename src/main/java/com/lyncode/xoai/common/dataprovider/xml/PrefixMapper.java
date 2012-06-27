@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.xml;
+package com.lyncode.xoai.common.dataprovider.xml;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class PrefixMapper extends NamespacePrefixMapper {
     private Map<String, String> _prefix;

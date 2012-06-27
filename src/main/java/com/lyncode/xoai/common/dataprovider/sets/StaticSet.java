@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.sets;
+package com.lyncode.xoai.common.dataprovider.sets;
 
 import java.util.List;
 
-import com.lyncode.xoai.common.core.Set;
-import com.lyncode.xoai.common.filter.AbstractFilter;
+import com.lyncode.xoai.common.dataprovider.core.Set;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
 
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class StaticSet extends Set {
     private List<AbstractFilter> _filters;

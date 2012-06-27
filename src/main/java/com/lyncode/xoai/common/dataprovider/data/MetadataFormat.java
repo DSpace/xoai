@@ -14,27 +14,29 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.data;
+package com.lyncode.xoai.common.dataprovider.data;
 
+import java.io.File;
 import java.util.List;
 
-import com.lyncode.xoai.common.core.ConfigurableBundle;
-import com.lyncode.xoai.common.core.XOAIContext;
-import com.lyncode.xoai.common.filter.AbstractFilter;
-import com.lyncode.xoai.common.xml.xoaiconfig.Parameter;
+import com.lyncode.xoai.common.dataprovider.core.ConfigurableBundle;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
-public abstract class AbstractMetadataFormat extends ConfigurableBundle {
+public class MetadataFormat extends ConfigurableBundle {
     private String prefix;
+    private File xsltFile;
     private String namespace;
     private String schemaLocation;
     private List<AbstractFilter> _list;
 
-    public AbstractMetadataFormat (String namespace, String schemaLocation) {
+    public MetadataFormat (String prefix, File xsltFile, String namespace, String schemaLocation) {
+        this.prefix = prefix;
+        this.xsltFile = xsltFile;
         this.namespace = namespace;
         this.schemaLocation = schemaLocation;
     }
@@ -47,36 +49,29 @@ public abstract class AbstractMetadataFormat extends ConfigurableBundle {
         return _list;
     }
 
-    public String getNamespace() {
-        return namespace;
-    }
-
     public String getPrefix() {
         return prefix;
     }
-
-    public String getSchemaLocation() {
-        return schemaLocation;
+    
+    public File getXSLTFile () {
+    	return xsltFile;
     }
-
+    
     
 
-    public String getXML (XOAIContext context, AbstractItem item) {
-        return this.getXML(context.getTransformer().transform(item));
-    }
+    public String getNamespace() {
+		return namespace;
+	}
 
-    protected abstract String getXML (AbstractItem item);
+	public String getSchemaLocation() {
+		return schemaLocation;
+	}
 
-    public boolean isApplyable (AbstractItemIdentifier item) {
+	public boolean isApplyable (AbstractItemIdentifier item) {
         if (item.isDeleted()) return true;
         for (AbstractFilter filter : this.getFilters())
             if (!filter.isItemShown(item))
                 return false;
         return true;
-    }
-
-    public void load(String prefix, List<Parameter> parameter) {
-        super.load(parameter);
-        this.prefix = prefix;
     }
 }

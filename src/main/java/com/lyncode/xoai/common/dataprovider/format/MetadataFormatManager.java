@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.format;
+package com.lyncode.xoai.common.dataprovider.format;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,50 +25,43 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.common.data.AbstractItem;
-import com.lyncode.xoai.common.data.AbstractMetadataFormat;
-import com.lyncode.xoai.common.exceptions.BadArgumentException;
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.filter.AbstractFilter;
-import com.lyncode.xoai.common.filter.FilterManager;
-import com.lyncode.xoai.common.xml.xoaiconfig.BundleReference;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Formats;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Formats.Format;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.common.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.common.dataprovider.filter.FilterManager;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.BundleReference;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Formats;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Formats.Format;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class MetadataFormatManager {
     private static Logger log = LogManager.getLogger(MetadataFormatManager.class);
-    private Map<String, AbstractMetadataFormat> _contexts;
+    private Map<String, MetadataFormat> _contexts;
 
 
-    public MetadataFormatManager (Formats config, FilterManager fm) throws ConfigurationException {
-        _contexts = new HashMap<String, AbstractMetadataFormat>();
+    public MetadataFormatManager (String baseDir, Formats config, FilterManager fm) throws ConfigurationException {
+        _contexts = new HashMap<String, MetadataFormat>();
         for (Format f : config.getFormat()) {
-            try {
-                Class<?> c = Class.forName(f.getClazz());
-                Object obj = c.newInstance();
-                List<AbstractFilter> list = new ArrayList<AbstractFilter>();
-                for (BundleReference refid : f.getFilter()) {
-                    if (!fm.filterExists(refid.getRefid()))
-                        throw new ConfigurationException("Filter refered as "+refid.getRefid()+" does not exists");
-                    list.add(fm.getFilter(refid.getRefid()));
-                }
-                if (obj instanceof AbstractMetadataFormat) {
-                    ((AbstractMetadataFormat) obj).load(f.getPrefix(), f.getParameter());
-                    ((AbstractMetadataFormat) obj).loadFilters(list);
-                    _contexts.put(f.getId(), (AbstractMetadataFormat) obj);
-                }
-            } catch (ClassNotFoundException ex) {
-                log.error(ex.getMessage(), ex);
-            } catch (InstantiationException ex) {
-                log.error(ex.getMessage(), ex);
-            } catch (IllegalAccessException ex) {
-                log.error(ex.getMessage(), ex);
-            }
+            String xsltFilepath = (baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator) + f.getXSLT();
+			File xsltFile = new File(xsltFilepath);
+			
+			log.trace("[XOAI] XSLT File: "+xsltFilepath);
+			
+			MetadataFormat mdf = new MetadataFormat(f.getPrefix(), xsltFile, f.getNamespace(), f.getSchemaLocation());
+			List<AbstractFilter> list = new ArrayList<AbstractFilter>();
+			for (BundleReference refid : f.getFilter()) {
+			    if (!fm.filterExists(refid.getRefid()))
+			        throw new ConfigurationException("Filter refered as "+refid.getRefid()+" does not exists");
+			    list.add(fm.getFilter(refid.getRefid()));
+			}
+			mdf.loadFilters(list);
+			_contexts.put(f.getId(), mdf);
         }
     }
 
@@ -75,21 +69,21 @@ public class MetadataFormatManager {
         return this._contexts.containsKey(id);
     }
 
-    public AbstractMetadataFormat getFormat (String id) {
+    public MetadataFormat getFormat (String id) {
         return _contexts.get(id);
     }
 
 
-    public List<AbstractMetadataFormat> getFormats (AbstractItem item) {
-        List<AbstractMetadataFormat> formats = new ArrayList<AbstractMetadataFormat>();
-        for (AbstractMetadataFormat format : _contexts.values())
+    public List<MetadataFormat> getFormats (AbstractItem item) {
+        List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
+        for (MetadataFormat format : _contexts.values())
             if (format.isApplyable(item))
                 formats.add(format);
         return formats;
     }
     
-    public AbstractMetadataFormat getFormatByPrefix (String prefix) throws BadArgumentException {
-        for (AbstractMetadataFormat f : _contexts.values())
+    public MetadataFormat getFormatByPrefix (String prefix) throws BadArgumentException {
+        for (MetadataFormat f : _contexts.values())
             if (f.getPrefix().equals(prefix))
                 return f;
         throw new BadArgumentException("There is no metadata schema with the given metadataPrefix");

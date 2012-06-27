@@ -14,30 +14,35 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
-import com.lyncode.xoai.common.configuration.ConfigurationManager;
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.filter.FilterManager;
-import com.lyncode.xoai.common.format.MetadataFormatManager;
-import com.lyncode.xoai.common.sets.StaticSetManager;
-import com.lyncode.xoai.common.transform.TransformManager;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration;
+import java.io.File;
+
+import com.lyncode.xoai.common.dataprovider.configuration.ConfigurationManager;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.filter.FilterManager;
+import com.lyncode.xoai.common.dataprovider.format.MetadataFormatManager;
+import com.lyncode.xoai.common.dataprovider.sets.StaticSetManager;
+import com.lyncode.xoai.common.dataprovider.transform.TransformManager;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class XOAIManager {
+	private static final String XOAI_CONFIG = "xoai.cfg";
+	
     private static XOAIManager _manager = null;
     public static XOAIManager getManager () {
         return _manager;
     }
     
-    public static void initialize (String filename) throws ConfigurationException {
-        Configuration config = ConfigurationManager.readConfiguration(filename);
-        _manager = new XOAIManager(config);
+    public static void initialize (String baseDir) throws ConfigurationException {
+    	String configFile = (baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator) + XOAI_CONFIG;
+        Configuration config = ConfigurationManager.readConfiguration(configFile);
+        _manager = new XOAIManager(baseDir, config);
     }
 
 
@@ -51,10 +56,10 @@ public class XOAIManager {
     private int _listIdentifiersSize;
     private boolean _identation;
 
-    private XOAIManager (Configuration config) throws ConfigurationException {
+    private XOAIManager (String baseDir, Configuration config) throws ConfigurationException {
         _filter = new FilterManager(config.getFilters());
-        _transformer = new TransformManager(config.getTransformers());
-        _format = new MetadataFormatManager(config.getFormats(), _filter);
+        _transformer = new TransformManager(baseDir, config.getTransformers());
+        _format = new MetadataFormatManager(baseDir, config.getFormats(), _filter);
         _set = new StaticSetManager(config.getSets(), _filter);
         _listSetsSize = config.getMaxListSetsSize();
         _listIdentifiersSize = config.getMaxListRecordsSize();

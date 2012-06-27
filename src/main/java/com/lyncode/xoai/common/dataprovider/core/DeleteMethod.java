@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 /**
  * If a record is no longer available then it is said to be deleted. Repositories must declare one of three levels of support for deleted records in the deletedRecord element of the Identify response:

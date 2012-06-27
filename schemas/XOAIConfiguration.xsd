@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.lyncode.com/XOAIConfiguration" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.lyncode.com/XOAIConfiguration">
+	<xsd:element name="Configuration">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="1" maxOccurs="1">
+				<xsd:element name="Contexts" minOccurs="1" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence minOccurs="1" maxOccurs="1">
+							<xsd:element name="Context" minOccurs="1" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence minOccurs="1" maxOccurs="1">
+										<xsd:element name="Transformer" minOccurs="0" maxOccurs="1" type="BundleReference" />
+										<xsd:element name="Filter" minOccurs="0" maxOccurs="unbounded"  type="BundleReference" />
+										<xsd:element name="Set" minOccurs="0" maxOccurs="unbounded" type="BundleReference" />
+										<xsd:element name="Format" minOccurs="1" maxOccurs="unbounded" type="BundleReference" />
+									</xsd:sequence>
+									<xsd:attribute name="baseurl" type="xsd:string"/>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Formats" minOccurs="1" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence minOccurs="1" maxOccurs="1">
+							<xsd:element name="Format" minOccurs="1" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence minOccurs="1" maxOccurs="1">
+										<xsd:element minOccurs="1" maxOccurs="1" name="Prefix" type="xsd:string"/>
+										<xsd:element minOccurs="1" maxOccurs="1" name="XSLT" type="xsd:string" />
+										<xsd:element minOccurs="1" maxOccurs="1" name="namespace" type="xsd:string" />
+										<xsd:element minOccurs="1" maxOccurs="1" name="schemaLocation" type="xsd:string" />
+										<xsd:element minOccurs="0" maxOccurs="unbounded" name="Filter" type="BundleReference" />
+									</xsd:sequence>
+									<xsd:attribute name="id" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Transformers" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence minOccurs="1" maxOccurs="1">
+							<xsd:element name="Transformer" minOccurs="1" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence minOccurs="1" maxOccurs="1">
+										<xsd:element minOccurs="1" maxOccurs="1" name="XSLT" type="xsd:string" />
+									</xsd:sequence>
+									<xsd:attribute name="id" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Filters" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence minOccurs="1" maxOccurs="1">
+							<xsd:element name="Filter" minOccurs="1" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence minOccurs="1" maxOccurs="1">
+										<xsd:element minOccurs="1" maxOccurs="1" name="Class" type="xsd:string" />
+										<xsd:element minOccurs="0" maxOccurs="unbounded" name="Parameter" type="Parameter" />
+									</xsd:sequence>
+									<xsd:attribute name="id" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Sets" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence minOccurs="1" maxOccurs="1">
+							<xsd:element name="Set" minOccurs="1" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence minOccurs="1" maxOccurs="1">
+										<xsd:element minOccurs="1" maxOccurs="1" name="Pattern" type="xsd:string" />
+										<xsd:element minOccurs="1" maxOccurs="1" name="Name" type="xsd:string" />
+										<xsd:element minOccurs="0" maxOccurs="unbounded" name="Filter" type="BundleReference" />
+										<xsd:element minOccurs="0" maxOccurs="unbounded" name="Parameter" type="Parameter" />
+									</xsd:sequence>
+									<xsd:attribute name="id" type="xsd:string" />
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+                        <xsd:attribute name="maxListRecordsSize" type="xsd:int" default="100" use="optional" />
+                        <xsd:attribute name="maxListSetsSize" type="xsd:int" default="100" use="optional" />
+                        <xsd:attribute name="maxListIdentifiersSize" type="xsd:int" default="100" use="optional" />
+                        <xsd:attribute name="identation" type="xsd:boolean" default="false" use="optional" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="BundleReference">
+		<xsd:attribute name="refid" type="xsd:string" />
+	</xsd:complexType>
+
+	<xsd:complexType name="Parameter">
+            <xsd:sequence minOccurs="1" maxOccurs="1">
+                <xsd:element name="Value" minOccurs="1" maxOccurs="unbounded" type="xsd:string" />
+            </xsd:sequence>
+            <xsd:attribute name="key" type="xsd:string" use="required" />
+	</xsd:complexType>
+</xsd:schema>

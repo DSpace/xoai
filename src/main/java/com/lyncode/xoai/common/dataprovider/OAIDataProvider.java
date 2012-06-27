@@ -14,10 +14,10 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 
-package com.lyncode.xoai.common;
+package com.lyncode.xoai.common.dataprovider;
 
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -28,62 +28,64 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.common.core.Granularity;
-import com.lyncode.xoai.common.core.ListItemIdentifiersResult;
-import com.lyncode.xoai.common.core.ListItemsResults;
-import com.lyncode.xoai.common.core.ListSetsResult;
-import com.lyncode.xoai.common.core.OAIParameters;
-import com.lyncode.xoai.common.core.ReferenceSet;
-import com.lyncode.xoai.common.core.ResumptionToken;
-import com.lyncode.xoai.common.core.Set;
-import com.lyncode.xoai.common.core.XOAIContext;
-import com.lyncode.xoai.common.core.XOAIManager;
-import com.lyncode.xoai.common.data.AbstractAbout;
-import com.lyncode.xoai.common.data.AbstractIdentify;
-import com.lyncode.xoai.common.data.AbstractItem;
-import com.lyncode.xoai.common.data.AbstractItemIdentifier;
-import com.lyncode.xoai.common.data.AbstractItemRepository;
-import com.lyncode.xoai.common.data.AbstractMetadataFormat;
-import com.lyncode.xoai.common.data.AbstractSetRepository;
-import com.lyncode.xoai.common.exceptions.BadArgumentException;
-import com.lyncode.xoai.common.exceptions.BadResumptionToken;
-import com.lyncode.xoai.common.exceptions.CannotDisseminateRecordException;
-import com.lyncode.xoai.common.exceptions.DoesNotSupportSetsException;
-import com.lyncode.xoai.common.exceptions.IdDoesNotExistException;
-import com.lyncode.xoai.common.exceptions.IllegalVerbException;
-import com.lyncode.xoai.common.exceptions.InvalidContextException;
-import com.lyncode.xoai.common.exceptions.NoMatchesException;
-import com.lyncode.xoai.common.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.common.exceptions.OAIException;
-import com.lyncode.xoai.common.xml.ExportManager;
-import com.lyncode.xoai.common.xml.oaipmh.AboutType;
-import com.lyncode.xoai.common.xml.oaipmh.DeletedRecordType;
-import com.lyncode.xoai.common.xml.oaipmh.DescriptionType;
-import com.lyncode.xoai.common.xml.oaipmh.GetRecordType;
-import com.lyncode.xoai.common.xml.oaipmh.GranularityType;
-import com.lyncode.xoai.common.xml.oaipmh.HeaderType;
-import com.lyncode.xoai.common.xml.oaipmh.IdentifyType;
-import com.lyncode.xoai.common.xml.oaipmh.ListIdentifiersType;
-import com.lyncode.xoai.common.xml.oaipmh.ListMetadataFormatsType;
-import com.lyncode.xoai.common.xml.oaipmh.ListRecordsType;
-import com.lyncode.xoai.common.xml.oaipmh.ListSetsType;
-import com.lyncode.xoai.common.xml.oaipmh.MetadataFormatType;
-import com.lyncode.xoai.common.xml.oaipmh.MetadataType;
-import com.lyncode.xoai.common.xml.oaipmh.OAIPMHerrorType;
-import com.lyncode.xoai.common.xml.oaipmh.OAIPMHerrorcodeType;
-import com.lyncode.xoai.common.xml.oaipmh.OAIPMHtype;
-import com.lyncode.xoai.common.xml.oaipmh.ObjectFactory;
-import com.lyncode.xoai.common.xml.oaipmh.RecordType;
-import com.lyncode.xoai.common.xml.oaipmh.RequestType;
-import com.lyncode.xoai.common.xml.oaipmh.ResumptionTokenType;
-import com.lyncode.xoai.common.xml.oaipmh.SetType;
-import com.lyncode.xoai.common.xml.oaipmh.StatusType;
-import com.lyncode.xoai.common.xml.oaipmh.VerbType;
-import com.lyncode.xoai.common.xml.xoaidescription.XOAIDescription;
+import com.lyncode.xoai.common.dataprovider.core.Granularity;
+import com.lyncode.xoai.common.dataprovider.core.ListItemIdentifiersResult;
+import com.lyncode.xoai.common.dataprovider.core.ListItemsResults;
+import com.lyncode.xoai.common.dataprovider.core.ListSetsResult;
+import com.lyncode.xoai.common.dataprovider.core.OAIParameters;
+import com.lyncode.xoai.common.dataprovider.core.ReferenceSet;
+import com.lyncode.xoai.common.dataprovider.core.ResumptionToken;
+import com.lyncode.xoai.common.dataprovider.core.Set;
+import com.lyncode.xoai.common.dataprovider.core.XOAIContext;
+import com.lyncode.xoai.common.dataprovider.core.XOAIManager;
+import com.lyncode.xoai.common.dataprovider.data.AbstractAbout;
+import com.lyncode.xoai.common.dataprovider.data.AbstractIdentify;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItemIdentifier;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItemRepository;
+import com.lyncode.xoai.common.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.common.dataprovider.data.AbstractSetRepository;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadResumptionToken;
+import com.lyncode.xoai.common.dataprovider.exceptions.CannotDisseminateRecordException;
+import com.lyncode.xoai.common.dataprovider.exceptions.DoesNotSupportSetsException;
+import com.lyncode.xoai.common.dataprovider.exceptions.IdDoesNotExistException;
+import com.lyncode.xoai.common.dataprovider.exceptions.IllegalVerbException;
+import com.lyncode.xoai.common.dataprovider.exceptions.InvalidContextException;
+import com.lyncode.xoai.common.dataprovider.exceptions.NoMatchesException;
+import com.lyncode.xoai.common.dataprovider.exceptions.NoMetadataFormatsException;
+import com.lyncode.xoai.common.dataprovider.exceptions.OAIException;
+import com.lyncode.xoai.common.dataprovider.exceptions.XSLTransformationException;
+import com.lyncode.xoai.common.dataprovider.util.XSLTUtils;
+import com.lyncode.xoai.common.dataprovider.xml.ExportManager;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.AboutType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.DeletedRecordType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.DescriptionType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.GetRecordType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.GranularityType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.HeaderType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.IdentifyType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.ListIdentifiersType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.ListMetadataFormatsType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.ListRecordsType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.ListSetsType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.MetadataFormatType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.MetadataType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHerrorType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHerrorcodeType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHtype;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.ObjectFactory;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.RecordType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.RequestType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.ResumptionTokenType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.SetType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.StatusType;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.VerbType;
+import com.lyncode.xoai.common.dataprovider.xml.xoaidescription.XOAIDescription;
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class OAIDataProvider {
     private static Logger log = LogManager.getLogger(OAIDataProvider.class);
@@ -306,9 +308,9 @@ public class OAIDataProvider {
     private ListMetadataFormatsType build(ExportManager manager, OAIParameters parameters, ListMetadataFormatsType listMetadataFormatsType) throws IdDoesNotExistException, NoMetadataFormatsException, OAIException {
         if (parameters.hasIdentifier()) {
             AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
-            List<AbstractMetadataFormat> forms = _context.getFormats(item);
+            List<MetadataFormat> forms = _context.getFormats(item);
             if (forms.isEmpty()) throw new NoMetadataFormatsException();
-            for (AbstractMetadataFormat f : forms) {
+            for (MetadataFormat f : forms) {
                 MetadataFormatType format = _factory.createMetadataFormatType();
                 format.setMetadataPrefix(f.getPrefix());
                 format.setMetadataNamespace(f.getNamespace());
@@ -316,9 +318,9 @@ public class OAIDataProvider {
                 listMetadataFormatsType.getMetadataFormat().add(format);
             }
         } else {
-            List<AbstractMetadataFormat> forms = _context.getFormats();
+            List<MetadataFormat> forms = _context.getFormats();
             if (forms.isEmpty()) throw new OAIException("The respository should have at least one metadata format");
-            for (AbstractMetadataFormat f : _context.getFormats()) {
+            for (MetadataFormat f : _context.getFormats()) {
                 MetadataFormatType format = _factory.createMetadataFormatType();
                 format.setMetadataPrefix(f.getPrefix());
                 format.setMetadataNamespace(f.getNamespace());
@@ -340,7 +342,7 @@ public class OAIDataProvider {
     private GetRecordType build(ExportManager manager, OAIParameters parameters, GetRecordType getRecordType) throws IdDoesNotExistException, BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
         RecordType record = _factory.createRecordType();
         HeaderType header = _factory.createHeaderType();
-        AbstractMetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
+        MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
         AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
         if (!_context.isItemShown(item)) throw new CannotDisseminateRecordException();
         if (!format.isApplyable(item)) throw new CannotDisseminateRecordException();
@@ -354,7 +356,14 @@ public class OAIDataProvider {
         if (!item.isDeleted()) {
             MetadataType metadata = _factory.createMetadataType();
             String id = "##metadata-"+item.getIdentifier()+"##";
-            manager.addMap(id, format.getXML(_context, item));
+            try {
+            	if (_context.getTransformer().hasTransformer())
+            		manager.addMap(id, XSLTUtils.transform(_context.getTransformer().getXSLTFile(), format.getXSLTFile(), item));
+            	else
+            		manager.addMap(id, XSLTUtils.transform(format.getXSLTFile(), item));
+			} catch (XSLTransformationException e) {
+				throw new OAIException(e);
+			}
             metadata.setAny(id);
             record.setMetadata(metadata);
 
@@ -426,7 +435,7 @@ public class OAIDataProvider {
 
 
     private HeaderType createHeader(OAIParameters parameters, AbstractItemIdentifier ii) throws BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
-        AbstractMetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
+        MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
         if (!ii.isDeleted() && !format.isApplyable(ii)) throw new CannotDisseminateRecordException();
         
         HeaderType header = _factory.createHeaderType();
@@ -491,7 +500,7 @@ public class OAIDataProvider {
       
 
     private RecordType createRecord(ExportManager manager, OAIParameters parameters, AbstractItem item) throws BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
-        AbstractMetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
+        MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
         RecordType record = _factory.createRecordType();
         HeaderType header = _factory.createHeaderType();
         header.setIdentifier(item.getIdentifier());
@@ -504,9 +513,16 @@ public class OAIDataProvider {
         if (!item.isDeleted()) {
             MetadataType metadata = _factory.createMetadataType();
             String id = "##metadata-"+item.getIdentifier()+"##";
-            manager.addMap(id, format.getXML(_context, item));
-            metadata.setAny(id);
-            record.setMetadata(metadata);
+            try {
+            	if (_context.getTransformer().hasTransformer())
+            		manager.addMap(id, XSLTUtils.transform(_context.getTransformer().getXSLTFile(), format.getXSLTFile(), item));
+            	else
+            		manager.addMap(id, XSLTUtils.transform(format.getXSLTFile(), item));
+	            metadata.setAny(id);
+	            record.setMetadata(metadata);
+			} catch (XSLTransformationException e) {
+				throw new OAIException(e);
+			}
 
             int i = 0;
             if (item.hasAbout()) {
@@ -522,29 +538,4 @@ public class OAIDataProvider {
         }
         return record;
     }
-
-    /*
-    public static void main (String[] args) throws ConfigurationException {
-        BasicConfigurator.configure();
-
-        OAIRequestParameters params = new OAIRequestParameters();
-        params.setVerb("ListRecords");
-        params.setResumptionToken("MToyfDI6fDM6fDQ6fDU6b2FpcGx1cw==");
-        //params.setIdentifier("asdasd");
-        //params.setMetadataPrefix("XOAI");
-
-
-        OAIDataProvider server = new OAIDataProvider("config/application.properties",
-                new Identify(),
-                new ListSets(),
-                new ListMetadataFormats(),
-                new ItemRepository()
-        );
-        try {
-            server.handle(params, System.out);
-        } catch (OAIException ex) {
-            ex.printStackTrace();
-        }
-    }
-    */
 }

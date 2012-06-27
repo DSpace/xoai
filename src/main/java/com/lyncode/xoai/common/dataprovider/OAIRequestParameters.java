@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.lyncode.xoai.common;
+package com.lyncode.xoai.common.dataprovider;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class OAIRequestParameters {
     private static Logger log = LogManager.getLogger(OAIRequestParameters.class);

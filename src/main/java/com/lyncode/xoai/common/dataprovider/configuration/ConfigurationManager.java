@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.configuration;
+package com.lyncode.xoai.common.dataprovider.configuration;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,12 +25,12 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class ConfigurationManager {
     public static Configuration readConfiguration (String filename) throws ConfigurationException {

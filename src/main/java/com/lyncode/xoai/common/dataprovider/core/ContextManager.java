@@ -14,31 +14,30 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lyncode.xoai.common.data.AbstractMetadataFormat;
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.filter.AbstractFilter;
-import com.lyncode.xoai.common.filter.FilterManager;
-import com.lyncode.xoai.common.format.MetadataFormatManager;
-import com.lyncode.xoai.common.sets.StaticSet;
-import com.lyncode.xoai.common.sets.StaticSetManager;
-import com.lyncode.xoai.common.transform.AbstractTransformer;
-import com.lyncode.xoai.common.transform.NullTransformer;
-import com.lyncode.xoai.common.transform.TransformManager;
-import com.lyncode.xoai.common.xml.xoaiconfig.BundleReference;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Contexts;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Contexts.Context;
+import com.lyncode.xoai.common.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.common.dataprovider.data.MetadataTransformer;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.common.dataprovider.filter.FilterManager;
+import com.lyncode.xoai.common.dataprovider.format.MetadataFormatManager;
+import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
+import com.lyncode.xoai.common.dataprovider.sets.StaticSetManager;
+import com.lyncode.xoai.common.dataprovider.transform.TransformManager;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.BundleReference;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Contexts;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Contexts.Context;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class ContextManager {
 
@@ -54,9 +53,8 @@ public class ContextManager {
                     throw new ConfigurationException("Filter refered as "+b.getRefid()+" does not exists");
                 filters.add(fm.getFilter(b.getRefid()));
             }
-            AbstractTransformer transformer;
-            if (ct.getTransformer() != null) transformer = tm.getTransformer(ct.getTransformer().getRefid());
-            else transformer = new NullTransformer();
+            
+            MetadataTransformer transformer = tm.getTransformer(ct.getTransformer().getRefid());
             
             List<StaticSet> sets = new ArrayList<StaticSet>();
             for (BundleReference b : ct.getSet()) {
@@ -65,7 +63,7 @@ public class ContextManager {
                 sets.add(sm.getSet(b.getRefid()));
             }
 
-            List<AbstractMetadataFormat> formats = new ArrayList<AbstractMetadataFormat>();
+            List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
             for (BundleReference b : ct.getFormat()) {
                 if (!mfm.formatExists(b.getRefid()))
                     throw new ConfigurationException("Metadata Format refered as "+b.getRefid()+" does not exists");

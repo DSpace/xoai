@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,16 +23,16 @@ import java.util.Date;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.common.OAIRequestParameters;
-import com.lyncode.xoai.common.exceptions.BadArgumentException;
-import com.lyncode.xoai.common.exceptions.BadResumptionToken;
-import com.lyncode.xoai.common.exceptions.IllegalVerbException;
-import com.lyncode.xoai.common.xml.oaipmh.VerbType;
+import com.lyncode.xoai.common.dataprovider.OAIRequestParameters;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadResumptionToken;
+import com.lyncode.xoai.common.dataprovider.exceptions.IllegalVerbException;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.VerbType;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class OAIParameters {
     private static Logger log = LogManager.getLogger(OAIParameters.class);

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.xml;
+package com.lyncode.xoai.common.dataprovider.xml;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -46,15 +46,15 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.lyncode.xoai.common.core.XOAIManager;
-import com.lyncode.xoai.common.exceptions.OAIException;
-import com.lyncode.xoai.common.xml.oaipmh.OAIPMHtype;
-import com.lyncode.xoai.common.xml.xoaidescription.XOAIDescription;
+import com.lyncode.xoai.common.dataprovider.core.XOAIManager;
+import com.lyncode.xoai.common.dataprovider.exceptions.OAIException;
+import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHtype;
+import com.lyncode.xoai.common.dataprovider.xml.xoaidescription.XOAIDescription;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class ExportManager {
     private final static QName _OAIPMH_QNAME = new QName("http://www.openarchives.org/OAI/2.0/", "OAI-PMH");

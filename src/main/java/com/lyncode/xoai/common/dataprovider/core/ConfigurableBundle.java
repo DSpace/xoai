@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +22,13 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.common.configuration.Parameters;
-import com.lyncode.xoai.common.xml.xoaiconfig.Parameter;
+import com.lyncode.xoai.common.dataprovider.configuration.Parameters;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Parameter;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public abstract class ConfigurableBundle {
     private static Logger log = LogManager.getLogger(ConfigurableBundle.class);

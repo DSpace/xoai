@@ -6,7 +6,7 @@
 //
 
 
-package com.lyncode.xoai.common.xml.oaipmh;
+package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import java.util.ArrayList;
 import java.util.List;

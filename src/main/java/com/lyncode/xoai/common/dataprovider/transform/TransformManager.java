@@ -14,42 +14,33 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.transform;
+package com.lyncode.xoai.common.dataprovider.transform;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Transformers;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Transformers.Transformer;
+import com.lyncode.xoai.common.dataprovider.data.MetadataTransformer;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Transformers;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Transformers.Transformer;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class TransformManager {
     //private static Logger log = LogManager.getLogger(TransformManager.class);
-    private Map<String, AbstractTransformer> _contexts;
+    private Map<String, MetadataTransformer> _contexts;
+    
 
-
-    public TransformManager (Transformers config) throws ConfigurationException {
-        _contexts = new HashMap<String, AbstractTransformer>();
-        try {
-            for (Transformer t : config.getTransformer()) {
-                Class<?> c = Class.forName(t.getClazz());
-                Object obj = c.newInstance();
-                if (obj instanceof AbstractTransformer) {
-                    ((AbstractTransformer) obj).load(t.getParameter());
-                    _contexts.put(t.getId(), (AbstractTransformer) obj);
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
-        } catch (InstantiationException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
+    public TransformManager (String baseDir, Transformers config) throws ConfigurationException {
+        _contexts = new HashMap<String, MetadataTransformer>();
+        for (Transformer t : config.getTransformer()) {
+        	String xsltFilepath = (baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator) + t.getXSLT();
+        	File xsltFile = new File(xsltFilepath);
+        	_contexts.put(t.getId(), new MetadataTransformer(xsltFile));
         }
     }
 
@@ -57,7 +48,7 @@ public class TransformManager {
         return this._contexts.containsKey(id);
     }
 
-    public AbstractTransformer getTransformer (String id) {
+    public MetadataTransformer getTransformer (String id) {
         return _contexts.get(id);
     }
 

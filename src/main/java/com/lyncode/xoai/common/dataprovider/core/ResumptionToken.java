@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import com.lyncode.xoai.common.exceptions.BadArgumentException;
-import com.lyncode.xoai.common.exceptions.BadResumptionToken;
-import com.lyncode.xoai.common.util.Base64Utils;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.common.dataprovider.exceptions.BadResumptionToken;
+import com.lyncode.xoai.common.dataprovider.util.Base64Utils;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class ResumptionToken {
     private int _offset;

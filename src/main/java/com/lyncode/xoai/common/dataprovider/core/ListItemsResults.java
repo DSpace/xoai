@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 import java.util.List;
 
-import com.lyncode.xoai.common.data.AbstractItem;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class ListItemsResults {
     private boolean hasMore;

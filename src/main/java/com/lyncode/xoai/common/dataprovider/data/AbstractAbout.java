@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.data;
+package com.lyncode.xoai.common.dataprovider.data;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public abstract class AbstractAbout {
     public abstract String getXML ();

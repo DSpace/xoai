@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.sets;
+package com.lyncode.xoai.common.dataprovider.sets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lyncode.xoai.common.core.Set;
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.filter.AbstractFilter;
-import com.lyncode.xoai.common.filter.FilterManager;
-import com.lyncode.xoai.common.xml.xoaiconfig.BundleReference;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Sets;
+import com.lyncode.xoai.common.dataprovider.core.Set;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.common.dataprovider.filter.FilterManager;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.BundleReference;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Sets;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class StaticSetManager {
     // private static Logger log = LogManager.getLogger(StaticSetManager.class);
@@ -40,7 +40,7 @@ public class StaticSetManager {
 
     public StaticSetManager (Sets config, FilterManager fm) throws ConfigurationException {
         _contexts = new HashMap<String, StaticSet>();
-        for (com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Sets.Set s : config.getSet()) {
+        for (com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config.getSet()) {
             List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
             for (BundleReference r : s.getFilter()) {
                 if (!fm.filterExists(r.getRefid()))

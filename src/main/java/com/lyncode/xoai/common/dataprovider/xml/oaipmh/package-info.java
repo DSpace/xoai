@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.openarchives.org/OAI/2.0/", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.lyncode.xoai.common.xml.oaipmh;
+package com.lyncode.xoai.common.dataprovider.xml.oaipmh;

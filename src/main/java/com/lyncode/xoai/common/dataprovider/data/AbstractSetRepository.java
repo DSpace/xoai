@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.data;
+package com.lyncode.xoai.common.dataprovider.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +22,15 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.common.core.ListSetsResult;
-import com.lyncode.xoai.common.core.Set;
-import com.lyncode.xoai.common.core.XOAIContext;
-import com.lyncode.xoai.common.sets.StaticSet;
+import com.lyncode.xoai.common.dataprovider.core.ListSetsResult;
+import com.lyncode.xoai.common.dataprovider.core.Set;
+import com.lyncode.xoai.common.dataprovider.core.XOAIContext;
+import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public abstract class AbstractSetRepository {
     private static Logger log = LogManager.getLogger(AbstractSetRepository.class);

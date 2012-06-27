@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.filter;
+package com.lyncode.xoai.common.dataprovider.filter;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public final class Filter {
     private AbstractFilter _filter;

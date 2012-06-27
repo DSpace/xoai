@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.data;
+package com.lyncode.xoai.common.dataprovider.data;
 
 import java.util.List;
+
+import com.lyncode.xoai.common.dataprovider.xml.xoai.Metadata;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public abstract class AbstractItem extends AbstractItemIdentifier {
     /**
@@ -33,4 +35,6 @@ public abstract class AbstractItem extends AbstractItemIdentifier {
     public boolean hasAbout () {
         return (!this.getAbout().isEmpty());
     }
+    
+    public abstract Metadata getMetadata ();
 }

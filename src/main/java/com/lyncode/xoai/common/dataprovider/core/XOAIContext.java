@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.core;
+package com.lyncode.xoai.common.dataprovider.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,33 +24,33 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.common.data.AbstractItem;
-import com.lyncode.xoai.common.data.AbstractItemIdentifier;
-import com.lyncode.xoai.common.data.AbstractMetadataFormat;
-import com.lyncode.xoai.common.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.common.filter.AbstractFilter;
-import com.lyncode.xoai.common.sets.StaticSet;
-import com.lyncode.xoai.common.transform.AbstractTransformer;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.common.dataprovider.data.AbstractItemIdentifier;
+import com.lyncode.xoai.common.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.common.dataprovider.data.MetadataTransformer;
+import com.lyncode.xoai.common.dataprovider.exceptions.NoMetadataFormatsException;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class XOAIContext extends ConfigurableBundle {
     private static Logger log = LogManager.getLogger(XOAIContext.class);
     private String _baseurl;
     private List<AbstractFilter> _filters;
     private Map<String, StaticSet> _sets;
-    private AbstractTransformer _transformer;
-    private Map<String, AbstractMetadataFormat> _formats;
+    private MetadataTransformer _transformer;
+    private Map<String, MetadataFormat> _formats;
 
-    public XOAIContext(String baseurl, AbstractTransformer transformer, List<AbstractFilter> filters, List<AbstractMetadataFormat> formats, List<StaticSet> sets) {
+    public XOAIContext(String baseurl, MetadataTransformer transformer, List<AbstractFilter> filters, List<MetadataFormat> formats, List<StaticSet> sets) {
         _baseurl = baseurl;
         _transformer = transformer;
         _filters = filters;
-        _formats = new HashMap<String, AbstractMetadataFormat>();
-        for (AbstractMetadataFormat mdf : formats)
+        _formats = new HashMap<String, MetadataFormat>();
+        for (MetadataFormat mdf : formats)
             _formats.put(mdf.getPrefix(), mdf);
         _sets = new HashMap<String, StaticSet>();
         for (StaticSet s : sets)
@@ -65,7 +65,7 @@ public class XOAIContext extends ConfigurableBundle {
         return _filters;
     }
 
-    public AbstractTransformer getTransformer() {
+    public MetadataTransformer getTransformer() {
         return _transformer;
     }
 
@@ -79,21 +79,21 @@ public class XOAIContext extends ConfigurableBundle {
         return _sets.get(setID).getFilters();
     }
 
-    public AbstractMetadataFormat getFormatByPrefix (String prefix) throws NoMetadataFormatsException {
-        for (AbstractMetadataFormat format : this._formats.values())
+    public MetadataFormat getFormatByPrefix (String prefix) throws NoMetadataFormatsException {
+        for (MetadataFormat format : this._formats.values())
             if (format.getPrefix().equals(prefix))
                 return format;
         throw new NoMetadataFormatsException();
     }
 
-    public List<AbstractMetadataFormat> getFormats () {
-        return new ArrayList<AbstractMetadataFormat>(_formats.values());
+    public List<MetadataFormat> getFormats () {
+        return new ArrayList<MetadataFormat>(_formats.values());
     }
 
-    public List<AbstractMetadataFormat> getFormats (AbstractItem item) {
-        List<AbstractMetadataFormat> formats = new ArrayList<AbstractMetadataFormat>();
+    public List<MetadataFormat> getFormats (AbstractItem item) {
+        List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
         if (this.isItemShown(item)) {
-            for (AbstractMetadataFormat format : _formats.values())
+            for (MetadataFormat format : _formats.values())
                 if (item.isDeleted() || format.isApplyable(item))
                     formats.add(format);
         }

@@ -8,3 +8,7 @@
 *.jar
 *.war
 *.ear
+
+# bin
+
+bin

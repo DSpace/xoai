@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.exceptions;
+package com.lyncode.xoai.common.dataprovider.exceptions;
 
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class OAIException extends Exception {
 

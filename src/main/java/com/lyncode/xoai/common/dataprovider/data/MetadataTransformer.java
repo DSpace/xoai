@@ -14,16 +14,37 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.transform;
+package com.lyncode.xoai.common.dataprovider.data;
 
-import com.lyncode.xoai.common.core.ConfigurableBundle;
-import com.lyncode.xoai.common.data.AbstractItem;
+import java.io.File;
+
+import com.lyncode.xoai.common.dataprovider.core.ConfigurableBundle;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
-public abstract class AbstractTransformer extends ConfigurableBundle {
-    public abstract AbstractItem transform (AbstractItem item);
+public class MetadataTransformer extends ConfigurableBundle {
+	private File xsltFile;
+	
+	public MetadataTransformer () {
+		xsltFile = null;
+	}
+	
+	public MetadataTransformer (File xsltFile) {
+		this.xsltFile = xsltFile;
+	}
+	
+	public MetadataTransformer (String path) {
+		this.xsltFile = new File(path);
+	}
+	
+	public boolean hasTransformer () {
+		return (this.xsltFile != null);
+	}
+	
+	public File getXSLTFile () {
+		return xsltFile;
+	}
 }

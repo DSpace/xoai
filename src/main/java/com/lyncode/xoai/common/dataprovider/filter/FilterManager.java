@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.filter;
+package com.lyncode.xoai.common.dataprovider.filter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.lyncode.xoai.common.exceptions.ConfigurationException;
-import com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Filters;
+import com.lyncode.xoai.common.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Filters;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class FilterManager {
     // private static Logger log = LogManager.getLogger(FilterManager.class);
@@ -36,7 +36,7 @@ public class FilterManager {
 
     public FilterManager (Filters filters) throws ConfigurationException {
         _contexts = new HashMap<String, AbstractFilter>();
-        for (com.lyncode.xoai.common.xml.xoaiconfig.Configuration.Filters.Filter f : filters.getFilter()) {
+        for (com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters.getFilter()) {
             try {
                 Class<?> c = Class.forName(f.getClazz());
                 Object obj = c.newInstance();

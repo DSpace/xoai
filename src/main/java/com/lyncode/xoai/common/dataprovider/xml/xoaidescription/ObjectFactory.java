@@ -6,7 +6,7 @@
 //
 
 
-package com.lyncode.xoai.common.xml.xoaidescription;
+package com.lyncode.xoai.common.dataprovider.xml.xoaidescription;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

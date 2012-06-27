@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.configuration;
+package com.lyncode.xoai.common.dataprovider.configuration;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.lyncode.xoai.common.xml.xoaiconfig.Parameter;
+import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Parameter;
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public class Parameters {
     private Map<String, List<String>> _params;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.lyncode.com/xoai" xmlns:tns="http://www.lyncode.com/xoai" elementFormDefault="qualified">
+	<element name="metadata">
+		<complexType>
+			<sequence minOccurs="0" maxOccurs="1">
+				<element minOccurs="1" maxOccurs="unbounded" name="element" type="tns:Element" />
+			</sequence>
+		</complexType>
+	</element>
+	
+	<complexType name="Element">
+		<choice minOccurs="0" maxOccurs="1">
+			<sequence minOccurs="0" maxOccurs="1">
+				<element name="element" type="tns:Element" minOccurs="0" maxOccurs="unbounded" />
+			</sequence>
+			<element name="value" type="string" minOccurs="0" maxOccurs="1" />
+		</choice>
+		<attribute name="name" type="string" use="required" />
+	</complexType>
+</schema>

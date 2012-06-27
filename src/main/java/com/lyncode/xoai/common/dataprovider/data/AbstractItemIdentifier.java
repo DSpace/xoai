@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.common.data;
+package com.lyncode.xoai.common.dataprovider.data;
 
 import java.util.Date;
 import java.util.List;
 
-import com.lyncode.xoai.common.core.ReferenceSet;
-import com.lyncode.xoai.common.core.XOAIContext;
-import com.lyncode.xoai.common.filter.AbstractFilter;
-import com.lyncode.xoai.common.sets.StaticSet;
+import com.lyncode.xoai.common.dataprovider.core.ReferenceSet;
+import com.lyncode.xoai.common.dataprovider.core.XOAIContext;
+import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
 
 
 /**
  * @author DSpace @ Lyncode
- * @version 1.0.1
+ * @version 2.0.0
  */
 public abstract class AbstractItemIdentifier {
     public abstract String getIdentifier ();
