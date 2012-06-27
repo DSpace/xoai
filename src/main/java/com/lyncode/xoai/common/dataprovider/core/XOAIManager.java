@@ -26,83 +26,86 @@ import com.lyncode.xoai.common.dataprovider.sets.StaticSetManager;
 import com.lyncode.xoai.common.dataprovider.transform.TransformManager;
 import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class XOAIManager {
 	private static final String XOAI_CONFIG = "xoai.xml";
-	
-    private static XOAIManager _manager = null;
-    public static XOAIManager getManager () {
-        return _manager;
-    }
-    
-    public static void initialize (String baseDir) throws ConfigurationException {
-    	String configFile = (baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator) + XOAI_CONFIG;
-        Configuration config = ConfigurationManager.readConfiguration(configFile);
-        _manager = new XOAIManager(baseDir, config);
-    }
 
+	private static XOAIManager _manager = null;
 
-    private FilterManager _filter;
-    private ContextManager _context;
-    private TransformManager _transformer;
-    private MetadataFormatManager _format;
-    private StaticSetManager _set;
-    private int _listSetsSize;
-    private int _listRecordsSize;
-    private int _listIdentifiersSize;
-    private boolean _identation;
+	public static XOAIManager getManager() {
+		return _manager;
+	}
 
-    private XOAIManager (String baseDir, Configuration config) throws ConfigurationException {
-        _filter = new FilterManager(config.getFilters());
-        _transformer = new TransformManager(baseDir, config.getTransformers());
-        _format = new MetadataFormatManager(baseDir, config.getFormats(), _filter);
-        _set = new StaticSetManager(config.getSets(), _filter);
-        _listSetsSize = config.getMaxListSetsSize();
-        _listIdentifiersSize = config.getMaxListRecordsSize();
-        _listRecordsSize = config.getMaxListRecordsSize();
-        _identation = config.isIdentation();
-        _context = new ContextManager(config.getContexts(), _filter, _transformer, _format, _set);
-    }
+	public static void initialize(String baseDir) throws ConfigurationException {
+		String configFile = (baseDir.endsWith(File.separator) ? baseDir
+				: baseDir + File.separator) + XOAI_CONFIG;
+		Configuration config = ConfigurationManager
+				.readConfiguration(configFile);
+		_manager = new XOAIManager(baseDir, config);
+	}
 
-    public ContextManager getContextManager() {
-        return _context;
-    }
+	private FilterManager _filter;
+	private ContextManager _context;
+	private TransformManager _transformer;
+	private MetadataFormatManager _format;
+	private StaticSetManager _set;
+	private int _listSetsSize;
+	private int _listRecordsSize;
+	private int _listIdentifiersSize;
+	private boolean _identation;
 
-    public FilterManager getFilterManager() {
-        return _filter;
-    }
+	private XOAIManager(String baseDir, Configuration config)
+			throws ConfigurationException {
+		_filter = new FilterManager(config.getFilters());
+		_transformer = new TransformManager(baseDir, config.getTransformers());
+		_format = new MetadataFormatManager(baseDir, config.getFormats(),
+				_filter);
+		_set = new StaticSetManager(config.getSets(), _filter);
+		_listSetsSize = config.getMaxListSetsSize();
+		_listIdentifiersSize = config.getMaxListRecordsSize();
+		_listRecordsSize = config.getMaxListRecordsSize();
+		_identation = config.isIdentation();
+		_context = new ContextManager(config.getContexts(), _filter,
+				_transformer, _format, _set);
+	}
 
-    public MetadataFormatManager getFormatManager() {
-        return _format;
-    }
+	public ContextManager getContextManager() {
+		return _context;
+	}
 
-    public StaticSetManager getSetManager() {
-        return _set;
-    }
+	public FilterManager getFilterManager() {
+		return _filter;
+	}
 
-    public TransformManager getTransformerManager() {
-        return _transformer;
-    }
+	public MetadataFormatManager getFormatManager() {
+		return _format;
+	}
 
-    public int getMaxListIdentifiersSize() {
-        return _listIdentifiersSize;
-    }
+	public StaticSetManager getSetManager() {
+		return _set;
+	}
 
-    public int getMaxListRecordsSize() {
-        return _listRecordsSize;
-    }
+	public TransformManager getTransformerManager() {
+		return _transformer;
+	}
 
-    public int getMaxListSetsSize() {
-        return _listSetsSize;
-    }
+	public int getMaxListIdentifiersSize() {
+		return _listIdentifiersSize;
+	}
 
-    public boolean isIdentated() {
-        return _identation;
-    }
+	public int getMaxListRecordsSize() {
+		return _listRecordsSize;
+	}
 
+	public int getMaxListSetsSize() {
+		return _listSetsSize;
+	}
+
+	public boolean isIdentated() {
+		return _identation;
+	}
 
 }

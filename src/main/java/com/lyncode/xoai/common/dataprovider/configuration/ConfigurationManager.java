@@ -33,35 +33,40 @@ import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration;
  * @version 2.0.0
  */
 public class ConfigurationManager {
-    public static Configuration readConfiguration (String filename) throws ConfigurationException {
-        try {
-            JAXBContext context = JAXBContext.newInstance(Configuration.class.getPackage().getName());
-            Unmarshaller marshaller = context.createUnmarshaller();
-            FileInputStream reader = new FileInputStream(filename);
-            Object obj = marshaller.unmarshal(reader);
-            reader.close();
-            if (obj instanceof Configuration) {
-                return (Configuration) obj;
-            } else throw new ConfigurationException("Invalid configuration bundle");
-        } catch (IOException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
-        } catch (JAXBException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
-        }
-    }
+	public static Configuration readConfiguration(String filename)
+			throws ConfigurationException {
+		try {
+			JAXBContext context = JAXBContext.newInstance(Configuration.class
+					.getPackage().getName());
+			Unmarshaller marshaller = context.createUnmarshaller();
+			FileInputStream reader = new FileInputStream(filename);
+			Object obj = marshaller.unmarshal(reader);
+			reader.close();
+			if (obj instanceof Configuration) {
+				return (Configuration) obj;
+			} else
+				throw new ConfigurationException("Invalid configuration bundle");
+		} catch (IOException ex) {
+			throw new ConfigurationException(ex.getMessage(), ex);
+		} catch (JAXBException ex) {
+			throw new ConfigurationException(ex.getMessage(), ex);
+		}
+	}
 
-    public static void writeConfiguration (Configuration config, String filename) throws ConfigurationException {
-        try {
-            JAXBContext context = JAXBContext.newInstance(Configuration.class.getPackage().getName());
-            Marshaller marshaller = context.createMarshaller();
-            FileOutputStream writer = new FileOutputStream(filename);
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(config, writer);
-            writer.close();
-        } catch (IOException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
-        } catch (JAXBException ex) {
-            throw new ConfigurationException(ex.getMessage(), ex);
-        }
-    }
+	public static void writeConfiguration(Configuration config, String filename)
+			throws ConfigurationException {
+		try {
+			JAXBContext context = JAXBContext.newInstance(Configuration.class
+					.getPackage().getName());
+			Marshaller marshaller = context.createMarshaller();
+			FileOutputStream writer = new FileOutputStream(filename);
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.marshal(config, writer);
+			writer.close();
+		} catch (IOException ex) {
+			throw new ConfigurationException(ex.getMessage(), ex);
+		} catch (JAXBException ex) {
+			throw new ConfigurationException(ex.getMessage(), ex);
+		}
+	}
 }

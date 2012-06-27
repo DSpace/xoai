@@ -20,21 +20,21 @@ import java.util.List;
 
 import com.lyncode.xoai.common.dataprovider.xml.xoai.Metadata;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public abstract class AbstractItem extends AbstractItemIdentifier {
-    /**
-     * Marchable objects
-     *
-     * @return
-     */
-    public abstract List<AbstractAbout> getAbout ();
-    public boolean hasAbout () {
-        return (!this.getAbout().isEmpty());
-    }
-    
-    public abstract Metadata getMetadata ();
+	/**
+	 * Marchable objects
+	 * 
+	 * @return
+	 */
+	public abstract List<AbstractAbout> getAbout();
+
+	public boolean hasAbout() {
+		return (!this.getAbout().isEmpty());
+	}
+
+	public abstract Metadata getMetadata();
 }

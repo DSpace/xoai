@@ -7,3 +7,4 @@
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://www.lyncode.com/XOAIConfiguration")
 package com.lyncode.xoai.common.dataprovider.xml.xoaidescription;
+

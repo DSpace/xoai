@@ -28,39 +28,40 @@ import com.lyncode.xoai.common.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Sets;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class StaticSetManager {
-    // private static Logger log = LogManager.getLogger(StaticSetManager.class);
-    private Map<String, StaticSet> _contexts;
+	// private static Logger log = LogManager.getLogger(StaticSetManager.class);
+	private Map<String, StaticSet> _contexts;
 
+	public StaticSetManager(Sets config, FilterManager fm)
+			throws ConfigurationException {
+		_contexts = new HashMap<String, StaticSet>();
+		for (com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
+				.getSet()) {
+			List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
+			for (BundleReference r : s.getFilter()) {
+				if (!fm.filterExists(r.getRefid()))
+					throw new ConfigurationException("Filter refered as "
+							+ r.getRefid() + " does not exists");
+				filters.add(fm.getFilter(r.getRefid()));
+			}
+			StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
+			_contexts.put(s.getId(), set);
+		}
+	}
 
-    public StaticSetManager (Sets config, FilterManager fm) throws ConfigurationException {
-        _contexts = new HashMap<String, StaticSet>();
-        for (com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config.getSet()) {
-            List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
-            for (BundleReference r : s.getFilter()) {
-                if (!fm.filterExists(r.getRefid()))
-                    throw new ConfigurationException("Filter refered as "+r.getRefid()+" does not exists");
-                filters.add(fm.getFilter(r.getRefid()));
-            }
-            StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
-            _contexts.put(s.getId(), set);
-        }
-    }
+	public boolean setExists(String id) {
+		return this._contexts.containsKey(id);
+	}
 
-    public boolean setExists (String id) {
-        return this._contexts.containsKey(id);
-    }
+	public StaticSet getSet(String id) {
+		return _contexts.get(id);
+	}
 
-    public StaticSet getSet (String id) {
-        return _contexts.get(id);
-    }
-
-    public List<Set> getSets () {
-        return new ArrayList<Set>(_contexts.values());
-    }
+	public List<Set> getSets() {
+		return new ArrayList<Set>(_contexts.values());
+	}
 }

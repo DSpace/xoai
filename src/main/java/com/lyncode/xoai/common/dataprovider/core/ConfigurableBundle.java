@@ -25,43 +25,43 @@ import org.apache.log4j.Logger;
 import com.lyncode.xoai.common.dataprovider.configuration.Parameters;
 import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Parameter;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public abstract class ConfigurableBundle {
-    private static Logger log = LogManager.getLogger(ConfigurableBundle.class);
-    private Parameters _parameters;
+	private static Logger log = LogManager.getLogger(ConfigurableBundle.class);
+	private Parameters _parameters;
 
-    public void load (List<Parameter> parameters) {
-        _parameters = new Parameters(parameters);
-    }
-    
-    public List<String> getParameters (String key) {
-        if (!_parameters.hasParameter(key))
-            return new ArrayList<String>();
-        return _parameters.getParameter(key);
-    }
+	public void load(List<Parameter> parameters) {
+		_parameters = new Parameters(parameters);
+	}
 
-    public String getParameter (String key) {
-        String p =  _parameters.getFirstParameter(key);
-        log.debug("Parameter: "+key+" = "+p);
-        return p;
-    }
+	public List<String> getParameters(String key) {
+		if (!_parameters.hasParameter(key))
+			return new ArrayList<String>();
+		return _parameters.getParameter(key);
+	}
 
-    public String getParameter (String key, String none) {
-        if (!hasParameter(key)) return none;
-        String p =  _parameters.getFirstParameter(key);
-        log.debug("Parameter: "+key+" = "+p);
-        return p;
-    }
+	public String getParameter(String key) {
+		String p = _parameters.getFirstParameter(key);
+		log.debug("Parameter: " + key + " = " + p);
+		return p;
+	}
 
-    public boolean hasParameter (String key) {
-        return _parameters.hasParameter(key);
-    }
+	public String getParameter(String key, String none) {
+		if (!hasParameter(key))
+			return none;
+		String p = _parameters.getFirstParameter(key);
+		log.debug("Parameter: " + key + " = " + p);
+		return p;
+	}
 
-    public List<String> getKeys () {
-        return new ArrayList<String>(_parameters.getKeys());
-    }
+	public boolean hasParameter(String key) {
+		return _parameters.hasParameter(key);
+	}
+
+	public List<String> getKeys() {
+		return new ArrayList<String>(_parameters.getKeys());
+	}
 }

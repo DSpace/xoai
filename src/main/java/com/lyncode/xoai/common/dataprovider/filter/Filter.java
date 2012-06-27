@@ -16,25 +16,24 @@
 
 package com.lyncode.xoai.common.dataprovider.filter;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public final class Filter {
-    private AbstractFilter _filter;
-    private FilterScope _scope;
+	private AbstractFilter _filter;
+	private FilterScope _scope;
 
-    public Filter (AbstractFilter filter, FilterScope scope) {
-        _filter = filter;
-        _scope = scope;
-    }
+	public Filter(AbstractFilter filter, FilterScope scope) {
+		_filter = filter;
+		_scope = scope;
+	}
 
-    public AbstractFilter getFilter() {
-        return _filter;
-    }
+	public AbstractFilter getFilter() {
+		return _filter;
+	}
 
-    public FilterScope getScope() {
-        return _scope;
-    }
+	public FilterScope getScope() {
+		return _scope;
+	}
 }

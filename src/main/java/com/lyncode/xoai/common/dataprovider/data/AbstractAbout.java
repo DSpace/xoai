@@ -16,11 +16,10 @@
 
 package com.lyncode.xoai.common.dataprovider.data;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public abstract class AbstractAbout {
-    public abstract String getXML ();
+	public abstract String getXML();
 }

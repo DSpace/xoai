@@ -16,31 +16,32 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class DoesNotSupportSetsException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7008970964208110045L;
 
+	/**
+	 * Creates a new instance of <code>DoesNotSupportSetsException</code>
+	 * without detail message.
+	 */
+	public DoesNotSupportSetsException() {
+	}
 
 	/**
-     * Creates a new instance of <code>DoesNotSupportSetsException</code> without detail message.
-     */
-    public DoesNotSupportSetsException() {
-    }
-
-
-    /**
-     * Constructs an instance of <code>DoesNotSupportSetsException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public DoesNotSupportSetsException(String msg) {
-        super(msg);
-    }
+	 * Constructs an instance of <code>DoesNotSupportSetsException</code> with
+	 * the specified detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public DoesNotSupportSetsException(String msg) {
+		super(msg);
+	}
 }

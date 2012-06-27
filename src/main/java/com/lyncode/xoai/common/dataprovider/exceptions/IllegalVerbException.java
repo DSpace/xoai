@@ -16,31 +16,32 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class IllegalVerbException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2748244610538429452L;
 
+	/**
+	 * Creates a new instance of <code>IllegalVerbException</code> without
+	 * detail message.
+	 */
+	public IllegalVerbException() {
+	}
 
 	/**
-     * Creates a new instance of <code>IllegalVerbException</code> without detail message.
-     */
-    public IllegalVerbException() {
-    }
-
-
-    /**
-     * Constructs an instance of <code>IllegalVerbException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public IllegalVerbException(String msg) {
-        super(msg);
-    }
+	 * Constructs an instance of <code>IllegalVerbException</code> with the
+	 * specified detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public IllegalVerbException(String msg) {
+		super(msg);
+	}
 }

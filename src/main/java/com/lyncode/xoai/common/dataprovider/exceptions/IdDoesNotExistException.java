@@ -16,36 +16,34 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-import java.sql.SQLException;
-
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class IdDoesNotExistException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -657866486396669641L;
 
+	/**
+	 * Creates a new instance of <code>IdDoesNotExistException</code> without
+	 * detail message.
+	 */
+	public IdDoesNotExistException() {
+	}
 
 	/**
-     * Creates a new instance of <code>IdDoesNotExistException</code> without detail message.
-     */
-    public IdDoesNotExistException() {
-    }
-
-
-    /**
-     * Constructs an instance of <code>IdDoesNotExistException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public IdDoesNotExistException(String msg) {
-        super(msg);
-    }
-
+	 * Constructs an instance of <code>IdDoesNotExistException</code> with the
+	 * specified detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public IdDoesNotExistException(String msg) {
+		super(msg);
+	}
 
 	public IdDoesNotExistException(Exception e) {
 		super(e);

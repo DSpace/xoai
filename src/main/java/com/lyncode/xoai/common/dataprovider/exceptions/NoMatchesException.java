@@ -16,31 +16,32 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class NoMatchesException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7051492953854730413L;
 
+	/**
+	 * Creates a new instance of <code>NoMatchesException</code> without detail
+	 * message.
+	 */
+	public NoMatchesException() {
+	}
 
 	/**
-     * Creates a new instance of <code>NoMatchesException</code> without detail message.
-     */
-    public NoMatchesException() {
-    }
-
-
-    /**
-     * Constructs an instance of <code>NoMatchesException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public NoMatchesException(String msg) {
-        super(msg);
-    }
+	 * Constructs an instance of <code>NoMatchesException</code> with the
+	 * specified detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public NoMatchesException(String msg) {
+		super(msg);
+	}
 }

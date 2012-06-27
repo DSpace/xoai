@@ -23,82 +23,81 @@ import org.apache.log4j.Logger;
  * @version 2.0.0
  */
 public class OAIRequestParameters {
-    private static Logger log = LogManager.getLogger(OAIRequestParameters.class);
-    private String verb;
-    private String resumptionToken;
-    private String identifier;
-    private String metadataPrefix;
-    private String set;
-    private String until;
-    private String from;
+	private static Logger log = LogManager
+			.getLogger(OAIRequestParameters.class);
+	private String verb;
+	private String resumptionToken;
+	private String identifier;
+	private String metadataPrefix;
+	private String set;
+	private String until;
+	private String from;
 
-    public OAIRequestParameters () {
-        
-    }
+	public OAIRequestParameters() {
 
-    public void setVerb(String verb) {
-        log.trace("Verb parameters given: "+verb);
-        this.verb = verb;
-    }
+	}
 
-    public void setResumptionToken (String res) {
-        log.trace("ResumptionToken parameters given: "+res);
-        this.resumptionToken = res;
-    }
+	public void setVerb(String verb) {
+		log.trace("Verb parameters given: " + verb);
+		this.verb = verb;
+	}
 
-    public void setIdentifier(String identifier) {
-        log.trace("Identifier parameters given: "+identifier);
-        this.identifier = identifier;
-    }
+	public void setResumptionToken(String res) {
+		log.trace("ResumptionToken parameters given: " + res);
+		this.resumptionToken = res;
+	}
 
-    public void setMetadataPrefix(String metadataPrefix) {
-        log.trace("MetadataPrefix parameters given: "+metadataPrefix);
-        this.metadataPrefix = metadataPrefix;
-    }
+	public void setIdentifier(String identifier) {
+		log.trace("Identifier parameters given: " + identifier);
+		this.identifier = identifier;
+	}
 
+	public void setMetadataPrefix(String metadataPrefix) {
+		log.trace("MetadataPrefix parameters given: " + metadataPrefix);
+		this.metadataPrefix = metadataPrefix;
+	}
 
-    public void setSet(String set) {
-        log.trace("Set parameters given: "+set);
-        this.set = set;
-    }
+	public void setSet(String set) {
+		log.trace("Set parameters given: " + set);
+		this.set = set;
+	}
 
-    public void setFrom(String from) {
-        log.trace("From parameters given: "+from);
-        this.from = from;
-    }
+	public void setFrom(String from) {
+		log.trace("From parameters given: " + from);
+		this.from = from;
+	}
 
-    public void setUntil(String until) {
-        log.trace("Until parameters given: "+until);
-        this.until = until;
-    }
+	public void setUntil(String until) {
+		log.trace("Until parameters given: " + until);
+		this.until = until;
+	}
 
-    public String getFrom() {
-        return from;
-    }
+	public String getFrom() {
+		return from;
+	}
 
-    public String getIdentifier() {
-        return identifier;
-    }
+	public String getIdentifier() {
+		return identifier;
+	}
 
-    public String getMetadataPrefix() {
-        return metadataPrefix;
-    }
+	public String getMetadataPrefix() {
+		return metadataPrefix;
+	}
 
-    public String getResumptionToken() {
-        return resumptionToken;
-    }
+	public String getResumptionToken() {
+		return resumptionToken;
+	}
 
-    public String getSet() {
-        return set;
-    }
+	public String getSet() {
+		return set;
+	}
 
-    public String getUntil() {
-        return until;
-    }
+	public String getUntil() {
+		return until;
+	}
 
-    public String getVerb() {
-        return verb;
-    }
+	public String getVerb() {
+		return verb;
+	}
 
-    
 }

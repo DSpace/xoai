@@ -22,44 +22,42 @@ import java.util.List;
 import com.lyncode.xoai.common.dataprovider.core.ConfigurableBundle;
 import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class MetadataFormat extends ConfigurableBundle {
-    private String prefix;
-    private File xsltFile;
-    private String namespace;
-    private String schemaLocation;
-    private List<AbstractFilter> _list;
+	private String prefix;
+	private File xsltFile;
+	private String namespace;
+	private String schemaLocation;
+	private List<AbstractFilter> _list;
 
-    public MetadataFormat (String prefix, File xsltFile, String namespace, String schemaLocation) {
-        this.prefix = prefix;
-        this.xsltFile = xsltFile;
-        this.namespace = namespace;
-        this.schemaLocation = schemaLocation;
-    }
+	public MetadataFormat(String prefix, File xsltFile, String namespace,
+			String schemaLocation) {
+		this.prefix = prefix;
+		this.xsltFile = xsltFile;
+		this.namespace = namespace;
+		this.schemaLocation = schemaLocation;
+	}
 
-    public void loadFilters (List<AbstractFilter> filters) {
-        this._list = filters;
-    }
+	public void loadFilters(List<AbstractFilter> filters) {
+		this._list = filters;
+	}
 
-    public List<AbstractFilter> getFilters() {
-        return _list;
-    }
+	public List<AbstractFilter> getFilters() {
+		return _list;
+	}
 
-    public String getPrefix() {
-        return prefix;
-    }
-    
-    public File getXSLTFile () {
-    	return xsltFile;
-    }
-    
-    
+	public String getPrefix() {
+		return prefix;
+	}
 
-    public String getNamespace() {
+	public File getXSLTFile() {
+		return xsltFile;
+	}
+
+	public String getNamespace() {
 		return namespace;
 	}
 
@@ -67,11 +65,12 @@ public class MetadataFormat extends ConfigurableBundle {
 		return schemaLocation;
 	}
 
-	public boolean isApplyable (AbstractItemIdentifier item) {
-        if (item.isDeleted()) return true;
-        for (AbstractFilter filter : this.getFilters())
-            if (!filter.isItemShown(item))
-                return false;
-        return true;
-    }
+	public boolean isApplyable(AbstractItemIdentifier item) {
+		if (item.isDeleted())
+			return true;
+		for (AbstractFilter filter : this.getFilters())
+			if (!filter.isItemShown(item))
+				return false;
+		return true;
+	}
 }

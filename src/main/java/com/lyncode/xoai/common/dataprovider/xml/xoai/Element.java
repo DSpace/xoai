@@ -5,22 +5,24 @@
 // Generated on: 2012.06.27 at 01:16:00 PM WEST 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.xoai;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * <p>Java class for Element complex type.
+ * <p>
+ * Java class for Element complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="Element">
@@ -47,176 +49,165 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Element", propOrder = {
-    "field",
-    "element"
-})
+@XmlType(name = "Element", propOrder = { "field", "element" })
 public class Element {
 
-    protected List<Element.Field> field;
-    protected List<Element> element;
-    @XmlAttribute(required = true)
-    protected String name;
+	protected List<Element.Field> field;
+	protected List<Element> element;
+	@XmlAttribute(required = true)
+	protected String name;
 
-    /**
-     * Gets the value of the field property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the field property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getField().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Element.Field }
-     * 
-     * 
-     */
-    public List<Element.Field> getField() {
-        if (field == null) {
-            field = new ArrayList<Element.Field>();
-        }
-        return this.field;
-    }
+	/**
+	 * Gets the value of the field property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the field property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getField().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link Element.Field }
+	 * 
+	 * 
+	 */
+	public List<Element.Field> getField() {
+		if (field == null) {
+			field = new ArrayList<Element.Field>();
+		}
+		return this.field;
+	}
 
-    /**
-     * Gets the value of the element property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the element property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getElement().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Element }
-     * 
-     * 
-     */
-    public List<Element> getElement() {
-        if (element == null) {
-            element = new ArrayList<Element>();
-        }
-        return this.element;
-    }
+	/**
+	 * Gets the value of the element property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the element property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getElement().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link Element }
+	 * 
+	 * 
+	 */
+	public List<Element> getElement() {
+		if (element == null) {
+			element = new ArrayList<Element>();
+		}
+		return this.element;
+	}
 
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Gets the value of the name property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
+	/**
+	 * Sets the value of the name property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setName(String value) {
+		this.name = value;
+	}
 
+	/**
+	 * <p>
+	 * Java class for anonymous complex type.
+	 * 
+	 * <p>
+	 * The following schema fragment specifies the expected content contained
+	 * within this class.
+	 * 
+	 * <pre>
+	 * &lt;complexType>
+	 *   &lt;simpleContent>
+	 *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
+	 *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
+	 *     &lt;/extension>
+	 *   &lt;/simpleContent>
+	 * &lt;/complexType>
+	 * </pre>
+	 * 
+	 * 
+	 */
+	@XmlAccessorType(XmlAccessType.FIELD)
+	@XmlType(name = "", propOrder = { "value" })
+	public static class Field {
 
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
-     * <pre>
-     * &lt;complexType>
-     *   &lt;simpleContent>
-     *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
-     *       &lt;attribute name="name" type="{http://www.w3.org/2001/XMLSchema}string" />
-     *     &lt;/extension>
-     *   &lt;/simpleContent>
-     * &lt;/complexType>
-     * </pre>
-     * 
-     * 
-     */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "value"
-    })
-    public static class Field {
+		@XmlValue
+		protected String value;
+		@XmlAttribute
+		protected String name;
 
-        @XmlValue
-        protected String value;
-        @XmlAttribute
-        protected String name;
+		/**
+		 * Gets the value of the value property.
+		 * 
+		 * @return possible object is {@link String }
+		 * 
+		 */
+		public String getValue() {
+			return value;
+		}
 
-        /**
-         * Gets the value of the value property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getValue() {
-            return value;
-        }
+		/**
+		 * Sets the value of the value property.
+		 * 
+		 * @param value
+		 *            allowed object is {@link String }
+		 * 
+		 */
+		public void setValue(String value) {
+			this.value = value;
+		}
 
-        /**
-         * Sets the value of the value property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setValue(String value) {
-            this.value = value;
-        }
+		/**
+		 * Gets the value of the name property.
+		 * 
+		 * @return possible object is {@link String }
+		 * 
+		 */
+		public String getName() {
+			return name;
+		}
 
-        /**
-         * Gets the value of the name property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link String }
-         *     
-         */
-        public String getName() {
-            return name;
-        }
+		/**
+		 * Sets the value of the name property.
+		 * 
+		 * @param value
+		 *            allowed object is {@link String }
+		 * 
+		 */
+		public void setName(String value) {
+			this.name = value;
+		}
 
-        /**
-         * Sets the value of the name property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
-         */
-        public void setName(String value) {
-            this.name = value;
-        }
-
-    }
+	}
 
 }

@@ -20,25 +20,25 @@ import java.util.List;
 
 import com.lyncode.xoai.common.dataprovider.data.AbstractItemIdentifier;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class ListItemIdentifiersResult {
-    private boolean hasMore;
-    private List<AbstractItemIdentifier> results;
+	private boolean hasMore;
+	private List<AbstractItemIdentifier> results;
 
-    public ListItemIdentifiersResult (boolean hasMoreResults, List<AbstractItemIdentifier> results) {
-        this.hasMore = hasMoreResults;
-        this.results = results;
-    }
+	public ListItemIdentifiersResult(boolean hasMoreResults,
+			List<AbstractItemIdentifier> results) {
+		this.hasMore = hasMoreResults;
+		this.results = results;
+	}
 
-    public boolean hasMore() {
-        return hasMore;
-    }
+	public boolean hasMore() {
+		return hasMore;
+	}
 
-    public List<AbstractItemIdentifier> getResults() {
-        return results;
-    }
+	public List<AbstractItemIdentifier> getResults() {
+		return results;
+	}
 }

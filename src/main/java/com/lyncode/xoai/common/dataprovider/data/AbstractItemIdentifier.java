@@ -24,36 +24,37 @@ import com.lyncode.xoai.common.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
 import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public abstract class AbstractItemIdentifier {
-    public abstract String getIdentifier ();
-    /**
-     * Creation, modification or deletion date
-     *
-     * @return
-     */
-    public abstract Date getDatestamp ();
-    public abstract List<ReferenceSet> getSets ();
-    public abstract boolean isDeleted ();
+	public abstract String getIdentifier();
 
+	/**
+	 * Creation, modification or deletion date
+	 * 
+	 * @return
+	 */
+	public abstract Date getDatestamp();
 
-    public List<ReferenceSet> getSets (XOAIContext context) {
-        List<ReferenceSet> list = this.getSets();
-        List<StaticSet> listStatic = context.getStaticSets();
-        for (StaticSet s : listStatic) {
-            boolean filter = false;
-            for (AbstractFilter f : s.getFilters()) {
-                if (!f.isItemShown(this)) {
-                    filter = true;
-                }
-            }
-            if (!filter)
-                list.add(s);
-        }
-        return list;
-    }
+	public abstract List<ReferenceSet> getSets();
+
+	public abstract boolean isDeleted();
+
+	public List<ReferenceSet> getSets(XOAIContext context) {
+		List<ReferenceSet> list = this.getSets();
+		List<StaticSet> listStatic = context.getStaticSets();
+		for (StaticSet s : listStatic) {
+			boolean filter = false;
+			for (AbstractFilter f : s.getFilters()) {
+				if (!f.isItemShown(this)) {
+					filter = true;
+				}
+			}
+			if (!filter)
+				list.add(s);
+		}
+		return list;
+	}
 }

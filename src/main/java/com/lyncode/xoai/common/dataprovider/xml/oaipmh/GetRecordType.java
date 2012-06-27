@@ -5,7 +5,6 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for GetRecordType complex type.
+ * <p>
+ * Java class for GetRecordType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="GetRecordType">
@@ -34,36 +35,31 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetRecordType", propOrder = {
-    "record"
-})
+@XmlType(name = "GetRecordType", propOrder = { "record" })
 public class GetRecordType {
 
-    @XmlElement(required = true)
-    protected RecordType record;
+	@XmlElement(required = true)
+	protected RecordType record;
 
-    /**
-     * Gets the value of the record property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link RecordType }
-     *     
-     */
-    public RecordType getRecord() {
-        return record;
-    }
+	/**
+	 * Gets the value of the record property.
+	 * 
+	 * @return possible object is {@link RecordType }
+	 * 
+	 */
+	public RecordType getRecord() {
+		return record;
+	}
 
-    /**
-     * Sets the value of the record property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link RecordType }
-     *     
-     */
-    public void setRecord(RecordType value) {
-        this.record = value;
-    }
+	/**
+	 * Sets the value of the record property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link RecordType }
+	 * 
+	 */
+	public void setRecord(RecordType value) {
+		this.record = value;
+	}
 
 }

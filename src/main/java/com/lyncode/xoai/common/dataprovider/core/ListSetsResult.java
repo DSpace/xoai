@@ -18,27 +18,25 @@ package com.lyncode.xoai.common.dataprovider.core;
 
 import java.util.List;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class ListSetsResult {
-    private boolean hasMore;
-    private List<Set> results;
+	private boolean hasMore;
+	private List<Set> results;
 
-    public ListSetsResult (boolean hasMoreResults, List<Set> results) {
-        this.hasMore = hasMoreResults;
-        this.results = results;
-    }
+	public ListSetsResult(boolean hasMoreResults, List<Set> results) {
+		this.hasMore = hasMoreResults;
+		this.results = results;
+	}
 
-    public boolean hasMore() {
-        return hasMore;
-    }
+	public boolean hasMore() {
+		return hasMore;
+	}
 
-    public List<Set> getResults() {
-        return results;
-    }
+	public List<Set> getResults() {
+		return results;
+	}
 
-    
 }

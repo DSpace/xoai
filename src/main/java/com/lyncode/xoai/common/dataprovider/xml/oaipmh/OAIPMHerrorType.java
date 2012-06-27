@@ -5,7 +5,6 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * <p>Java class for OAI-PMHerrorType complex type.
+ * <p>
+ * Java class for OAI-PMHerrorType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="OAI-PMHerrorType">
@@ -33,62 +34,54 @@ import javax.xml.bind.annotation.XmlValue;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "OAI-PMHerrorType", propOrder = {
-    "value"
-})
+@XmlType(name = "OAI-PMHerrorType", propOrder = { "value" })
 public class OAIPMHerrorType {
 
-    @XmlValue
-    protected String value;
-    @XmlAttribute(name = "code", required = true)
-    protected OAIPMHerrorcodeType code;
+	@XmlValue
+	protected String value;
+	@XmlAttribute(name = "code", required = true)
+	protected OAIPMHerrorcodeType code;
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
+	/**
+	 * Gets the value of the value property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getValue() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+	/**
+	 * Sets the value of the value property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setValue(String value) {
+		this.value = value;
+	}
 
-    /**
-     * Gets the value of the code property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link OAIPMHerrorcodeType }
-     *     
-     */
-    public OAIPMHerrorcodeType getCode() {
-        return code;
-    }
+	/**
+	 * Gets the value of the code property.
+	 * 
+	 * @return possible object is {@link OAIPMHerrorcodeType }
+	 * 
+	 */
+	public OAIPMHerrorcodeType getCode() {
+		return code;
+	}
 
-    /**
-     * Sets the value of the code property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link OAIPMHerrorcodeType }
-     *     
-     */
-    public void setCode(OAIPMHerrorcodeType value) {
-        this.code = value;
-    }
+	/**
+	 * Sets the value of the code property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link OAIPMHerrorcodeType }
+	 * 
+	 */
+	public void setCode(OAIPMHerrorcodeType value) {
+		this.code = value;
+	}
 
 }

@@ -34,55 +34,62 @@ import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Contexts;
 import com.lyncode.xoai.common.dataprovider.xml.xoaiconfig.Configuration.Contexts.Context;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class ContextManager {
 
-    private Map<String, XOAIContext> _contexts;
+	private Map<String, XOAIContext> _contexts;
 
-    public ContextManager(Contexts contexts, FilterManager fm, TransformManager tm, MetadataFormatManager mfm, StaticSetManager sm) throws ConfigurationException {
-        _contexts = new HashMap<String, XOAIContext>();
-        
-        for (Context ct : contexts.getContext()) {
-            List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
-            for (BundleReference b : ct.getFilter()) {
-                if (!fm.filterExists(b.getRefid()))
-                    throw new ConfigurationException("Filter refered as "+b.getRefid()+" does not exists");
-                filters.add(fm.getFilter(b.getRefid()));
-            }
-            
-            MetadataTransformer transformer = new MetadataTransformer();
-            if (ct.getTransformer() != null)
-            	if (ct.getTransformer().getRefid() != null)
-            		transformer = tm.getTransformer(ct.getTransformer().getRefid());
-            
-            List<StaticSet> sets = new ArrayList<StaticSet>();
-            for (BundleReference b : ct.getSet()) {
-                if (!sm.setExists(b.getRefid()))
-                    throw new ConfigurationException("Set refered as "+b.getRefid()+" does not exists");
-                sets.add(sm.getSet(b.getRefid()));
-            }
+	public ContextManager(Contexts contexts, FilterManager fm,
+			TransformManager tm, MetadataFormatManager mfm, StaticSetManager sm)
+			throws ConfigurationException {
+		_contexts = new HashMap<String, XOAIContext>();
 
-            List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
-            for (BundleReference b : ct.getFormat()) {
-                if (!mfm.formatExists(b.getRefid()))
-                    throw new ConfigurationException("Metadata Format refered as "+b.getRefid()+" does not exists");
-                formats.add(mfm.getFormat(b.getRefid()));
-            }
+		for (Context ct : contexts.getContext()) {
+			List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
+			for (BundleReference b : ct.getFilter()) {
+				if (!fm.filterExists(b.getRefid()))
+					throw new ConfigurationException("Filter refered as "
+							+ b.getRefid() + " does not exists");
+				filters.add(fm.getFilter(b.getRefid()));
+			}
 
-            _contexts.put(ct.getBaseurl(), new XOAIContext(ct.getBaseurl(), transformer, filters, formats, sets));
-        }
-    }
+			MetadataTransformer transformer = new MetadataTransformer();
+			if (ct.getTransformer() != null)
+				if (ct.getTransformer().getRefid() != null)
+					transformer = tm.getTransformer(ct.getTransformer()
+							.getRefid());
 
-    public boolean contextExists (String baseurl) {
-        return this._contexts.containsKey(baseurl);
-    }
+			List<StaticSet> sets = new ArrayList<StaticSet>();
+			for (BundleReference b : ct.getSet()) {
+				if (!sm.setExists(b.getRefid()))
+					throw new ConfigurationException("Set refered as "
+							+ b.getRefid() + " does not exists");
+				sets.add(sm.getSet(b.getRefid()));
+			}
 
-    public XOAIContext getOAIContext (String baseurl) {
-        return _contexts.get(baseurl);
-    }
-    
+			List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
+			for (BundleReference b : ct.getFormat()) {
+				if (!mfm.formatExists(b.getRefid()))
+					throw new ConfigurationException(
+							"Metadata Format refered as " + b.getRefid()
+									+ " does not exists");
+				formats.add(mfm.getFormat(b.getRefid()));
+			}
+
+			_contexts.put(ct.getBaseurl(), new XOAIContext(ct.getBaseurl(),
+					transformer, filters, formats, sets));
+		}
+	}
+
+	public boolean contextExists(String baseurl) {
+		return this._contexts.containsKey(baseurl);
+	}
+
+	public XOAIContext getOAIContext(String baseurl) {
+		return _contexts.get(baseurl);
+	}
+
 }

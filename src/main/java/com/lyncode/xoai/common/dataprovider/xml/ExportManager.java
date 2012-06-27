@@ -50,90 +50,92 @@ import com.lyncode.xoai.common.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.common.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHtype;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class ExportManager {
-    private final static QName _OAIPMH_QNAME = new QName("http://www.openarchives.org/OAI/2.0/", "OAI-PMH");
-    private static Logger log = LogManager.getLogger(ExportManager.class);
+	private final static QName _OAIPMH_QNAME = new QName(
+			"http://www.openarchives.org/OAI/2.0/", "OAI-PMH");
+	private static Logger log = LogManager.getLogger(ExportManager.class);
 
-    private Map<String, String> _values;
-    // private Configuration _config;
+	private Map<String, String> _values;
 
-    public ExportManager () {
-        _values = new HashMap<String, String>();
-    }
+	// private Configuration _config;
 
-    public void addMap (String id, String value) {
-        _values.put(id, value);
-    }
+	public ExportManager() {
+		_values = new HashMap<String, String>();
+	}
 
+	public void addMap(String id, String value) {
+		_values.put(id, value);
+	}
 
+	public void export(OAIPMHtype oai, OutputStream out) throws OAIException {
+		try {
 
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			JAXBContext context = JAXBContext.newInstance(OAIPMHtype.class
+					.getPackage().getName());
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			JAXBElement<OAIPMHtype> type = new JAXBElement<OAIPMHtype>(
+					_OAIPMH_QNAME, OAIPMHtype.class, null, oai);
+			marshaller.marshal(type, output);
+			String outS = output.toString();
+			for (String id : _values.keySet())
+				outS = outS.replace(id, _values.get(id));
+			if (XOAIManager.getManager().isIdentated())
+				out.write(this.format(outS).getBytes());
+			else
+				out.write(outS.getBytes());
 
-    public void export (OAIPMHtype oai, OutputStream out) throws OAIException {
-        try {
+		} catch (JAXBException ex) {
+			log.error(ex.getMessage(), ex);
+			throw new OAIException(ex);
+		} catch (IOException ex) {
+			log.error(ex.getMessage(), ex);
+			throw new OAIException(ex);
+		}
+	}
 
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            JAXBContext context = JAXBContext.newInstance(OAIPMHtype.class.getPackage().getName());
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            JAXBElement<OAIPMHtype> type = new JAXBElement<OAIPMHtype>(_OAIPMH_QNAME, OAIPMHtype.class, null, oai);
-            marshaller.marshal(type, output);
-            String outS = output.toString();
-            for (String id : _values.keySet())
-                outS = outS.replace(id, _values.get(id));
-            if (XOAIManager.getManager().isIdentated())
-                out.write(this.format(outS).getBytes());
-            else
-                out.write(outS.getBytes());
+	private String format(String unformattedXml) {
+		Document document = parseXmlFile(unformattedXml);
 
-            
-        } catch (JAXBException ex) {
-            log.error(ex.getMessage(), ex);
-            throw new OAIException(ex);
-        } catch (IOException ex) {
-            log.error(ex.getMessage(), ex);
-            throw new OAIException(ex);
-        }
-    }
+		if (document == null)
+			return "";
 
-    private String format(String unformattedXml) {
-        Document document = parseXmlFile(unformattedXml);
-
-		if (document == null) return "";
-		
 		Writer out = new StringWriter();
 		TransformerFactory tfactory = TransformerFactory.newInstance();
 		Transformer serializer;
 		try {
-		    serializer = tfactory.newTransformer();
-		    //Setup indenting to "pretty print"
-		    serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-		    serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-		    
-		    serializer.transform(new DOMSource(document), new StreamResult(out));
-		    return out.toString();
-		} catch (TransformerException e) {
-		    // this is fatal, just dump the stack and throw a runtime exception
-		    return "";
-		}
-    }
+			serializer = tfactory.newTransformer();
+			// Setup indenting to "pretty print"
+			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+			serializer.setOutputProperty(
+					"{http://xml.apache.org/xslt}indent-amount", "2");
 
-    private Document parseXmlFile(String in) {
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            InputSource is = new InputSource(new StringReader(in));
-            return db.parse(is);
-        } catch (ParserConfigurationException e) {
-            return null;
-        } catch (SAXException e) {
-            return null;
-        } catch (IOException e) {
-            return null;
-        }
-    }
+			serializer
+					.transform(new DOMSource(document), new StreamResult(out));
+			return out.toString();
+		} catch (TransformerException e) {
+			// this is fatal, just dump the stack and throw a runtime exception
+			return "";
+		}
+	}
+
+	private Document parseXmlFile(String in) {
+		try {
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			InputSource is = new InputSource(new StringReader(in));
+			return db.parse(is);
+		} catch (ParserConfigurationException e) {
+			return null;
+		} catch (SAXException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+	}
 }

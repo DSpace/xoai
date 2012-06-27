@@ -16,24 +16,22 @@
 
 package com.lyncode.xoai.common.dataprovider.core;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class ReferenceSet {
-    private String _setSpec;
+	private String _setSpec;
 
-    public ReferenceSet (String setSpec) {
-        _setSpec = setSpec;
-    }
+	public ReferenceSet(String setSpec) {
+		_setSpec = setSpec;
+	}
 
-    public String getSetSpec () {
-        return _setSpec;
-    }
+	public String getSetSpec() {
+		return _setSpec;
+	}
 
-
-    public boolean equals (ReferenceSet set) {
-        return (_setSpec.equals(set.getSetSpec()));
-    }
+	public boolean equals(ReferenceSet set) {
+		return (_setSpec.equals(set.getSetSpec()));
+	}
 }

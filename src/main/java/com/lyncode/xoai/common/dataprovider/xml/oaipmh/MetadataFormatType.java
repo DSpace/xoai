@@ -5,7 +5,6 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,11 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for metadataFormatType complex type.
+ * <p>
+ * Java class for metadataFormatType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="metadataFormatType">
@@ -37,92 +38,80 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "metadataFormatType", propOrder = {
-    "metadataPrefix",
-    "schema",
-    "metadataNamespace"
-})
+@XmlType(name = "metadataFormatType", propOrder = { "metadataPrefix", "schema",
+		"metadataNamespace" })
 public class MetadataFormatType {
 
-    @XmlElement(required = true)
-    protected String metadataPrefix;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String schema;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "anyURI")
-    protected String metadataNamespace;
+	@XmlElement(required = true)
+	protected String metadataPrefix;
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "anyURI")
+	protected String schema;
+	@XmlElement(required = true)
+	@XmlSchemaType(name = "anyURI")
+	protected String metadataNamespace;
 
-    /**
-     * Gets the value of the metadataPrefix property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMetadataPrefix() {
-        return metadataPrefix;
-    }
+	/**
+	 * Gets the value of the metadataPrefix property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getMetadataPrefix() {
+		return metadataPrefix;
+	}
 
-    /**
-     * Sets the value of the metadataPrefix property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMetadataPrefix(String value) {
-        this.metadataPrefix = value;
-    }
+	/**
+	 * Sets the value of the metadataPrefix property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setMetadataPrefix(String value) {
+		this.metadataPrefix = value;
+	}
 
-    /**
-     * Gets the value of the schema property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSchema() {
-        return schema;
-    }
+	/**
+	 * Gets the value of the schema property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getSchema() {
+		return schema;
+	}
 
-    /**
-     * Sets the value of the schema property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSchema(String value) {
-        this.schema = value;
-    }
+	/**
+	 * Sets the value of the schema property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setSchema(String value) {
+		this.schema = value;
+	}
 
-    /**
-     * Gets the value of the metadataNamespace property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMetadataNamespace() {
-        return metadataNamespace;
-    }
+	/**
+	 * Gets the value of the metadataNamespace property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getMetadataNamespace() {
+		return metadataNamespace;
+	}
 
-    /**
-     * Sets the value of the metadataNamespace property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMetadataNamespace(String value) {
-        this.metadataNamespace = value;
-    }
+	/**
+	 * Sets the value of the metadataNamespace property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setMetadataNamespace(String value) {
+		this.metadataNamespace = value;
+	}
 
 }

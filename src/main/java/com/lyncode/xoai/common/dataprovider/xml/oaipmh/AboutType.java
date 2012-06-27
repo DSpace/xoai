@@ -5,7 +5,6 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,14 +12,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
-
 /**
- * Data "about" the record must be expressed in XML
- *       that is compliant with an XML Schema defined by a community.
+ * Data "about" the record must be expressed in XML that is compliant with an
+ * XML Schema defined by a community.
  * 
- * <p>Java class for aboutType complex type.
+ * <p>
+ * Java class for aboutType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="aboutType">
@@ -40,31 +41,28 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType(name = "aboutType")
 public class AboutType {
 
-    @XmlValue
-    protected String value;
+	@XmlValue
+	protected String value;
 
-    /**
-     * Gets the value of the any property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Object }
-     *     
-     */
-    public String getAny() {
-        return value;
-    }
+	/**
+	 * Gets the value of the any property.
+	 * 
+	 * @return possible object is {@link Object }
+	 * 
+	 */
+	public String getAny() {
+		return value;
+	}
 
-    /**
-     * Sets the value of the any property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Object }
-     *     
-     */
-    public void setAny(String value) {
-        this.value = value;
-    }
+	/**
+	 * Sets the value of the any property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link Object }
+	 * 
+	 */
+	public void setAny(String value) {
+		this.value = value;
+	}
 
 }

@@ -21,21 +21,19 @@ import java.util.List;
 import com.lyncode.xoai.common.dataprovider.core.Set;
 import com.lyncode.xoai.common.dataprovider.filter.AbstractFilter;
 
-
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class StaticSet extends Set {
-    private List<AbstractFilter> _filters;
+	private List<AbstractFilter> _filters;
 
-    public StaticSet (List<AbstractFilter> filters, String spec, String name) {
-        super(spec, name);
-        _filters = filters;
-    }
+	public StaticSet(List<AbstractFilter> filters, String spec, String name) {
+		super(spec, name);
+		_filters = filters;
+	}
 
-    public List<AbstractFilter> getFilters() {
-        return _filters;
-    }
+	public List<AbstractFilter> getFilters() {
+		return _filters;
+	}
 }

@@ -29,161 +29,191 @@ import com.lyncode.xoai.common.dataprovider.exceptions.BadResumptionToken;
 import com.lyncode.xoai.common.dataprovider.exceptions.IllegalVerbException;
 import com.lyncode.xoai.common.dataprovider.xml.oaipmh.VerbType;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class OAIParameters {
-    private static Logger log = LogManager.getLogger(OAIParameters.class);
-    private VerbType verb;
-    private ResumptionToken resumptionToken;
-    private String identifier;
-    private String metadataPrefix;
-    private String set;
-    private Date until;
-    private Date from;
+	private static Logger log = LogManager.getLogger(OAIParameters.class);
+	private VerbType verb;
+	private ResumptionToken resumptionToken;
+	private String identifier;
+	private String metadataPrefix;
+	private String set;
+	private Date until;
+	private Date from;
 
-    public OAIParameters (OAIRequestParameters request) throws IllegalVerbException, BadArgumentException, BadResumptionToken {
-        this.verb = this.getVerb(request.getVerb());
-        this.from = this.getDate(request.getFrom(),"from");
-        this.until = this.getDate(request.getUntil(), "until");
-        this.metadataPrefix = request.getMetadataPrefix();
-        this.set = request.getSet();
-        this.identifier = request.getIdentifier();
-        this.resumptionToken = new ResumptionToken(request.getResumptionToken());
+	public OAIParameters(OAIRequestParameters request)
+			throws IllegalVerbException, BadArgumentException,
+			BadResumptionToken {
+		this.verb = this.getVerb(request.getVerb());
+		this.from = this.getDate(request.getFrom(), "from");
+		this.until = this.getDate(request.getUntil(), "until");
+		this.metadataPrefix = request.getMetadataPrefix();
+		this.set = request.getSet();
+		this.identifier = request.getIdentifier();
+		this.resumptionToken = new ResumptionToken(request.getResumptionToken());
 
-        this.validate();
-        this.loadResumptionToken(this.resumptionToken);
-    }
+		this.validate();
+		this.loadResumptionToken(this.resumptionToken);
+	}
 
-    private VerbType getVerb(String verb) throws IllegalVerbException {
-        if (verb == null) {
-            log.trace("The verb given by the request is null, assuming identify");
-            throw new IllegalVerbException("The verb given by the request is null, assuming identify");
-        }
-        if (verb.equals("Identify")) return VerbType.IDENTIFY;
-        else if (verb.equals("GetRecord")) return VerbType.GET_RECORD;
-        else if (verb.equals("ListIdentifiers")) return VerbType.LIST_IDENTIFIERS;
-        else if (verb.equals("ListMetadataFormats")) return VerbType.LIST_METADATA_FORMATS;
-        else if (verb.equals("ListRecords")) return VerbType.LIST_RECORDS;
-        else if (verb.equals("ListSets")) return VerbType.LIST_SETS;
-        else {
-            log.trace("The verb given by the request is unknown, assuming identify");
-            throw new IllegalVerbException("The verb given by the request is unknown, assuming identify");
-        }
-    }
+	private VerbType getVerb(String verb) throws IllegalVerbException {
+		if (verb == null) {
+			log.trace("The verb given by the request is null, assuming identify");
+			throw new IllegalVerbException(
+					"The verb given by the request is null, assuming identify");
+		}
+		if (verb.equals("Identify"))
+			return VerbType.IDENTIFY;
+		else if (verb.equals("GetRecord"))
+			return VerbType.GET_RECORD;
+		else if (verb.equals("ListIdentifiers"))
+			return VerbType.LIST_IDENTIFIERS;
+		else if (verb.equals("ListMetadataFormats"))
+			return VerbType.LIST_METADATA_FORMATS;
+		else if (verb.equals("ListRecords"))
+			return VerbType.LIST_RECORDS;
+		else if (verb.equals("ListSets"))
+			return VerbType.LIST_SETS;
+		else {
+			log.trace("The verb given by the request is unknown, assuming identify");
+			throw new IllegalVerbException(
+					"The verb given by the request is unknown, assuming identify");
+		}
+	}
 
+	public boolean hasResumptionToken() {
+		return (!this.resumptionToken.isEmpty());
+	}
 
-    public boolean hasResumptionToken () {
-        return (!this.resumptionToken.isEmpty());
-    }
+	public String getIdentifier() {
+		return identifier;
+	}
 
-    public String getIdentifier() {
-        return identifier;
-    }
+	public boolean hasIdentifier() {
+		return (this.identifier != null);
+	}
 
-    public boolean hasIdentifier () {
-        return (this.identifier != null);
-    }
+	public String getMetadataPrefix() {
+		return metadataPrefix;
+	}
 
-    public String getMetadataPrefix() {
-        return metadataPrefix;
-    }
+	public boolean hasMetadataPrefix() {
+		return (this.metadataPrefix != null);
+	}
 
-    public boolean hasMetadataPrefix () {
-        return (this.metadataPrefix != null);
-    }
+	public String getSet() {
+		return set;
+	}
 
-    public String getSet() {
-        return set;
-    }
+	public boolean hasSet() {
+		return (this.set != null);
+	}
 
-    public boolean hasSet () {
-        return (this.set != null);
-    }
+	public boolean hasFrom() {
+		return (this.from != null);
+	}
 
+	public boolean hasUntil() {
+		return (this.until != null);
+	}
 
-    public boolean hasFrom () {
-        return (this.from != null);
-    }
+	private Date getDate(String date, String param) throws BadArgumentException {
+		if (date == null)
+			return null;
+		SimpleDateFormat formatDate = new SimpleDateFormat(
+				"yyyy-MM-dd'T'HH:mm:ss'Z'");
+		try {
+			return formatDate.parse(date);
+		} catch (ParseException ex) {
+			throw new BadArgumentException("The " + param
+					+ " parameter given is not valid");
+		}
+	}
 
-    public boolean hasUntil () {
-        return (this.until != null);
-    }
+	public Date getFrom() {
+		return from;
+	}
 
+	public ResumptionToken getResumptionToken() {
+		return resumptionToken;
+	}
 
-    private Date getDate (String date, String param) throws BadArgumentException {
-        if (date == null) return null;
-        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        try {
-            return formatDate.parse(date);
-        } catch (ParseException ex) {
-            throw new BadArgumentException("The "+param+" parameter given is not valid");
-        }
-    }
+	public Date getUntil() {
+		return until;
+	}
 
-    public Date getFrom() {
-        return from;
-    }
+	public VerbType getVerb() {
+		return verb;
+	}
 
-    public ResumptionToken getResumptionToken() {
-        return resumptionToken;
-    }
+	private void validate() throws IllegalVerbException, BadArgumentException {
+		if (this.hasResumptionToken()) {
+			if (this.hasFrom() || this.hasSet() || this.hasUntil()
+					|| this.hasMetadataPrefix())
+				throw new BadArgumentException(
+						"ResumptionToken cannot be sent together with from, until, metadataPrefix or set parameters");
+		}
 
-    public Date getUntil() {
-        return until;
-    }
+		switch (this.getVerb()) {
+		case IDENTIFY:
+			if (this.hasIdentifier() || this.hasResumptionToken()
+					|| this.hasSet() || this.hasMetadataPrefix()
+					|| this.hasFrom() || this.hasUntil())
+				throw new BadArgumentException(
+						"Identify verb does not need any extra parameter");
+			break;
+		case LIST_METADATA_FORMATS:
+			if (this.hasResumptionToken() || this.hasSet()
+					|| this.hasMetadataPrefix() || this.hasFrom()
+					|| this.hasUntil())
+				throw new BadArgumentException(
+						"ListMetadataFormats verb only has one optional parameter - identfier");
+			break;
+		case LIST_SETS:
+			if (this.hasIdentifier() || this.hasSet()
+					|| this.hasMetadataPrefix() || this.hasFrom()
+					|| this.hasUntil())
+				throw new BadArgumentException(
+						"ListSets verb only has one optional parameter - resumptionToken");
+			break;
+		case GET_RECORD:
+			if (!this.hasIdentifier() || !this.hasMetadataPrefix()
+					|| this.hasSet() || this.hasFrom() || this.hasUntil())
+				throw new BadArgumentException(
+						"GetRecord verb requires the use of the parameters - identifier and metadataPrefix");
+			if (this.hasResumptionToken())
+				throw new BadArgumentException(
+						"GetRecord verb do not receive the resumptionToken parameter. It requires the use of the parameters - identifier and metadataPrefix");
+			break;
+		case LIST_IDENTIFIERS:
+			if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
+				throw new BadArgumentException(
+						"ListIdentifiers verb must receive the metadataPrefix parameter");
+			if (this.hasIdentifier())
+				throw new BadArgumentException(
+						"ListIdentifiers verb does not receive the identifier parameter");
+			break;
+		case LIST_RECORDS:
+			if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
+				throw new BadArgumentException(
+						"ListRecords verb must receive the metadataPrefix parameter");
+			if (this.hasIdentifier())
+				throw new BadArgumentException(
+						"ListRecords verb does not receive the identifier parameter");
+			break;
+		}
+	}
 
-    public VerbType getVerb() {
-        return verb;
-    }
-
-
-    private void validate () throws IllegalVerbException, BadArgumentException {
-        if (this.hasResumptionToken()) {
-            if (this.hasFrom() || this.hasSet() || this.hasUntil() || this.hasMetadataPrefix())
-                throw new BadArgumentException("ResumptionToken cannot be sent together with from, until, metadataPrefix or set parameters");
-        }
-
-        switch (this.getVerb()) {
-            case IDENTIFY:
-                if (this.hasIdentifier() || this.hasResumptionToken() || this.hasSet() || this.hasMetadataPrefix() || this.hasFrom() || this.hasUntil())
-                    throw new BadArgumentException("Identify verb does not need any extra parameter");
-                break;
-            case LIST_METADATA_FORMATS:
-                if (this.hasResumptionToken() || this.hasSet() || this.hasMetadataPrefix() || this.hasFrom() || this.hasUntil())
-                    throw new BadArgumentException("ListMetadataFormats verb only has one optional parameter - identfier");
-                break;
-            case LIST_SETS:
-                if (this.hasIdentifier() || this.hasSet() || this.hasMetadataPrefix() || this.hasFrom() || this.hasUntil())
-                    throw new BadArgumentException("ListSets verb only has one optional parameter - resumptionToken");
-                break;
-            case GET_RECORD:
-                if (!this.hasIdentifier() || !this.hasMetadataPrefix() || this.hasSet() || this.hasFrom() || this.hasUntil())
-                    throw new BadArgumentException("GetRecord verb requires the use of the parameters - identifier and metadataPrefix");
-                if (this.hasResumptionToken())
-                    throw new BadArgumentException("GetRecord verb do not receive the resumptionToken parameter. It requires the use of the parameters - identifier and metadataPrefix");
-                break;
-            case LIST_IDENTIFIERS:
-                if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
-                    throw new BadArgumentException("ListIdentifiers verb must receive the metadataPrefix parameter");
-                if (this.hasIdentifier())
-                    throw new BadArgumentException("ListIdentifiers verb does not receive the identifier parameter");
-                break;
-            case LIST_RECORDS:
-                if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
-                    throw new BadArgumentException("ListRecords verb must receive the metadataPrefix parameter");
-                if (this.hasIdentifier())
-                    throw new BadArgumentException("ListRecords verb does not receive the identifier parameter");
-                break;
-        }
-    }
-
-    private void loadResumptionToken(ResumptionToken resumptionToken) {
-        if (resumptionToken.hasFrom()) this.from = resumptionToken.getFrom();
-        if (resumptionToken.hasMetadataPrefix()) this.metadataPrefix = resumptionToken.getMetadatePrefix();
-        if (resumptionToken.hasSet()) this.set = resumptionToken.getSet();
-        if (resumptionToken.hasUntil()) this.until = resumptionToken.getUntil();
-    }
+	private void loadResumptionToken(ResumptionToken resumptionToken) {
+		if (resumptionToken.hasFrom())
+			this.from = resumptionToken.getFrom();
+		if (resumptionToken.hasMetadataPrefix())
+			this.metadataPrefix = resumptionToken.getMetadatePrefix();
+		if (resumptionToken.hasSet())
+			this.set = resumptionToken.getSet();
+		if (resumptionToken.hasUntil())
+			this.until = resumptionToken.getUntil();
+	}
 }

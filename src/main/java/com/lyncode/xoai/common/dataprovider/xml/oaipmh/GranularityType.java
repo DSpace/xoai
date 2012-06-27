@@ -5,19 +5,21 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for granularityType.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for granularityType.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="granularityType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -32,27 +34,26 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum GranularityType {
 
-    @XmlEnumValue("YYYY-MM-DD")
-    YYYY_MM_DD("YYYY-MM-DD"),
-    @XmlEnumValue("YYYY-MM-DDThh:mm:ssZ")
-    YYYY_MM_DD_THH_MM_SS_Z("YYYY-MM-DDThh:mm:ssZ");
-    private final String value;
+	@XmlEnumValue("YYYY-MM-DD")
+	YYYY_MM_DD("YYYY-MM-DD"), @XmlEnumValue("YYYY-MM-DDThh:mm:ssZ")
+	YYYY_MM_DD_THH_MM_SS_Z("YYYY-MM-DDThh:mm:ssZ");
+	private final String value;
 
-    GranularityType(String v) {
-        value = v;
-    }
+	GranularityType(String v) {
+		value = v;
+	}
 
-    public String value() {
-        return value;
-    }
+	public String value() {
+		return value;
+	}
 
-    public static GranularityType fromValue(String v) {
-        for (GranularityType c: GranularityType.values()) {
-            if (c.value.equals(v)) {
-                return c;
-            }
-        }
-        throw new IllegalArgumentException(v);
-    }
+	public static GranularityType fromValue(String v) {
+		for (GranularityType c : GranularityType.values()) {
+			if (c.value.equals(v)) {
+				return c;
+			}
+		}
+		throw new IllegalArgumentException(v);
+	}
 
 }

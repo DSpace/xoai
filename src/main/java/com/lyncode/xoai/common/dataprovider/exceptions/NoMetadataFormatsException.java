@@ -16,31 +16,32 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class NoMetadataFormatsException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7091872607176190034L;
 
+	/**
+	 * Creates a new instance of <code>NoMetadataFormatsException</code> without
+	 * detail message.
+	 */
+	public NoMetadataFormatsException() {
+	}
 
 	/**
-     * Creates a new instance of <code>NoMetadataFormatsException</code> without detail message.
-     */
-    public NoMetadataFormatsException() {
-    }
-
-
-    /**
-     * Constructs an instance of <code>NoMetadataFormatsException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public NoMetadataFormatsException(String msg) {
-        super(msg);
-    }
+	 * Constructs an instance of <code>NoMetadataFormatsException</code> with
+	 * the specified detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public NoMetadataFormatsException(String msg) {
+		super(msg);
+	}
 }

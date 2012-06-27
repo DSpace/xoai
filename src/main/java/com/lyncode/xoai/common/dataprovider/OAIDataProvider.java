@@ -43,8 +43,8 @@ import com.lyncode.xoai.common.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.common.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.common.dataprovider.data.AbstractItemRepository;
-import com.lyncode.xoai.common.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.common.dataprovider.data.AbstractSetRepository;
+import com.lyncode.xoai.common.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.common.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.common.dataprovider.exceptions.BadResumptionToken;
 import com.lyncode.xoai.common.dataprovider.exceptions.CannotDisseminateRecordException;
@@ -90,471 +90,574 @@ import com.lyncode.xoai.common.dataprovider.xml.xoaidescription.XOAIDescription;
  * @version 2.0.0
  */
 public class OAIDataProvider {
-    private static Logger log = LogManager.getLogger(OAIDataProvider.class);
+	private static Logger log = LogManager.getLogger(OAIDataProvider.class);
 
-    private static final String PROTOCOL_VERSION = "2.0";
-    //private static final String XOAI_VERSION = "1.0";
-    private static final String XOAI_DESC = "X-OAI. The OAI Data Provider Library (by LynCode)";
+	private static final String PROTOCOL_VERSION = "2.0";
+	// private static final String XOAI_VERSION = "1.0";
+	private static final String XOAI_DESC = "X-OAI. The OAI Data Provider Library (by LynCode)";
 
-    private AbstractIdentify _identify;
-    private ObjectFactory _factory;
-    private AbstractSetRepository _listSets;
-    private AbstractItemRepository _itemRepo;
-    private List<String> _compressions;
-    private XOAIContext _context;
+	private AbstractIdentify _identify;
+	private ObjectFactory _factory;
+	private AbstractSetRepository _listSets;
+	private AbstractItemRepository _itemRepo;
+	private List<String> _compressions;
+	private XOAIContext _context;
 
-    public OAIDataProvider (
-            String contexturl,
-            AbstractIdentify identify,
-            AbstractSetRepository listsets,
-            AbstractItemRepository itemRepository) throws InvalidContextException {
-        log.debug("Context choosen: "+contexturl);
+	public OAIDataProvider(String contexturl, AbstractIdentify identify,
+			AbstractSetRepository listsets,
+			AbstractItemRepository itemRepository)
+			throws InvalidContextException {
+		log.debug("Context choosen: " + contexturl);
 
-        _context = XOAIManager.getManager().getContextManager().getOAIContext(contexturl);
-        if (_context == null) throw new InvalidContextException("Context "+contexturl+" does not exists");
-        _factory = new ObjectFactory();
-        _identify = identify;
-        _listSets = listsets;
-        _itemRepo = itemRepository;
-        _compressions = new ArrayList<String>();
-    }
+		_context = XOAIManager.getManager().getContextManager()
+				.getOAIContext(contexturl);
+		if (_context == null)
+			throw new InvalidContextException("Context " + contexturl
+					+ " does not exists");
+		_factory = new ObjectFactory();
+		_identify = identify;
+		_listSets = listsets;
+		_itemRepo = itemRepository;
+		_compressions = new ArrayList<String>();
+	}
 
-    public OAIDataProvider (
-            String contexturl,
-            AbstractIdentify identify,
-            AbstractSetRepository listsets,
-            AbstractItemRepository itemRepository,
-            List<String> compressions) throws InvalidContextException {
-        _context = XOAIManager.getManager().getContextManager().getOAIContext(contexturl);
-        if (_context == null) throw new InvalidContextException();
-        _factory = new ObjectFactory();
-        _identify = identify;
-        _listSets = listsets;
-        _itemRepo = itemRepository;
-        _compressions = compressions;
-    }
+	public OAIDataProvider(String contexturl, AbstractIdentify identify,
+			AbstractSetRepository listsets,
+			AbstractItemRepository itemRepository, List<String> compressions)
+			throws InvalidContextException {
+		_context = XOAIManager.getManager().getContextManager()
+				.getOAIContext(contexturl);
+		if (_context == null)
+			throw new InvalidContextException();
+		_factory = new ObjectFactory();
+		_identify = identify;
+		_listSets = listsets;
+		_itemRepo = itemRepository;
+		_compressions = compressions;
+	}
 
-    public void handle (OAIRequestParameters params, OutputStream out) throws OAIException {
-    	log.debug("Starting handling OAI request");
-        ExportManager manager = new ExportManager();
-        OAIPMHtype response = _factory.createOAIPMHtype();
-        response.setResponseDate(this.dateToString(new Date()));
-        try {
-            OAIParameters parameters = new OAIParameters(params);
-            VerbType verb = parameters.getVerb();
-            RequestType request = _factory.createRequestType();
-            request.setValue(this._identify.getBaseUrl());
-            request.setVerb(verb);
-            
-            if (params.getResumptionToken() != null) request.setResumptionToken(params.getResumptionToken());
-            if (params.getIdentifier() != null) request.setIdentifier(parameters.getIdentifier());
-            if (params.getFrom() != null) request.setFrom(params.getFrom());
-            if (params.getMetadataPrefix() != null) request.setMetadataPrefix(params.getMetadataPrefix());
-            if (params.getSet() != null) request.setSet(params.getSet());
-            if (params.getUntil() != null) request.setUntil(params.getUntil());
+	public void handle(OAIRequestParameters params, OutputStream out)
+			throws OAIException {
+		log.debug("Starting handling OAI request");
+		ExportManager manager = new ExportManager();
+		OAIPMHtype response = _factory.createOAIPMHtype();
+		response.setResponseDate(this.dateToString(new Date()));
+		try {
+			OAIParameters parameters = new OAIParameters(params);
+			VerbType verb = parameters.getVerb();
+			RequestType request = _factory.createRequestType();
+			request.setValue(this._identify.getBaseUrl());
+			request.setVerb(verb);
 
-            response.setRequest(request);
+			if (params.getResumptionToken() != null)
+				request.setResumptionToken(params.getResumptionToken());
+			if (params.getIdentifier() != null)
+				request.setIdentifier(parameters.getIdentifier());
+			if (params.getFrom() != null)
+				request.setFrom(params.getFrom());
+			if (params.getMetadataPrefix() != null)
+				request.setMetadataPrefix(params.getMetadataPrefix());
+			if (params.getSet() != null)
+				request.setSet(params.getSet());
+			if (params.getUntil() != null)
+				request.setUntil(params.getUntil());
 
-            switch (verb) {
-                case IDENTIFY:
-                    response.setIdentify(this.build(manager, _factory.createIdentifyType()));
-                    break;
-                case LIST_SETS:
-                    response.setListSets(this.build(manager, parameters, _factory.createListSetsType()));
-                    break;
-                case LIST_METADATA_FORMATS:
-                    response.setListMetadataFormats(this.build(manager, parameters, _factory.createListMetadataFormatsType()));
-                    break;
-                case GET_RECORD:
-                    response.setGetRecord(this.build(manager, parameters, _factory.createGetRecordType()));
-                    break;
-                case LIST_IDENTIFIERS:
-                    response.setListIdentifiers(this.build(manager, parameters, _factory.createListIdentifiersType()));
-                    break;
-                case LIST_RECORDS:
-                	log.debug("List Records");
-                    response.setListRecords(this.build(manager, parameters, _factory.createListRecordsType()));
-                    break;
-            }
-        } catch (IllegalVerbException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("Illegal verb");
-            error.setCode(OAIPMHerrorcodeType.BAD_VERB);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (DoesNotSupportSetsException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("This repository does not support sets");
-            error.setCode(OAIPMHerrorcodeType.NO_SET_HIERARCHY);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (NoMatchesException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("No matches for the query");
-            error.setCode(OAIPMHerrorcodeType.NO_RECORDS_MATCH);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (BadResumptionToken e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("The resumption token is invalid");
-            error.setCode(OAIPMHerrorcodeType.BAD_RESUMPTION_TOKEN);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (IdDoesNotExistException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("The given id does not exists");
-            error.setCode(OAIPMHerrorcodeType.ID_DOES_NOT_EXIST);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (NoMetadataFormatsException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("The item does not have any metadata format available for dissemination");
-            error.setCode(OAIPMHerrorcodeType.NO_METADATA_FORMATS);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (BadArgumentException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue(e.getMessage());
-            error.setCode(OAIPMHerrorcodeType.BAD_ARGUMENT);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        } catch (CannotDisseminateRecordException e) {
-            OAIPMHerrorType error = new OAIPMHerrorType();
-            error.setValue("Cannot disseminate item with the given format");
-            error.setCode(OAIPMHerrorcodeType.CANNOT_DISSEMINATE_FORMAT);
-            response.getError().add(error);
-            log.debug(e.getMessage(), e);
-        }
+			response.setRequest(request);
 
+			switch (verb) {
+			case IDENTIFY:
+				response.setIdentify(this.build(manager,
+						_factory.createIdentifyType()));
+				break;
+			case LIST_SETS:
+				response.setListSets(this.build(manager, parameters,
+						_factory.createListSetsType()));
+				break;
+			case LIST_METADATA_FORMATS:
+				response.setListMetadataFormats(this.build(manager, parameters,
+						_factory.createListMetadataFormatsType()));
+				break;
+			case GET_RECORD:
+				response.setGetRecord(this.build(manager, parameters,
+						_factory.createGetRecordType()));
+				break;
+			case LIST_IDENTIFIERS:
+				response.setListIdentifiers(this.build(manager, parameters,
+						_factory.createListIdentifiersType()));
+				break;
+			case LIST_RECORDS:
+				log.debug("List Records");
+				response.setListRecords(this.build(manager, parameters,
+						_factory.createListRecordsType()));
+				break;
+			}
+		} catch (IllegalVerbException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("Illegal verb");
+			error.setCode(OAIPMHerrorcodeType.BAD_VERB);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (DoesNotSupportSetsException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("This repository does not support sets");
+			error.setCode(OAIPMHerrorcodeType.NO_SET_HIERARCHY);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (NoMatchesException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("No matches for the query");
+			error.setCode(OAIPMHerrorcodeType.NO_RECORDS_MATCH);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (BadResumptionToken e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("The resumption token is invalid");
+			error.setCode(OAIPMHerrorcodeType.BAD_RESUMPTION_TOKEN);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (IdDoesNotExistException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("The given id does not exists");
+			error.setCode(OAIPMHerrorcodeType.ID_DOES_NOT_EXIST);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (NoMetadataFormatsException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("The item does not have any metadata format available for dissemination");
+			error.setCode(OAIPMHerrorcodeType.NO_METADATA_FORMATS);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (BadArgumentException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue(e.getMessage());
+			error.setCode(OAIPMHerrorcodeType.BAD_ARGUMENT);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		} catch (CannotDisseminateRecordException e) {
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("Cannot disseminate item with the given format");
+			error.setCode(OAIPMHerrorcodeType.CANNOT_DISSEMINATE_FORMAT);
+			response.getError().add(error);
+			log.debug(e.getMessage(), e);
+		}
 
-        manager.export(response, out);
-    }
+		manager.export(response, out);
+	}
 
-  
-    private IdentifyType build(ExportManager manager, IdentifyType ident) throws OAIException {
-        ident.setBaseURL(_identify.getBaseUrl());
-        ident.setRepositoryName(_identify.getRepositoryName());
-        for (String mail : _identify.getAdminEmails()) ident.getAdminEmail().add(mail);
-        ident.setEarliestDatestamp(this.dateToString(_identify.getEarliestDate()));
-        ident.setDeletedRecord(DeletedRecordType.valueOf(_identify.getDeleteMethod().name()));
+	private IdentifyType build(ExportManager manager, IdentifyType ident)
+			throws OAIException {
+		ident.setBaseURL(_identify.getBaseUrl());
+		ident.setRepositoryName(_identify.getRepositoryName());
+		for (String mail : _identify.getAdminEmails())
+			ident.getAdminEmail().add(mail);
+		ident.setEarliestDatestamp(this.dateToString(_identify
+				.getEarliestDate()));
+		ident.setDeletedRecord(DeletedRecordType.valueOf(_identify
+				.getDeleteMethod().name()));
 
-        switch (_identify.getGranularity()) {
-            case Day:
-                ident.setGranularity(GranularityType.YYYY_MM_DD);
-                break;
-            case Second:
-                ident.setGranularity(GranularityType.YYYY_MM_DD_THH_MM_SS_Z);
-                break;
-        }
+		switch (_identify.getGranularity()) {
+		case Day:
+			ident.setGranularity(GranularityType.YYYY_MM_DD);
+			break;
+		case Second:
+			ident.setGranularity(GranularityType.YYYY_MM_DD_THH_MM_SS_Z);
+			break;
+		}
 
-        ident.setProtocolVersion(PROTOCOL_VERSION);
-        for (String com : this._compressions)
-            ident.getCompression().add(com);
+		ident.setProtocolVersion(PROTOCOL_VERSION);
+		for (String com : this._compressions)
+			ident.getCompression().add(com);
 
-        DescriptionType desc = _factory.createDescriptionType();
-        XOAIDescription description = new XOAIDescription();
-        description.setValue(XOAI_DESC);
+		DescriptionType desc = _factory.createDescriptionType();
+		XOAIDescription description = new XOAIDescription();
+		description.setValue(XOAI_DESC);
 
-        String id = "##DESC##";
-        try {
-			manager.addMap(id, MarshallingUtils.marshalWithoutXMLHeader(description));
+		String id = "##DESC##";
+		try {
+			manager.addMap(id,
+					MarshallingUtils.marshalWithoutXMLHeader(description));
 		} catch (MarshallingException e) {
 			throw new OAIException(e);
 		}
-        desc.setAny(id);
-        ident.getDescription().add(desc);
+		desc.setAny(id);
+		ident.getDescription().add(desc);
 
-        return ident;
-    }
+		return ident;
+	}
 
-    private ListSetsType build(ExportManager exporter, OAIParameters parameters, ListSetsType listSets) throws DoesNotSupportSetsException, NoMatchesException, BadResumptionToken {
+	private ListSetsType build(ExportManager exporter,
+			OAIParameters parameters, ListSetsType listSets)
+			throws DoesNotSupportSetsException, NoMatchesException,
+			BadResumptionToken {
 
-        if (!_listSets.supportSets())
-            throw new DoesNotSupportSetsException();
+		if (!_listSets.supportSets())
+			throw new DoesNotSupportSetsException();
 
-        ResumptionToken resumptionToken = parameters.getResumptionToken();
-        int length = XOAIManager.getManager().getMaxListSetsSize();
-        log.debug("Length: "+length);
-        ListSetsResult result = _listSets.getSets(_context, resumptionToken.getOffset(), length);
-        List<Set> sets = result.getResults();
+		ResumptionToken resumptionToken = parameters.getResumptionToken();
+		int length = XOAIManager.getManager().getMaxListSetsSize();
+		log.debug("Length: " + length);
+		ListSetsResult result = _listSets.getSets(_context,
+				resumptionToken.getOffset(), length);
+		List<Set> sets = result.getResults();
 
-        if (sets.isEmpty() && resumptionToken.isEmpty())
-            throw new NoMatchesException();
+		if (sets.isEmpty() && resumptionToken.isEmpty())
+			throw new NoMatchesException();
 
-        
-        if (sets.size() > length) sets = sets.subList(0, length);
+		if (sets.size() > length)
+			sets = sets.subList(0, length);
 
-        for (Set s : sets) {
-            SetType set = _factory.createSetType();
-            set.setSetName(s.getSetName());
-            set.setSetSpec(s.getSetSpec());
+		for (Set s : sets) {
+			SetType set = _factory.createSetType();
+			set.setSetName(s.getSetName());
+			set.setSetSpec(s.getSetSpec());
 
-            if (s.hasDescription()) {
-                DescriptionType desc = _factory.createDescriptionType();
-                String obj = s.getDescription();
-                String id = "##set-"+s.getSetSpec()+"##";
-                exporter.addMap(id, obj);
-                desc.setAny(id);
-                set.getSetDescription().add(desc);
-            }
-            
-            listSets.getSet().add(set);
-        }
-        ResumptionToken rtoken;
-        if (result.hasMore()) {
-            rtoken = new ResumptionToken(resumptionToken.getOffset() + length);
-        } else {
-            rtoken = new ResumptionToken();
-        }
-        ResumptionTokenType token = _factory.createResumptionTokenType();
-        token.setValue(rtoken.toString());
-        listSets.setResumptionToken(token);
+			if (s.hasDescription()) {
+				DescriptionType desc = _factory.createDescriptionType();
+				String obj = s.getDescription();
+				String id = "##set-" + s.getSetSpec() + "##";
+				exporter.addMap(id, obj);
+				desc.setAny(id);
+				set.getSetDescription().add(desc);
+			}
 
-        return listSets;
-    }
+			listSets.getSet().add(set);
+		}
+		ResumptionToken rtoken;
+		if (result.hasMore()) {
+			rtoken = new ResumptionToken(resumptionToken.getOffset() + length);
+		} else {
+			rtoken = new ResumptionToken();
+		}
+		ResumptionTokenType token = _factory.createResumptionTokenType();
+		token.setValue(rtoken.toString());
+		listSets.setResumptionToken(token);
 
-    private ListMetadataFormatsType build(ExportManager manager, OAIParameters parameters, ListMetadataFormatsType listMetadataFormatsType) throws IdDoesNotExistException, NoMetadataFormatsException, OAIException {
-        if (parameters.hasIdentifier()) {
-            AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
-            List<MetadataFormat> forms = _context.getFormats(item);
-            if (forms.isEmpty()) throw new NoMetadataFormatsException();
-            for (MetadataFormat f : forms) {
-                MetadataFormatType format = _factory.createMetadataFormatType();
-                format.setMetadataPrefix(f.getPrefix());
-                format.setMetadataNamespace(f.getNamespace());
-                format.setSchema(f.getSchemaLocation());
-                listMetadataFormatsType.getMetadataFormat().add(format);
-            }
-        } else {
-            List<MetadataFormat> forms = _context.getFormats();
-            if (forms.isEmpty()) throw new OAIException("The respository should have at least one metadata format");
-            for (MetadataFormat f : _context.getFormats()) {
-                MetadataFormatType format = _factory.createMetadataFormatType();
-                format.setMetadataPrefix(f.getPrefix());
-                format.setMetadataNamespace(f.getNamespace());
-                format.setSchema(f.getSchemaLocation());
-                listMetadataFormatsType.getMetadataFormat().add(format);
-            }
-        }
+		return listSets;
+	}
 
-        return listMetadataFormatsType;
-    }
+	private ListMetadataFormatsType build(ExportManager manager,
+			OAIParameters parameters,
+			ListMetadataFormatsType listMetadataFormatsType)
+			throws IdDoesNotExistException, NoMetadataFormatsException,
+			OAIException {
+		if (parameters.hasIdentifier()) {
+			AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
+			List<MetadataFormat> forms = _context.getFormats(item);
+			if (forms.isEmpty())
+				throw new NoMetadataFormatsException();
+			for (MetadataFormat f : forms) {
+				MetadataFormatType format = _factory.createMetadataFormatType();
+				format.setMetadataPrefix(f.getPrefix());
+				format.setMetadataNamespace(f.getNamespace());
+				format.setSchema(f.getSchemaLocation());
+				listMetadataFormatsType.getMetadataFormat().add(format);
+			}
+		} else {
+			List<MetadataFormat> forms = _context.getFormats();
+			if (forms.isEmpty())
+				throw new OAIException(
+						"The respository should have at least one metadata format");
+			for (MetadataFormat f : _context.getFormats()) {
+				MetadataFormatType format = _factory.createMetadataFormatType();
+				format.setMetadataPrefix(f.getPrefix());
+				format.setMetadataNamespace(f.getNamespace());
+				format.setSchema(f.getSchemaLocation());
+				listMetadataFormatsType.getMetadataFormat().add(format);
+			}
+		}
 
-    private String dateToString (Date date) {
-        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-        if (_identify.getGranularity() == Granularity.Second)
-            formatDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        return formatDate.format(date);
-    }
+		return listMetadataFormatsType;
+	}
 
-    private GetRecordType build(ExportManager manager, OAIParameters parameters, GetRecordType getRecordType) throws IdDoesNotExistException, BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
-        RecordType record = _factory.createRecordType();
-        HeaderType header = _factory.createHeaderType();
-        MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
-        AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
-        if (!_context.isItemShown(item)) throw new CannotDisseminateRecordException();
-        if (!format.isApplyable(item)) throw new CannotDisseminateRecordException();
-        header.setIdentifier(item.getIdentifier());
-        header.setDatestamp(this.dateToString(item.getDatestamp()));
-        for (ReferenceSet s : item.getSets(_context))
-            header.getSetSpec().add(s.getSetSpec());
-        if (item.isDeleted()) header.setStatus(StatusType.DELETED);
-        record.setHeader(header);
+	private String dateToString(Date date) {
+		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+		if (_identify.getGranularity() == Granularity.Second)
+			formatDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		return formatDate.format(date);
+	}
 
-        if (!item.isDeleted()) {
-            MetadataType metadata = _factory.createMetadataType();
-            String id = "##metadata-"+item.getIdentifier()+"##";
-            try {
-            	if (_context.getTransformer().hasTransformer())
-            		manager.addMap(id, XSLTUtils.transform(_context.getTransformer().getXSLTFile(), format.getXSLTFile(), item));
-            	else
-            		manager.addMap(id, XSLTUtils.transform(format.getXSLTFile(), item));
+	private GetRecordType build(ExportManager manager,
+			OAIParameters parameters, GetRecordType getRecordType)
+			throws IdDoesNotExistException, BadArgumentException,
+			CannotDisseminateRecordException, OAIException,
+			NoMetadataFormatsException {
+		RecordType record = _factory.createRecordType();
+		HeaderType header = _factory.createHeaderType();
+		MetadataFormat format = _context.getFormatByPrefix(parameters
+				.getMetadataPrefix());
+		AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
+		if (!_context.isItemShown(item))
+			throw new CannotDisseminateRecordException();
+		if (!format.isApplyable(item))
+			throw new CannotDisseminateRecordException();
+		header.setIdentifier(item.getIdentifier());
+		header.setDatestamp(this.dateToString(item.getDatestamp()));
+		for (ReferenceSet s : item.getSets(_context))
+			header.getSetSpec().add(s.getSetSpec());
+		if (item.isDeleted())
+			header.setStatus(StatusType.DELETED);
+		record.setHeader(header);
+
+		if (!item.isDeleted()) {
+			MetadataType metadata = _factory.createMetadataType();
+			String id = "##metadata-" + item.getIdentifier() + "##";
+			try {
+				if (_context.getTransformer().hasTransformer())
+					manager.addMap(id, XSLTUtils.transform(_context
+							.getTransformer().getXSLTFile(), format
+							.getXSLTFile(), item));
+				else
+					manager.addMap(id,
+							XSLTUtils.transform(format.getXSLTFile(), item));
 			} catch (XSLTransformationException e) {
 				throw new OAIException(e);
 			}
-            metadata.setAny(id);
-            record.setMetadata(metadata);
+			metadata.setAny(id);
+			record.setMetadata(metadata);
 
-            int i = 0;
-            if (item.hasAbout()) {
-                for (AbstractAbout abj : item.getAbout()) {
-                    AboutType about = _factory.createAboutType();
-                    String aid = "##about"+i+"-"+item.getIdentifier()+"##";
-                    manager.addMap(aid, abj.getXML());
-                    about.setAny(aid);
-                    record.getAbout().add(about);
-                    i++;
-                }
-            }
-        }
+			int i = 0;
+			if (item.hasAbout()) {
+				for (AbstractAbout abj : item.getAbout()) {
+					AboutType about = _factory.createAboutType();
+					String aid = "##about" + i + "-" + item.getIdentifier()
+							+ "##";
+					manager.addMap(aid, abj.getXML());
+					about.setAny(aid);
+					record.getAbout().add(about);
+					i++;
+				}
+			}
+		}
 
-        getRecordType.setRecord(record);
-        return getRecordType;
-    }
+		getRecordType.setRecord(record);
+		return getRecordType;
+	}
 
-    private ListIdentifiersType build(ExportManager manager, OAIParameters parameters, ListIdentifiersType listIdentifiersType) throws BadResumptionToken, BadArgumentException, CannotDisseminateRecordException, DoesNotSupportSetsException, NoMatchesException, OAIException, NoMetadataFormatsException {
-        ResumptionToken token = parameters.getResumptionToken();
+	private ListIdentifiersType build(ExportManager manager,
+			OAIParameters parameters, ListIdentifiersType listIdentifiersType)
+			throws BadResumptionToken, BadArgumentException,
+			CannotDisseminateRecordException, DoesNotSupportSetsException,
+			NoMatchesException, OAIException, NoMetadataFormatsException {
+		ResumptionToken token = parameters.getResumptionToken();
 
-        if (parameters.hasSet() && !_listSets.supportSets()) throw new DoesNotSupportSetsException();
+		if (parameters.hasSet() && !_listSets.supportSets())
+			throw new DoesNotSupportSetsException();
 
-        int length = XOAIManager.getManager().getMaxListIdentifiersSize();
-        ListItemIdentifiersResult result;
-        if (!parameters.hasSet()) {
-            if (parameters.hasFrom() && !parameters.hasUntil())
-                result = _itemRepo.getItemIdentifiers(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getFrom());
-            else if (!parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItemIdentifiersUntil(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getUntil());
-            else if (parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItemIdentifiers(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getFrom(), parameters.getUntil());
-            else
-                result = _itemRepo.getItemIdentifiers(_context, token.getOffset(), length, parameters.getMetadataPrefix());
-        } else {
-            if (!_listSets.exists(_context, parameters.getSet()))
-                throw new NoMatchesException();
-            if (parameters.hasFrom() && !parameters.hasUntil())
-                result = _itemRepo.getItemIdentifiers(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet(), parameters.getFrom());
-            else if (!parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItemIdentifiersUntil(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet(), parameters.getUntil());
-            else if (parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItemIdentifiers(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet(), parameters.getFrom(), parameters.getUntil());
-            else
-                result = _itemRepo.getItemIdentifiers(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet());
-        }
+		int length = XOAIManager.getManager().getMaxListIdentifiersSize();
+		ListItemIdentifiersResult result;
+		if (!parameters.hasSet()) {
+			if (parameters.hasFrom() && !parameters.hasUntil())
+				result = _itemRepo.getItemIdentifiers(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getFrom());
+			else if (!parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItemIdentifiersUntil(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getUntil());
+			else if (parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItemIdentifiers(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getFrom(),
+						parameters.getUntil());
+			else
+				result = _itemRepo.getItemIdentifiers(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix());
+		} else {
+			if (!_listSets.exists(_context, parameters.getSet()))
+				throw new NoMatchesException();
+			if (parameters.hasFrom() && !parameters.hasUntil())
+				result = _itemRepo.getItemIdentifiers(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getSet(),
+						parameters.getFrom());
+			else if (!parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItemIdentifiersUntil(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getSet(),
+						parameters.getUntil());
+			else if (parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItemIdentifiers(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getSet(),
+						parameters.getFrom(), parameters.getUntil());
+			else
+				result = _itemRepo.getItemIdentifiers(_context,
+						token.getOffset(), length,
+						parameters.getMetadataPrefix(), parameters.getSet());
+		}
 
-        List<AbstractItemIdentifier> results = result.getResults();
-        if (results.isEmpty()) throw new NoMatchesException();
+		List<AbstractItemIdentifier> results = result.getResults();
+		if (results.isEmpty())
+			throw new NoMatchesException();
 
-        ResumptionToken newToken;
-        if (result.hasMore()) {
-            newToken = new ResumptionToken(token.getOffset() + length, parameters);
-        } else {
-            newToken = new ResumptionToken();
-        }
-        
-        ResumptionTokenType resToken = _factory.createResumptionTokenType();
-        resToken.setValue(newToken.toString());
-        listIdentifiersType.setResumptionToken(resToken);
+		ResumptionToken newToken;
+		if (result.hasMore()) {
+			newToken = new ResumptionToken(token.getOffset() + length,
+					parameters);
+		} else {
+			newToken = new ResumptionToken();
+		}
 
-        for (AbstractItemIdentifier ii : results)
-            listIdentifiersType.getHeader().add(this.createHeader(parameters, ii));
+		ResumptionTokenType resToken = _factory.createResumptionTokenType();
+		resToken.setValue(newToken.toString());
+		listIdentifiersType.setResumptionToken(resToken);
 
-        return listIdentifiersType;
-    }
+		for (AbstractItemIdentifier ii : results)
+			listIdentifiersType.getHeader().add(
+					this.createHeader(parameters, ii));
 
+		return listIdentifiersType;
+	}
 
-    private HeaderType createHeader(OAIParameters parameters, AbstractItemIdentifier ii) throws BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
-        MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
-        if (!ii.isDeleted() && !format.isApplyable(ii)) throw new CannotDisseminateRecordException();
-        
-        HeaderType header = _factory.createHeaderType();
-        header.setDatestamp(this.dateToString(ii.getDatestamp()));
-        header.setIdentifier(ii.getIdentifier());
-        if (ii.isDeleted()) header.setStatus(StatusType.DELETED);
-        for (ReferenceSet s : ii.getSets(_context))
-            header.getSetSpec().add(s.getSetSpec());
-        return header;
-    }
+	private HeaderType createHeader(OAIParameters parameters,
+			AbstractItemIdentifier ii) throws BadArgumentException,
+			CannotDisseminateRecordException, OAIException,
+			NoMetadataFormatsException {
+		MetadataFormat format = _context.getFormatByPrefix(parameters
+				.getMetadataPrefix());
+		if (!ii.isDeleted() && !format.isApplyable(ii))
+			throw new CannotDisseminateRecordException();
 
+		HeaderType header = _factory.createHeaderType();
+		header.setDatestamp(this.dateToString(ii.getDatestamp()));
+		header.setIdentifier(ii.getIdentifier());
+		if (ii.isDeleted())
+			header.setStatus(StatusType.DELETED);
+		for (ReferenceSet s : ii.getSets(_context))
+			header.getSetSpec().add(s.getSetSpec());
+		return header;
+	}
 
-    private ListRecordsType build(ExportManager manager, OAIParameters parameters, ListRecordsType listRecordsType) throws BadArgumentException, CannotDisseminateRecordException, DoesNotSupportSetsException, NoMatchesException, OAIException, NoMetadataFormatsException {
-        ResumptionToken token = parameters.getResumptionToken();
-        int length = XOAIManager.getManager().getMaxListRecordsSize();
+	private ListRecordsType build(ExportManager manager,
+			OAIParameters parameters, ListRecordsType listRecordsType)
+			throws BadArgumentException, CannotDisseminateRecordException,
+			DoesNotSupportSetsException, NoMatchesException, OAIException,
+			NoMetadataFormatsException {
+		ResumptionToken token = parameters.getResumptionToken();
+		int length = XOAIManager.getManager().getMaxListRecordsSize();
 
-        if (parameters.hasSet() && !_listSets.supportSets()) throw new DoesNotSupportSetsException();
-        
-        log.debug("Getting items from data source");
-        ListItemsResults result;
-        if (!parameters.hasSet()) {
-            if (parameters.hasFrom() && !parameters.hasUntil())
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getFrom());
-            else if (!parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getUntil());
-            else if (parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getFrom(), parameters.getUntil());
-            else
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix());
-        } else {
-            if (!_listSets.exists(_context, parameters.getSet()))
-                throw new NoMatchesException();
-            if (parameters.hasFrom() && !parameters.hasUntil())
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet(), parameters.getFrom());
-            else if (!parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet(), parameters.getUntil());
-            else if (parameters.hasFrom() && parameters.hasUntil())
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet(), parameters.getFrom(), parameters.getUntil());
-            else
-                result = _itemRepo.getItems(_context, token.getOffset(), length, parameters.getMetadataPrefix(), parameters.getSet());
-        }
-        log.debug("Items retrived from data source");
+		if (parameters.hasSet() && !_listSets.supportSets())
+			throw new DoesNotSupportSetsException();
 
-        List<AbstractItem> results = result.getResults();
-        if (results.isEmpty()) throw new NoMatchesException();
+		log.debug("Getting items from data source");
+		ListItemsResults result;
+		if (!parameters.hasSet()) {
+			if (parameters.hasFrom() && !parameters.hasUntil())
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getFrom());
+			else if (!parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getUntil());
+			else if (parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getFrom(), parameters.getUntil());
+			else
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix());
+		} else {
+			if (!_listSets.exists(_context, parameters.getSet()))
+				throw new NoMatchesException();
+			if (parameters.hasFrom() && !parameters.hasUntil())
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getSet(), parameters.getFrom());
+			else if (!parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getSet(), parameters.getUntil());
+			else if (parameters.hasFrom() && parameters.hasUntil())
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getSet(), parameters.getFrom(),
+						parameters.getUntil());
+			else
+				result = _itemRepo.getItems(_context, token.getOffset(),
+						length, parameters.getMetadataPrefix(),
+						parameters.getSet());
+		}
+		log.debug("Items retrived from data source");
 
-        ResumptionToken newToken;
-        if (result.hasMore()) {
-            newToken = new ResumptionToken(token.getOffset() + length, parameters);
-        } else {
-            newToken = new ResumptionToken();
-        }
+		List<AbstractItem> results = result.getResults();
+		if (results.isEmpty())
+			throw new NoMatchesException();
 
-        ResumptionTokenType resToken = _factory.createResumptionTokenType();
-        resToken.setValue(newToken.toString());
-        listRecordsType.setResumptionToken(resToken);
+		ResumptionToken newToken;
+		if (result.hasMore()) {
+			newToken = new ResumptionToken(token.getOffset() + length,
+					parameters);
+		} else {
+			newToken = new ResumptionToken();
+		}
 
-        log.debug("Now adding records to the OAI-PMH Output");
-        for (AbstractItem i : results)
-            listRecordsType.getRecord().add(this.createRecord(manager, parameters, i));
-        
-        return listRecordsType;
-    }
+		ResumptionTokenType resToken = _factory.createResumptionTokenType();
+		resToken.setValue(newToken.toString());
+		listRecordsType.setResumptionToken(resToken);
 
-      
+		log.debug("Now adding records to the OAI-PMH Output");
+		for (AbstractItem i : results)
+			listRecordsType.getRecord().add(
+					this.createRecord(manager, parameters, i));
 
-    private RecordType createRecord(ExportManager manager, OAIParameters parameters, AbstractItem item) throws BadArgumentException, CannotDisseminateRecordException, OAIException, NoMetadataFormatsException {
-        log.debug("Metadata format: "+parameters.getMetadataPrefix());
-    	MetadataFormat format = _context.getFormatByPrefix(parameters.getMetadataPrefix());
-        RecordType record = _factory.createRecordType();
-        HeaderType header = _factory.createHeaderType();
-        log.debug("Item: "+item.getIdentifier());
-        header.setIdentifier(item.getIdentifier());
-        header.setDatestamp(this.dateToString(item.getDatestamp()));
-        for (ReferenceSet s : item.getSets(_context))
-            header.getSetSpec().add(s.getSetSpec());
-        if (item.isDeleted()) header.setStatus(StatusType.DELETED);
-        record.setHeader(header);
+		return listRecordsType;
+	}
 
-        if (!item.isDeleted()) {
-        	log.debug("Outputing Metadata");
-            MetadataType metadata = _factory.createMetadataType();
-            String id = "##metadata-"+item.getIdentifier()+"##";
-            try {
-            	if (_context.getTransformer().hasTransformer()) {
-            		log.debug("Transforming metadata (with transformer)");
-            		manager.addMap(id, XSLTUtils.transform(_context.getTransformer().getXSLTFile(), format.getXSLTFile(), item));
-            	}
-            	else {
-            		log.debug("Transforming metadata (without transformer)");
-            		manager.addMap(id, XSLTUtils.transform(format.getXSLTFile(), item));
-            	}
-	            metadata.setAny(id);
-	            record.setMetadata(metadata);
+	private RecordType createRecord(ExportManager manager,
+			OAIParameters parameters, AbstractItem item)
+			throws BadArgumentException, CannotDisseminateRecordException,
+			OAIException, NoMetadataFormatsException {
+		log.debug("Metadata format: " + parameters.getMetadataPrefix());
+		MetadataFormat format = _context.getFormatByPrefix(parameters
+				.getMetadataPrefix());
+		RecordType record = _factory.createRecordType();
+		HeaderType header = _factory.createHeaderType();
+		log.debug("Item: " + item.getIdentifier());
+		header.setIdentifier(item.getIdentifier());
+		header.setDatestamp(this.dateToString(item.getDatestamp()));
+		for (ReferenceSet s : item.getSets(_context))
+			header.getSetSpec().add(s.getSetSpec());
+		if (item.isDeleted())
+			header.setStatus(StatusType.DELETED);
+		record.setHeader(header);
+
+		if (!item.isDeleted()) {
+			log.debug("Outputing Metadata");
+			MetadataType metadata = _factory.createMetadataType();
+			String id = "##metadata-" + item.getIdentifier() + "##";
+			try {
+				if (_context.getTransformer().hasTransformer()) {
+					log.debug("Transforming metadata (with transformer)");
+					manager.addMap(id, XSLTUtils.transform(_context
+							.getTransformer().getXSLTFile(), format
+							.getXSLTFile(), item));
+				} else {
+					log.debug("Transforming metadata (without transformer)");
+					manager.addMap(id,
+							XSLTUtils.transform(format.getXSLTFile(), item));
+				}
+				metadata.setAny(id);
+				record.setMetadata(metadata);
 			} catch (XSLTransformationException e) {
 				throw new OAIException(e);
 			}
-            
-            log.debug("Outputing About");
-            int i = 0;
-            if (item.hasAbout()) {
-                for (AbstractAbout abj : item.getAbout()) {
-                    AboutType about = _factory.createAboutType();
-                    String aid = "##about"+i+"-"+item.getIdentifier()+"##";
-                    manager.addMap(aid, abj.getXML());
-                    about.setAny(aid);
-                    record.getAbout().add(about);
-                    i++;
-                }
-            }
-        }
-        return record;
-    }
+
+			log.debug("Outputing About");
+			int i = 0;
+			if (item.hasAbout()) {
+				for (AbstractAbout abj : item.getAbout()) {
+					AboutType about = _factory.createAboutType();
+					String aid = "##about" + i + "-" + item.getIdentifier()
+							+ "##";
+					manager.addMap(aid, abj.getXML());
+					about.setAny(aid);
+					record.getAbout().add(about);
+					i++;
+				}
+			}
+		}
+		return record;
+	}
 }

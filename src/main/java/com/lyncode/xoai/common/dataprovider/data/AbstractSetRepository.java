@@ -27,49 +27,52 @@ import com.lyncode.xoai.common.dataprovider.core.Set;
 import com.lyncode.xoai.common.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public abstract class AbstractSetRepository {
-    private static Logger log = LogManager.getLogger(AbstractSetRepository.class);
-    public abstract boolean supportSets ();
-    protected abstract ListSetsResult retrieveSets (int offset, int length);
-    protected abstract boolean exists (String setSpec);
-    
-    public boolean exists (XOAIContext context, String set) {
-        List<StaticSet> statics = context.getStaticSets();
-        for (StaticSet s : statics)
-            if (s.getSetSpec().equals(set))
-                return true;
-        
-        return exists(set);
-    }
+	private static Logger log = LogManager
+			.getLogger(AbstractSetRepository.class);
 
-    public ListSetsResult getSets (XOAIContext context, int offset, int length) {
-        List<Set> results = new ArrayList<Set>();
-        List<StaticSet> statics = context.getStaticSets();
-        if (offset < statics.size()) {
-            log.debug("Offset less than static sets size");
-            if (length + offset < statics.size()) {
-                log.debug("Offset + length less than static sets size");
-                for (int i = offset; i< (offset + length); i++)
-                    results.add(statics.get(i));
-                return new ListSetsResult(true, results);
-            } else {
-                log.debug("Offset + length greater or equal than static sets size");
-                for (int i = offset;i < statics.size(); i++)
-                    results.add(statics.get(i));
-                int newLength = length - (statics.size() - offset);
-                ListSetsResult res = this.retrieveSets(0, newLength);
-                results.addAll(res.getResults());
-                return new ListSetsResult(res.hasMore(), results);
-            }
-        } else {
-            log.debug("Offset greater or equal than static sets size");
-            int newOffset = offset - statics.size();
-            return this.retrieveSets(newOffset, length);
-        }
-    }
+	public abstract boolean supportSets();
+
+	protected abstract ListSetsResult retrieveSets(int offset, int length);
+
+	protected abstract boolean exists(String setSpec);
+
+	public boolean exists(XOAIContext context, String set) {
+		List<StaticSet> statics = context.getStaticSets();
+		for (StaticSet s : statics)
+			if (s.getSetSpec().equals(set))
+				return true;
+
+		return exists(set);
+	}
+
+	public ListSetsResult getSets(XOAIContext context, int offset, int length) {
+		List<Set> results = new ArrayList<Set>();
+		List<StaticSet> statics = context.getStaticSets();
+		if (offset < statics.size()) {
+			log.debug("Offset less than static sets size");
+			if (length + offset < statics.size()) {
+				log.debug("Offset + length less than static sets size");
+				for (int i = offset; i < (offset + length); i++)
+					results.add(statics.get(i));
+				return new ListSetsResult(true, results);
+			} else {
+				log.debug("Offset + length greater or equal than static sets size");
+				for (int i = offset; i < statics.size(); i++)
+					results.add(statics.get(i));
+				int newLength = length - (statics.size() - offset);
+				ListSetsResult res = this.retrieveSets(0, newLength);
+				results.addAll(res.getResults());
+				return new ListSetsResult(res.hasMore(), results);
+			}
+		} else {
+			log.debug("Offset greater or equal than static sets size");
+			int newOffset = offset - statics.size();
+			return this.retrieveSets(newOffset, length);
+		}
+	}
 }

@@ -16,41 +16,41 @@
 
 package com.lyncode.xoai.common.dataprovider.core;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class Set extends ReferenceSet {
-    private String setName;
-    private String description;
+	private String setName;
+	private String description;
 
-    public Set(String setSpec, String setName) {
-        super(setSpec);
-        this.setName = setName;
-        this.description =null;
-    }
+	public Set(String setSpec, String setName) {
+		super(setSpec);
+		this.setName = setName;
+		this.description = null;
+	}
 
-    /**
-     *
-     * @param setSpec
-     * @param setName
-     * @param description Marshable object
-     */
-    public Set(String setSpec, String setName, String xmldescription) {
-        this(setSpec, setName);
-        this.description = xmldescription;
-    }
+	/**
+	 * 
+	 * @param setSpec
+	 * @param setName
+	 * @param description
+	 *            Marshable object
+	 */
+	public Set(String setSpec, String setName, String xmldescription) {
+		this(setSpec, setName);
+		this.description = xmldescription;
+	}
 
-    public String getSetName() {
-        return setName;
-    }
+	public String getSetName() {
+		return setName;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public boolean hasDescription () {
-        return (this.description != null);
-    }
+	public boolean hasDescription() {
+		return (this.description != null);
+	}
 }

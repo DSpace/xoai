@@ -20,31 +20,30 @@ import java.io.File;
 
 import com.lyncode.xoai.common.dataprovider.core.ConfigurableBundle;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class MetadataTransformer extends ConfigurableBundle {
 	private File xsltFile;
-	
-	public MetadataTransformer () {
+
+	public MetadataTransformer() {
 		xsltFile = null;
 	}
-	
-	public MetadataTransformer (File xsltFile) {
+
+	public MetadataTransformer(File xsltFile) {
 		this.xsltFile = xsltFile;
 	}
-	
-	public MetadataTransformer (String path) {
+
+	public MetadataTransformer(String path) {
 		this.xsltFile = new File(path);
 	}
-	
-	public boolean hasTransformer () {
+
+	public boolean hasTransformer() {
 		return (this.xsltFile != null);
 	}
-	
-	public File getXSLTFile () {
+
+	public File getXSLTFile() {
 		return xsltFile;
 	}
 }

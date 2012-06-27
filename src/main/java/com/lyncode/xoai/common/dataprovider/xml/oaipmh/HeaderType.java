@@ -5,7 +5,6 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import java.util.ArrayList;
@@ -17,17 +16,17 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * A header has a unique identifier, a datestamp,
- *         and setSpec(s) in case the item from which
- *         the record is disseminated belongs to set(s).
- *         the header can carry a deleted status indicating
- *         that the record is deleted.
+ * A header has a unique identifier, a datestamp, and setSpec(s) in case the
+ * item from which the record is disseminated belongs to set(s). the header can
+ * carry a deleted status indicating that the record is deleted.
  * 
- * <p>Java class for headerType complex type.
+ * <p>
+ * Java class for headerType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="headerType">
@@ -47,120 +46,108 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "headerType", propOrder = {
-    "identifier",
-    "datestamp",
-    "setSpec"
-})
+@XmlType(name = "headerType", propOrder = { "identifier", "datestamp",
+		"setSpec" })
 public class HeaderType {
 
-    @XmlElement(required = true)
-    protected String identifier;
-    @XmlElement(required = true)
-    protected String datestamp;
-    protected List<String> setSpec;
-    @XmlAttribute(name = "status")
-    protected StatusType status;
+	@XmlElement(required = true)
+	protected String identifier;
+	@XmlElement(required = true)
+	protected String datestamp;
+	protected List<String> setSpec;
+	@XmlAttribute(name = "status")
+	protected StatusType status;
 
-    /**
-     * Gets the value of the identifier property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdentifier() {
-        return identifier;
-    }
+	/**
+	 * Gets the value of the identifier property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getIdentifier() {
+		return identifier;
+	}
 
-    /**
-     * Sets the value of the identifier property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdentifier(String value) {
-        this.identifier = value;
-    }
+	/**
+	 * Sets the value of the identifier property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setIdentifier(String value) {
+		this.identifier = value;
+	}
 
-    /**
-     * Gets the value of the datestamp property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDatestamp() {
-        return datestamp;
-    }
+	/**
+	 * Gets the value of the datestamp property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getDatestamp() {
+		return datestamp;
+	}
 
-    /**
-     * Sets the value of the datestamp property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDatestamp(String value) {
-        this.datestamp = value;
-    }
+	/**
+	 * Sets the value of the datestamp property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setDatestamp(String value) {
+		this.datestamp = value;
+	}
 
-    /**
-     * Gets the value of the setSpec property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the setSpec property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getSetSpec().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link String }
-     * 
-     * 
-     */
-    public List<String> getSetSpec() {
-        if (setSpec == null) {
-            setSpec = new ArrayList<String>();
-        }
-        return this.setSpec;
-    }
+	/**
+	 * Gets the value of the setSpec property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the setSpec property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getSetSpec().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list {@link String }
+	 * 
+	 * 
+	 */
+	public List<String> getSetSpec() {
+		if (setSpec == null) {
+			setSpec = new ArrayList<String>();
+		}
+		return this.setSpec;
+	}
 
-    /**
-     * Gets the value of the status property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StatusType }
-     *     
-     */
-    public StatusType getStatus() {
-        return status;
-    }
+	/**
+	 * Gets the value of the status property.
+	 * 
+	 * @return possible object is {@link StatusType }
+	 * 
+	 */
+	public StatusType getStatus() {
+		return status;
+	}
 
-    /**
-     * Sets the value of the status property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StatusType }
-     *     
-     */
-    public void setStatus(StatusType value) {
-        this.status = value;
-    }
+	/**
+	 * Sets the value of the status property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link StatusType }
+	 * 
+	 */
+	public void setStatus(StatusType value) {
+		this.status = value;
+	}
 
 }

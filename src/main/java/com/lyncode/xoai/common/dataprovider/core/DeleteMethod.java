@@ -32,7 +32,7 @@ package com.lyncode.xoai.common.dataprovider.core;
  * @author melo
  */
 public enum DeleteMethod {
-    NO, // There is no delete
-    PERSISTENT, // The delete is persistent
-    TRANSIENT // The delete is transient
+	NO, // There is no delete
+	PERSISTENT, // The delete is persistent
+	TRANSIENT // The delete is transient
 }

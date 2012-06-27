@@ -5,7 +5,6 @@
 // Generated on: 2012.06.27 at 03:32:38 AM WEST 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.xoaiconfig;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,11 +12,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for BundleReference complex type.
+ * <p>
+ * Java class for BundleReference complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="BundleReference">
@@ -35,31 +36,28 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "BundleReference")
 public class BundleReference {
 
-    @XmlAttribute
-    protected String refid;
+	@XmlAttribute
+	protected String refid;
 
-    /**
-     * Gets the value of the refid property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRefid() {
-        return refid;
-    }
+	/**
+	 * Gets the value of the refid property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getRefid() {
+		return refid;
+	}
 
-    /**
-     * Sets the value of the refid property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRefid(String value) {
-        this.refid = value;
-    }
+	/**
+	 * Sets the value of the refid property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setRefid(String value) {
+		this.refid = value;
+	}
 
 }

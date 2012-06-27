@@ -22,60 +22,57 @@ import java.util.List;
 import com.lyncode.xoai.common.dataprovider.core.DeleteMethod;
 import com.lyncode.xoai.common.dataprovider.core.Granularity;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public abstract class AbstractIdentify {
-    /**
-     * Gets the name of the repository
-     * NOTE: This is just for identifying purposes.
-     *
-     * @return Repository Name
-     */
-    public abstract String getRepositoryName();
+	/**
+	 * Gets the name of the repository NOTE: This is just for identifying
+	 * purposes.
+	 * 
+	 * @return Repository Name
+	 */
+	public abstract String getRepositoryName();
 
-    /**
-     * Gets the administrator emails.
-     * NOTE: This is just for identifying purposes.
-     *
-     * @return Administrator emails
-     */
-    public abstract List<String> getAdminEmails();
+	/**
+	 * Gets the administrator emails. NOTE: This is just for identifying
+	 * purposes.
+	 * 
+	 * @return Administrator emails
+	 */
+	public abstract List<String> getAdminEmails();
 
-    /**
-     * Gets the base url.
-     * NOTE: This is just for identifying purposes.
-     *
-     * @return Base url
-     */
-    public abstract String getBaseUrl ();
+	/**
+	 * Gets the base url. NOTE: This is just for identifying purposes.
+	 * 
+	 * @return Base url
+	 */
+	public abstract String getBaseUrl();
 
-    /**
-     * Gets the earliest date on the system. Any item should have
-     * a date lower than this one.
-     *
-     * @return The earliest date
-     */
-    public abstract Date getEarliestDate ();
+	/**
+	 * Gets the earliest date on the system. Any item should have a date lower
+	 * than this one.
+	 * 
+	 * @return The earliest date
+	 */
+	public abstract Date getEarliestDate();
 
-    /**
-     * Repositories must declare one of three levels of support for
-     * deleted records in the deletedRecord element of the Identify response.
-     *
-     * @return The delete method
-     */
-    public abstract DeleteMethod getDeleteMethod ();
+	/**
+	 * Repositories must declare one of three levels of support for deleted
+	 * records in the deletedRecord element of the Identify response.
+	 * 
+	 * @return The delete method
+	 */
+	public abstract DeleteMethod getDeleteMethod();
 
-    /**
-     * Repositories must support selective harvesting with the
-     * from and until arguments expressed at day granularity.
-     * Optional support for seconds granularity is indicated in
-     * the response to the Identify request.
-     *
-     * @return Granularity
-     */
-    public abstract Granularity getGranularity ();
+	/**
+	 * Repositories must support selective harvesting with the from and until
+	 * arguments expressed at day granularity. Optional support for seconds
+	 * granularity is indicated in the response to the Identify request.
+	 * 
+	 * @return Granularity
+	 */
+	public abstract Granularity getGranularity();
 
 }

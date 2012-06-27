@@ -16,31 +16,32 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class BadArgumentException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6436751364163509217L;
 
+	/**
+	 * Creates a new instance of <code>BadArgumentException</code> without
+	 * detail message.
+	 */
+	public BadArgumentException() {
+	}
 
 	/**
-     * Creates a new instance of <code>BadArgumentException</code> without detail message.
-     */
-    public BadArgumentException() {
-    }
-
-
-    /**
-     * Constructs an instance of <code>BadArgumentException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public BadArgumentException(String msg) {
-        super(msg);
-    }
+	 * Constructs an instance of <code>BadArgumentException</code> with the
+	 * specified detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public BadArgumentException(String msg) {
+		super(msg);
+	}
 }

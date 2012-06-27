@@ -16,35 +16,36 @@
 
 package com.lyncode.xoai.common.dataprovider.exceptions;
 
-
-
 /**
  * @author DSpace @ Lyncode
  * @version 2.0.0
  */
 public class OAIException extends Exception {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3229816947775660398L;
 
 	/**
-     * Creates a new instance of <code>OAIException</code> without detail message.
-     */
-    public OAIException() {
-    }
+	 * Creates a new instance of <code>OAIException</code> without detail
+	 * message.
+	 */
+	public OAIException() {
+	}
 
+	/**
+	 * Constructs an instance of <code>OAIException</code> with the specified
+	 * detail message.
+	 * 
+	 * @param msg
+	 *            the detail message.
+	 */
+	public OAIException(String msg) {
+		super(msg);
+	}
 
-    /**
-     * Constructs an instance of <code>OAIException</code> with the specified detail message.
-     * @param msg the detail message.
-     */
-    public OAIException(String msg) {
-        super(msg);
-    }
-
-    public OAIException(Exception ex) {
-        super(ex.getMessage(), ex);
-    }
+	public OAIException(Exception ex) {
+		super(ex.getMessage(), ex);
+	}
 }

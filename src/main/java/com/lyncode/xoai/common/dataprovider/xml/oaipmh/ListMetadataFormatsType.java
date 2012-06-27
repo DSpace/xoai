@@ -5,7 +5,6 @@
 // Generated on: 2012.01.13 at 08:24:23 PM WET 
 //
 
-
 package com.lyncode.xoai.common.dataprovider.xml.oaipmh;
 
 import java.util.ArrayList;
@@ -16,11 +15,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for ListMetadataFormatsType complex type.
+ * <p>
+ * Java class for ListMetadataFormatsType complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType name="ListMetadataFormatsType">
@@ -37,41 +38,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ListMetadataFormatsType", propOrder = {
-    "metadataFormat"
-})
+@XmlType(name = "ListMetadataFormatsType", propOrder = { "metadataFormat" })
 public class ListMetadataFormatsType {
 
-    @XmlElement(required = true)
-    protected List<MetadataFormatType> metadataFormat;
+	@XmlElement(required = true)
+	protected List<MetadataFormatType> metadataFormat;
 
-    /**
-     * Gets the value of the metadataFormat property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the metadataFormat property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMetadataFormat().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link MetadataFormatType }
-     * 
-     * 
-     */
-    public List<MetadataFormatType> getMetadataFormat() {
-        if (metadataFormat == null) {
-            metadataFormat = new ArrayList<MetadataFormatType>();
-        }
-        return this.metadataFormat;
-    }
+	/**
+	 * Gets the value of the metadataFormat property.
+	 * 
+	 * <p>
+	 * This accessor method returns a reference to the live list, not a
+	 * snapshot. Therefore any modification you make to the returned list will
+	 * be present inside the JAXB object. This is why there is not a
+	 * <CODE>set</CODE> method for the metadataFormat property.
+	 * 
+	 * <p>
+	 * For example, to add a new item, do as follows:
+	 * 
+	 * <pre>
+	 * getMetadataFormat().add(newItem);
+	 * </pre>
+	 * 
+	 * 
+	 * <p>
+	 * Objects of the following type(s) are allowed in the list
+	 * {@link MetadataFormatType }
+	 * 
+	 * 
+	 */
+	public List<MetadataFormatType> getMetadataFormat() {
+		if (metadataFormat == null) {
+			metadataFormat = new ArrayList<MetadataFormatType>();
+		}
+		return this.metadataFormat;
+	}
 
 }
