@@ -3,6 +3,7 @@ package com.lyncode.xoai.common.dataprovider.util;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -45,7 +46,7 @@ public class MarshallingUtils {
             marshaller.marshal(obj, output);
             log.debug("Writting result into output stream");
             log.debug("Result: "+output.toString());
-            out.write(output.toString().replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "").getBytes());
+            out.write(output.toString().replaceAll(Pattern.quote("<?") + "xml.*" + Pattern.quote("?>"), "").getBytes());
             log.debug("Result written!");
         } catch (JAXBException ex) {
             throw new MarshallingException(ex);
