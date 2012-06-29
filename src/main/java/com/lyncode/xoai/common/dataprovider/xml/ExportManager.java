@@ -24,6 +24,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -61,8 +62,6 @@ public class ExportManager {
 
 	private Map<String, String> _values;
 
-	// private Configuration _config;
-
 	public ExportManager() {
 		_values = new HashMap<String, String>();
 	}
@@ -86,9 +85,9 @@ public class ExportManager {
 			for (String id : _values.keySet())
 				outS = outS.replace(id, _values.get(id));
 			if (XOAIManager.getManager().isIdentated())
-				out.write(this.format(outS).getBytes());
+				out.write(this.addStyleSheet(this.format(outS)).getBytes());
 			else
-				out.write(outS.getBytes());
+				out.write(this.addStyleSheet(outS).getBytes());
 
 		} catch (JAXBException ex) {
 			log.error(ex.getMessage(), ex);
@@ -97,6 +96,13 @@ public class ExportManager {
 			log.error(ex.getMessage(), ex);
 			throw new OAIException(ex);
 		}
+	}
+
+	private String addStyleSheet(String format) {
+		if (XOAIManager.getManager().hasStyleSheet()) {
+			return format.replaceAll(Pattern.quote("<?")+ "xml.*"+Pattern.quote("?>"), 
+					"<?xml version=\"1.0\" encoding=\"UTF-8\">"+"<?xml-stylesheet type=\"text/xsl\" href=\""+XOAIManager.getManager().getStyleSheet()+"\"?>");	
+		} else return format;
 	}
 
 	private String format(String unformattedXml) {

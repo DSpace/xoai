@@ -56,6 +56,7 @@ public class XOAIManager {
 	private int _listRecordsSize;
 	private int _listIdentifiersSize;
 	private boolean _identation;
+	private String styleSheet;
 
 	private XOAIManager(String baseDir, Configuration config)
 			throws ConfigurationException {
@@ -68,10 +69,19 @@ public class XOAIManager {
 		_listIdentifiersSize = config.getMaxListRecordsSize();
 		_listRecordsSize = config.getMaxListRecordsSize();
 		_identation = config.isIdentation();
+		styleSheet = config.getStylesheet();
 		_context = new ContextManager(config.getContexts(), _filter,
 				_transformer, _format, _set);
 	}
 
+	public boolean hasStyleSheet () {
+		return (styleSheet != null);
+	}
+	
+	public String getStyleSheet () {
+		return styleSheet;
+	}
+	
 	public ContextManager getContextManager() {
 		return _context;
 	}
