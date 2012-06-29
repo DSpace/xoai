@@ -101,7 +101,7 @@ public class ExportManager {
 	private String addStyleSheet(String format) {
 		if (XOAIManager.getManager().hasStyleSheet()) {
 			return format.replaceAll(Pattern.quote("<?")+ "xml.*"+Pattern.quote("?>"), 
-					"<?xml version=\"1.0\" encoding=\"UTF-8\">"+"<?xml-stylesheet type=\"text/xsl\" href=\""+XOAIManager.getManager().getStyleSheet()+"\"?>");	
+					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+"<?xml-stylesheet type=\"text/xsl\" href=\""+XOAIManager.getManager().getStyleSheet()+"\"?>");	
 		} else return format;
 	}
 
