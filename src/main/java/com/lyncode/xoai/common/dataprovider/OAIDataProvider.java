@@ -94,7 +94,7 @@ public class OAIDataProvider {
 
 	private static final String PROTOCOL_VERSION = "2.0";
 	// private static final String XOAI_VERSION = "1.0";
-	private static final String XOAI_DESC = "X-OAI. The OAI Data Provider Library (by LynCode)";
+	private static final String XOAI_DESC = "XOAI: OAI-PMH Java Toolkit";
 
 	private AbstractIdentify _identify;
 	private ObjectFactory _factory;

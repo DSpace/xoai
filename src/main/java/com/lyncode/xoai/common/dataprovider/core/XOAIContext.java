@@ -70,10 +70,14 @@ public class XOAIContext extends ConfigurableBundle {
 		return _transformer;
 	}
 
+	private List<StaticSet> cachedSets = null;
 	public List<StaticSet> getStaticSets() {
-		log.debug("{ XOAI } Static Sets for this Context: "
-				+ _sets.values().size());
-		return new ArrayList<StaticSet>(_sets.values());
+		if (cachedSets == null) {
+			log.debug("{ XOAI } Static Sets for this Context: "
+					+ _sets.values().size());
+			cachedSets = new ArrayList<StaticSet>(_sets.values());
+		}
+		return cachedSets;
 	}
 
 	public List<AbstractFilter> getSetFilters(String setID) {
