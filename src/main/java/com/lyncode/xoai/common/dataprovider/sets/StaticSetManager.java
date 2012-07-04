@@ -44,8 +44,8 @@ public class StaticSetManager {
 			List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
 			for (BundleReference r : s.getFilter()) {
 				if (!fm.filterExists(r.getRefid()))
-					throw new ConfigurationException("Filter refered as "
-							+ r.getRefid() + " does not exists");
+					throw new ConfigurationException("Filter referred as "
+							+ r.getRefid() + " does not exist");
 				filters.add(fm.getFilter(r.getRefid()));
 			}
 			StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());

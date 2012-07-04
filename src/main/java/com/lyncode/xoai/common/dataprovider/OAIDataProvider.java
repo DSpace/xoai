@@ -107,13 +107,13 @@ public class OAIDataProvider {
 			AbstractSetRepository listsets,
 			AbstractItemRepository itemRepository)
 			throws InvalidContextException {
-		log.debug("Context choosen: " + contexturl);
+		log.debug("Context chosen: " + contexturl);
 
 		_context = XOAIManager.getManager().getContextManager()
 				.getOAIContext(contexturl);
 		if (_context == null)
-			throw new InvalidContextException("Context " + contexturl
-					+ " does not exists");
+			throw new InvalidContextException("Context \"" + contexturl
+					+ "\" does not exist");
 		_factory = new ObjectFactory();
 		_identify = identify;
 		_listSets = listsets;
@@ -217,7 +217,7 @@ public class OAIDataProvider {
 			log.debug(e.getMessage(), e);
 		} catch (IdDoesNotExistException e) {
 			OAIPMHerrorType error = new OAIPMHerrorType();
-			error.setValue("The given id does not exists");
+			error.setValue("The given id does not exist");
 			error.setCode(OAIPMHerrorcodeType.ID_DOES_NOT_EXIST);
 			response.getError().add(error);
 			log.debug(e.getMessage(), e);
@@ -624,12 +624,12 @@ public class OAIDataProvider {
 		record.setHeader(header);
 
 		if (!item.isDeleted()) {
-			log.debug("Outputing Metadata");
+			log.debug("Outputting Metadata");
 			MetadataType metadata = _factory.createMetadataType();
 			String id = "##metadata-" + item.getIdentifier() + "##";
 			try {
 				if (_context.getTransformer().hasTransformer()) {
-					log.debug("Transforming metadata (with transformer)");
+					log.debug("Transforming metadata (using transformer)");
 					manager.addMap(id, XSLTUtils.transform(_context
 							.getTransformer().getXSLTFile(), format
 							.getXSLTFile(), item));
@@ -644,7 +644,7 @@ public class OAIDataProvider {
 				throw new OAIException(e);
 			}
 
-			log.debug("Outputing About");
+			log.debug("Outputting About");
 			int i = 0;
 			if (item.hasAbout()) {
 				for (AbstractAbout abj : item.getAbout()) {

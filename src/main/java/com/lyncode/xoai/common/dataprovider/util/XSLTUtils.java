@@ -62,7 +62,7 @@ public class XSLTUtils {
 			log.debug("Start Transform (Metadata)");
 			metadataTransformer.transform(new StreamSource(mdIN),
 					new StreamResult(schemaOUT));
-			log.debug("XSL Transform applyed to the other end of the Metadata Pipe Stream, putting the result in one end of the Schema Pipe Stream");
+			log.debug("XSL Transform applied to the other end of the Metadata Pipe Stream, putting the result in one end of the Schema Pipe Stream");
 			// Closing Schema Output & Metadata Input
 			schemaOUT.close();
 			mdIN.close();
@@ -72,7 +72,7 @@ public class XSLTUtils {
 			log.debug("Start Transform (Schema)");
 			schemaTransformer.transform(new StreamSource(schemaIN),
 					new StreamResult(result));
-			log.debug("XML Transform applyed to the other end of the Schema Pipe Stream, putting the result into a byte stream array");
+			log.debug("XML Transform applied to the other end of the Schema Pipe Stream, putting the result into a byte stream array");
 			// Closing Schema Input & Output
 			schemaIN.close();
 			result.close();
@@ -120,7 +120,7 @@ public class XSLTUtils {
 			log.debug("Start Transform (Schema)");
 			schemaTransformer.transform(new StreamSource(schemaIN),
 					new StreamResult(result));
-			log.debug("XML Transform applyed to the other end of the Schema Pipe Stream, putting the result into a byte stream array");
+			log.debug("XML Transform applied to the other end of the Schema Pipe Stream, putting the result into a byte stream array");
 
 			// Closing input and output
 			schemaIN.close();

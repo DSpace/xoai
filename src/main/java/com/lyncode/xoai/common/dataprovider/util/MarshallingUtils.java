@@ -52,7 +52,7 @@ public class MarshallingUtils {
 			marshaller.setProperty(
 					"com.sun.xml.internal.bind.namespacePrefixMapper", mapper);
 			marshaller.marshal(obj, output);
-			log.debug("Writting result into output stream");
+			log.debug("Writing result into output stream");
 			log.debug("Result: " + output.toString());
 			out.write(output
 					.toString()

@@ -162,21 +162,21 @@ public class OAIParameters {
 					|| this.hasSet() || this.hasMetadataPrefix()
 					|| this.hasFrom() || this.hasUntil())
 				throw new BadArgumentException(
-						"Identify verb does not need any extra parameter");
+						"Identify verb does not accept any extra parameter");
 			break;
 		case LIST_METADATA_FORMATS:
 			if (this.hasResumptionToken() || this.hasSet()
 					|| this.hasMetadataPrefix() || this.hasFrom()
 					|| this.hasUntil())
 				throw new BadArgumentException(
-						"ListMetadataFormats verb only has one optional parameter - identfier");
+						"ListMetadataFormats verb only accepts one optional parameter - identifier");
 			break;
 		case LIST_SETS:
 			if (this.hasIdentifier() || this.hasSet()
 					|| this.hasMetadataPrefix() || this.hasFrom()
 					|| this.hasUntil())
 				throw new BadArgumentException(
-						"ListSets verb only has one optional parameter - resumptionToken");
+						"ListSets verb only accepts one optional parameter - resumptionToken");
 			break;
 		case GET_RECORD:
 			if (!this.hasIdentifier() || !this.hasMetadataPrefix()
@@ -185,7 +185,7 @@ public class OAIParameters {
 						"GetRecord verb requires the use of the parameters - identifier and metadataPrefix");
 			if (this.hasResumptionToken())
 				throw new BadArgumentException(
-						"GetRecord verb do not receive the resumptionToken parameter. It requires the use of the parameters - identifier and metadataPrefix");
+						"GetRecord verb does not accept the resumptionToken parameter. It requires the use of the parameters - identifier and metadataPrefix");
 			break;
 		case LIST_IDENTIFIERS:
 			if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
@@ -193,7 +193,7 @@ public class OAIParameters {
 						"ListIdentifiers verb must receive the metadataPrefix parameter");
 			if (this.hasIdentifier())
 				throw new BadArgumentException(
-						"ListIdentifiers verb does not receive the identifier parameter");
+						"ListIdentifiers verb does not accept the identifier parameter");
 			break;
 		case LIST_RECORDS:
 			if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
@@ -201,7 +201,7 @@ public class OAIParameters {
 						"ListRecords verb must receive the metadataPrefix parameter");
 			if (this.hasIdentifier())
 				throw new BadArgumentException(
-						"ListRecords verb does not receive the identifier parameter");
+						"ListRecords verb does not accept the identifier parameter");
 			break;
 		}
 	}
