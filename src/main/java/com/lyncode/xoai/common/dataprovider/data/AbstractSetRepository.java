@@ -29,7 +29,7 @@ import com.lyncode.xoai.common.dataprovider.sets.StaticSet;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public abstract class AbstractSetRepository {
 	private static Logger log = LogManager
@@ -38,7 +38,6 @@ public abstract class AbstractSetRepository {
 	public abstract boolean supportSets();
 
 	protected abstract ListSetsResult retrieveSets(int offset, int length);
-
 	protected abstract boolean exists(String setSpec);
 
 	public boolean exists(XOAIContext context, String set) {
@@ -49,7 +48,7 @@ public abstract class AbstractSetRepository {
 
 		return exists(set);
 	}
-
+	
 	public ListSetsResult getSets(XOAIContext context, int offset, int length) {
 		List<Set> results = new ArrayList<Set>();
 		List<StaticSet> statics = context.getStaticSets();

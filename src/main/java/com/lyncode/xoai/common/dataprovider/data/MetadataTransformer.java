@@ -22,7 +22,7 @@ import com.lyncode.xoai.common.dataprovider.core.ConfigurableBundle;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class MetadataTransformer extends ConfigurableBundle {
 	private File xsltFile;

@@ -18,7 +18,7 @@ package com.lyncode.xoai.common.dataprovider.core;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class Set extends ReferenceSet {
 	private String setName;

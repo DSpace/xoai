@@ -53,9 +53,11 @@ import com.lyncode.xoai.common.dataprovider.xml.oaipmh.OAIPMHtype;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class ExportManager {
+	private final static String NAMESPACE = "http://www.openarchives.org/OAI/2.0/";
+	private final static String LOCATION = "http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd";
 	private final static QName _OAIPMH_QNAME = new QName(
 			"http://www.openarchives.org/OAI/2.0/", "OAI-PMH");
 	private static Logger log = LogManager.getLogger(ExportManager.class);
@@ -78,8 +80,10 @@ public class ExportManager {
 					.getPackage().getName());
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, NAMESPACE+" "+LOCATION);
 			JAXBElement<OAIPMHtype> type = new JAXBElement<OAIPMHtype>(
 					_OAIPMH_QNAME, OAIPMHtype.class, null, oai);
+			
 			marshaller.marshal(type, output);
 			String outS = output.toString();
 			for (String id : _values.keySet())

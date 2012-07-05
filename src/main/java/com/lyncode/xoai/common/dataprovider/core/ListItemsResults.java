@@ -22,16 +22,22 @@ import com.lyncode.xoai.common.dataprovider.data.AbstractItem;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class ListItemsResults {
 	private boolean hasMore;
 	private List<AbstractItem> results;
+	private int totalResults = -1;
 
 	public ListItemsResults(boolean hasMoreResults, List<AbstractItem> results) {
 		this.hasMore = hasMoreResults;
 		this.results = results;
 	}
+    public ListItemsResults(boolean hasMoreResults, List<AbstractItem> results, int total) {
+        this.hasMore = hasMoreResults;
+        this.results = results;
+        this.totalResults = total;
+    }
 
 	public boolean hasMore() {
 		return hasMore;
@@ -41,4 +47,11 @@ public class ListItemsResults {
 		return results;
 	}
 
+    public boolean hasTotalResults () {
+        return this.totalResults > 0;
+    }
+    
+    public int getTotal () {
+        return this.totalResults;
+    }
 }

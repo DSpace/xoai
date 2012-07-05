@@ -14,12 +14,13 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 
 package com.lyncode.xoai.common.dataprovider;
 
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -87,13 +88,12 @@ import com.lyncode.xoai.common.dataprovider.xml.xoaidescription.XOAIDescription;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class OAIDataProvider {
 	private static Logger log = LogManager.getLogger(OAIDataProvider.class);
 
 	private static final String PROTOCOL_VERSION = "2.0";
-	// private static final String XOAI_VERSION = "1.0";
 	private static final String XOAI_DESC = "XOAI: OAI-PMH Java Toolkit";
 
 	private AbstractIdentify _identify;
@@ -330,6 +330,9 @@ public class OAIDataProvider {
 		}
 		ResumptionTokenType token = _factory.createResumptionTokenType();
 		token.setValue(rtoken.toString());
+		token.setCursor(setCursor(resumptionToken.getOffset()));
+		if (result.hasTotalResults())
+		    token.setCompleteListSize(total(result.getTotalResults()));
 		listSets.setResumptionToken(token);
 
 		return listSets;
@@ -501,6 +504,9 @@ public class OAIDataProvider {
 
 		ResumptionTokenType resToken = _factory.createResumptionTokenType();
 		resToken.setValue(newToken.toString());
+		resToken.setCursor(identifiersCursor(token.getOffset()));
+		if (result.hasTotalResults())
+		    resToken.setCompleteListSize(total(result.getTotal()));
 		listIdentifiersType.setResumptionToken(resToken);
 
 		for (AbstractItemIdentifier ii : results)
@@ -510,7 +516,12 @@ public class OAIDataProvider {
 		return listIdentifiersType;
 	}
 
-	private HeaderType createHeader(OAIParameters parameters,
+	private static BigInteger total(int total)
+    {
+        return new BigInteger(total+"");
+    }
+
+    private HeaderType createHeader(OAIParameters parameters,
 			AbstractItemIdentifier ii) throws BadArgumentException,
 			CannotDisseminateRecordException, OAIException,
 			NoMetadataFormatsException {
@@ -595,6 +606,9 @@ public class OAIDataProvider {
 
 		ResumptionTokenType resToken = _factory.createResumptionTokenType();
 		resToken.setValue(newToken.toString());
+		resToken.setCursor(recordsCursor(token.getOffset()));
+		if (result.hasTotalResults())
+		    resToken.setCompleteListSize(total(result.getTotal()));
 		listRecordsType.setResumptionToken(resToken);
 
 		log.debug("Now adding records to the OAI-PMH Output");
@@ -660,4 +674,15 @@ public class OAIDataProvider {
 		}
 		return record;
 	}
+	
+	private static BigInteger setCursor (int offset) {
+	    return new BigInteger (((offset/XOAIManager.getManager().getMaxListSetsSize()) + 1)+"");
+	}
+
+    private static BigInteger recordsCursor (int offset) {
+        return new BigInteger (((offset/XOAIManager.getManager().getMaxListRecordsSize()) + 1)+"");
+    }
+    private static BigInteger identifiersCursor (int offset) {
+        return new BigInteger (((offset/XOAIManager.getManager().getMaxListIdentifiersSize()) + 1)+"");
+    }
 }

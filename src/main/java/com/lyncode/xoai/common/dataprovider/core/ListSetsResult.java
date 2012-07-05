@@ -20,16 +20,22 @@ import java.util.List;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.0.0
+ * @version 2.1.0
  */
 public class ListSetsResult {
 	private boolean hasMore;
 	private List<Set> results;
+	private int total = -1;
 
-	public ListSetsResult(boolean hasMoreResults, List<Set> results) {
-		this.hasMore = hasMoreResults;
-		this.results = results;
-	}
+    public ListSetsResult(boolean hasMoreResults, List<Set> results) {
+        this.hasMore = hasMoreResults;
+        this.results = results;
+    }
+    public ListSetsResult(boolean hasMoreResults, List<Set> results, int total) {
+        this.hasMore = hasMoreResults;
+        this.results = results;
+        this.total = total;
+    }
 
 	public boolean hasMore() {
 		return hasMore;
@@ -38,5 +44,12 @@ public class ListSetsResult {
 	public List<Set> getResults() {
 		return results;
 	}
-
+	
+	public boolean hasTotalResults () {
+	    return this.total > 0;
+	}
+	
+	public int getTotalResults () {
+	    return this.total;
+	}
 }
