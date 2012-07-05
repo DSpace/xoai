@@ -676,13 +676,13 @@ public class OAIDataProvider {
 	}
 	
 	private static BigInteger setCursor (int offset) {
-	    return new BigInteger (((offset/XOAIManager.getManager().getMaxListSetsSize()) + 1)+"");
+	    return new BigInteger (((offset/XOAIManager.getManager().getMaxListSetsSize()))+"");
 	}
 
     private static BigInteger recordsCursor (int offset) {
-        return new BigInteger (((offset/XOAIManager.getManager().getMaxListRecordsSize()) + 1)+"");
+        return new BigInteger (((offset/XOAIManager.getManager().getMaxListRecordsSize()))+"");
     }
     private static BigInteger identifiersCursor (int offset) {
-        return new BigInteger (((offset/XOAIManager.getManager().getMaxListIdentifiersSize()) + 1)+"");
+        return new BigInteger (((offset/XOAIManager.getManager().getMaxListIdentifiersSize()))+"");
     }
 }
