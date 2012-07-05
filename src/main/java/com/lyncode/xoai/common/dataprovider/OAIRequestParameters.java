@@ -38,37 +38,37 @@ public class OAIRequestParameters {
 	}
 
 	public void setVerb(String verb) {
-		log.trace("Verb parameters given: " + verb);
+		log.trace("Verb parameter given: " + verb);
 		this.verb = verb;
 	}
 
 	public void setResumptionToken(String res) {
-		log.trace("ResumptionToken parameters given: " + res);
+		log.trace("ResumptionToken parameter given: " + res);
 		this.resumptionToken = res;
 	}
 
 	public void setIdentifier(String identifier) {
-		log.trace("Identifier parameters given: " + identifier);
+		log.trace("Identifier parameter given: " + identifier);
 		this.identifier = identifier;
 	}
 
 	public void setMetadataPrefix(String metadataPrefix) {
-		log.trace("MetadataPrefix parameters given: " + metadataPrefix);
+		log.trace("MetadataPrefix parameter given: " + metadataPrefix);
 		this.metadataPrefix = metadataPrefix;
 	}
 
 	public void setSet(String set) {
-		log.trace("Set parameters given: " + set);
+		log.trace("Set parameter given: " + set);
 		this.set = set;
 	}
 
 	public void setFrom(String from) {
-		log.trace("From parameters given: " + from);
+		log.trace("From parameter given: " + from);
 		this.from = from;
 	}
 
 	public void setUntil(String until) {
-		log.trace("Until parameters given: " + until);
+		log.trace("Until parameter given: " + until);
 		this.until = until;
 	}
 
