@@ -51,8 +51,8 @@ public class ContextManager {
 			List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
 			for (BundleReference b : ct.getFilter()) {
 				if (!fm.filterExists(b.getRefid()))
-					throw new ConfigurationException("Filter refered as "
-							+ b.getRefid() + " does not exists");
+					throw new ConfigurationException("Filter referred as "
+							+ b.getRefid() + " does not exist");
 				filters.add(fm.getFilter(b.getRefid()));
 			}
 
@@ -65,8 +65,8 @@ public class ContextManager {
 			List<StaticSet> sets = new ArrayList<StaticSet>();
 			for (BundleReference b : ct.getSet()) {
 				if (!sm.setExists(b.getRefid()))
-					throw new ConfigurationException("Set refered as "
-							+ b.getRefid() + " does not exists");
+					throw new ConfigurationException("Set referred as "
+							+ b.getRefid() + " does not exist");
 				sets.add(sm.getSet(b.getRefid()));
 			}
 
@@ -74,8 +74,8 @@ public class ContextManager {
 			for (BundleReference b : ct.getFormat()) {
 				if (!mfm.formatExists(b.getRefid()))
 					throw new ConfigurationException(
-							"Metadata Format refered as " + b.getRefid()
-									+ " does not exists");
+							"Metadata Format referred as " + b.getRefid()
+									+ " does not exist");
 				formats.add(mfm.getFormat(b.getRefid()));
 			}
 

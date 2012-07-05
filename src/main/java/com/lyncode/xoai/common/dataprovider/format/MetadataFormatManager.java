@@ -59,8 +59,8 @@ public class MetadataFormatManager {
 			List<AbstractFilter> list = new ArrayList<AbstractFilter>();
 			for (BundleReference refid : f.getFilter()) {
 				if (!fm.filterExists(refid.getRefid()))
-					throw new ConfigurationException("Filter refered as "
-							+ refid.getRefid() + " does not exists");
+					throw new ConfigurationException("Filter referred as "
+							+ refid.getRefid() + " does not exist");
 				list.add(fm.getFilter(refid.getRefid()));
 			}
 			mdf.loadFilters(list);
