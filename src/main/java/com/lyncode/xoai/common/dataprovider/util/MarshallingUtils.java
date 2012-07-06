@@ -2,18 +2,22 @@ package com.lyncode.xoai.common.dataprovider.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.regex.Pattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.common.dataprovider.exceptions.MarshallingException;
+import com.lyncode.xoai.common.dataprovider.exceptions.MetadataBindException;
 import com.lyncode.xoai.common.dataprovider.xml.PrefixMapper;
+import com.lyncode.xoai.common.dataprovider.xml.xoai.Metadata;
 import com.lyncode.xoai.common.dataprovider.xml.xoaidescription.XOAIDescription;
 
 public class MarshallingUtils {
@@ -72,4 +76,31 @@ public class MarshallingUtils {
 		return marshalWithoutXMLHeader(XOAIDescription.class.getPackage()
 				.getName(), xml, new PrefixMapper());
 	}
+	
+	public static Metadata readMetadata (InputStream in) throws MetadataBindException {
+        try
+        {
+            JAXBContext context = JAXBContext.newInstance(Metadata.class
+                    .getPackage().getName());
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return (Metadata) unmarshaller.unmarshal(in);
+        }
+        catch (JAXBException e)
+        {
+            throw new MetadataBindException(e);
+        }
+    }
+
+    public static void writeMetadata (OutputStream out, Metadata meta) throws MetadataBindException {
+        try
+        {
+            MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
+                    .getPackage().getName(), meta, new PrefixMapper(),
+                    out);
+        }
+        catch (MarshallingException e)
+        {
+            throw new MetadataBindException(e);
+        }
+    }
 }

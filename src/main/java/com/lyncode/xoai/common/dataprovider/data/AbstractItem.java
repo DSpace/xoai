@@ -18,7 +18,7 @@ package com.lyncode.xoai.common.dataprovider.data;
 
 import java.util.List;
 
-import com.lyncode.xoai.common.dataprovider.xml.xoai.Metadata;
+import com.lyncode.xoai.common.dataprovider.core.ItemMetadata;
 
 /**
  * @author DSpace @ Lyncode
@@ -36,5 +36,5 @@ public abstract class AbstractItem extends AbstractItemIdentifier {
 		return (!this.getAbout().isEmpty());
 	}
 
-	public abstract Metadata getMetadata();
+	public abstract ItemMetadata getMetadata();
 }

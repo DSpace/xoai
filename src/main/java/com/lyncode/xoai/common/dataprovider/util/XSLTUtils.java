@@ -48,17 +48,24 @@ public class XSLTUtils {
 			// Final result (into String)
 			ByteArrayOutputStream result = new ByteArrayOutputStream();
 
-			// Marshalling all the metadata from XOAI Binding
-			log.debug("Start Marshalling");
-			MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
-					.getPackage().getName(), item.getMetadata(),
-					new PrefixMapper(), mdOUT);
+			byte[] array = null;
+			if (item.getMetadata().isCompiled()) {
+			    array = item.getMetadata().getCompiled().replaceAll(
+                        Pattern.quote("<?") + "xml.*" + Pattern.quote("?>"),
+                        "").getBytes();
+			} else {
+	            // Marshalling all the metadata from XOAI Binding
+	            log.debug("Start Marshalling");
+    			MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
+    					.getPackage().getName(), item.getMetadata(),
+    					new PrefixMapper(), mdOUT);
+    			array = mdOUT.toByteArray();
+			}
 			log.debug("Metadata Object marshalled into one end of the Metadata Pipe Stream");
 			// Closing Output
 			mdOUT.close();
 			// Transforming Metadata
-			ByteArrayInputStream mdIN = new ByteArrayInputStream(
-					mdOUT.toByteArray());
+			ByteArrayInputStream mdIN = new ByteArrayInputStream(array);
 			log.debug("Start Transform (Metadata)");
 			metadataTransformer.transform(new StreamSource(mdIN),
 					new StreamResult(schemaOUT));
@@ -106,17 +113,26 @@ public class XSLTUtils {
 			// Final result (into String)
 			ByteArrayOutputStream result = new ByteArrayOutputStream();
 
-			log.debug("Start Marshalling");
-			MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
-					.getPackage().getName(), item.getMetadata(),
-					new PrefixMapper(), schemaOUT);
+            byte[] array = null;
+            if (item.getMetadata().isCompiled()) {
+                array = item.getMetadata().getCompiled().replaceAll(
+                        Pattern.quote("<?") + "xml.*" + Pattern.quote("?>"),
+                        "").getBytes();
+            } else {
+                // Marshalling all the metadata from XOAI Binding
+                log.debug("Start Marshalling");
+                MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
+                        .getPackage().getName(), item.getMetadata(),
+                        new PrefixMapper(), schemaOUT);
+                array = schemaOUT.toByteArray();
+            }
 			log.debug("Metadata Object marshalled into one end of the Schema Pipe Stream");
 			// Closing Output
 			schemaOUT.close();
 
 			// Transforming Schema Format
 			ByteArrayInputStream schemaIN = new ByteArrayInputStream(
-					schemaOUT.toByteArray());
+					array);
 			log.debug("Start Transform (Schema)");
 			schemaTransformer.transform(new StreamSource(schemaIN),
 					new StreamResult(result));
