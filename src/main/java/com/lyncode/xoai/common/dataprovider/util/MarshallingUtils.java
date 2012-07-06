@@ -28,7 +28,7 @@ public class MarshallingUtils {
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.setProperty(
-					"com.sun.xml.internal.bind.namespacePrefixMapper", mapper);
+					"com.sun.xml.bind.namespacePrefixMapper", mapper);
 			marshaller.marshal(obj, output);
 			log.debug("Giving result as string");
 			return output
@@ -50,7 +50,7 @@ public class MarshallingUtils {
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			marshaller.setProperty(
-					"com.sun.xml.internal.bind.namespacePrefixMapper", mapper);
+					"com.sun.xml.bind.namespacePrefixMapper", mapper);
 			marshaller.marshal(obj, output);
 			log.debug("Writing result into output stream");
 			log.debug("Result: " + output.toString());

@@ -1,86 +1,92 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
-  
-  <groupId>com.lyncode</groupId>
-  <artifactId>xoai-common</artifactId>
-  <version>2.1.0</version>
-  
-  <name>XOAI : OAI-PMH Java Toolkit</name>
-  <url>http://www.lyncode.com</url>
-  
-  <licenses>
-  	<license>
-  		<name>Apache 2</name>
-  		<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-  	</license>
-  </licenses>
-  
-  <scm>
-    <connection>scm:git:git@github.com:git:lyncode/xoai-common.git</connection>
-    <url>git://github.com/lyncode/xoai-common.git</url>
-  </scm>
-  
-  <build>
-  	<plugins>
-  		<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-source-plugin</artifactId>
-  <executions>
-    <execution>
-      <id>attach-sources</id>
-      <goals>
-        <goal>jar</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-javadoc-plugin</artifactId>
-  <executions>
-    <execution>
-      <id>attach-javadocs</id>
-      <goals>
-        <goal>jar</goal>
-      </goals>
-    </execution>
-  </executions>
-</plugin>
-  	</plugins>
-  </build>
-  
-  <dependencies>
-  	<dependency>
-  		<groupId>log4j</groupId>
-  		<artifactId>log4j</artifactId>
-  		<version>1.2.14</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>commons-codec</groupId>
-  		<artifactId>commons-codec</artifactId>
-  		<version>1.3</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>xalan</groupId>
-  		<artifactId>xalan</artifactId>
-  		<version>2.7.0</version>
-  	</dependency>
-  </dependencies>
-  
-  
-  <developers>
-  	<developer>
-  		<name>DSpace @ Lyncode</name>
-  		<email>dspace@lyncode.com</email>
-  		<organization>Lyncode</organization>
-  		<organizationUrl>http://www.lyncode.com</organizationUrl>
-  	</developer>
-  </developers>
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+	<groupId>com.lyncode</groupId>
+	<artifactId>xoai-common</artifactId>
+	<version>2.1.0</version>
+
+	<name>XOAI : OAI-PMH Java Toolkit</name>
+	<url>http://www.lyncode.com</url>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git@github.com:git:lyncode/xoai-common.git</connection>
+		<url>git://github.com/lyncode/xoai-common.git</url>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.5</version>
+		</dependency>
+	</dependencies>
+
+
+	<developers>
+		<developer>
+			<name>DSpace @ Lyncode</name>
+			<email>dspace@lyncode.com</email>
+			<organization>Lyncode</organization>
+			<organizationUrl>http://www.lyncode.com</organizationUrl>
+		</developer>
+	</developers>
+
 </project>

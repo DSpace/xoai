@@ -19,7 +19,7 @@ package com.lyncode.xoai.common.dataprovider.xml;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.sun.xml.internal.bind.marshaller.NamespacePrefixMapper;
+import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * @author DSpace @ Lyncode
