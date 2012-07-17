@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.lyncode.com/HarvesterConfiguration" xmlns:tns="http://www.lyncode.com/HarvesterConfiguration" elementFormDefault="qualified">
+	<element name="Configuration">
+		<complexType>
+			<attribute name="resumptionInterval" type="int" />
+		</complexType>
+	</element>
+
+</schema>
