@@ -31,7 +31,7 @@ import com.lyncode.xoai.dataprovider.filter.FilterScope;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 public abstract class AbstractItemRepository {
 	// private static Logger log =

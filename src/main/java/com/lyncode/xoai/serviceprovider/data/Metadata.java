@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 
 
@@ -27,7 +27,7 @@ import java.io.Serializable;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 public class Metadata implements Serializable {
     private static final long serialVersionUID = 638219179011570764L;

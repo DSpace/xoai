@@ -29,7 +29,7 @@ import com.lyncode.xoai.dataprovider.sets.StaticSet;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 public abstract class AbstractSetRepository {
 	private static Logger log = LogManager

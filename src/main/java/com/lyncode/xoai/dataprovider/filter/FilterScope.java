@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.filter;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 public enum FilterScope {
 	Context, MetadataFormat, Set, Query

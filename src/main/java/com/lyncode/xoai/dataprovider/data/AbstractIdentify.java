@@ -24,7 +24,7 @@ import com.lyncode.xoai.dataprovider.core.Granularity;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 public abstract class AbstractIdentify {
 	/**

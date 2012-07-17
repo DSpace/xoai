@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
@@ -27,7 +27,7 @@ import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.1.0
+ * @version 2.2.0
  */
 
 public class ListSets extends AbstractVerb implements Iterable<Set>
