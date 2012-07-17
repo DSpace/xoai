@@ -1,12 +1,39 @@
-XOAI Common 2.0.0
-=================
+# XOAI Common 2.1.0
 
-> ## What is XOAI?
-> 
-> XOAI is an OAI-PMH Java Toolkit developed by Lyncode
+What is XOAI?
 
-XOAI Common is a java library containing common classes to 
-implement OAI-PMH data providers.
+XOAI is an OAI-PMH Java Toolkit developed by Lyncode. XOAI contais common Java classes allowing to easily 
+implement OAI-PMH data and service providers.
 
-Support for service providers comming soon.
+- - - 
+
+Service Provider
+-----------------
+
+	package com.lyncode.test;
+	
+	import com.lyncode.xoai.common.serviceprovider.HarvesterManager;
+	import com.lyncode.xoai.common.serviceprovider.configuration.Configuration;
+	import com.lyncode.xoai.common.serviceprovider.data.Record;
+	
+	public class App 
+	{
+	    public static void main( String[] args )
+	    {
+	        Configuration config = new Configuration();
+	        config.setResumptionInterval(1000); // 1 second
+	        
+	        String baseUrl = "http://lyncode-dev.dtdns.net/xoai/request";
+	        String metadataPrefix = "oai_dc";
+	        
+	        HarvesterManager harvester = new HarvesterManager(config, baseUrl);
+	        
+	        for (Record record : harvester.listRecords(metadataPrefix)) {
+	            System.out.println(record.getHeader().getIdentifier());
+	        }
+	        
+	    }
+	}
+
+
 
