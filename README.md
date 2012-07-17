@@ -1,4 +1,4 @@
-# XOAI Common 2.2.0
+# XOAI 2.2.0
 
 What is XOAI?
 
