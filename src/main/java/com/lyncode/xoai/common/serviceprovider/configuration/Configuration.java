@@ -1,3 +1,4 @@
+//
 /**
  * Copyright 2012 Lyncode
  *
@@ -17,9 +18,10 @@
  * @version 2.1.0
  */
 
-package com.lyncode.xoai.common.serviceprovider.verbs;
 
-import com.lyncode.xoai.common.serviceprovider.configuration.Configuration;
+package com.lyncode.xoai.common.serviceprovider.configuration;
+
+
 
 
 
@@ -27,23 +29,16 @@ import com.lyncode.xoai.common.serviceprovider.configuration.Configuration;
  * @author DSpace @ Lyncode
  * @version 2.1.0
  */
-public abstract class AbstractVerb
-{
-    private String baseUrl;
-    private Configuration configuration;
-    
-    public AbstractVerb (Configuration config, String baseUrl) {
-        this.baseUrl = baseUrl;
+public class Configuration {
+
+    protected Integer resumptionInterval;
+
+    public Integer getResumptionInterval() {
+        return resumptionInterval;
     }
     
-    protected String getBaseUrl () {
-        return this.baseUrl;
+    public void setResumptionInterval(Integer value) {
+        this.resumptionInterval = value;
     }
 
-    public Configuration getConfiguration()
-    {
-        return configuration;
-    }
-    
-    
 }
