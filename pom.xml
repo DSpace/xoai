@@ -9,8 +9,8 @@
 	</parent>
 
 	<groupId>com.lyncode</groupId>
-	<artifactId>xoai-common</artifactId>
-	<version>2.1.0</version>
+	<artifactId>xoai</artifactId>
+	<version>2.2.0</version>
 
 	<name>XOAI : OAI-PMH Java Toolkit</name>
 	<url>http://www.lyncode.com</url>
@@ -23,8 +23,8 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git@github.com:git:lyncode/xoai-common.git</connection>
-		<url>git://github.com/lyncode/xoai-common.git</url>
+		<connection>scm:git:git@github.com:git:lyncode/xoai.git</connection>
+		<url>git://github.com/lyncode/xoai-.git</url>
 	</scm>
 
 	<build>

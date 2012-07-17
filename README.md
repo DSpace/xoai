@@ -12,9 +12,9 @@ Service Provider
 
 	package com.lyncode.test;
 	
-	import com.lyncode.xoai.common.serviceprovider.HarvesterManager;
-	import com.lyncode.xoai.common.serviceprovider.configuration.Configuration;
-	import com.lyncode.xoai.common.serviceprovider.data.Record;
+	import com.lyncode.xoai.serviceprovider.HarvesterManager;
+	import com.lyncode.xoai.serviceprovider.configuration.Configuration;
+	import com.lyncode.xoai.serviceprovider.data.Record;
 	
 	public class App 
 	{
