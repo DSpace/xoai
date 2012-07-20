@@ -35,6 +35,16 @@ Service Provider
 	    }
 	}
 
+Maven
+-----
+
+XOAI could be integrated with maven support.
+
+	<dependency>
+	    <groupId>com.lyncode</groupId>
+	    <artifactId>xoai</artifactId>
+	    <version>2.2.0</version>
+	</dependency>
 
 License
 -------
