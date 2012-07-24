@@ -6,24 +6,23 @@ import com.lyncode.xoai.serviceprovider.exceptions.HarvestException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.verbs.Identify;
 
-
 public class SimpleIdentify {
-	public static void main (String... args) {
+	public static void main(String... args) {
 		Configuration config = new Configuration();
-        config.setResumptionInterval(1000); // 1 second
+		config.setResumptionInterval(1000); // 1 second
 
-        String baseUrl = "http://localhost:8080/xoai/request";
+		String baseUrl = "http://localhost:8080/xoai/request";
 
-        HarvesterManager harvester = new HarvesterManager(config, baseUrl);
-        
-        try {
-            Identify id = harvester.identify();
-            System.out.println(id.getRepositoryName());
+		HarvesterManager harvester = new HarvesterManager(config, baseUrl);
+
+		try {
+			Identify id = harvester.identify();
+			System.out.println(id.getRepositoryName());
 		} catch (HarvestException e) {
 			System.out.println(e.getClass().getName());
 			System.out.println(e.getMessage());
 		} catch (InternalHarvestException e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 }
