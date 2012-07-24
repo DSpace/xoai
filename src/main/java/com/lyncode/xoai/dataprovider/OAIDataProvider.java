@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 
 package com.lyncode.xoai.dataprovider;
@@ -88,7 +88,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public class OAIDataProvider {
 	private static Logger log = LogManager.getLogger(OAIDataProvider.class);

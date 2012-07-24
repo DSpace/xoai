@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
@@ -25,7 +25,7 @@ import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public abstract class AbstractVerb
 {

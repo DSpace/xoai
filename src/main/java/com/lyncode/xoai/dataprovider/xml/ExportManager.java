@@ -53,7 +53,7 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHtype;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public class ExportManager {
 	private final static String NAMESPACE = "http://www.openarchives.org/OAI/2.0/";

@@ -22,7 +22,7 @@ import com.lyncode.xoai.dataprovider.core.ItemMetadata;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public abstract class AbstractItem extends AbstractItemIdentifier {
 	/**

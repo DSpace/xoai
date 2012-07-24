@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 
 package com.lyncode.xoai.serviceprovider.exceptions;
@@ -22,7 +22,7 @@ package com.lyncode.xoai.serviceprovider.exceptions;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public class HarvestException extends Exception
 {

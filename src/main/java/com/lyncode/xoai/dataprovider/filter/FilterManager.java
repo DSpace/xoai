@@ -26,7 +26,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public class FilterManager {
 	// private static Logger log = LogManager.getLogger(FilterManager.class);

@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
@@ -33,7 +33,7 @@ import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public class ListMetadataFormats extends AbstractVerb implements Iterable<MetadataFormat>
 {

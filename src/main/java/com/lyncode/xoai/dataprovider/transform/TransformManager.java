@@ -27,7 +27,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Transformers.T
 
 /**
  * @author DSpace @ Lyncode
- * @version 2.2.0
+ * @version 2.2.1
  */
 public class TransformManager {
 	// private static Logger log = LogManager.getLogger(TransformManager.class);
@@ -36,11 +36,13 @@ public class TransformManager {
 	public TransformManager(String baseDir, Transformers config)
 			throws ConfigurationException {
 		_contexts = new HashMap<String, MetadataTransformer>();
-		for (Transformer t : config.getTransformer()) {
-			String xsltFilepath = (baseDir.endsWith(File.separator) ? baseDir
-					: baseDir + File.separator) + t.getXSLT();
-			File xsltFile = new File(xsltFilepath);
-			_contexts.put(t.getId(), new MetadataTransformer(xsltFile));
+		if (config != null) {
+			for (Transformer t : config.getTransformer()) {
+				String xsltFilepath = (baseDir.endsWith(File.separator) ? baseDir
+						: baseDir + File.separator) + t.getXSLT();
+				File xsltFile = new File(xsltFilepath);
+				_contexts.put(t.getId(), new MetadataTransformer(xsltFile));
+			}
 		}
 	}
 
