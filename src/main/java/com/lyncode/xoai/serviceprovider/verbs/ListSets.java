@@ -19,10 +19,7 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import java.util.Iterator;
-
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
-import com.lyncode.xoai.serviceprovider.data.Set;
 import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
 
 /**
@@ -30,7 +27,7 @@ import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
  * @version 2.2.1
  */
 
-public class ListSets extends AbstractVerb implements Iterable<Set>
+public class ListSets extends AbstractVerb
 {
 
     public ListSets(Configuration config, String baseUrl)
@@ -38,8 +35,7 @@ public class ListSets extends AbstractVerb implements Iterable<Set>
         super(config, baseUrl);
     }
 
-    @Override
-    public Iterator<Set> iterator()
+    public SetIterator iterator()
     {
         return new SetIterator(super.getConfiguration(), super.getBaseUrl());
     }

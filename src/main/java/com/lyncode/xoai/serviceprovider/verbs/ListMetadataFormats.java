@@ -20,13 +20,11 @@
 package com.lyncode.xoai.serviceprovider.verbs;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
-import com.lyncode.xoai.serviceprovider.data.MetadataFormat;
 import com.lyncode.xoai.serviceprovider.iterators.MetadataFormatIterator;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 
@@ -35,7 +33,7 @@ import com.lyncode.xoai.serviceprovider.util.URLEncoder;
  * @author DSpace @ Lyncode
  * @version 2.2.1
  */
-public class ListMetadataFormats extends AbstractVerb implements Iterable<MetadataFormat>
+public class ListMetadataFormats extends AbstractVerb
 {
     private ExtraParameters parameters;
 
@@ -50,8 +48,7 @@ public class ListMetadataFormats extends AbstractVerb implements Iterable<Metada
         parameters = extra;
     }
 
-    @Override
-    public Iterator<MetadataFormat> iterator()
+    public MetadataFormatIterator iterator()
     {
         return new MetadataFormatIterator(super.getConfiguration(), super.getBaseUrl(), parameters);
     }

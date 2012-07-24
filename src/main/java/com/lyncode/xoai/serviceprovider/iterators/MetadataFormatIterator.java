@@ -19,10 +19,12 @@
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,11 +36,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.MetadataFormat;
-import com.lyncode.xoai.serviceprovider.exceptions.HarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
+import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats.ExtraParameters;
@@ -48,7 +53,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats.ExtraParameter
  * @author DSpace @ Lyncode
  * @version 2.2.1
  */
-public class MetadataFormatIterator implements Iterator<MetadataFormat>
+public class MetadataFormatIterator
 {
     private static Logger log = LogManager.getLogger(MetadataFormatIterator.class);
     
@@ -75,7 +80,7 @@ public class MetadataFormatIterator implements Iterator<MetadataFormat>
         
     }
     
-    private void harvest () throws HarvestException {
+    private void harvest () throws InternalHarvestException, NoMetadataFormatsException, IdDoesNotExistException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
         log.info("Harvesting: "+url);
@@ -98,7 +103,13 @@ public class MetadataFormatIterator implements Iterator<MetadataFormat>
                 for (org.apache.http.Header h : headers) {
                     if (h.getName().equals("Retry-After")) {
                         String retry_time = h.getValue();
-                        Thread.sleep(Integer.parseInt(retry_time)*1000);
+                        try {
+							Thread.sleep(Integer.parseInt(retry_time)*1000);
+						} catch (NumberFormatException e) {
+							log.warn("Cannot parse "+retry_time+" to Integer", e);
+						} catch (InterruptedException e) {
+							log.debug(e.getMessage(), e);
+						}
                         httpclient.getConnectionManager().shutdown();
                         httpclient = new DefaultHttpClient();
                         response = httpclient.execute(httpget);
@@ -109,21 +120,28 @@ public class MetadataFormatIterator implements Iterator<MetadataFormat>
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            Document doc = XMLUtils.parseRecords(instream);
+            Document doc = XMLUtils.parseDocument(instream);
+            
+            XMLUtils.checkListMetadataFormats(doc);
+            
+            
             NodeList listRecords = doc.getElementsByTagName("metadataFormat");
             for (int i = 0;i<listRecords.getLength();i++)
                 _queue.add(XMLUtils.getMetadataFormat(listRecords.item(i)));
             
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-            throw new HarvestException(e);
-        }
+            throw new InternalHarvestException(e);
+        } catch (ParserConfigurationException e) {
+            throw new InternalHarvestException(e);
+		} catch (SAXException e) {
+            throw new InternalHarvestException(e);
+		}
         
     }
     
-    @Override
-    public boolean hasNext()
+    public boolean hasNext() throws NoMetadataFormatsException, IdDoesNotExistException
     {
         if (_queue == null) {
             if (_queue == null) _queue = new LinkedList<MetadataFormat>();
@@ -132,7 +150,7 @@ public class MetadataFormatIterator implements Iterator<MetadataFormat>
             {
                 this.harvest();
             }
-            catch (HarvestException e)
+            catch (InternalHarvestException e)
             {
                 log.error(e.getMessage(), e);
             }
@@ -141,16 +159,10 @@ public class MetadataFormatIterator implements Iterator<MetadataFormat>
         return (_queue.size() > 0);
     }
 
-    @Override
     public MetadataFormat next()
     {
         return _queue.poll();
     }
 
-    @Override
-    public void remove()
-    {
-        // No need to implement
-    }
 
 }

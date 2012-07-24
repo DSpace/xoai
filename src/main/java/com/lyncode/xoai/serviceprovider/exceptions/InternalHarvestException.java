@@ -12,38 +12,39 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * @author DSpace @ Lyncode
+ * @version 2.2.1
  */
 
-package com.lyncode.xoai.dataprovider.exceptions;
+package com.lyncode.xoai.serviceprovider.exceptions;
 
-import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 
 /**
  * @author DSpace @ Lyncode
  * @version 2.2.1
  */
-public class BadArgumentException extends InternalHarvestException {
+public class InternalHarvestException extends Exception
+{
+    private static final long serialVersionUID = -1824340625967423555L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6436751364163509217L;
+    public InternalHarvestException()
+    {
+    }
 
-	/**
-	 * Creates a new instance of <code>BadArgumentException</code> without
-	 * detail message.
-	 */
-	public BadArgumentException() {
-	}
+    public InternalHarvestException(String arg0)
+    {
+        super(arg0);
+    }
 
-	/**
-	 * Constructs an instance of <code>BadArgumentException</code> with the
-	 * specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public BadArgumentException(String msg) {
-		super(msg);
-	}
+    public InternalHarvestException(Throwable arg0)
+    {
+        super(arg0);
+    }
+
+    public InternalHarvestException(String arg0, Throwable arg1)
+    {
+        super(arg0, arg1);
+    }
+
 }

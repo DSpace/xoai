@@ -19,10 +19,12 @@
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,11 +36,16 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.Record;
-import com.lyncode.xoai.serviceprovider.exceptions.HarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.BadResumptionTokenException;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
+import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.NoRecordsMatchException;
+import com.lyncode.xoai.serviceprovider.exceptions.NoSetHierarchyException;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 import com.lyncode.xoai.serviceprovider.verbs.ListRecords.ExtraParameters;
@@ -48,7 +55,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListRecords.ExtraParameters;
  * @author DSpace @ Lyncode
  * @version 2.2.1
  */
-public class RecordIterator implements Iterator<Record>
+public class RecordIterator
 {
     private static Logger log = LogManager.getLogger(RecordIterator.class);
     
@@ -93,7 +100,7 @@ public class RecordIterator implements Iterator<Record>
         }
     }
     
-    private void harvest () throws HarvestException {
+    private void harvest () throws NoRecordsMatchException, BadResumptionTokenException, CannotDisseminateFormatException, NoSetHierarchyException, InternalHarvestException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
         log.info("Harvesting: "+url);
@@ -116,7 +123,13 @@ public class RecordIterator implements Iterator<Record>
                 for (org.apache.http.Header h : headers) {
                     if (h.getName().equals("Retry-After")) {
                         String retry_time = h.getValue();
-                        Thread.sleep(Integer.parseInt(retry_time)*1000);
+                        try {
+							Thread.sleep(Integer.parseInt(retry_time)*1000);
+						} catch (NumberFormatException e) {
+							log.warn("Cannot parse "+retry_time+" to Integer", e);
+						} catch (InterruptedException e) {
+							log.debug(e.getMessage(), e);
+						}
                         httpclient.getConnectionManager().shutdown();
                         httpclient = new DefaultHttpClient();
                         response = httpclient.execute(httpget);
@@ -127,23 +140,28 @@ public class RecordIterator implements Iterator<Record>
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            Document doc = XMLUtils.parseRecords(instream);
+            Document doc = XMLUtils.parseDocument(instream);
+            
+            XMLUtils.checkListRecords(doc);
+            
             NodeList listRecords = doc.getElementsByTagName("record");
             for (int i = 0;i<listRecords.getLength();i++)
                 _queue.add(XMLUtils.getRecord(listRecords.item(i)));
             
             resumption = XMLUtils.getText(doc.getElementsByTagName("resumptionToken"));
-            System.out.println("RESUMPTION: "+resumption);
+            log.debug("RESUMPTION: "+resumption);
         }
-        catch (Exception e)
-        {
-            throw new HarvestException(e);
-        }
+        catch (IOException e) {
+            throw new InternalHarvestException(e);
+        } catch (ParserConfigurationException e) {
+            throw new InternalHarvestException(e);
+		} catch (SAXException e) {
+            throw new InternalHarvestException(e);
+		}
         
     }
     
-    @Override
-    public boolean hasNext()
+    public boolean hasNext() throws NoRecordsMatchException, BadResumptionTokenException, CannotDisseminateFormatException, NoSetHierarchyException 
     {
         if (_queue == null || (_queue.size() == 0 && resumption != null && !resumption.trim().equals(""))) {
             if (_queue == null) _queue = new LinkedList<Record>();
@@ -152,7 +170,7 @@ public class RecordIterator implements Iterator<Record>
             {
                 this.harvest();
             }
-            catch (HarvestException e)
+            catch (InternalHarvestException e)
             {
                 log.error(e.getMessage(), e);
             }
@@ -161,17 +179,9 @@ public class RecordIterator implements Iterator<Record>
         return (_queue.size() > 0);
     }
 
-    @Override
     public Record next()
     {
         return _queue.poll();
     }
-
-    @Override
-    public void remove()
-    {
-        // No need to implement
-    }
-
     
 }

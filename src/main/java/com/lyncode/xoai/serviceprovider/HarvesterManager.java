@@ -20,7 +20,10 @@
 package com.lyncode.xoai.serviceprovider;
 
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
-import com.lyncode.xoai.serviceprovider.exceptions.HarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
+import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
+import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.verbs.GetRecord;
 import com.lyncode.xoai.serviceprovider.verbs.Identify;
 import com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers;
@@ -76,11 +79,11 @@ public class HarvesterManager
         return new ListSets(config, baseUrl);
     }
     
-    public GetRecord getRecord (String identifier, String metadataPrefix) throws HarvestException {
+    public GetRecord getRecord (String identifier, String metadataPrefix) throws InternalHarvestException, BadArgumentException, CannotDisseminateFormatException, IdDoesNotExistException {
         return new GetRecord(config, baseUrl, identifier, metadataPrefix);
     }
     
-    public Identify identify () throws HarvestException {
+    public Identify identify () throws InternalHarvestException, BadArgumentException {
         return new Identify(config, baseUrl);
     }
 }

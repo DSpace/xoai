@@ -44,6 +44,14 @@ import com.lyncode.xoai.serviceprovider.data.Metadata;
 import com.lyncode.xoai.serviceprovider.data.MetadataFormat;
 import com.lyncode.xoai.serviceprovider.data.Record;
 import com.lyncode.xoai.serviceprovider.data.Set;
+import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.serviceprovider.exceptions.BadResumptionTokenException;
+import com.lyncode.xoai.serviceprovider.exceptions.BadVerbException;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
+import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
+import com.lyncode.xoai.serviceprovider.exceptions.NoMetadataFormatsException;
+import com.lyncode.xoai.serviceprovider.exceptions.NoRecordsMatchException;
+import com.lyncode.xoai.serviceprovider.exceptions.NoSetHierarchyException;
 
 
 /**
@@ -52,7 +60,7 @@ import com.lyncode.xoai.serviceprovider.data.Set;
  */
 public class XMLUtils
 {
-    public static Document parseRecords (InputStream input) throws ParserConfigurationException, SAXException, IOException {
+    public static Document parseDocument (InputStream input) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(input);
@@ -166,4 +174,110 @@ public class XMLUtils
         }
         return format;
     }
+
+	public static void check(Document doc) throws NoRecordsMatchException, BadArgumentException, BadResumptionTokenException, BadVerbException, CannotDisseminateFormatException, IdDoesNotExistException, NoMetadataFormatsException, NoSetHierarchyException {
+		NodeList node = doc.getElementsByTagName("error");
+		if (node.getLength() > 0) {
+			Node n = node.item(0);
+			String code = n.getAttributes().getNamedItem("code").getTextContent();
+			String description = getText(n);
+			
+			if ("noRecordsMatch".equals(code))
+				throw new NoRecordsMatchException(description);
+			else if ("badArgument".equals(code))
+				throw new BadArgumentException(description);
+			else if ("badResumptionToken".equals(code))
+				throw new BadResumptionTokenException(description);
+			else if ("badVerb".equals(code))
+				throw new BadVerbException(description);
+			else if ("cannotDisseminateFormat".equals(code))
+				throw new CannotDisseminateFormatException(description);
+			else if ("idDoesNotExist".equals(code))
+				throw new IdDoesNotExistException(description);
+			else if ("noMetadataFormats".equals(code))
+				throw new NoMetadataFormatsException(description);
+			else if ("noSetHierarchy".equals(code))
+				throw new NoSetHierarchyException(description);
+		}
+	}
+	
+	public static void checkListRecords(Document doc) throws NoRecordsMatchException, BadResumptionTokenException, CannotDisseminateFormatException, NoSetHierarchyException {
+		NodeList node = doc.getElementsByTagName("error");
+		if (node.getLength() > 0) {
+			Node n = node.item(0);
+			String code = n.getAttributes().getNamedItem("code").getTextContent();
+			String description = getText(n);
+			
+			if ("noRecordsMatch".equals(code))
+				throw new NoRecordsMatchException(description);
+			else if ("badResumptionToken".equals(code))
+				throw new BadResumptionTokenException(description);
+			else if ("cannotDisseminateFormat".equals(code))
+				throw new CannotDisseminateFormatException(description);
+			else if ("noSetHierarchy".equals(code))
+				throw new NoSetHierarchyException(description);
+		}
+	}
+
+	public static void checkListSets(Document doc) throws NoRecordsMatchException, BadResumptionTokenException, NoSetHierarchyException {
+		NodeList node = doc.getElementsByTagName("error");
+		if (node.getLength() > 0) {
+			Node n = node.item(0);
+			String code = n.getAttributes().getNamedItem("code").getTextContent();
+			String description = getText(n);
+			
+			if ("noRecordsMatch".equals(code))
+				throw new NoRecordsMatchException(description);
+			else if ("badResumptionToken".equals(code))
+				throw new BadResumptionTokenException(description);
+			else if ("noSetHierarchy".equals(code))
+				throw new NoSetHierarchyException(description);
+		}
+	}
+
+	public static void checkListMetadataFormats(Document doc) throws IdDoesNotExistException, NoMetadataFormatsException {
+		NodeList node = doc.getElementsByTagName("error");
+		if (node.getLength() > 0) {
+			Node n = node.item(0);
+			String code = n.getAttributes().getNamedItem("code").getTextContent();
+			String description = getText(n);
+			
+			if ("idDoesNotExist".equals(code))
+				throw new IdDoesNotExistException(description);
+			else if ("noMetadataFormats".equals(code))
+				throw new NoMetadataFormatsException(description);
+		}
+	}
+
+	public static void checkListIdentifiers(Document doc) throws NoRecordsMatchException, BadResumptionTokenException, CannotDisseminateFormatException, NoSetHierarchyException {
+		NodeList node = doc.getElementsByTagName("error");
+		if (node.getLength() > 0) {
+			Node n = node.item(0);
+			String code = n.getAttributes().getNamedItem("code").getTextContent();
+			String description = getText(n);
+			
+			if ("noRecordsMatch".equals(code))
+				throw new NoRecordsMatchException(description);
+			else if ("badResumptionToken".equals(code))
+				throw new BadResumptionTokenException(description);
+			else if ("cannotDisseminateFormat".equals(code))
+				throw new CannotDisseminateFormatException(description);
+			else if ("noSetHierarchy".equals(code))
+				throw new NoSetHierarchyException(description);
+		}
+	}
+
+	public static void checkGetRecord(Document doc) throws CannotDisseminateFormatException, IdDoesNotExistException {
+		NodeList node = doc.getElementsByTagName("error");
+		if (node.getLength() > 0) {
+			Node n = node.item(0);
+			String code = n.getAttributes().getNamedItem("code").getTextContent();
+			String description = getText(n);
+			
+			if ("cannotDisseminateFormat".equals(code))
+				throw new CannotDisseminateFormatException(description);
+			else if ("idDoesNotExist".equals(code))
+				throw new IdDoesNotExistException(description);
+		}
+	}
 }

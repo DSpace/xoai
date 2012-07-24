@@ -21,13 +21,11 @@ package com.lyncode.xoai.serviceprovider.verbs;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
-import com.lyncode.xoai.serviceprovider.data.Identifier;
 import com.lyncode.xoai.serviceprovider.iterators.IdentifierIterator;
 import com.lyncode.xoai.serviceprovider.util.DateUtils;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
@@ -37,7 +35,7 @@ import com.lyncode.xoai.serviceprovider.util.URLEncoder;
  * @author DSpace @ Lyncode
  * @version 2.2.1
  */
-public class ListIdentifiers extends AbstractVerb implements Iterable<Identifier>
+public class ListIdentifiers extends AbstractVerb
 {
     private String metadataPrefix;
     private ExtraParameters extra;
@@ -57,8 +55,7 @@ public class ListIdentifiers extends AbstractVerb implements Iterable<Identifier
         this.extra = extra;
     }
 
-    @Override
-    public Iterator<Identifier> iterator()
+    public IdentifierIterator iterator()
     {
         return new IdentifierIterator(super.getConfiguration(), super.getBaseUrl(), metadataPrefix, extra);
     }

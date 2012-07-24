@@ -19,7 +19,10 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
+import java.io.IOException;
 import java.io.InputStream;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,12 +34,15 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.Header;
 import com.lyncode.xoai.serviceprovider.data.Metadata;
-import com.lyncode.xoai.serviceprovider.exceptions.HarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
+import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
+import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 
@@ -54,7 +60,7 @@ public class GetRecord extends AbstractVerb
     private Header header;
     private Metadata metadata;
     
-    public GetRecord(Configuration config, String baseUrl, String identifier, String metadataPrefix) throws HarvestException
+    public GetRecord(Configuration config, String baseUrl, String identifier, String metadataPrefix) throws InternalHarvestException, CannotDisseminateFormatException, IdDoesNotExistException
     {
         super(config, baseUrl);
         this.identifier = identifier;
@@ -68,7 +74,7 @@ public class GetRecord extends AbstractVerb
         return (super.getBaseUrl() + "?verb=GetRecord" + URLEncoder.SEPARATOR + "metadataPrefix="+metadataPrefix + URLEncoder.SEPARATOR + "identifier=" + identifier);
     }
     
-    private void harvest () throws HarvestException {
+    private void harvest () throws InternalHarvestException, CannotDisseminateFormatException, IdDoesNotExistException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
         log.info("Harvesting: "+url);
@@ -91,7 +97,13 @@ public class GetRecord extends AbstractVerb
                 for (org.apache.http.Header h : headers) {
                     if (h.getName().equals("Retry-After")) {
                         String retry_time = h.getValue();
-                        Thread.sleep(Integer.parseInt(retry_time)*1000);
+                        try {
+							Thread.sleep(Integer.parseInt(retry_time)*1000);
+						} catch (NumberFormatException e) {
+							log.warn("Cannot parse "+retry_time+" to Integer", e);
+						} catch (InterruptedException e) {
+							log.debug(e.getMessage(), e);
+						}
                         httpclient.getConnectionManager().shutdown();
                         httpclient = new DefaultHttpClient();
                         response = httpclient.execute(httpget);
@@ -102,7 +114,10 @@ public class GetRecord extends AbstractVerb
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            Document doc = XMLUtils.parseRecords(instream);
+            Document doc = XMLUtils.parseDocument(instream);
+            
+            XMLUtils.checkGetRecord(doc);
+            
             NodeList listRecords = doc.getElementsByTagName("record");
             for (int j = 0;j<listRecords.getLength();j++) {
                 NodeList list = listRecords.item(j).getChildNodes();
@@ -115,10 +130,14 @@ public class GetRecord extends AbstractVerb
                 }
             }
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-            throw new HarvestException(e);
-        }
+            throw new InternalHarvestException(e);
+        } catch (ParserConfigurationException e) {
+            throw new InternalHarvestException(e);
+		} catch (SAXException e) {
+            throw new InternalHarvestException(e);
+		}
         
     }
     

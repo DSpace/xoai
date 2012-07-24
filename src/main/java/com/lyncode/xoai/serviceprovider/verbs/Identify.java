@@ -19,8 +19,11 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,10 +35,12 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
-import com.lyncode.xoai.serviceprovider.exceptions.HarvestException;
+import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 
 
@@ -63,7 +68,7 @@ public class Identify extends AbstractVerb
     
     private ArrayList<String> compressions;
     
-    public Identify(Configuration config, String baseUrl) throws HarvestException
+    public Identify(Configuration config, String baseUrl) throws InternalHarvestException, BadArgumentException
     {
         super(config, baseUrl);
         harvest();
@@ -74,7 +79,7 @@ public class Identify extends AbstractVerb
         return (super.getBaseUrl() + "?verb=Identify");
     }
     
-    private void harvest () throws HarvestException {
+    private void harvest () throws InternalHarvestException, BadArgumentException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
         log.info("Harvesting: "+url);
@@ -97,7 +102,13 @@ public class Identify extends AbstractVerb
                 for (org.apache.http.Header h : headers) {
                     if (h.getName().equals("Retry-After")) {
                         String retry_time = h.getValue();
-                        Thread.sleep(Integer.parseInt(retry_time)*1000);
+                        try {
+							Thread.sleep(Integer.parseInt(retry_time)*1000);
+						} catch (NumberFormatException e) {
+							log.warn("Cannot parse "+retry_time+" to Integer", e);
+						} catch (InterruptedException e) {
+							log.debug(e.getMessage(), e);
+						}
                         httpclient.getConnectionManager().shutdown();
                         httpclient = new DefaultHttpClient();
                         response = httpclient.execute(httpget);
@@ -108,7 +119,8 @@ public class Identify extends AbstractVerb
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            Document doc = XMLUtils.parseRecords(instream);
+            Document doc = XMLUtils.parseDocument(instream);
+            
             NodeList res = doc.getElementsByTagName("Identify");
             if (res.getLength() > 0) {
                 NodeList listRecords = res.item(0).getChildNodes();
@@ -134,12 +146,16 @@ public class Identify extends AbstractVerb
                         this.compressions.add(XMLUtils.getText(listRecords.item(j)));
                     }
                 }
-            } else throw new HarvestException("Unable to get Identify from OAI Interface");
+            } else throw new InternalHarvestException("Unable to get Identify from OAI Interface");
         }
-        catch (Exception e)
+        catch (IOException e)
         {
-            throw new HarvestException(e);
-        }
+            throw new InternalHarvestException(e);
+        } catch (ParserConfigurationException e) {
+            throw new InternalHarvestException(e);
+		} catch (SAXException e) {
+            throw new InternalHarvestException(e);
+		}
         
     }
     
