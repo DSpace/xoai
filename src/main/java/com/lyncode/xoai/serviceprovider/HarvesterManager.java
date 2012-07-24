@@ -32,6 +32,9 @@ import com.lyncode.xoai.serviceprovider.verbs.ListRecords;
 import com.lyncode.xoai.serviceprovider.verbs.ListSets;
 
 /**
+ * This class works as a wrapper to provide an API with all OAI-PMH possible requests.
+ * It is based upon the definition at: http://www.openarchives.org/OAI/openarchivesprotocol.html
+ * 
  * @author DSpace @ Lyncode
  * @version 2.2.1
  */
