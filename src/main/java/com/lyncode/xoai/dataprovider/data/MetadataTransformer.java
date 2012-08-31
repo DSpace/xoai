@@ -21,8 +21,8 @@ import java.io.File;
 import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class MetadataTransformer extends ConfigurableBundle {
 	private File xsltFile;

@@ -24,6 +24,10 @@ public class HarvestURL {
 		return new HarvestURL(OAIVerb.ListRecords, null, null, null, null, metadataPrefix, null);
 	}
 	
+	public static HarvestURL listRecords (String metadataPrefix, String set) {
+		return new HarvestURL(OAIVerb.ListRecords, set, null, null, null, metadataPrefix, null);
+	}
+	
 	public static HarvestURL listRecordsResumption (String resumption) {
 		return new HarvestURL(OAIVerb.ListRecords, null, null, null, null, null, resumption);
 	}

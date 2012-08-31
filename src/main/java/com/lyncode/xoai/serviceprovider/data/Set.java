@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 
 package com.lyncode.xoai.serviceprovider.data;
 
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class Set
 {

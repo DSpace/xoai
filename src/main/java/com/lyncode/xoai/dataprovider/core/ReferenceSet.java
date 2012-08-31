@@ -17,8 +17,8 @@
 package com.lyncode.xoai.dataprovider.core;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class ReferenceSet {
 	private String _setSpec;

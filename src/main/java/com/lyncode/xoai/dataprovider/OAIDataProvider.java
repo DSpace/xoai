@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 
 package com.lyncode.xoai.dataprovider;
@@ -46,6 +46,10 @@ import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
 import com.lyncode.xoai.dataprovider.data.AbstractSetRepository;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.internal.Item;
+import com.lyncode.xoai.dataprovider.data.internal.ItemIdentify;
+import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
+import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateRecordException;
@@ -87,8 +91,8 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class OAIDataProvider {
 	private static Logger log = LogManager.getLogger(OAIDataProvider.class);
@@ -98,8 +102,8 @@ public class OAIDataProvider {
 
 	private AbstractIdentify _identify;
 	private ObjectFactory _factory;
-	private AbstractSetRepository _listSets;
-	private AbstractItemRepository _itemRepo;
+	private SetRepository _listSets;
+	private ItemRepository _itemRepo;
 	private List<String> _compressions;
 	private XOAIContext _context;
 
@@ -116,8 +120,8 @@ public class OAIDataProvider {
 					+ "\" does not exist");
 		_factory = new ObjectFactory();
 		_identify = identify;
-		_listSets = listsets;
-		_itemRepo = itemRepository;
+		_listSets = new SetRepository(listsets);
+		_itemRepo = new ItemRepository(itemRepository);
 		_compressions = new ArrayList<String>();
 	}
 
@@ -131,8 +135,8 @@ public class OAIDataProvider {
 			throw new InvalidContextException();
 		_factory = new ObjectFactory();
 		_identify = identify;
-		_listSets = listsets;
-		_itemRepo = itemRepository;
+		_listSets = new SetRepository(listsets);
+		_itemRepo = new ItemRepository(itemRepository);
 		_compressions = compressions;
 	}
 
@@ -388,30 +392,30 @@ public class OAIDataProvider {
 		HeaderType header = _factory.createHeaderType();
 		MetadataFormat format = _context.getFormatByPrefix(parameters
 				.getMetadataPrefix());
-		AbstractItem item = _itemRepo.getItem(parameters.getIdentifier());
-		if (!_context.isItemShown(item))
+		Item item = new Item(_itemRepo.getItem(parameters.getIdentifier()));
+		if (!_context.isItemShown(item.getItem()))
 			throw new CannotDisseminateRecordException();
-		if (!format.isApplyable(item))
+		if (!format.isApplyable(item.getItem()))
 			throw new CannotDisseminateRecordException();
-		header.setIdentifier(item.getIdentifier());
-		header.setDatestamp(this.dateToString(item.getDatestamp()));
+		header.setIdentifier(item.getItem().getIdentifier());
+		header.setDatestamp(this.dateToString(item.getItem().getDatestamp()));
 		for (ReferenceSet s : item.getSets(_context))
 			header.getSetSpec().add(s.getSetSpec());
-		if (item.isDeleted())
+		if (item.getItem().isDeleted())
 			header.setStatus(StatusType.DELETED);
 		record.setHeader(header);
 
-		if (!item.isDeleted()) {
+		if (!item.getItem().isDeleted()) {
 			MetadataType metadata = _factory.createMetadataType();
-			String id = "##metadata-" + item.getIdentifier() + "##";
+			String id = "##metadata-" + item.getItem().getIdentifier() + "##";
 			try {
 				if (_context.getTransformer().hasTransformer())
 					manager.addMap(id, XSLTUtils.transform(_context
 							.getTransformer().getXSLTFile(), format
-							.getXSLTFile(), item));
+							.getXSLTFile(), item.getItem()));
 				else
 					manager.addMap(id,
-							XSLTUtils.transform(format.getXSLTFile(), item));
+							XSLTUtils.transform(format.getXSLTFile(), item.getItem()));
 			} catch (XSLTransformationException e) {
 				throw new OAIException(e);
 			}
@@ -419,10 +423,10 @@ public class OAIDataProvider {
 			record.setMetadata(metadata);
 
 			int i = 0;
-			if (item.hasAbout()) {
-				for (AbstractAbout abj : item.getAbout()) {
+			if (item.getItem().hasAbout()) {
+				for (AbstractAbout abj : item.getItem().getAbout()) {
 					AboutType about = _factory.createAboutType();
-					String aid = "##about" + i + "-" + item.getIdentifier()
+					String aid = "##about" + i + "-" + item.getItem().getIdentifier()
 							+ "##";
 					manager.addMap(aid, abj.getXML());
 					about.setAny(aid);
@@ -535,7 +539,10 @@ public class OAIDataProvider {
 		header.setIdentifier(ii.getIdentifier());
 		if (ii.isDeleted())
 			header.setStatus(StatusType.DELETED);
-		for (ReferenceSet s : ii.getSets(_context))
+		
+		ItemIdentify ident = new ItemIdentify(ii);
+		
+		for (ReferenceSet s : ident.getSets(_context))
 			header.getSetSpec().add(s.getSetSpec());
 		return header;
 	}
@@ -630,8 +637,11 @@ public class OAIDataProvider {
 		HeaderType header = _factory.createHeaderType();
 		log.debug("Item: " + item.getIdentifier());
 		header.setIdentifier(item.getIdentifier());
+		
+		Item itemWrap = new Item(item);
+		
 		header.setDatestamp(this.dateToString(item.getDatestamp()));
-		for (ReferenceSet s : item.getSets(_context))
+		for (ReferenceSet s : itemWrap.getSets(_context))
 			header.getSetSpec().add(s.getSetSpec());
 		if (item.isDeleted())
 			header.setStatus(StatusType.DELETED);

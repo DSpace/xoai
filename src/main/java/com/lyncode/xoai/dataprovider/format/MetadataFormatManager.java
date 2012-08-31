@@ -36,8 +36,8 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats.Format;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class MetadataFormatManager {
 	private static Logger log = LogManager

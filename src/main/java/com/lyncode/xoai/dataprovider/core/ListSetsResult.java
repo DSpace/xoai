@@ -19,8 +19,8 @@ package com.lyncode.xoai.dataprovider.core;
 import java.util.List;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class ListSetsResult {
 	private boolean hasMore;

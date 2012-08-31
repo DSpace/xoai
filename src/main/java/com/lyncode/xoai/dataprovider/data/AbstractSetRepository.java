@@ -16,62 +16,40 @@
 
 package com.lyncode.xoai.dataprovider.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import com.lyncode.xoai.dataprovider.core.ListSetsResult;
-import com.lyncode.xoai.dataprovider.core.Set;
-import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.sets.StaticSet;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * API for implementing a repository of sets.
+ * It is possible to have a data provider without sets.
+ * 
+ * @author Development @ Lyncode
+ * @version 2.2.2
  */
 public abstract class AbstractSetRepository {
-	private static Logger log = LogManager
-			.getLogger(AbstractSetRepository.class);
 
+	/**
+	 * Checks if the actual data source supports sets.
+	 * 
+	 * @return Supports sets?
+	 */
 	public abstract boolean supportSets();
-
-	protected abstract ListSetsResult retrieveSets(int offset, int length);
-	protected abstract boolean exists(String setSpec);
-
-	public boolean exists(XOAIContext context, String set) {
-		List<StaticSet> statics = context.getStaticSets();
-		for (StaticSet s : statics)
-			if (s.getSetSpec().equals(set))
-				return true;
-
-		return exists(set);
-	}
 	
-	public ListSetsResult getSets(XOAIContext context, int offset, int length) {
-		List<Set> results = new ArrayList<Set>();
-		List<StaticSet> statics = context.getStaticSets();
-		if (offset < statics.size()) {
-			log.debug("Offset less than static sets size");
-			if (length + offset < statics.size()) {
-				log.debug("Offset + length less than static sets size");
-				for (int i = offset; i < (offset + length); i++)
-					results.add(statics.get(i));
-				return new ListSetsResult(true, results);
-			} else {
-				log.debug("Offset + length greater or equal than static sets size");
-				for (int i = offset; i < statics.size(); i++)
-					results.add(statics.get(i));
-				int newLength = length - (statics.size() - offset);
-				ListSetsResult res = this.retrieveSets(0, newLength);
-				results.addAll(res.getResults());
-				return new ListSetsResult(res.hasMore(), results);
-			}
-		} else {
-			log.debug("Offset greater or equal than static sets size");
-			int newOffset = offset - statics.size();
-			return this.retrieveSets(newOffset, length);
-		}
-	}
+	/**
+	 * Returns a paged list of sets. 
+	 * It is common to use a partial result of 100 sets however, in XOAI this is a configured parameter.
+	 * 
+	 * @param offset Starting offset
+	 * @param length Max size of the returned list
+	 * @return List of Sets
+	 */
+	public abstract ListSetsResult retrieveSets(int offset, int length);
+	
+	/**
+	 * Checks if a specific set exists in the data source.
+	 * 
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Set">Set definition</a>
+	 * @param setSpec Set spec
+	 * @return Set exists
+	 */
+	public abstract boolean exists(String setSpec);
 }

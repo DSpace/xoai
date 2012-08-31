@@ -24,8 +24,8 @@ import java.util.Set;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Parameter;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class Parameters {
 	private Map<String, List<String>> _params;

@@ -35,8 +35,8 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Contexts;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Contexts.Context;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class ContextManager {
 

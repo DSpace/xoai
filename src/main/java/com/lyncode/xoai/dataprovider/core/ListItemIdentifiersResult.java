@@ -21,8 +21,8 @@ import java.util.List;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class ListItemIdentifiersResult {
 	private boolean hasMore;

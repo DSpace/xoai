@@ -17,8 +17,8 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class OAIException extends Exception {
 

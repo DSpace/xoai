@@ -33,8 +33,8 @@ import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class XOAIContext extends ConfigurableBundle {
 	private static Logger log = LogManager.getLogger(XOAIContext.class);

@@ -29,8 +29,8 @@ import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class ConfigurationManager {
 	public static Configuration readConfiguration(String filename)

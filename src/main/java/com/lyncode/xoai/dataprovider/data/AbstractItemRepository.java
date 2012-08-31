@@ -16,315 +16,266 @@
 
 package com.lyncode.xoai.dataprovider.data;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
 import com.lyncode.xoai.dataprovider.core.ListItemsResults;
-import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
 import com.lyncode.xoai.dataprovider.filter.Filter;
-import com.lyncode.xoai.dataprovider.filter.FilterScope;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * This class wraps the data source of items.
+ * 
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public abstract class AbstractItemRepository {
-	// private static Logger log =
-	// LogManager.getLogger(AbstractItemRepository.class);
+	/**
+	 * Gets an item from the data source.
+	 * 
+	 * @param identifier Unique identifier of the item
+	 * 
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#UniqueIdentifier">Unique identifier definition</a>
+	 * @return Item
+	 * @throws IdDoesNotExistException
+	 */
 	public abstract AbstractItem getItem(String identifier)
 			throws IdDoesNotExistException;
 
-	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
-			int offset, int length, String metadataPrefix)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItemIdentifiers(filters, offset, length);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
-			int offset, int length, String metadataPrefix, Date from)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItemIdentifiers(filters, offset, length, from);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiersUntil(
-			XOAIContext context, int offset, int length, String metadataPrefix,
-			Date until) throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItemIdentifiersUntil(filters, offset, length, until);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
-			int offset, int length, String metadataPrefix, Date from, Date until)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItemIdentifiers(filters, offset, length, from, until);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
-			int offset, int length, String metadataPrefix, String setSpec)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItemIdentifiers(filters, offset, length);
-		} else
-			return this.getItemIdentifiers(filters, offset, length, setSpec);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
-			int offset, int length, String metadataPrefix, String setSpec,
-			Date from) throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItemIdentifiers(filters, offset, length, from);
-		} else
-			return this.getItemIdentifiers(filters, offset, length, setSpec,
-					from);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiersUntil(
-			XOAIContext context, int offset, int length, String metadataPrefix,
-			String setSpec, Date until) throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItemIdentifiersUntil(filters, offset, length, until);
-		} else
-			return this.getItemIdentifiersUntil(filters, offset, length,
-					setSpec, until);
-	}
-
-	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
-			int offset, int length, String metadataPrefix, String setSpec,
-			Date from, Date until) throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this
-					.getItemIdentifiers(filters, offset, length, from, until);
-		} else
-			return this.getItemIdentifiers(filters, offset, length, setSpec,
-					from, until);
-	}
-
-	public ListItemsResults getItems(XOAIContext context, int offset,
-			int length, String metadataPrefix)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItems(filters, offset, length);
-	}
-
-	public ListItemsResults getItems(XOAIContext context, int offset,
-			int length, String metadataPrefix, Date from)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItems(filters, offset, length, from);
-	}
-
-	public ListItemsResults getItemsUntil(XOAIContext context, int offset,
-			int length, String metadataPrefix, Date until)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItemsUntil(filters, offset, length, until);
-	}
-
-	public ListItemsResults getItems(XOAIContext context, int offset,
-			int length, String metadataPrefix, Date from, Date until)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		return this.getItems(filters, offset, length, from, until);
-	}
-
-	public ListItemsResults getItems(XOAIContext context, int offset,
-			int length, String metadataPrefix, String setSpec)
-			throws NoMetadataFormatsException {
-
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItems(filters, offset, length);
-		} else
-			return this.getItems(filters, offset, length, setSpec);
-	}
-
-	public ListItemsResults getItems(XOAIContext context, int offset,
-			int length, String metadataPrefix, String setSpec, Date from)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItems(filters, offset, length, from);
-		} else
-			return this.getItems(filters, offset, length, setSpec, from);
-	}
-
-	public ListItemsResults getItemsUntil(XOAIContext context, int offset,
-			int length, String metadataPrefix, String setSpec, Date until)
-			throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItemsUntil(filters, offset, length, until);
-		} else
-			return this.getItemsUntil(filters, offset, length, setSpec, until);
-	}
-
-	public ListItemsResults getItems(XOAIContext context, int offset,
-			int length, String metadataPrefix, String setSpec, Date from,
-			Date until) throws NoMetadataFormatsException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
-				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
-		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
-			return this.getItems(filters, offset, length, from, until);
-		} else
-			return this.getItems(filters, offset, length, setSpec, from, until);
-	}
-
-	protected abstract ListItemIdentifiersResult getItemIdentifiers(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiers(
 			List<Filter> filters, int offset, int length);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiers(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param from Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiers(
 			List<Filter> filters, int offset, int length, Date from);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiersUntil(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param until Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiersUntil(
 			List<Filter> filters, int offset, int length, Date until);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiers(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param from Date parameter
+	 * @param until Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiers(
 			List<Filter> filters, int offset, int length, Date from, Date until);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiers(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param setSpec Set Spec
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiers(
 			List<Filter> filters, int offset, int length, String setSpec);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiers(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param setSpec Set Spec
+	 * @param from Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiers(
 			List<Filter> filters, int offset, int length, String setSpec,
 			Date from);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiersUntil(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param setSpec Set Spec
+	 * @param until Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiersUntil(
 			List<Filter> filters, int offset, int length, String setSpec,
 			Date until);
 
-	protected abstract ListItemIdentifiersResult getItemIdentifiers(
+	/**
+	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param setSpec Set Spec
+	 * @param from Date parameter
+	 * @param until Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListIdentifiers">List Identifiers definition</a>
+	 * @return List of identifiers
+	 */
+	public abstract ListItemIdentifiersResult getItemIdentifiers(
 			List<Filter> filters, int offset, int length, String setSpec,
 			Date from, Date until);
 
-	protected abstract ListItemsResults getItems(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItems(List<Filter> filters,
 			int offset, int length);
 
-	protected abstract ListItemsResults getItems(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param from Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItems(List<Filter> filters,
 			int offset, int length, Date from);
 
-	protected abstract ListItemsResults getItemsUntil(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param until Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItemsUntil(List<Filter> filters,
 			int offset, int length, Date until);
 
-	protected abstract ListItemsResults getItems(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param from Date parameter
+	 * @param until Date parameter
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItems(List<Filter> filters,
 			int offset, int length, Date from, Date until);
 
-	protected abstract ListItemsResults getItems(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param setSpec Set spec
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItems(List<Filter> filters,
 			int offset, int length, String setSpec);
 
-	protected abstract ListItemsResults getItems(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param from Date parameter
+	 * @param setSpec Set spec
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItems(List<Filter> filters,
 			int offset, int length, String setSpec, Date from);
 
-	protected abstract ListItemsResults getItemsUntil(List<Filter> filters,
-			int offset, int length, String setSpec, Date from);
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param until Date parameter
+	 * @param setSpec Set spec
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItemsUntil(List<Filter> filters,
+			int offset, int length, String setSpec, Date until);
 
-	protected abstract ListItemsResults getItems(List<Filter> filters,
+	/**
+	 * Gets a paged list of items. The metadata prefix parameter is internally converted to a list of filters.
+	 * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.
+	 * 
+	 * @param filters List of Filters <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">details</a>
+	 * @param offset Start offset
+	 * @param length Max items returned
+	 * @param from Date parameter
+	 * @param until Date parameter
+	 * @param setSpec Set spec
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
+	 * @return List of Items
+	 */
+	public abstract ListItemsResults getItems(List<Filter> filters,
 			int offset, int length, String setSpec, Date from, Date until);
 
 }

@@ -23,8 +23,10 @@ import com.lyncode.xoai.dataprovider.core.DeleteMethod;
 import com.lyncode.xoai.dataprovider.core.Granularity;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * Base class (required extension) to identify the OAI interface.
+ * 
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public abstract class AbstractIdentify {
 	/**

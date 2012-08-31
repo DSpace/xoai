@@ -21,20 +21,36 @@ import java.util.List;
 import com.lyncode.xoai.dataprovider.core.ItemMetadata;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * This is a required class to extend when implementing a specific OAI Data Provider.
+ * It works as a wrapper for all OAI Items.
+ * 
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public abstract class AbstractItem extends AbstractItemIdentifier {
 	/**
-	 * Marchable objects
+	 * Most of the implementations would return an empty list.
+	 * Anyway, the OAI-PMH protocol establishes an about section for each item.
 	 * 
-	 * @return
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
+	 * @return List of information about the item (marshable information)
 	 */
 	public abstract List<AbstractAbout> getAbout();
 
+	/**
+	 * Checks if the about section is empty or not.
+	 * 
+	 * @return Has any about information?
+	 */
 	public boolean hasAbout() {
 		return (!this.getAbout().isEmpty());
 	}
-
+	
+	/**
+	 * Metadata associated to the OAI-PMH Record.
+	 * 
+	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
+	 * @return Metadata associated to the OAI-PMH Record
+	 */
 	public abstract ItemMetadata getMetadata();
 }

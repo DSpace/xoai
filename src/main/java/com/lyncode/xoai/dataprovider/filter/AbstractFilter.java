@@ -20,8 +20,8 @@ import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public abstract class AbstractFilter extends ConfigurableBundle {
 	public abstract boolean isItemShown(AbstractItemIdentifier item);

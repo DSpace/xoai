@@ -22,8 +22,8 @@ import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class StaticSet extends Set {
 	private List<AbstractFilter> _filters;

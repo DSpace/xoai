@@ -17,8 +17,8 @@
 package com.lyncode.xoai.dataprovider.core;
 
 /**
- * @author DSpace @ Lyncode
- * @version 2.2.1
+ * @author Development @ Lyncode <development@lyncode.com>
+ * @version 2.2.2
  */
 public class Set extends ReferenceSet {
 	private String setName;
@@ -34,7 +34,7 @@ public class Set extends ReferenceSet {
 	 * 
 	 * @param setSpec
 	 * @param setName
-	 * @param description
+	 * @param xmldescription
 	 *            Marshable object
 	 */
 	public Set(String setSpec, String setName, String xmldescription) {
