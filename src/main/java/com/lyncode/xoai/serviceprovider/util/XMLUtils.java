@@ -86,7 +86,15 @@ public class XMLUtils
         NodeList list = node.getChildNodes();
         for (int i=0;i<list.getLength();i++) {
             if (list.item(i).getNodeName().toLowerCase().equals("header")) {
-                record.setHeader(getHeader(list.item(i).getChildNodes()));
+            	Header h = getHeader(list.item(i).getChildNodes());
+            	if (list.item(i).hasAttributes()) {
+            		Node n = list.item(i).getAttributes().getNamedItem("status");
+            		if (n != null) {
+            			if (n.getTextContent() != null)
+            				h.setStatus(n.getTextContent().toLowerCase());
+            		}
+            	}
+                record.setHeader(h);
             } else if (list.item(i).getNodeName().toLowerCase().equals("metadata")) {
                 record.setMetadata(getMetadata(list.item(i).getChildNodes()));
             }
@@ -142,7 +150,7 @@ public class XMLUtils
             else if (item.item(i).getNodeName().toLowerCase().equals("datestamp"))
                 header.setDatestamp(getText(item.item(i)));
             else if (item.item(i).getNodeName().toLowerCase().equals("setSpec"))
-                header.setStatus(getText(item.item(i)));
+                header.getSpecList().add(getText(item.item(i)));
         }
         return header;
     }

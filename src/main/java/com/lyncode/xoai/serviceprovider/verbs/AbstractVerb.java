@@ -34,6 +34,7 @@ public abstract class AbstractVerb
     
     public AbstractVerb (Configuration config, String baseUrl) {
         this.baseUrl = baseUrl;
+        this.configuration = config;
     }
     
     protected String getBaseUrl () {

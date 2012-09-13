@@ -57,7 +57,7 @@ public class XSLTUtils {
 	            // Marshalling all the metadata from XOAI Binding
 	            log.debug("Start Marshalling");
     			MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
-    					.getPackage().getName(), item.getMetadata(),
+    					.getPackage().getName(), item.getMetadata().getMetadata(),
     					new PrefixMapper(), mdOUT);
     			array = mdOUT.toByteArray();
 			}
@@ -122,7 +122,7 @@ public class XSLTUtils {
                 // Marshalling all the metadata from XOAI Binding
                 log.debug("Start Marshalling");
                 MarshallingUtils.marshalWithoutXMLHeader(Metadata.class
-                        .getPackage().getName(), item.getMetadata(),
+                        .getPackage().getName(), item.getMetadata().getMetadata(),
                         new PrefixMapper(), schemaOUT);
                 array = schemaOUT.toByteArray();
             }

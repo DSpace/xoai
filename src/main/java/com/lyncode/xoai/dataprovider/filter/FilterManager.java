@@ -34,21 +34,23 @@ public class FilterManager {
 
 	public FilterManager(Filters filters) throws ConfigurationException {
 		_contexts = new HashMap<String, AbstractFilter>();
-		for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters
-				.getFilter()) {
-			try {
-				Class<?> c = Class.forName(f.getClazz());
-				Object obj = c.newInstance();
-				if (obj instanceof AbstractFilter) {
-					((AbstractFilter) obj).load(f.getParameter());
-					_contexts.put(f.getId(), (AbstractFilter) obj);
+		if (filters != null && filters.getFilter() != null) {
+			for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters
+					.getFilter()) {
+				try {
+					Class<?> c = Class.forName(f.getClazz());
+					Object obj = c.newInstance();
+					if (obj instanceof AbstractFilter) {
+						((AbstractFilter) obj).load(f.getParameter());
+						_contexts.put(f.getId(), (AbstractFilter) obj);
+					}
+				} catch (InstantiationException ex) {
+					throw new ConfigurationException(ex.getMessage(), ex);
+				} catch (IllegalAccessException ex) {
+					throw new ConfigurationException(ex.getMessage(), ex);
+				} catch (ClassNotFoundException ex) {
+					throw new ConfigurationException(ex.getMessage(), ex);
 				}
-			} catch (InstantiationException ex) {
-				throw new ConfigurationException(ex.getMessage(), ex);
-			} catch (IllegalAccessException ex) {
-				throw new ConfigurationException(ex.getMessage(), ex);
-			} catch (ClassNotFoundException ex) {
-				throw new ConfigurationException(ex.getMessage(), ex);
 			}
 		}
 	}

@@ -39,17 +39,19 @@ public class StaticSetManager {
 	public StaticSetManager(Sets config, FilterManager fm)
 			throws ConfigurationException {
 		_contexts = new HashMap<String, StaticSet>();
-		for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
-				.getSet()) {
-			List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
-			for (BundleReference r : s.getFilter()) {
-				if (!fm.filterExists(r.getRefid()))
-					throw new ConfigurationException("Filter referred as "
-							+ r.getRefid() + " does not exist");
-				filters.add(fm.getFilter(r.getRefid()));
+		if (config != null && config.getSet() != null) {
+			for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
+					.getSet()) {
+				List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
+				for (BundleReference r : s.getFilter()) {
+					if (!fm.filterExists(r.getRefid()))
+						throw new ConfigurationException("Filter referred as "
+								+ r.getRefid() + " does not exist");
+					filters.add(fm.getFilter(r.getRefid()));
+				}
+				StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
+				_contexts.put(s.getId(), set);
 			}
-			StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
-			_contexts.put(s.getId(), set);
 		}
 	}
 

@@ -196,53 +196,53 @@ public class OAIDataProvider {
 				break;
 			}
 		} catch (IllegalVerbException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("Illegal verb");
 			error.setCode(OAIPMHerrorcodeType.BAD_VERB);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (DoesNotSupportSetsException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("This repository does not support sets");
 			error.setCode(OAIPMHerrorcodeType.NO_SET_HIERARCHY);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (NoMatchesException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("No matches for the query");
 			error.setCode(OAIPMHerrorcodeType.NO_RECORDS_MATCH);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (BadResumptionToken e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("The resumption token is invalid");
 			error.setCode(OAIPMHerrorcodeType.BAD_RESUMPTION_TOKEN);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (IdDoesNotExistException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("The given id does not exist");
 			error.setCode(OAIPMHerrorcodeType.ID_DOES_NOT_EXIST);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (NoMetadataFormatsException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("The item does not have any metadata format available for dissemination");
 			error.setCode(OAIPMHerrorcodeType.NO_METADATA_FORMATS);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (BadArgumentException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue(e.getMessage());
 			error.setCode(OAIPMHerrorcodeType.BAD_ARGUMENT);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		} catch (CannotDisseminateRecordException e) {
+			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("Cannot disseminate item with the given format");
 			error.setCode(OAIPMHerrorcodeType.CANNOT_DISSEMINATE_FORMAT);
 			response.getError().add(error);
-			log.debug(e.getMessage(), e);
 		}
 
 		manager.export(response, out);
@@ -394,9 +394,9 @@ public class OAIDataProvider {
 				.getMetadataPrefix());
 		Item item = new Item(_itemRepo.getItem(parameters.getIdentifier()));
 		if (!_context.isItemShown(item.getItem()))
-			throw new CannotDisseminateRecordException();
+			throw new CannotDisseminateRecordException("Context ignores this item");
 		if (!format.isApplyable(item.getItem()))
-			throw new CannotDisseminateRecordException();
+			throw new CannotDisseminateRecordException("Format not appliable to this item");
 		header.setIdentifier(item.getItem().getIdentifier());
 		header.setDatestamp(this.dateToString(item.getItem().getDatestamp()));
 		for (ReferenceSet s : item.getSets(_context))
