@@ -394,7 +394,7 @@ public class OAIDataProvider {
 				.getMetadataPrefix());
 		Item item = new Item(_itemRepo.getItem(parameters.getIdentifier()));
 		if (!_context.isItemShown(item.getItem()))
-			throw new CannotDisseminateRecordException("Context ignores this item");
+			throw new IdDoesNotExistException("Context ignores this item");
 		if (!format.isApplyable(item.getItem()))
 			throw new CannotDisseminateRecordException("Format not appliable to this item");
 		header.setIdentifier(item.getItem().getIdentifier());
