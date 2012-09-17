@@ -161,19 +161,11 @@ public class RecordIterator
         
     }
     
-    public boolean hasNext() throws NoRecordsMatchException, BadResumptionTokenException, CannotDisseminateFormatException, NoSetHierarchyException 
+    public boolean hasNext() throws NoRecordsMatchException, BadResumptionTokenException, CannotDisseminateFormatException, NoSetHierarchyException, InternalHarvestException 
     {
         if (_queue == null || (_queue.size() == 0 && resumption != null && !resumption.trim().equals(""))) {
             if (_queue == null) _queue = new LinkedList<Record>();
-            // First Query
-            try
-            {
-                this.harvest();
-            }
-            catch (InternalHarvestException e)
-            {
-                log.error(e.getMessage(), e);
-            }
+            this.harvest();
         }
         
         return (_queue.size() > 0);

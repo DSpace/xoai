@@ -141,19 +141,11 @@ public class MetadataFormatIterator
         
     }
     
-    public boolean hasNext() throws NoMetadataFormatsException, IdDoesNotExistException
+    public boolean hasNext() throws NoMetadataFormatsException, IdDoesNotExistException, InternalHarvestException
     {
         if (_queue == null) {
             if (_queue == null) _queue = new LinkedList<MetadataFormat>();
-            // First Query
-            try
-            {
-                this.harvest();
-            }
-            catch (InternalHarvestException e)
-            {
-                log.error(e.getMessage(), e);
-            }
+            this.harvest();
         }
         
         return (_queue.size() > 0);
