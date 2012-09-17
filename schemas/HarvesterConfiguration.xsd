@@ -2,8 +2,8 @@
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.lyncode.com/HarvesterConfiguration" xmlns:tns="http://www.lyncode.com/HarvesterConfiguration" elementFormDefault="qualified">
 	<element name="Configuration">
 		<complexType>
-			<attribute name="resumptionInterval" type="int" />
-			<attribute name="trustAllCertificates" type="boolean" />
+			<attribute name="resumptionInterval" type="int" default="1000" />
+			<attribute name="trustAllCertificates" type="boolean" default="true"/>
 		</complexType>
 	</element>
 
