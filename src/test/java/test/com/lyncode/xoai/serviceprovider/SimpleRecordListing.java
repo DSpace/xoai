@@ -22,7 +22,7 @@ public class SimpleRecordListing {
 				Record r = it.next();
 				System.out.println(r.getHeader().getIdentifier());
 			}
-		} catch (HarvestException e) {
+		} catch (Exception e) {
 			System.out.println(e.getClass().getName());
 			System.out.println(e.getMessage());
 		}

@@ -23,7 +23,7 @@ public class SimpleIdentifierListing {
 				Identifier r = it.next();
 				System.out.println(r.getHeader().getIdentifier());
 			}
-		} catch (HarvestException e) {
+		} catch (Exception e) {
 			System.out.println(e.getClass().getName());
 			System.out.println(e.getMessage());
 		}

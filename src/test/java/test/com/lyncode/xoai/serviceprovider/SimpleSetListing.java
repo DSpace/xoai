@@ -21,7 +21,7 @@ public class SimpleSetListing {
 				Set s = it.next();
 				System.out.println(s.getSetName() + ": " + s.getSetSpec());
 			}
-		} catch (HarvestException e) {
+		} catch (Exception e) {
 			System.out.println(e.getClass().getName());
 			System.out.println(e.getMessage());
 		}
