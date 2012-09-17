@@ -38,7 +38,10 @@ public class SetRepository {
 				int newLength = length - (statics.size() - offset);
 				ListSetsResult res = setRepository.retrieveSets(0, newLength);
 				results.addAll(res.getResults());
-				return new ListSetsResult(res.hasMore(), results);
+				if (!res.hasTotalResults())
+					return new ListSetsResult(res.hasMore(), results);
+				else
+					return new ListSetsResult(res.hasMore(), results, res.getTotalResults() + context.getStaticSets().size());
 			}
 		} else {
 			log.debug("Offset greater or equal than static sets size");

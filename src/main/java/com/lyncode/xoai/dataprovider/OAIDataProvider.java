@@ -335,8 +335,14 @@ public class OAIDataProvider {
 		ResumptionTokenType token = _factory.createResumptionTokenType();
 		token.setValue(rtoken.toString());
 		token.setCursor(setCursor(resumptionToken.getOffset()));
-		if (result.hasTotalResults())
-		    token.setCompleteListSize(total(result.getTotalResults() + _context.getStaticSets().size()));
+		
+		if (result.hasTotalResults()) {
+			int total = result.getTotalResults();
+		    token.setCompleteListSize(total(total));
+		    log.debug("Total results: "+total);
+		} else {
+			log.debug("Has no total results shown");
+		}
 		listSets.setResumptionToken(token);
 
 		return listSets;
