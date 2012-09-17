@@ -3,6 +3,7 @@
 	<element name="Configuration">
 		<complexType>
 			<attribute name="resumptionInterval" type="int" />
+			<attribute name="trustAllCertificates" type="boolean" />
 		</complexType>
 	</element>
 

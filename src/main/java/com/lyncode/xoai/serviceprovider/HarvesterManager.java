@@ -19,6 +19,14 @@
 
 package com.lyncode.xoai.serviceprovider;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
@@ -40,8 +48,40 @@ import com.lyncode.xoai.serviceprovider.verbs.ListSets;
  */
 public class HarvesterManager
 {
+	private static Logger log = LogManager.getLogger(HarvesterManager.class);
     public static final String USERAGENT = "XOAI Service Provider by Lyncode.com";
     public static final String FROM = "general@lyncode.com";
+    
+    private static boolean configured = false;
+    private static void trustAllCertificates () {
+    	if (!configured) {
+	    	// Create a trust manager that does not validate certificate chains
+	    	TrustManager[] trustAllCerts = new TrustManager[]{
+	    	    new X509TrustManager() {
+	    	        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+	    	            return null;
+	    	        }
+	    	        public void checkClientTrusted(
+	    	            java.security.cert.X509Certificate[] certs, String authType) {
+	    	        }
+	    	        public void checkServerTrusted(
+	    	            java.security.cert.X509Certificate[] certs, String authType) {
+	    	        }
+	    	    }
+	    	};
+	
+	    	// Install the all-trusting trust manager
+	    	try {
+	    	    SSLContext sc = SSLContext.getInstance("SSL");
+	    	    sc.init(null, trustAllCerts, new java.security.SecureRandom());
+	    	    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+	    	} catch (Exception e) {
+	    		log.debug(e.getMessage(), e);
+	    	}
+	    	
+	    	configured = true;
+    	}
+    }
     
     private Configuration config;
     private String baseUrl;
@@ -49,6 +89,10 @@ public class HarvesterManager
     public HarvesterManager (Configuration configure, String baseUrl) {
         config = configure;
         this.baseUrl = baseUrl;
+        
+        if (config.isTrustAllCertificates()) {
+        	trustAllCertificates();
+        }
     }
     
     private Configuration getConfiguration () {
