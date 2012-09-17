@@ -20,7 +20,7 @@ XOAI could be integrated with maven support.
 	<dependency>
 	    <groupId>com.lyncode</groupId>
 	    <artifactId>xoai</artifactId>
-	    <version>2.2.4</version>
+	    <version>2.2.5</version>
 	</dependency>
 
 License
