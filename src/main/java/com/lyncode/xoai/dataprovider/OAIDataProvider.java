@@ -336,7 +336,7 @@ public class OAIDataProvider {
 		token.setValue(rtoken.toString());
 		token.setCursor(setCursor(resumptionToken.getOffset()));
 		if (result.hasTotalResults())
-		    token.setCompleteListSize(total(result.getTotalResults()));
+		    token.setCompleteListSize(total(result.getTotalResults() + _context.getStaticSets().size()));
 		listSets.setResumptionToken(token);
 
 		return listSets;
