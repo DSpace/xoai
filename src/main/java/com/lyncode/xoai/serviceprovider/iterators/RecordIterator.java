@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
@@ -53,7 +53,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListRecords.ExtraParameters;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 public class RecordIterator
 {

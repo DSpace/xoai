@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 
 package com.lyncode.xoai.serviceprovider.util;
@@ -56,7 +56,7 @@ import com.lyncode.xoai.serviceprovider.exceptions.NoSetHierarchyException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 public class XMLUtils
 {

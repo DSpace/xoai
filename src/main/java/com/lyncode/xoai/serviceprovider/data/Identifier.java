@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 
 
@@ -25,7 +25,7 @@ import java.io.Serializable;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 public class Identifier implements Serializable {
     private static final long serialVersionUID = 3482025864486977541L;

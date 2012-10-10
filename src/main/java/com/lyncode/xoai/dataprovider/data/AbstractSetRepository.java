@@ -23,7 +23,7 @@ import com.lyncode.xoai.dataprovider.core.ListSetsResult;
  * It is possible to have a data provider without sets.
  * 
  * @author Development @ Lyncode
- * @version 2.2.2
+ * @version 2.2.6
  */
 public abstract class AbstractSetRepository {
 

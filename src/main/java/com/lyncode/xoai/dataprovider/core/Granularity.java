@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.core;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 public enum Granularity {
 	Day, Second

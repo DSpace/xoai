@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 public class TransformerDoesNotExistsException extends Exception {
 

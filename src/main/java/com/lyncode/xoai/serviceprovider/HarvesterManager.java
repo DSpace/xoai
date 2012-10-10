@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 
 package com.lyncode.xoai.serviceprovider;
@@ -44,7 +44,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListSets;
  * It is based upon the definition at: http://www.openarchives.org/OAI/openarchivesprotocol.html
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.2
+ * @version 2.2.6
  */
 public class HarvesterManager
 {

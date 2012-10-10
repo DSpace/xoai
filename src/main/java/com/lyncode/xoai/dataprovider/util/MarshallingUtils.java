@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.log4j.LogManager;
@@ -31,8 +32,12 @@ public class MarshallingUtils {
 			JAXBContext context = JAXBContext.newInstance(cont);
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.setProperty(
+			try {
+				marshaller.setProperty(
 					"com.sun.xml.bind.namespacePrefixMapper", mapper);
+			} catch (PropertyException ex) {
+				log.debug("This JAXB version doesn't allow to establish a prefix mapper");
+			}
 			marshaller.marshal(obj, output);
 			log.debug("Giving result as string");
 			return output
@@ -53,8 +58,12 @@ public class MarshallingUtils {
 			log.debug("Marshalling XML without Header");
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.setProperty(
+			try {
+				marshaller.setProperty(
 					"com.sun.xml.bind.namespacePrefixMapper", mapper);
+			} catch (PropertyException ex) {
+				log.debug("This JAXB version doesn't allow to establish a prefix mapper");
+			}
 			marshaller.marshal(obj, output);
 			log.debug("Writing result into output stream");
 			log.debug("Result: " + output.toString());
