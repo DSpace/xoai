@@ -338,18 +338,22 @@ public class OAIDataProvider {
 		} else {
 			rtoken = new ResumptionToken();
 		}
-		ResumptionTokenType token = _factory.createResumptionTokenType();
-		token.setValue(rtoken.toString());
-		token.setCursor(setCursor(resumptionToken.getOffset()));
 		
-		if (result.hasTotalResults()) {
-			int total = result.getTotalResults();
-		    token.setCompleteListSize(total(total));
-		    log.debug("Total results: "+total);
-		} else {
-			log.debug("Has no total results shown");
+
+		if (parameters.hasResumptionToken() || !rtoken.isEmpty()) {
+			ResumptionTokenType token = _factory.createResumptionTokenType();
+			token.setValue(rtoken.toString());
+			token.setCursor(setCursor(resumptionToken.getOffset()));
+			
+			if (result.hasTotalResults()) {
+				int total = result.getTotalResults();
+			    token.setCompleteListSize(total(total));
+			    log.debug("Total results: "+total);
+			} else {
+				log.debug("Has no total results shown");
+			}
+			listSets.setResumptionToken(token);
 		}
-		listSets.setResumptionToken(token);
 
 		return listSets;
 	}
@@ -518,12 +522,14 @@ public class OAIDataProvider {
 			newToken = new ResumptionToken();
 		}
 
-		ResumptionTokenType resToken = _factory.createResumptionTokenType();
-		resToken.setValue(newToken.toString());
-		resToken.setCursor(identifiersCursor(token.getOffset()));
-		if (result.hasTotalResults())
-		    resToken.setCompleteListSize(total(result.getTotal()));
-		listIdentifiersType.setResumptionToken(resToken);
+		if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
+			ResumptionTokenType resToken = _factory.createResumptionTokenType();
+			resToken.setValue(newToken.toString());
+			resToken.setCursor(identifiersCursor(token.getOffset()));
+			if (result.hasTotalResults())
+			    resToken.setCompleteListSize(total(result.getTotal()));
+			listIdentifiersType.setResumptionToken(resToken);
+		}
 
 		for (AbstractItemIdentifier ii : results)
 			listIdentifiersType.getHeader().add(
@@ -623,12 +629,14 @@ public class OAIDataProvider {
 			newToken = new ResumptionToken();
 		}
 
-		ResumptionTokenType resToken = _factory.createResumptionTokenType();
-		resToken.setValue(newToken.toString());
-		resToken.setCursor(recordsCursor(token.getOffset()));
-		if (result.hasTotalResults())
-		    resToken.setCompleteListSize(total(result.getTotal()));
-		listRecordsType.setResumptionToken(resToken);
+		if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
+			ResumptionTokenType resToken = _factory.createResumptionTokenType();
+			resToken.setValue(newToken.toString());
+			resToken.setCursor(recordsCursor(token.getOffset()));
+			if (result.hasTotalResults())
+			    resToken.setCompleteListSize(total(result.getTotal()));
+			listRecordsType.setResumptionToken(resToken);
+		}
 
 		log.debug("Now adding records to the OAI-PMH Output");
 		for (AbstractItem i : results)
