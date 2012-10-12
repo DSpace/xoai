@@ -15,89 +15,117 @@
  */
 package com.lyncode.xoai.dataprovider;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+
+import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.7
  */
 public class OAIRequestParameters {
-	private static Logger log = LogManager
-			.getLogger(OAIRequestParameters.class);
-	private String verb;
-	private String resumptionToken;
-	private String identifier;
-	private String metadataPrefix;
-	private String set;
-	private String until;
-	private String from;
+	private static Logger log = LogManager.getLogger(OAIRequestParameters.class);
+	private Map<String, List<String>> map;
+	private boolean checkedArgs;
 
-	public OAIRequestParameters() {
-
+	public OAIRequestParameters(Map<String, List<String>> map) {
+		this.map = map;
+		this.checkedArgs = false;
 	}
 
-	public void setVerb(String verb) {
-		log.trace("Verb parameter given: " + verb);
-		this.verb = verb;
+	public String getFrom() throws BadArgumentException {
+		return this.getParameter("from");
 	}
 
-	public void setResumptionToken(String res) {
-		log.trace("ResumptionToken parameter given: " + res);
-		this.resumptionToken = res;
+	public String getIdentifier() throws BadArgumentException {
+		return this.getParameter("identifier");
 	}
 
-	public void setIdentifier(String identifier) {
-		log.trace("Identifier parameter given: " + identifier);
-		this.identifier = identifier;
+	public String getMetadataPrefix() throws BadArgumentException {
+		return this.getParameter("metadataPrefix");
 	}
 
-	public void setMetadataPrefix(String metadataPrefix) {
-		log.trace("MetadataPrefix parameter given: " + metadataPrefix);
-		this.metadataPrefix = metadataPrefix;
+	public String getResumptionToken() throws BadArgumentException {
+		return this.getParameter("resumptionToken");
 	}
 
-	public void setSet(String set) {
-		log.trace("Set parameter given: " + set);
-		this.set = set;
+	public String getSet() throws BadArgumentException {
+		return this.getParameter("set");
 	}
 
-	public void setFrom(String from) {
-		log.trace("From parameter given: " + from);
-		this.from = from;
+	public String getUntil() throws BadArgumentException {
+		return this.getParameter("until");
 	}
 
-	public void setUntil(String until) {
-		log.trace("Until parameter given: " + until);
-		this.until = until;
+	public String getVerb() throws BadArgumentException {
+		return this.getParameter("verb");
 	}
 
-	public String getFrom() {
-		return from;
+	private String getParameter (String parameter) throws BadArgumentException {
+		if (!checkedArgs) {
+			onlyHasKnownParameters();
+			this.checkedArgs = true;
+		}
+		List<String> params = this.map.get(parameter);
+		if (params == null || params.size() == 0) {
+			log.debug("Parameter '"+parameter+"' undefined");
+			return null;
+		}
+		else if (params.size() > 1) {
+			throw new BadArgumentException("Duplicate definition of parameter '"+parameter+"'");
+		}
+		else {
+			log.debug("Parameter '"+parameter+"' = '"+params.get(0)+"'");
+			return params.get(0);
+		}
 	}
-
-	public String getIdentifier() {
-		return identifier;
+	
+	private String getParameterID (String parameter) {
+		List<String> params = this.map.get(parameter);
+		if (params == null || params.size() == 0) {
+			log.debug("Parameter '"+parameter+"' undefined");
+			return null;
+		}
+		else if (params.size() > 1) {
+			return params.get(0) + "#" + params.size();
+		}
+		else {
+			log.debug("Parameter '"+parameter+"' = '"+params.get(0)+"'");
+			return params.get(0);
+		}
 	}
-
-	public String getMetadataPrefix() {
-		return metadataPrefix;
+	
+	public String requestID () {
+		String pre = "";
+		try {
+			onlyHasKnownParameters();
+		} catch (BadArgumentException e) {
+			pre = "extra##";
+		}
+		return pre + this.getParameterID("verb") + this.getParameterID("metadataPrefix")
+        + this.getParameterID("identifier")
+        + this.getParameterID("resumptionToken") + this.getParameterID("set")
+        + this.getParameterID("from") + this.getParameterID("until");
 	}
-
-	public String getResumptionToken() {
-		return resumptionToken;
+	
+	
+	public void onlyHasKnownParameters () throws BadArgumentException {
+		List<String> possibilities = new ArrayList<String>();
+		possibilities.add("verb");
+		possibilities.add("from");
+		possibilities.add("until");
+		possibilities.add("set");
+		possibilities.add("identifier");
+		possibilities.add("metadataPrefix");
+		possibilities.add("resumptionToken");
+		
+		for (String parameter : this.map.keySet())
+			if (!possibilities.contains(parameter))
+				throw new BadArgumentException(parameter);
 	}
-
-	public String getSet() {
-		return set;
-	}
-
-	public String getUntil() {
-		return until;
-	}
-
-	public String getVerb() {
-		return verb;
-	}
-
 }
