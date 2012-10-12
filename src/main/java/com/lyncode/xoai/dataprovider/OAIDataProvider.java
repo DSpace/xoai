@@ -584,7 +584,7 @@ public class OAIDataProvider {
 						length, parameters.getMetadataPrefix(),
 						parameters.getFrom());
 			else if (!parameters.hasFrom() && parameters.hasUntil())
-				result = _itemRepo.getItems(_context, token.getOffset(),
+				result = _itemRepo.getItemsUntil(_context, token.getOffset(),
 						length, parameters.getMetadataPrefix(),
 						parameters.getUntil());
 			else if (parameters.hasFrom() && parameters.hasUntil())
@@ -602,7 +602,7 @@ public class OAIDataProvider {
 						length, parameters.getMetadataPrefix(),
 						parameters.getSet(), parameters.getFrom());
 			else if (!parameters.hasFrom() && parameters.hasUntil())
-				result = _itemRepo.getItems(_context, token.getOffset(),
+				result = _itemRepo.getItemsUntil(_context, token.getOffset(),
 						length, parameters.getMetadataPrefix(),
 						parameters.getSet(), parameters.getUntil());
 			else if (parameters.hasFrom() && parameters.hasUntil())
