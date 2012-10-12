@@ -14,6 +14,7 @@ import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
 import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterScope;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 
 public class ItemRepository {
 	private AbstractItemRepository itemRepository;
@@ -33,10 +34,11 @@ public class ItemRepository {
 	 * 
 	 * @return List of Identifiers
 	 * @throws NoMetadataFormatsException
+	 * @throws CannotDisseminateFormatException 
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -57,10 +59,11 @@ public class ItemRepository {
 	 * 
 	 * @return List of Identifiers
 	 * @throws NoMetadataFormatsException
+	 * @throws  
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, Date from)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException  {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -84,7 +87,7 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiersUntil(
 			XOAIContext context, int offset, int length, String metadataPrefix,
-			Date until) throws NoMetadataFormatsException {
+			Date until) throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -109,7 +112,7 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, Date from, Date until)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -133,7 +136,7 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, String setSpec)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -150,7 +153,7 @@ public class ItemRepository {
 
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, String setSpec,
-			Date from) throws NoMetadataFormatsException {
+			Date from) throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -168,7 +171,7 @@ public class ItemRepository {
 
 	public ListItemIdentifiersResult getItemIdentifiersUntil(
 			XOAIContext context, int offset, int length, String metadataPrefix,
-			String setSpec, Date until) throws NoMetadataFormatsException {
+			String setSpec, Date until) throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -186,7 +189,7 @@ public class ItemRepository {
 
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, String setSpec,
-			Date from, Date until) throws NoMetadataFormatsException {
+			Date from, Date until) throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -205,7 +208,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -217,7 +220,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, Date from)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -229,7 +232,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItemsUntil(XOAIContext context, int offset,
 			int length, String metadataPrefix, Date until)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -241,7 +244,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, Date from, Date until)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -253,7 +256,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
@@ -271,7 +274,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec, Date from)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -288,7 +291,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItemsUntil(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec, Date until)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
@@ -305,7 +308,7 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec, Date from,
-			Date until) throws NoMetadataFormatsException {
+			Date until) throws CannotDisseminateFormatException {
 		List<Filter> filters = new ArrayList<Filter>();
 		for (AbstractFilter f : context.getFilters())
 			filters.add(new Filter(f, FilterScope.Context));
