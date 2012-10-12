@@ -46,7 +46,13 @@ public class OAIParameters {
 	public OAIParameters(OAIRequestParameters request)
 			throws IllegalVerbException, BadArgumentException,
 			BadResumptionToken {
-		this.verb = this.getVerb(request.getVerb());
+		String verb = null;
+		try {
+			verb = request.getVerb();
+		} catch (BadArgumentException ex) {
+			throw new IllegalVerbException();
+		}
+		this.verb = this.getVerb(verb);
 		this.from = this.getDate(request.getFrom(), "from");
 		this.until = this.getDate(request.getUntil(), "until");
 		this.metadataPrefix = request.getMetadataPrefix();
