@@ -127,8 +127,14 @@ public class OAIParameters {
 		try {
 			return formatDate.parse(date);
 		} catch (ParseException ex) {
-			throw new BadArgumentException("The " + param
-					+ " parameter given is not valid");
+			formatDate = new SimpleDateFormat(
+					"yyyy-MM-dd");
+			try {
+				return formatDate.parse(date);
+			} catch (ParseException ex1) {
+				throw new BadArgumentException("The " + param
+						+ " parameter given is not valid");
+			}
 		}
 	}
 
