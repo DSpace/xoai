@@ -31,6 +31,7 @@ import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -86,11 +87,11 @@ public class XOAIContext extends ConfigurableBundle {
 	}
 
 	public MetadataFormat getFormatByPrefix(String prefix)
-			throws NoMetadataFormatsException {
+			throws CannotDisseminateFormatException {
 		for (MetadataFormat format : this._formats.values())
 			if (format.getPrefix().equals(prefix))
 				return format;
-		throw new NoMetadataFormatsException();
+		throw new CannotDisseminateFormatException(prefix);
 	}
 
 	public List<MetadataFormat> getFormats() {

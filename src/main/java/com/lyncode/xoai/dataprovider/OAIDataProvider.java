@@ -89,6 +89,7 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.SetType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.StatusType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
+import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -239,6 +240,12 @@ public class OAIDataProvider {
 			log.debug(e.getMessage(), e);
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("Cannot disseminate item with the given format");
+			error.setCode(OAIPMHerrorcodeType.CANNOT_DISSEMINATE_FORMAT);
+			response.getError().add(error);
+		} catch (CannotDisseminateFormatException e) {
+			log.debug(e.getMessage(), e);
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue("Unknown metadata format");
 			error.setCode(OAIPMHerrorcodeType.CANNOT_DISSEMINATE_FORMAT);
 			response.getError().add(error);
 		}
@@ -392,7 +399,7 @@ public class OAIDataProvider {
 			OAIParameters parameters, GetRecordType getRecordType)
 			throws IdDoesNotExistException, BadArgumentException,
 			CannotDisseminateRecordException, OAIException,
-			NoMetadataFormatsException {
+			NoMetadataFormatsException, CannotDisseminateFormatException {
 		RecordType record = _factory.createRecordType();
 		HeaderType header = _factory.createHeaderType();
 		MetadataFormat format = _context.getFormatByPrefix(parameters
@@ -449,7 +456,7 @@ public class OAIDataProvider {
 			OAIParameters parameters, ListIdentifiersType listIdentifiersType)
 			throws BadResumptionToken, BadArgumentException,
 			CannotDisseminateRecordException, DoesNotSupportSetsException,
-			NoMatchesException, OAIException, NoMetadataFormatsException {
+			NoMatchesException, OAIException, NoMetadataFormatsException, CannotDisseminateFormatException {
 		ResumptionToken token = parameters.getResumptionToken();
 
 		if (parameters.hasSet() && !_listSets.supportSets())
@@ -533,7 +540,7 @@ public class OAIDataProvider {
     private HeaderType createHeader(OAIParameters parameters,
 			AbstractItemIdentifier ii) throws BadArgumentException,
 			CannotDisseminateRecordException, OAIException,
-			NoMetadataFormatsException {
+			NoMetadataFormatsException, CannotDisseminateFormatException {
 		MetadataFormat format = _context.getFormatByPrefix(parameters
 				.getMetadataPrefix());
 		if (!ii.isDeleted() && !format.isApplyable(ii))
@@ -556,7 +563,7 @@ public class OAIDataProvider {
 			OAIParameters parameters, ListRecordsType listRecordsType)
 			throws BadArgumentException, CannotDisseminateRecordException,
 			DoesNotSupportSetsException, NoMatchesException, OAIException,
-			NoMetadataFormatsException {
+			NoMetadataFormatsException, CannotDisseminateFormatException {
 		ResumptionToken token = parameters.getResumptionToken();
 		int length = XOAIManager.getManager().getMaxListRecordsSize();
 
@@ -634,7 +641,7 @@ public class OAIDataProvider {
 	private RecordType createRecord(ExportManager manager,
 			OAIParameters parameters, AbstractItem item)
 			throws BadArgumentException, CannotDisseminateRecordException,
-			OAIException, NoMetadataFormatsException {
+			OAIException, NoMetadataFormatsException, CannotDisseminateFormatException {
 		log.debug("Metadata format: " + parameters.getMetadataPrefix());
 		MetadataFormat format = _context.getFormatByPrefix(parameters
 				.getMetadataPrefix());
