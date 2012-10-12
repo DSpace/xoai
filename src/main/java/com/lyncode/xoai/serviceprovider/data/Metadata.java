@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 
 
@@ -27,7 +27,7 @@ import java.io.Serializable;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class Metadata implements Serializable {
     private static final long serialVersionUID = 638219179011570764L;

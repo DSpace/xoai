@@ -28,7 +28,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class XOAIManager {
 	private static final String XOAI_CONFIG = "xoai.xml";

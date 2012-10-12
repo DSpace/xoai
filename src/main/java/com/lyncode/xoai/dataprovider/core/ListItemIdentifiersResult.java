@@ -22,7 +22,7 @@ import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class ListItemIdentifiersResult {
 	private boolean hasMore;

@@ -24,7 +24,7 @@ import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class MetadataFormat extends ConfigurableBundle {
 	private String prefix;

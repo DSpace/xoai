@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 
 package com.lyncode.xoai.serviceprovider.util;
@@ -25,7 +25,7 @@ import java.util.Date;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class DateUtils
 {

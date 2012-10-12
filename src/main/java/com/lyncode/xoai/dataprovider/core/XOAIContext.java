@@ -34,7 +34,7 @@ import com.lyncode.xoai.dataprovider.sets.StaticSet;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class XOAIContext extends ConfigurableBundle {
 	private static Logger log = LogManager.getLogger(XOAIContext.class);

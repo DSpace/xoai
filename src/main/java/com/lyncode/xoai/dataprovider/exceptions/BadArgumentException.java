@@ -20,7 +20,7 @@ import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class BadArgumentException extends InternalHarvestException {
 

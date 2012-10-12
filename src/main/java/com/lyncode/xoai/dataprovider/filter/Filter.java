@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.filter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public final class Filter {
 	private AbstractFilter _filter;

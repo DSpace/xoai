@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 
 package com.lyncode.xoai.dataprovider;
@@ -92,7 +92,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class OAIDataProvider {
 	private static Logger log = LogManager.getLogger(OAIDataProvider.class);
@@ -146,13 +146,13 @@ public class OAIDataProvider {
 		ExportManager manager = new ExportManager();
 		OAIPMHtype response = _factory.createOAIPMHtype();
 		response.setResponseDate(this.dateToString(new Date()));
+		RequestType request = _factory.createRequestType();
+		request.setValue(this._identify.getBaseUrl());
 		try {
 			OAIParameters parameters = new OAIParameters(params);
 			VerbType verb = parameters.getVerb();
-			RequestType request = _factory.createRequestType();
-			request.setValue(this._identify.getBaseUrl());
 			request.setVerb(verb);
-
+			
 			if (params.getResumptionToken() != null)
 				request.setResumptionToken(params.getResumptionToken());
 			if (params.getIdentifier() != null)
@@ -165,8 +165,6 @@ public class OAIDataProvider {
 				request.setSet(params.getSet());
 			if (params.getUntil() != null)
 				request.setUntil(params.getUntil());
-
-			response.setRequest(request);
 
 			switch (verb) {
 			case IDENTIFY:
@@ -245,6 +243,7 @@ public class OAIDataProvider {
 			response.getError().add(error);
 		}
 
+		response.setRequest(request);
 		manager.export(response, out);
 	}
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 
 package com.lyncode.xoai.serviceprovider.data;
@@ -22,7 +22,7 @@ package com.lyncode.xoai.serviceprovider.data;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class Set
 {

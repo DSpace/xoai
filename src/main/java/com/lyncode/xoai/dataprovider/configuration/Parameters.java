@@ -25,7 +25,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Parameter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class Parameters {
 	private Map<String, List<String>> _params;

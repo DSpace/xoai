@@ -27,7 +27,7 @@ import com.lyncode.xoai.dataprovider.util.Base64Utils;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class ResumptionToken {
 	private int _offset;

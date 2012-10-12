@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class OAIRequestParameters {
 	private static Logger log = LogManager

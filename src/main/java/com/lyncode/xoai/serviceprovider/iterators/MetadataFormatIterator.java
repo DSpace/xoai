@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
@@ -51,7 +51,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats.ExtraParameter
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class MetadataFormatIterator
 {

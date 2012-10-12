@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class MetadataFormatDoesNotExistsException extends Exception {
 

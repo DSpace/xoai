@@ -30,7 +30,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public class StaticSetManager {
 	// private static Logger log = LogManager.getLogger(StaticSetManager.class);

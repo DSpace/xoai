@@ -27,7 +27,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Parameter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.6
+ * @version 2.2.7
  */
 public abstract class ConfigurableBundle {
 	private static Logger log = LogManager.getLogger(ConfigurableBundle.class);
