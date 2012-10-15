@@ -54,6 +54,7 @@ import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateRecordException;
 import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
+import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
 import com.lyncode.xoai.dataprovider.exceptions.InvalidContextException;
@@ -61,6 +62,7 @@ import com.lyncode.xoai.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.dataprovider.exceptions.NoMatchesException;
 import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
+import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
 import com.lyncode.xoai.dataprovider.exceptions.XSLTransformationException;
 import com.lyncode.xoai.dataprovider.util.MarshallingUtils;
 import com.lyncode.xoai.dataprovider.util.XSLTUtils;
@@ -247,6 +249,18 @@ public class OAIDataProvider {
 			OAIPMHerrorType error = new OAIPMHerrorType();
 			error.setValue("Unknown metadata format");
 			error.setCode(OAIPMHerrorcodeType.CANNOT_DISSEMINATE_FORMAT);
+			response.getError().add(error);
+		} catch (DuplicateDefinitionException e) {
+			log.debug(e.getMessage(), e);
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue(e.getMessage());
+			error.setCode(OAIPMHerrorcodeType.BAD_ARGUMENT);
+			response.getError().add(error);
+		} catch (UnknownParameterException e) {
+			log.debug(e.getMessage(), e);
+			OAIPMHerrorType error = new OAIPMHerrorType();
+			error.setValue(e.getMessage());
+			error.setCode(OAIPMHerrorcodeType.BAD_ARGUMENT);
 			response.getError().add(error);
 		}
 

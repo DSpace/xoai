@@ -26,7 +26,9 @@ import org.apache.log4j.Logger;
 import com.lyncode.xoai.dataprovider.OAIRequestParameters;
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
+import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
+import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 
 /**
@@ -45,14 +47,9 @@ public class OAIParameters {
 
 	public OAIParameters(OAIRequestParameters request)
 			throws IllegalVerbException, BadArgumentException,
-			BadResumptionToken {
-		String verb = null;
-		try {
-			verb = request.getVerb();
-		} catch (BadArgumentException ex) {
-			throw new IllegalVerbException();
-		}
-		this.verb = this.getVerb(verb);
+			BadResumptionToken, UnknownParameterException, DuplicateDefinitionException {
+		
+		this.verb = this.getVerb(request.getVerb());
 		this.from = this.getDate(request.getFrom(), "from");
 		this.until = this.getDate(request.getUntil(), "until");
 		this.metadataPrefix = request.getMetadataPrefix();

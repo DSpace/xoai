@@ -22,7 +22,9 @@ import java.util.Map;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
+import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
+import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -38,35 +40,39 @@ public class OAIRequestParameters {
 		this.checkedArgs = false;
 	}
 
-	public String getFrom() throws BadArgumentException {
+	public String getFrom() throws DuplicateDefinitionException, UnknownParameterException {
 		return this.getParameter("from");
 	}
 
-	public String getIdentifier() throws BadArgumentException {
+	public String getIdentifier() throws DuplicateDefinitionException, UnknownParameterException {
 		return this.getParameter("identifier");
 	}
 
-	public String getMetadataPrefix() throws BadArgumentException {
+	public String getMetadataPrefix() throws DuplicateDefinitionException, UnknownParameterException {
 		return this.getParameter("metadataPrefix");
 	}
 
-	public String getResumptionToken() throws BadArgumentException {
+	public String getResumptionToken() throws DuplicateDefinitionException, UnknownParameterException {
 		return this.getParameter("resumptionToken");
 	}
 
-	public String getSet() throws BadArgumentException {
+	public String getSet() throws DuplicateDefinitionException, UnknownParameterException {
 		return this.getParameter("set");
 	}
 
-	public String getUntil() throws BadArgumentException {
+	public String getUntil() throws DuplicateDefinitionException, UnknownParameterException {
 		return this.getParameter("until");
 	}
 
-	public String getVerb() throws BadArgumentException {
-		return this.getParameter("verb");
+	public String getVerb() throws IllegalVerbException, UnknownParameterException {
+		try {
+			return this.getParameter("verb");
+		} catch (DuplicateDefinitionException e) {
+			throw new IllegalVerbException("Illegal verb");
+		}
 	}
 
-	private String getParameter (String parameter) throws BadArgumentException {
+	private String getParameter (String parameter) throws DuplicateDefinitionException, UnknownParameterException {
 		if (!checkedArgs) {
 			onlyHasKnownParameters();
 			this.checkedArgs = true;
@@ -77,7 +83,7 @@ public class OAIRequestParameters {
 			return null;
 		}
 		else if (params.size() > 1) {
-			throw new BadArgumentException("Duplicate definition of parameter '"+parameter+"'");
+			throw new DuplicateDefinitionException("Duplicate definition of parameter '"+parameter+"'");
 		}
 		else {
 			log.debug("Parameter '"+parameter+"' = '"+params.get(0)+"'");
@@ -104,7 +110,7 @@ public class OAIRequestParameters {
 		String pre = "";
 		try {
 			onlyHasKnownParameters();
-		} catch (BadArgumentException e) {
+		} catch (UnknownParameterException e) {
 			pre = "extra##";
 		}
 		return pre + this.getParameterID("verb") + this.getParameterID("metadataPrefix")
@@ -114,7 +120,7 @@ public class OAIRequestParameters {
 	}
 	
 	
-	public void onlyHasKnownParameters () throws BadArgumentException {
+	public void onlyHasKnownParameters () throws UnknownParameterException  {
 		List<String> possibilities = new ArrayList<String>();
 		possibilities.add("verb");
 		possibilities.add("from");
@@ -126,6 +132,6 @@ public class OAIRequestParameters {
 		
 		for (String parameter : this.map.keySet())
 			if (!possibilities.contains(parameter))
-				throw new BadArgumentException(parameter);
+				throw new UnknownParameterException("Unknown parameter '"+parameter+"'");
 	}
 }
