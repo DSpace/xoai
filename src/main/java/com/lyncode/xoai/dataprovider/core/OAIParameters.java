@@ -49,6 +49,12 @@ public class OAIParameters {
 			throws IllegalVerbException, BadArgumentException,
 			BadResumptionToken, UnknownParameterException, DuplicateDefinitionException {
 		
+		if (request.getUntil() != null && !request.getUntil().equals("")
+				&& request.getFrom() != null && !request.getFrom().equals("")
+				&& request.getFrom().length() != request.getUntil().length())
+			throw new BadArgumentException("Distinct granularities provided for until and from parameters");
+			
+		
 		this.verb = this.getVerb(request.getVerb());
 		this.from = this.getDate(request.getFrom(), "from");
 		this.until = this.getDate(request.getUntil(), "until");
