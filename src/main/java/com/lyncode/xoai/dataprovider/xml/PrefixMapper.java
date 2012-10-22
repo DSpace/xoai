@@ -23,7 +23,7 @@ import com.sun.xml.bind.marshaller.NamespacePrefixMapper;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class PrefixMapper extends NamespacePrefixMapper {
 	private Map<String, String> _prefix;

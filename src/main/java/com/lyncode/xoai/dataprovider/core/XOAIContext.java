@@ -35,7 +35,7 @@ import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatExcept
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class XOAIContext extends ConfigurableBundle {
 	private static Logger log = LogManager.getLogger(XOAIContext.class);

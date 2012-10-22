@@ -18,7 +18,7 @@ package com.lyncode.xoai.dataprovider.data;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public abstract class AbstractAbout {
 	public abstract String getXML();

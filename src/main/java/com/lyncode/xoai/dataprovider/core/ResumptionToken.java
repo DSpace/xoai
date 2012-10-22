@@ -30,7 +30,7 @@ import com.lyncode.xoai.dataprovider.util.Base64Utils;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class ResumptionToken {
 	private static Logger log = LogManager.getLogger(ResumptionToken.class);

@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class ListSetsResult {
 	private boolean hasMore;

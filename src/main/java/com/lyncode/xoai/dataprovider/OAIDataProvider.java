@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 
 package com.lyncode.xoai.dataprovider;
@@ -95,7 +95,7 @@ import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatExcept
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class OAIDataProvider {
 	private static Logger log = LogManager.getLogger(OAIDataProvider.class);

@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 
 package com.lyncode.xoai.serviceprovider.util;
@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class URLEncoder
 {

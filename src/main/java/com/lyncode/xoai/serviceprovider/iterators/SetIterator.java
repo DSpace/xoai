@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
@@ -52,7 +52,7 @@ import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.7
+ * @version 2.2.8
  */
 public class SetIterator
 {
