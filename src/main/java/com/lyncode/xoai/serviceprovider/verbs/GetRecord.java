@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
@@ -49,7 +49,7 @@ import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 public class GetRecord extends AbstractVerb
 {

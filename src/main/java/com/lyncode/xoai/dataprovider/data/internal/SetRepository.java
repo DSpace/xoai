@@ -41,12 +41,17 @@ public class SetRepository {
 				if (!res.hasTotalResults())
 					return new ListSetsResult(res.hasMore(), results);
 				else
-					return new ListSetsResult(res.hasMore(), results, res.getTotalResults() + context.getStaticSets().size());
+					return new ListSetsResult(res.hasMore(), results, res.getTotalResults() + statics.size());
 			}
 		} else {
 			log.debug("Offset greater or equal than static sets size");
 			int newOffset = offset - statics.size();
-			return setRepository.retrieveSets(newOffset, length);
+			ListSetsResult res = setRepository.retrieveSets(newOffset, length);
+			results.addAll(res.getResults());
+			if (!res.hasTotalResults())
+				return new ListSetsResult(res.hasMore(), results);
+			else
+				return new ListSetsResult(res.hasMore(), results, res.getTotalResults() + statics.size());
 		}
 	}
 	

@@ -28,7 +28,7 @@ import com.lyncode.xoai.dataprovider.filter.Filter;
  * This class wraps the data source of items.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 public abstract class AbstractItemRepository {
 	/**

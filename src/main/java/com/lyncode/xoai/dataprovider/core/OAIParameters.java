@@ -33,7 +33,7 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 public class OAIParameters {
 	private static Logger log = LogManager.getLogger(OAIParameters.class);

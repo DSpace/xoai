@@ -26,7 +26,7 @@ import com.lyncode.xoai.dataprovider.core.Granularity;
  * Base class (required extension) to identify the OAI interface.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 public abstract class AbstractIdentify {
 	/**

@@ -30,7 +30,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 public class ConfigurationManager {
 	public static Configuration readConfiguration(String filename)

@@ -28,7 +28,7 @@ import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.8
+ * @version 2.2.9
  */
 public class OAIRequestParameters {
 	private static Logger log = LogManager.getLogger(OAIRequestParameters.class);
