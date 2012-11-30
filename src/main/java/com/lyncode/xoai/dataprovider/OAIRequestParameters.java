@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
 import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
+import com.lyncode.xoai.serviceprovider.exceptions.BadVerbException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -40,31 +41,31 @@ public class OAIRequestParameters {
 		this.checkedArgs = false;
 	}
 
-	public String getFrom() throws DuplicateDefinitionException, UnknownParameterException {
+	public String getFrom() throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		return this.getParameter("from");
 	}
 
-	public String getIdentifier() throws DuplicateDefinitionException, UnknownParameterException {
+	public String getIdentifier() throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		return this.getParameter("identifier");
 	}
 
-	public String getMetadataPrefix() throws DuplicateDefinitionException, UnknownParameterException {
+	public String getMetadataPrefix() throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		return this.getParameter("metadataPrefix");
 	}
 
-	public String getResumptionToken() throws DuplicateDefinitionException, UnknownParameterException {
+	public String getResumptionToken() throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		return this.getParameter("resumptionToken");
 	}
 
-	public String getSet() throws DuplicateDefinitionException, UnknownParameterException {
+	public String getSet() throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		return this.getParameter("set");
 	}
 
-	public String getUntil() throws DuplicateDefinitionException, UnknownParameterException {
+	public String getUntil() throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		return this.getParameter("until");
 	}
 
-	public String getVerb() throws IllegalVerbException, UnknownParameterException {
+	public String getVerb() throws IllegalVerbException, UnknownParameterException, BadVerbException {
 		try {
 			return this.getParameter("verb");
 		} catch (DuplicateDefinitionException e) {
@@ -72,7 +73,7 @@ public class OAIRequestParameters {
 		}
 	}
 
-	private String getParameter (String parameter) throws DuplicateDefinitionException, UnknownParameterException {
+	private String getParameter (String parameter) throws DuplicateDefinitionException, UnknownParameterException, BadVerbException {
 		if (!checkedArgs) {
 			onlyHasKnownParameters();
 			this.checkedArgs = true;
@@ -112,6 +113,8 @@ public class OAIRequestParameters {
 			onlyHasKnownParameters();
 		} catch (UnknownParameterException e) {
 			pre = "extra##";
+		} catch (BadVerbException e) {
+			pre = "badverb##";
 		}
 		return pre + this.getParameterID("verb") + this.getParameterID("metadataPrefix")
         + this.getParameterID("identifier")
@@ -120,7 +123,7 @@ public class OAIRequestParameters {
 	}
 	
 	
-	public void onlyHasKnownParameters () throws UnknownParameterException  {
+	public void onlyHasKnownParameters () throws UnknownParameterException, BadVerbException  {
 		List<String> possibilities = new ArrayList<String>();
 		possibilities.add("verb");
 		possibilities.add("from");
@@ -129,6 +132,9 @@ public class OAIRequestParameters {
 		possibilities.add("identifier");
 		possibilities.add("metadataPrefix");
 		possibilities.add("resumptionToken");
+		
+		if (!this.map.containsKey("verb"))
+			throw new BadVerbException();
 		
 		for (String parameter : this.map.keySet())
 			if (!possibilities.contains(parameter))
