@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -410,6 +411,7 @@ public class OAIDataProvider {
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		if (_identify.getGranularity() == Granularity.Second)
 			formatDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		formatDate.setTimeZone(TimeZone.getTimeZone("UTC")); // Z means ZULU = UTC!
 		return formatDate.format(date);
 	}
 
