@@ -76,5 +76,11 @@ public abstract class AbstractIdentify {
 	 * @return Granularity
 	 */
 	public abstract Granularity getGranularity();
-
+	
+	/**
+	 * Getting description
+	 * 
+	 * @return String
+	 */
+	public abstract List<String> getDescription ();
 }

@@ -88,7 +88,7 @@ public class ExportManager {
 			String outS = output.toString();
 			for (String id : _values.keySet())
 				outS = outS.replace(id, _values.get(id));
-			if (XOAIManager.getManager().isIdentated())
+			if (XOAIManager.getManager().isIndentated())
 				out.write(this.addStyleSheet(this.format(outS)).getBytes());
 			else
 				out.write(this.addStyleSheet(outS).getBytes());

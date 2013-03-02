@@ -293,19 +293,28 @@ public class OAIDataProvider {
 		for (String com : this._compressions)
 			ident.getCompression().add(com);
 
-		DescriptionType desc = _factory.createDescriptionType();
-		XOAIDescription description = new XOAIDescription();
-		description.setValue(XOAI_DESC);
-
-		String id = "##DESC##";
-		try {
-			manager.addMap(id,
-					MarshallingUtils.marshalWithoutXMLHeader(description));
-		} catch (MarshallingException e) {
-			throw new OAIException(e);
+		
+		List<String> descs = _identify.getDescription();
+		if (descs == null) {
+			descs = new ArrayList<String>();
+			XOAIDescription description = new XOAIDescription();
+		 	description.setValue(XOAI_DESC);
+		 	try {
+				descs.add(MarshallingUtils.marshalWithoutXMLHeader(description));
+			} catch (MarshallingException e) {
+				log.debug(e.getMessage(), e);
+			}
 		}
-		desc.setAny(id);
-		ident.getDescription().add(desc);
+		
+		int i = 1;
+		for (String d : descs) {
+			DescriptionType desc = _factory.createDescriptionType();
+			String id = "##DESC"+i+"##";
+			manager.addMap(id, d);
+			desc.setAny(id);
+			ident.getDescription().add(desc);
+			i++;
+		}
 
 		return ident;
 	}
