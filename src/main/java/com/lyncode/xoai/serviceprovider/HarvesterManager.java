@@ -37,6 +37,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers;
 import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats;
 import com.lyncode.xoai.serviceprovider.verbs.ListRecords;
 import com.lyncode.xoai.serviceprovider.verbs.ListSets;
+import com.lyncode.xoai.serviceprovider.verbs.Parameters;
 
 /**
  * This class works as a wrapper to provide an API with all OAI-PMH possible requests.
@@ -103,7 +104,7 @@ public class HarvesterManager
         return new ListRecords(baseUrl, metadataPrefix, this.getIntervalBetweenRequests());
     }
     
-    public ListRecords listRecords (String metadataPrefix, com.lyncode.xoai.serviceprovider.verbs.ListRecords.ExtraParameters extra) {
+    public ListRecords listRecords (String metadataPrefix, Parameters extra) {
         return new ListRecords(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests());
     }
 
@@ -111,14 +112,14 @@ public class HarvesterManager
         return new ListIdentifiers(baseUrl, metadataPrefix, this.getIntervalBetweenRequests());
     }
     
-    public ListIdentifiers listIdentifiers (String metadataPrefix, com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers.ExtraParameters extra) {
+    public ListIdentifiers listIdentifiers (String metadataPrefix, Parameters extra) {
         return new ListIdentifiers(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests());
     }
     
     public ListMetadataFormats listMetadataFormats () {
         return new ListMetadataFormats(baseUrl);
     }
-    public ListMetadataFormats listMetadataFormats (com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats.ExtraParameters extra) {
+    public ListMetadataFormats listMetadataFormats (Parameters extra) {
         return new ListMetadataFormats(baseUrl, extra);
     }
     

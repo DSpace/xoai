@@ -19,13 +19,7 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.lyncode.xoai.serviceprovider.iterators.MetadataFormatIterator;
-import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 
 
 /**
@@ -34,14 +28,14 @@ import com.lyncode.xoai.serviceprovider.util.URLEncoder;
  */
 public class ListMetadataFormats extends AbstractVerb
 {
-    private ExtraParameters parameters;
+    private Parameters parameters;
 
     public ListMetadataFormats(String baseUrl)
     {
         super(baseUrl);
         parameters = null;
     }
-    public ListMetadataFormats(String baseUrl, ExtraParameters extra)
+    public ListMetadataFormats(String baseUrl, Parameters extra)
     {
         super(baseUrl);
         parameters = extra;
@@ -52,35 +46,4 @@ public class ListMetadataFormats extends AbstractVerb
         return new MetadataFormatIterator(super.getBaseUrl(), parameters);
     }
 
-
-    public class ExtraParameters {
-        private String identifier;
-        
-        public ExtraParameters()
-        {
-            super();
-        }
-        
-        
-        
-        public String getIdentifier()
-        {
-            return identifier;
-        }
-
-
-
-        public void setIdentifier(String identifier)
-        {
-            this.identifier = identifier;
-        }
-
-
-
-        public String toUrl () {
-            List<String> string = new ArrayList<String>();
-            if (identifier != null) string.add("set="+URLEncoder.encode(identifier));
-            return StringUtils.join(string, URLEncoder.SEPARATOR);
-        }
-    }
 }

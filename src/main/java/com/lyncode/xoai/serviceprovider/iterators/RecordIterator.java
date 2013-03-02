@@ -47,7 +47,7 @@ import com.lyncode.xoai.serviceprovider.exceptions.NoRecordsMatchException;
 import com.lyncode.xoai.serviceprovider.exceptions.NoSetHierarchyException;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
-import com.lyncode.xoai.serviceprovider.verbs.ListRecords.ExtraParameters;
+import com.lyncode.xoai.serviceprovider.verbs.Parameters;
 
 
 /**
@@ -61,10 +61,10 @@ public class RecordIterator
     private int config;
     private String baseUrl;
     private String metadataPrefix;
-    private ExtraParameters extra;
+    private Parameters extra;
 
     public RecordIterator(int interval, String baseUrl, String metadataPrefix,
-            ExtraParameters extra)
+    		Parameters extra)
     {
         super();
         this.config = interval;

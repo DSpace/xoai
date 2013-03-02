@@ -45,7 +45,7 @@ import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
-import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats.ExtraParameters;
+import com.lyncode.xoai.serviceprovider.verbs.Parameters;
 
 
 /**
@@ -57,9 +57,9 @@ public class MetadataFormatIterator
     private static Logger log = LogManager.getLogger(MetadataFormatIterator.class);
     
     private String baseUrl;
-    private ExtraParameters extra;
+    private Parameters extra;
 
-    public MetadataFormatIterator(String baseUrl, ExtraParameters extra)
+    public MetadataFormatIterator(String baseUrl, Parameters extra)
     {
         super();
         this.baseUrl = baseUrl;

@@ -19,15 +19,7 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.lyncode.xoai.serviceprovider.iterators.RecordIterator;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
-import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 
 
 /**
@@ -38,7 +30,7 @@ public class ListRecords extends AbstractVerb
 {
 	
     private String metadataPrefix;
-    private ExtraParameters extra;
+    private Parameters extra;
     private int interval;
     
     public ListRecords(String baseUrl, String metadataPrefix, int interval)
@@ -50,7 +42,7 @@ public class ListRecords extends AbstractVerb
     }
     
 
-    public ListRecords(String baseUrl, String metadataPrefix, ExtraParameters extra, int interval)
+    public ListRecords(String baseUrl, String metadataPrefix, Parameters extra, int interval)
     {
         super(baseUrl);
         this.metadataPrefix = metadataPrefix;
@@ -62,54 +54,4 @@ public class ListRecords extends AbstractVerb
     {
         return new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra);
     }
-    
-    public class ExtraParameters {
-        private String set;
-        private Date from;
-        private Date until;
-        
-        public ExtraParameters()
-        {
-            super();
-        }
-
-        public String getSet()
-        {
-            return set;
-        }
-
-        public void setSet(String set)
-        {
-            this.set = set;
-        }
-
-        public Date getFrom()
-        {
-            return from;
-        }
-
-        public void setFrom(Date from)
-        {
-            this.from = from;
-        }
-
-        public Date getUntil()
-        {
-            return until;
-        }
-
-        public void setUntil(Date until)
-        {
-            this.until = until;
-        }
-        
-        public String toUrl () {
-            List<String> string = new ArrayList<String>();
-            if (set != null) string.add("set="+URLEncoder.encode(set));
-            if (from != null) string.add("from="+URLEncoder.encode(DateUtils.fromDate(from)));
-            if (until != null) string.add("until="+URLEncoder.encode(DateUtils.fromDate(until)));
-            return StringUtils.join(string, URLEncoder.SEPARATOR);
-        }
-    }
-
 }
