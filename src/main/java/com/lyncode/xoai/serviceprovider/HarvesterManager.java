@@ -27,7 +27,6 @@ import javax.net.ssl.X509TrustManager;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
@@ -53,7 +52,8 @@ public class HarvesterManager
     public static final String FROM = "general@lyncode.com";
     
     private static boolean configured = false;
-    private static void trustAllCertificates () {
+    
+    public void trustAllCertificates () {
     	if (!configured) {
 	    	// Create a trust manager that does not validate certificate chains
 	    	TrustManager[] trustAllCerts = new TrustManager[]{
@@ -83,54 +83,54 @@ public class HarvesterManager
     	}
     }
     
-    private Configuration config;
     private String baseUrl;
-    
-    public HarvesterManager (Configuration configure, String baseUrl) {
-        config = configure;
+    private int intervalBetweenRequests;
+
+    public HarvesterManager (String baseUrl) {
         this.baseUrl = baseUrl;
-        
-        if (config.isTrustAllCertificates()) {
-        	trustAllCertificates();
-        }
+        this.intervalBetweenRequests = 1000;
+    }
+    public HarvesterManager (String baseUrl, int interval) {
+        this.baseUrl = baseUrl;
+        this.intervalBetweenRequests = interval;
     }
     
-    private Configuration getConfiguration () {
-        return config;
+    public int getIntervalBetweenRequests () {
+        return intervalBetweenRequests;
     }
 
     public ListRecords listRecords (String metadataPrefix) {
-        return new ListRecords(getConfiguration(), baseUrl, metadataPrefix);
+        return new ListRecords(baseUrl, metadataPrefix, this.getIntervalBetweenRequests());
     }
     
     public ListRecords listRecords (String metadataPrefix, com.lyncode.xoai.serviceprovider.verbs.ListRecords.ExtraParameters extra) {
-        return new ListRecords(config, baseUrl, metadataPrefix, extra);
+        return new ListRecords(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests());
     }
 
     public ListIdentifiers listIdentifiers (String metadataPrefix) {
-        return new ListIdentifiers(getConfiguration(), baseUrl, metadataPrefix);
+        return new ListIdentifiers(baseUrl, metadataPrefix, this.getIntervalBetweenRequests());
     }
     
     public ListIdentifiers listIdentifiers (String metadataPrefix, com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers.ExtraParameters extra) {
-        return new ListIdentifiers(getConfiguration(), baseUrl, metadataPrefix, extra);
+        return new ListIdentifiers(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests());
     }
     
     public ListMetadataFormats listMetadataFormats () {
-        return new ListMetadataFormats(config, baseUrl);
+        return new ListMetadataFormats(baseUrl);
     }
     public ListMetadataFormats listMetadataFormats (com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats.ExtraParameters extra) {
-        return new ListMetadataFormats(config, baseUrl, extra);
+        return new ListMetadataFormats(baseUrl, extra);
     }
     
     public ListSets listSets () {
-        return new ListSets(config, baseUrl);
+        return new ListSets(baseUrl, this.getIntervalBetweenRequests());
     }
     
     public GetRecord getRecord (String identifier, String metadataPrefix) throws InternalHarvestException, BadArgumentException, CannotDisseminateFormatException, IdDoesNotExistException {
-        return new GetRecord(config, baseUrl, identifier, metadataPrefix);
+        return new GetRecord(baseUrl, identifier, metadataPrefix);
     }
     
     public Identify identify () throws InternalHarvestException, BadArgumentException {
-        return new Identify(config, baseUrl);
+        return new Identify(baseUrl);
     }
 }

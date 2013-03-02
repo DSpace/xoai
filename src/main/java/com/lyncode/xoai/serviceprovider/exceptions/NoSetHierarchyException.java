@@ -2,6 +2,11 @@ package com.lyncode.xoai.serviceprovider.exceptions;
 
 public class NoSetHierarchyException extends HarvestException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1773759434098664641L;
+
 	public NoSetHierarchyException() {
 	}
 

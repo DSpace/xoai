@@ -37,7 +37,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.Header;
 import com.lyncode.xoai.serviceprovider.data.Metadata;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
@@ -60,9 +59,9 @@ public class GetRecord extends AbstractVerb
     private Header header;
     private Metadata metadata;
     
-    public GetRecord(Configuration config, String baseUrl, String identifier, String metadataPrefix) throws InternalHarvestException, CannotDisseminateFormatException, IdDoesNotExistException
+    public GetRecord(String baseUrl, String identifier, String metadataPrefix) throws InternalHarvestException, CannotDisseminateFormatException, IdDoesNotExistException
     {
-        super(config, baseUrl);
+        super(baseUrl);
         this.identifier = identifier;
         this.metadataPrefix = metadataPrefix;
         harvest();
@@ -77,7 +76,7 @@ public class GetRecord extends AbstractVerb
     private void harvest () throws InternalHarvestException, CannotDisseminateFormatException, IdDoesNotExistException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
-        log.info("Harvesting: "+url);
+        log.debug("Harvesting: "+url);
         HttpGet httpget = new HttpGet(url);
         httpget.addHeader("User-Agent", HarvesterManager.USERAGENT);
         httpget.addHeader("From", HarvesterManager.FROM);

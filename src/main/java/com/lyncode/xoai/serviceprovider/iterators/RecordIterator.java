@@ -39,7 +39,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.Record;
 import com.lyncode.xoai.serviceprovider.exceptions.BadResumptionTokenException;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
@@ -59,16 +58,16 @@ public class RecordIterator
 {
     private static Logger log = LogManager.getLogger(RecordIterator.class);
     
-    private Configuration config;
+    private int config;
     private String baseUrl;
     private String metadataPrefix;
     private ExtraParameters extra;
 
-    public RecordIterator(Configuration configuration, String baseUrl, String metadataPrefix,
+    public RecordIterator(int interval, String baseUrl, String metadataPrefix,
             ExtraParameters extra)
     {
         super();
-        this.config = configuration;
+        this.config = interval;
         this.baseUrl = baseUrl;
         this.metadataPrefix = metadataPrefix;
         this.extra = extra;
@@ -82,7 +81,7 @@ public class RecordIterator
         if (resumption != null && !resumption.trim().equals("")) {
             try
             {
-                int wait = this.config.getResumptionInterval();
+                int wait = this.config;
                 log.debug("Waiting "+wait+" miliseconds");
                 Thread.sleep(wait);
             }

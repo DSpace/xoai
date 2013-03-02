@@ -39,7 +39,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.MetadataFormat;
 import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
@@ -57,14 +56,12 @@ public class MetadataFormatIterator
 {
     private static Logger log = LogManager.getLogger(MetadataFormatIterator.class);
     
-    private Configuration config;
     private String baseUrl;
     private ExtraParameters extra;
 
-    public MetadataFormatIterator(Configuration configuration, String baseUrl, ExtraParameters extra)
+    public MetadataFormatIterator(String baseUrl, ExtraParameters extra)
     {
         super();
-        this.config = configuration;
         this.baseUrl = baseUrl;
         this.extra = extra;
     }

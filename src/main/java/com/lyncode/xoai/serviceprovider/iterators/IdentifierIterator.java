@@ -39,7 +39,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.Identifier;
 import com.lyncode.xoai.serviceprovider.exceptions.BadResumptionTokenException;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
@@ -59,12 +58,12 @@ public class IdentifierIterator
 {
     private static Logger log = LogManager.getLogger(IdentifierIterator.class);
     
-    private Configuration config;
+    private int config;
     private String baseUrl;
     private String metadataPrefix;
     private ExtraParameters extra;
 
-    public IdentifierIterator(Configuration configuration, String baseUrl, String metadataPrefix,
+    public IdentifierIterator(int configuration, String baseUrl, String metadataPrefix,
             ExtraParameters extra)
     {
         super();
@@ -82,7 +81,7 @@ public class IdentifierIterator
         if (resumption != null && !resumption.trim().equals("")) {
             try
             {
-                int wait = this.config.getResumptionInterval();
+                int wait = this.config;
                 log.debug("Waiting "+wait+" miliseconds");
                 Thread.sleep(wait);
             }

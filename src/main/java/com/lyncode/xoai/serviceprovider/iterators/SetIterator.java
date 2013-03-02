@@ -39,9 +39,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.data.Set;
-import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.BadResumptionTokenException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.exceptions.NoRecordsMatchException;
@@ -57,16 +55,17 @@ import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 public class SetIterator
 {
     private static Logger log = LogManager.getLogger(SetIterator.class);
-    private Configuration configure;
+    private int configure;
     private String baseUrl;
     
     
     
-    public SetIterator(Configuration configure, String baseUrl)
+    public SetIterator(String string, int interval)
     {
         super();
-        this.configure = configure;
-        this.baseUrl = baseUrl;
+        this.configure = interval;
+        this.baseUrl = string;
+        
     }
     
 
@@ -77,7 +76,7 @@ public class SetIterator
         if (resumption != null && !resumption.trim().equals("")) {
             try
             {
-                int wait = this.configure.getResumptionInterval();
+                int wait = this.configure;
                 log.debug("Waiting "+wait+" miliseconds");
                 Thread.sleep(wait);
             }

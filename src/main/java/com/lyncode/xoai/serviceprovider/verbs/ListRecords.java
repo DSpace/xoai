@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.iterators.RecordIterator;
 import com.lyncode.xoai.serviceprovider.util.DateUtils;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
@@ -40,25 +39,28 @@ public class ListRecords extends AbstractVerb
 	
     private String metadataPrefix;
     private ExtraParameters extra;
+    private int interval;
     
-    public ListRecords(Configuration config, String baseUrl, String metadataPrefix)
+    public ListRecords(String baseUrl, String metadataPrefix, int interval)
     {
-        super(config, baseUrl);
+        super(baseUrl);
         this.metadataPrefix = metadataPrefix;
         this.extra = null;
+        this.interval = interval;
     }
     
 
-    public ListRecords(Configuration config, String baseUrl, String metadataPrefix, ExtraParameters extra)
+    public ListRecords(String baseUrl, String metadataPrefix, ExtraParameters extra, int interval)
     {
-        super(config, baseUrl);
+        super(baseUrl);
         this.metadataPrefix = metadataPrefix;
         this.extra = extra;
+        this.interval = interval;
     }
 
     public RecordIterator iterator()
     {
-        return new RecordIterator(super.getConfiguration(), super.getBaseUrl(), metadataPrefix, extra);
+        return new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra);
     }
     
     public class ExtraParameters {

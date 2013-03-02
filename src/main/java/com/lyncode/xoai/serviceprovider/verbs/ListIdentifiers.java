@@ -25,7 +25,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.iterators.IdentifierIterator;
 import com.lyncode.xoai.serviceprovider.util.DateUtils;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
@@ -39,25 +38,28 @@ public class ListIdentifiers extends AbstractVerb
 {
     private String metadataPrefix;
     private ExtraParameters extra;
+    private int interval;
     
-    public ListIdentifiers(Configuration config, String baseUrl, String metadataPrefix)
+    public ListIdentifiers(String baseUrl, String metadataPrefix, int interval)
     {
-        super(config, baseUrl);
+        super(baseUrl);
         this.metadataPrefix = metadataPrefix;
         this.extra = null;
+        this.interval = interval;
     }
     
 
-    public ListIdentifiers(Configuration config, String baseUrl, String metadataPrefix, ExtraParameters extra)
+    public ListIdentifiers(String baseUrl, String metadataPrefix, ExtraParameters extra, int interval)
     {
-        super(config, baseUrl);
+        super(baseUrl);
         this.metadataPrefix = metadataPrefix;
         this.extra = extra;
+        this.interval = interval;
     }
 
     public IdentifierIterator iterator()
     {
-        return new IdentifierIterator(super.getConfiguration(), super.getBaseUrl(), metadataPrefix, extra);
+        return new IdentifierIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra);
     }
     
     public class ExtraParameters {

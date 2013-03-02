@@ -38,7 +38,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.util.XMLUtils;
@@ -68,9 +67,9 @@ public class Identify extends AbstractVerb
     
     private ArrayList<String> compressions;
     
-    public Identify(Configuration config, String baseUrl) throws InternalHarvestException, BadArgumentException
+    public Identify(String baseUrl) throws InternalHarvestException, BadArgumentException
     {
-        super(config, baseUrl);
+        super(baseUrl);
         harvest();
     }
     

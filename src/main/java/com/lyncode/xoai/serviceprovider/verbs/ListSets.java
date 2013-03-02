@@ -19,7 +19,6 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
 
 /**
@@ -29,15 +28,17 @@ import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
 
 public class ListSets extends AbstractVerb
 {
-
-    public ListSets(Configuration config, String baseUrl)
+	private int interval;
+	
+    public ListSets(String baseUrl, int interval)
     {
-        super(config, baseUrl);
+        super(baseUrl);
+        this.interval = interval;
     }
 
     public SetIterator iterator()
     {
-        return new SetIterator(super.getConfiguration(), super.getBaseUrl());
+        return new SetIterator(super.getBaseUrl(), this.interval);
     }
 
 }

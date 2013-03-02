@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 import com.lyncode.xoai.serviceprovider.iterators.MetadataFormatIterator;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 
@@ -37,20 +36,20 @@ public class ListMetadataFormats extends AbstractVerb
 {
     private ExtraParameters parameters;
 
-    public ListMetadataFormats(Configuration config, String baseUrl)
+    public ListMetadataFormats(String baseUrl)
     {
-        super(config, baseUrl);
+        super(baseUrl);
         parameters = null;
     }
-    public ListMetadataFormats(Configuration config, String baseUrl, ExtraParameters extra)
+    public ListMetadataFormats(String baseUrl, ExtraParameters extra)
     {
-        super(config, baseUrl);
+        super(baseUrl);
         parameters = extra;
     }
 
     public MetadataFormatIterator iterator()
     {
-        return new MetadataFormatIterator(super.getConfiguration(), super.getBaseUrl(), parameters);
+        return new MetadataFormatIterator(super.getBaseUrl(), parameters);
     }
 
 

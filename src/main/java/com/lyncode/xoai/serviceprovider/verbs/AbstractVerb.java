@@ -19,9 +19,6 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import com.lyncode.xoai.serviceprovider.configuration.Configuration;
-
-
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -30,21 +27,12 @@ import com.lyncode.xoai.serviceprovider.configuration.Configuration;
 public abstract class AbstractVerb
 {
     private String baseUrl;
-    private Configuration configuration;
     
-    public AbstractVerb (Configuration config, String baseUrl) {
+    public AbstractVerb (String baseUrl) {
         this.baseUrl = baseUrl;
-        this.configuration = config;
     }
     
     protected String getBaseUrl () {
         return this.baseUrl;
     }
-
-    public Configuration getConfiguration()
-    {
-        return configuration;
-    }
-    
-    
 }
