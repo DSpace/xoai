@@ -86,14 +86,7 @@ public class XMLUtils
         NodeList list = node.getChildNodes();
         for (int i=0;i<list.getLength();i++) {
             if (list.item(i).getNodeName().toLowerCase().equals("header")) {
-            	Header h = getHeader(list.item(i).getChildNodes());
-            	if (list.item(i).hasAttributes()) {
-            		Node n = list.item(i).getAttributes().getNamedItem("status");
-            		if (n != null) {
-            			if (n.getTextContent() != null)
-            				h.setStatus(n.getTextContent().toLowerCase());
-            		}
-            	}
+            	Header h = getHeader(list.item(i).getChildNodes());            	
                 record.setHeader(h);
             } else if (list.item(i).getNodeName().toLowerCase().equals("metadata")) {
                 record.setMetadata(getMetadata(list.item(i).getChildNodes()));

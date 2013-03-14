@@ -35,6 +35,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -144,8 +145,19 @@ public class IdentifierIterator
             XMLUtils.checkListIdentifiers(doc);
             
             NodeList listRecords = doc.getElementsByTagName("header");
-            for (int i = 0;i<listRecords.getLength();i++)
-                _queue.add(XMLUtils.getIdentifier(listRecords.item(i)));
+            for (int i = 0;i<listRecords.getLength();i++) {
+            	Identifier id = XMLUtils.getIdentifier(listRecords.item(i));
+                
+                if (listRecords.item(i).hasAttributes()) {
+            		Node n = listRecords.item(i).getAttributes().getNamedItem("status");
+            		if (n != null) {
+            			if (n.getTextContent() != null)
+            				id.getHeader().setStatus(n.getTextContent().toLowerCase());
+            		}
+            	}
+                _queue.add(id);
+            }
+            
             
             resumption = XMLUtils.getText(doc.getElementsByTagName("resumptionToken"));
             log.debug("RESUMPTION: "+resumption);
