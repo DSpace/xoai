@@ -45,7 +45,7 @@ public class OAIParameters {
 	private String set;
 	private Date until;
 	private Date from;
-
+	
 	public OAIParameters(OAIRequestParameters request)
 			throws IllegalVerbException, BadArgumentException,
 			BadResumptionToken, UnknownParameterException, DuplicateDefinitionException {

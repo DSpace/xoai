@@ -19,7 +19,12 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
+import org.apache.log4j.Logger;
+
 import com.lyncode.xoai.serviceprovider.iterators.RecordIterator;
+import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
+import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
 
 
 /**
@@ -33,25 +38,29 @@ public class ListRecords extends AbstractVerb
     private Parameters extra;
     private int interval;
     
-    public ListRecords(String baseUrl, String metadataPrefix, int interval)
+    public ListRecords(String baseUrl, String metadataPrefix, int interval, Logger log)
     {
-        super(baseUrl);
+        super(baseUrl, log);
         this.metadataPrefix = metadataPrefix;
         this.extra = null;
         this.interval = interval;
     }
     
 
-    public ListRecords(String baseUrl, String metadataPrefix, Parameters extra, int interval)
+    public ListRecords(String baseUrl, String metadataPrefix, Parameters extra, int interval, Logger log)
     {
-        super(baseUrl);
+        super(baseUrl, log);
         this.metadataPrefix = metadataPrefix;
         this.extra = extra;
         this.interval = interval;
     }
 
-    public RecordIterator iterator()
+    public ProcessingQueue<RecordType> harvest(GenericParser metadata)
     {
-        return new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra);
+        return (new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra, getLogger(), metadata)).harvest();
+    }
+    public ProcessingQueue<RecordType> harvest(GenericParser metadata, GenericParser about)
+    {
+        return (new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra, getLogger(), metadata, about)).harvest();
     }
 }

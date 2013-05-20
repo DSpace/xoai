@@ -21,9 +21,8 @@ package com.lyncode.xoai.serviceprovider.verbs;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,16 +30,17 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
+import com.lyncode.xoai.serviceprovider.core.HarvestURL;
 import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
-import com.lyncode.xoai.serviceprovider.util.XMLUtils;
+import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.OAIPMHParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 
 
 /**
@@ -49,39 +49,20 @@ import com.lyncode.xoai.serviceprovider.util.XMLUtils;
  */
 public class Identify extends AbstractVerb
 {
-    private static Logger log = LogManager.getLogger(Identify.class);
-
-    private String repositoryName;
-
-    private String protocolVersion;
-
-    private String earliestDateStamp;
-
-    private String deletedRecord;
-
-    private String granularity;
-
-    private String description;
-
-    private ArrayList<String> adminEmails;
-    
-    private ArrayList<String> compressions;
-    
-    public Identify(String baseUrl) throws InternalHarvestException, BadArgumentException
+	public Identify(String baseUrl, Logger log) throws InternalHarvestException, BadArgumentException
     {
-        super(baseUrl);
-        harvest();
+        super(baseUrl, log);
     }
     
 
     private String makeUrl () {
-        return (super.getBaseUrl() + "?verb=Identify");
+        return HarvestURL.identify().toURL(getBaseUrl());
     }
     
-    private void harvest () throws InternalHarvestException, BadArgumentException {
+    public IdentifyType harvest (GenericParser description) throws InternalHarvestException, BadArgumentException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
-        log.info("Harvesting: "+url);
+        getLogger().info("Harvesting: "+url);
         HttpGet httpget = new HttpGet(url);
         httpget.addHeader("User-Agent", HarvesterManager.USERAGENT);
         httpget.addHeader("From", HarvesterManager.FROM);
@@ -93,7 +74,7 @@ public class Identify extends AbstractVerb
             response = httpclient.execute(httpget);
             StatusLine status = response.getStatusLine();
             
-            log.debug(response.getStatusLine());
+            getLogger().debug(response.getStatusLine());
             
             if(status.getStatusCode() == 503) // 503 Status (must wait)
             {
@@ -104,9 +85,9 @@ public class Identify extends AbstractVerb
                         try {
 							Thread.sleep(Integer.parseInt(retry_time)*1000);
 						} catch (NumberFormatException e) {
-							log.warn("Cannot parse "+retry_time+" to Integer", e);
+							getLogger().warn("Cannot parse "+retry_time+" to Integer", e);
 						} catch (InterruptedException e) {
-							log.debug(e.getMessage(), e);
+							getLogger().debug(e.getMessage(), e);
 						}
                         httpclient.getConnectionManager().shutdown();
                         httpclient = new DefaultHttpClient();
@@ -118,89 +99,19 @@ public class Identify extends AbstractVerb
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            Document doc = XMLUtils.parseDocument(instream);
+            OAIPMHParser parser = OAIPMHParser.newInstance(instream, null, description, null);
+            OAIPMHtype pmh = parser.parse();
             
-            NodeList res = doc.getElementsByTagName("Identify");
-            if (res.getLength() > 0) {
-                NodeList listRecords = res.item(0).getChildNodes();
-                for (int j = 0;j<listRecords.getLength();j++) {
-                    if (listRecords.item(j).getNodeName().equals("repositoryName"))
-                        this.repositoryName = XMLUtils.getText(listRecords.item(j));
-                    else if (listRecords.item(j).getNodeName().equals("protocolVersion"))
-                        this.protocolVersion = XMLUtils.getText(listRecords.item(j));
-                    else if (listRecords.item(j).getNodeName().equals("earliestDatestamp"))
-                        this.earliestDateStamp = XMLUtils.getText(listRecords.item(j));
-                    else if (listRecords.item(j).getNodeName().equals("deletedRecord"))
-                        this.deletedRecord = XMLUtils.getText(listRecords.item(j));
-                    else if (listRecords.item(j).getNodeName().equals("granularity"))
-                        this.granularity = XMLUtils.getText(listRecords.item(j));
-                    else if (listRecords.item(j).getNodeName().equals("description"))
-                        this.description = XMLUtils.getXML(listRecords.item(j).getChildNodes());
-                    else if (listRecords.item(j).getNodeName().equals("adminEmail")) {
-                        if (this.adminEmails == null) this.adminEmails = new ArrayList<String>();
-                        this.adminEmails.add(XMLUtils.getText(listRecords.item(j)));
-                    }
-                    else if (listRecords.item(j).getNodeName().equals("compression")) {
-                        if (this.compressions == null) this.compressions = new ArrayList<String>();
-                        this.compressions.add(XMLUtils.getText(listRecords.item(j)));
-                    }
-                }
-            } else throw new InternalHarvestException("Unable to get Identify from OAI Interface");
+            return pmh.getIdentify();
         }
         catch (IOException e)
         {
             throw new InternalHarvestException(e);
-        } catch (ParserConfigurationException e) {
+        } catch (XMLStreamException e) {
             throw new InternalHarvestException(e);
-		} catch (SAXException e) {
+		} catch (ParseException e) {
             throw new InternalHarvestException(e);
 		}
         
-    }
-    
-
-    public String getRepositoryName()
-    {
-        return repositoryName;
-    }
-
-    public String getProtocolVersion()
-    {
-        return protocolVersion;
-    }
-
-    public String getEarliestDateStamp()
-    {
-        return earliestDateStamp;
-    }
-
-    public String getDeletedRecord()
-    {
-        return deletedRecord;
-    }
-
-    public String getGranularity()
-    {
-        return granularity;
-    }
-
-    public ArrayList<String> getAdminEmails()
-    {
-        return adminEmails;
-    }
-
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-
-    public ArrayList<String> getCompressions()
-    {
-        return compressions;
-    }
-
-    
-    
+    }   
 }

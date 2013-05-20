@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -32,19 +32,18 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.lyncode.xoai.serviceprovider.HarvesterManager;
-import com.lyncode.xoai.serviceprovider.data.MetadataFormat;
 import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.exceptions.NoMetadataFormatsException;
+import com.lyncode.xoai.serviceprovider.oaipmh.OAIPMHParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.MetadataFormatType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 import com.lyncode.xoai.serviceprovider.util.URLEncoder;
-import com.lyncode.xoai.serviceprovider.util.XMLUtils;
 import com.lyncode.xoai.serviceprovider.verbs.Parameters;
 
 
@@ -54,20 +53,20 @@ import com.lyncode.xoai.serviceprovider.verbs.Parameters;
  */
 public class MetadataFormatIterator
 {
-    private static Logger log = LogManager.getLogger(MetadataFormatIterator.class);
-    
+    private Logger log;
     private String baseUrl;
     private Parameters extra;
 
-    public MetadataFormatIterator(String baseUrl, Parameters extra)
+    public MetadataFormatIterator(String baseUrl, Parameters extra, Logger logger)
     {
         super();
         this.baseUrl = baseUrl;
         this.extra = extra;
+        this.log = logger;
     }
 
 
-    private Queue<MetadataFormat> _queue = null;
+    private Queue<MetadataFormatType> _queue = null;
     
     private String makeUrl () {
         if (extra == null || extra.equals(""))
@@ -77,7 +76,7 @@ public class MetadataFormatIterator
         
     }
     
-    private void harvest () throws InternalHarvestException, NoMetadataFormatsException, IdDoesNotExistException {
+    public ListMetadataFormatsType harvest () throws InternalHarvestException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
         log.info("Harvesting: "+url);
@@ -117,38 +116,29 @@ public class MetadataFormatIterator
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            Document doc = XMLUtils.parseDocument(instream);
+            OAIPMHParser parser = OAIPMHParser.newInstance(instream, log);
+            OAIPMHtype res = parser.parse();
             
-            XMLUtils.checkListMetadataFormats(doc);
-            
-            
-            NodeList listRecords = doc.getElementsByTagName("metadataFormat");
-            for (int i = 0;i<listRecords.getLength();i++)
-                _queue.add(XMLUtils.getMetadataFormat(listRecords.item(i)));
-            
+            return res.getListMetadataFormats();
         }
-        catch (IOException e)
+        catch (IOException | XMLStreamException | ParseException e)
         {
             throw new InternalHarvestException(e);
-        } catch (ParserConfigurationException e) {
-            throw new InternalHarvestException(e);
-		} catch (SAXException e) {
-            throw new InternalHarvestException(e);
-		}
+        }
         
     }
     
     public boolean hasNext() throws NoMetadataFormatsException, IdDoesNotExistException, InternalHarvestException
     {
         if (_queue == null) {
-            if (_queue == null) _queue = new LinkedList<MetadataFormat>();
+            if (_queue == null) _queue = new LinkedList<MetadataFormatType>();
             this.harvest();
         }
         
         return (_queue.size() > 0);
     }
 
-    public MetadataFormat next()
+    public MetadataFormatType next()
     {
         return _queue.poll();
     }

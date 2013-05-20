@@ -19,7 +19,11 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
+import org.apache.log4j.Logger;
+
 import com.lyncode.xoai.serviceprovider.iterators.IdentifierIterator;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
+import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
 
 
 /**
@@ -29,28 +33,20 @@ import com.lyncode.xoai.serviceprovider.iterators.IdentifierIterator;
 public class ListIdentifiers extends AbstractVerb
 {
     private String metadataPrefix;
-    private Parameters extra;
     private int interval;
+    private Parameters extra;
     
-    public ListIdentifiers(String baseUrl, String metadataPrefix, int interval)
+    public ListIdentifiers(String baseUrl, String metadataPrefix, Parameters extra, int interval, Logger log)
     {
-        super(baseUrl);
+        super(baseUrl, log);
         this.metadataPrefix = metadataPrefix;
-        this.extra = null;
         this.interval = interval;
-    }
-    
-
-    public ListIdentifiers(String baseUrl, String metadataPrefix, Parameters extra, int interval)
-    {
-        super(baseUrl);
-        this.metadataPrefix = metadataPrefix;
         this.extra = extra;
-        this.interval = interval;
     }
 
-    public IdentifierIterator iterator()
+
+	public ProcessingQueue<HeaderType> harvest()
     {
-        return new IdentifierIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra);
+        return (new IdentifierIterator(this.interval, super.getBaseUrl(), metadataPrefix, this.extra, getLogger())).harvest();
     }
 }

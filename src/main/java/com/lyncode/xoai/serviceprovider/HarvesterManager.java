@@ -23,7 +23,9 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.xml.stream.XMLStreamReader;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -31,6 +33,13 @@ import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
+import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.NullParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
+import com.lyncode.xoai.serviceprovider.oaipmh.oai_dc.OAIDCParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.schemas.oai_dc.OAIDC;
+import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
 import com.lyncode.xoai.serviceprovider.verbs.GetRecord;
 import com.lyncode.xoai.serviceprovider.verbs.Identify;
 import com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers;
@@ -53,6 +62,22 @@ public class HarvesterManager
     public static final String FROM = "general@lyncode.com";
     
     private static boolean configured = false;
+    
+    public static void main (String... args) {
+    	//BasicConfigurator.configure();
+    	HarvesterManager harvester = new HarvesterManager("http://demo.dspace.org/oai/request", log);
+    	ListRecords lr = harvester.listRecords("oai_dc");
+    	ProcessingQueue<RecordType> results = lr.harvest(new OAIDCParser(log));
+    	while (!results.hasFinished()) {
+    		RecordType rec = results.dequeue();
+    		if (rec != null) {
+    			OAIDC dc = (OAIDC) rec.getMetadata().getAny();
+    			for (OAIDC.Element e : dc.getElements()) 
+    				System.out.println(e.getName()+"="+e.getValue());
+    		}
+    	}
+    	System.out.println("FINISH");
+    }
     
     public void trustAllCertificates () {
     	if (!configured) {
@@ -86,14 +111,17 @@ public class HarvesterManager
     
     private String baseUrl;
     private int intervalBetweenRequests;
+    private Logger logInstance;
 
-    public HarvesterManager (String baseUrl) {
+    public HarvesterManager (String baseUrl, Logger log) {
         this.baseUrl = baseUrl;
         this.intervalBetweenRequests = 1000;
+        this.logInstance = log;
     }
-    public HarvesterManager (String baseUrl, int interval) {
+    public HarvesterManager (String baseUrl, int interval, Logger log) {
         this.baseUrl = baseUrl;
         this.intervalBetweenRequests = interval;
+        this.logInstance = log;
     }
     
     public int getIntervalBetweenRequests () {
@@ -101,37 +129,37 @@ public class HarvesterManager
     }
 
     public ListRecords listRecords (String metadataPrefix) {
-        return new ListRecords(baseUrl, metadataPrefix, this.getIntervalBetweenRequests());
+        return new ListRecords(baseUrl, metadataPrefix, this.getIntervalBetweenRequests(), this.logInstance);
     }
     
     public ListRecords listRecords (String metadataPrefix, Parameters extra) {
-        return new ListRecords(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests());
+        return new ListRecords(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests(), this.logInstance);
     }
 
     public ListIdentifiers listIdentifiers (String metadataPrefix) {
-        return new ListIdentifiers(baseUrl, metadataPrefix, this.getIntervalBetweenRequests());
+        return new ListIdentifiers(baseUrl, metadataPrefix, new Parameters(), this.getIntervalBetweenRequests(), this.logInstance);
     }
     
     public ListIdentifiers listIdentifiers (String metadataPrefix, Parameters extra) {
-        return new ListIdentifiers(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests());
+        return new ListIdentifiers(baseUrl, metadataPrefix, extra, this.getIntervalBetweenRequests(), this.logInstance);
     }
     
     public ListMetadataFormats listMetadataFormats () {
-        return new ListMetadataFormats(baseUrl);
+        return new ListMetadataFormats(baseUrl, this.logInstance);
     }
     public ListMetadataFormats listMetadataFormats (Parameters extra) {
-        return new ListMetadataFormats(baseUrl, extra);
+        return new ListMetadataFormats(baseUrl, extra, this.logInstance);
     }
     
     public ListSets listSets () {
-        return new ListSets(baseUrl, this.getIntervalBetweenRequests());
+        return new ListSets(baseUrl, this.getIntervalBetweenRequests(), this.logInstance);
     }
     
     public GetRecord getRecord (String identifier, String metadataPrefix) throws InternalHarvestException, BadArgumentException, CannotDisseminateFormatException, IdDoesNotExistException {
-        return new GetRecord(baseUrl, identifier, metadataPrefix);
+        return new GetRecord(baseUrl, identifier, metadataPrefix, this.logInstance);
     }
     
     public Identify identify () throws InternalHarvestException, BadArgumentException {
-        return new Identify(baseUrl);
+        return new Identify(baseUrl, this.logInstance);
     }
 }

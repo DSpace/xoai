@@ -19,7 +19,11 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
+import org.apache.log4j.Logger;
+
+import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.iterators.MetadataFormatIterator;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
 
 
 /**
@@ -30,20 +34,20 @@ public class ListMetadataFormats extends AbstractVerb
 {
     private Parameters parameters;
 
-    public ListMetadataFormats(String baseUrl)
+    public ListMetadataFormats(String baseUrl, Logger log)
     {
-        super(baseUrl);
+        super(baseUrl, log);
         parameters = null;
     }
-    public ListMetadataFormats(String baseUrl, Parameters extra)
+    public ListMetadataFormats(String baseUrl, Parameters extra, Logger log)
     {
-        super(baseUrl);
+        super(baseUrl, log);
         parameters = extra;
     }
 
-    public MetadataFormatIterator iterator()
+    public ListMetadataFormatsType harvest() throws InternalHarvestException
     {
-        return new MetadataFormatIterator(super.getBaseUrl(), parameters);
+        return (new MetadataFormatIterator(super.getBaseUrl(), parameters, getLogger())).harvest();
     }
 
 }

@@ -19,7 +19,11 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
+import org.apache.log4j.Logger;
+
 import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
+import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -30,15 +34,15 @@ public class ListSets extends AbstractVerb
 {
 	private int interval;
 	
-    public ListSets(String baseUrl, int interval)
+    public ListSets(String baseUrl, int interval, Logger log)
     {
-        super(baseUrl);
+        super(baseUrl, log);
         this.interval = interval;
     }
 
-    public SetIterator iterator()
+    public ProcessingQueue<SetType> harvest()
     {
-        return new SetIterator(super.getBaseUrl(), this.interval);
+        return new SetIterator(getBaseUrl(), interval, getLogger()).harvest();
     }
 
 }
