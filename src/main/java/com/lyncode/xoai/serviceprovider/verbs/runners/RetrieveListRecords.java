@@ -121,7 +121,7 @@ public class RetrieveListRecords implements Runnable {
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            OAIPMHParser parse = OAIPMHParser.newInstance(instream, this.metadata, null, this.about);
+            OAIPMHParser parse = OAIPMHParser.newInstance(instream, this.log, this.metadata, null, this.about);
             OAIPMHtype res = parse.parse();
             
             if (res.getListRecords() != null) {

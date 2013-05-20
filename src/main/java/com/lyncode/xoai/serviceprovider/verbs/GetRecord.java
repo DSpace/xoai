@@ -105,7 +105,7 @@ public class GetRecord extends AbstractVerb
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            OAIPMHParser parser = OAIPMHParser.newInstance(instream, metadata, null, about);
+            OAIPMHParser parser = OAIPMHParser.newInstance(instream, getLogger(), metadata, null, about);
             OAIPMHtype pmh = parser.parse();
             
             return pmh.getGetRecord();

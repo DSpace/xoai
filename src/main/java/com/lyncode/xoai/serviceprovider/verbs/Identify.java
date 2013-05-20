@@ -99,7 +99,7 @@ public class Identify extends AbstractVerb
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             
-            OAIPMHParser parser = OAIPMHParser.newInstance(instream, null, description, null);
+            OAIPMHParser parser = OAIPMHParser.newInstance(instream, getLogger(), null, description, null);
             OAIPMHtype pmh = parser.parse();
             
             return pmh.getIdentify();

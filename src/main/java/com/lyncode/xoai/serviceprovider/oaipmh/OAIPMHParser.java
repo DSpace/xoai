@@ -43,52 +43,52 @@ public class OAIPMHParser extends ElementParser {
 		return new OAIPMHParser(log, stream);
 	}
 
-	public static OAIPMHParser newInstance (String filepath, GenericParser parser) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (String filepath, Logger log, GenericParser parser) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(parser.getLogger(), stream, parser);
+		return new OAIPMHParser(log, stream, parser);
 	}
-	public static OAIPMHParser newInstance (File f, GenericParser parser) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (File f, Logger log, GenericParser parser) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(parser.getLogger(), stream, parser);
+		return new OAIPMHParser(log, stream, parser);
 	}
-	public static OAIPMHParser newInstance (InputStream is, GenericParser parser) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (InputStream is, Logger log, GenericParser parser) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(parser.getLogger(), stream, parser);
+		return new OAIPMHParser(log, stream, parser);
 	}
 
-	public static OAIPMHParser newInstance (String filepath, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (String filepath, Logger log, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(parser.getLogger(), stream, parser, description);
+		return new OAIPMHParser(log, stream, parser, description);
 	}
-	public static OAIPMHParser newInstance (File f, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (File f, Logger log, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(parser.getLogger(), stream, parser, description);
+		return new OAIPMHParser(log, stream, parser, description);
 	}
-	public static OAIPMHParser newInstance (InputStream is, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (InputStream is, Logger log, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(parser.getLogger(), stream, parser, description);
+		return new OAIPMHParser(log, stream, parser, description);
 	}
 
-	public static OAIPMHParser newInstance (String filepath, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (String filepath, Logger log, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(parser.getLogger(), stream, parser, description);
+		return new OAIPMHParser(log, stream, parser, description);
 	}
-	public static OAIPMHParser newInstance (File f, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (File f,  Logger log, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(parser.getLogger(), stream, parser, description, about);
+		return new OAIPMHParser(log, stream, parser, description, about);
 	}
-	public static OAIPMHParser newInstance (InputStream is, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
+	public static OAIPMHParser newInstance (InputStream is, Logger log, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
 		XMLInputFactory factory = XMLInputFactory2.newInstance();
 		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(parser.getLogger(), stream, parser, description, about);
+		return new OAIPMHParser(log, stream, parser, description, about);
 	}
 	
 	private RequestParser reqParser;
