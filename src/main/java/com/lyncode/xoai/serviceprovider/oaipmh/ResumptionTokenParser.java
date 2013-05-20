@@ -2,6 +2,7 @@ package com.lyncode.xoai.serviceprovider.oaipmh;
 
 import java.util.Map;
 
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.log4j.Logger;
@@ -29,9 +30,22 @@ public class ResumptionTokenParser extends ElementParser {
 		if (attributes.containsKey("expirationDate"))
 			res.setExpirationDate(DateUtils.parse(attributes.get("expirationDate")));
 		
-		res.setValue(super.getString(true));
+		try {
+			if (super.getReader().hasNext()) {
+				if (super.getReader().next() == XMLType.CHARACTERS.getID()) {
+					res.setValue(super.getString(false));
+					super.checkEnd(NAME, true);
+				} else {
+					res.setValue(null);
+					super.checkEnd(NAME, false);
+				}
+			}
+			
+		} catch (XMLStreamException e) {
+			throw new UnknownParseException(e);
+		}
 		
-		super.checkEnd(NAME, true);
+		
 		return res;
 	}
 }
