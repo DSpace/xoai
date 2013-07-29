@@ -121,10 +121,18 @@ public class MetadataFormatIterator
             
             return res.getListMetadataFormats();
         }
-        catch (IOException | XMLStreamException | ParseException e)
+        catch (IOException e)
+        {
+            throw new InternalHarvestException(e);
+        } catch (XMLStreamException e)
+        {
+            throw new InternalHarvestException(e);
+        } catch (ParseException e)
         {
             throw new InternalHarvestException(e);
         }
+
+
         
     }
     

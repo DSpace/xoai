@@ -71,10 +71,14 @@ public class RetrieveListIdentifiers implements Runnable {
 					Thread.sleep(this.interval - (timeAfter - timeBefore));
 			}
 			queue.finish();
-		} catch (InternalHarvestException | InterruptedException e) {
+		} catch (InterruptedException e) {
+			log.error("Internal error", e);
+			queue.finish();
+		} catch (InternalHarvestException e) {
 			log.error("Internal error", e);
 			queue.finish();
 		}
+
 	}
 
 
@@ -134,10 +138,18 @@ public class RetrieveListIdentifiers implements Runnable {
             
             return null;
         }
-        catch (IOException | XMLStreamException | ParseException e)
+        catch (IOException e)
+        {
+            throw new InternalHarvestException(e);
+        } catch (XMLStreamException e)
+        {
+            throw new InternalHarvestException(e);
+        } catch (ParseException e)
         {
             throw new InternalHarvestException(e);
         }
+ 
+ 
         
     }
 }
