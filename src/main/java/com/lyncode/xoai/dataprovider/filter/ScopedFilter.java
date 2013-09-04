@@ -16,13 +16,24 @@
 
 package com.lyncode.xoai.dataprovider.filter;
 
-import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
-import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
-
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.9
  */
-public abstract class AbstractFilter extends ConfigurableBundle {
-	public abstract boolean isItemShown(AbstractItemIdentifier item);
+public final class ScopedFilter {
+	private Filter _filter;
+	private FilterScope _scope;
+
+	public ScopedFilter(Filter filter, FilterScope scope) {
+		_filter = filter;
+		_scope = scope;
+	}
+
+	public Filter getFilter() {
+		return _filter;
+	}
+
+	public FilterScope getScope() {
+		return _scope;
+	}
 }

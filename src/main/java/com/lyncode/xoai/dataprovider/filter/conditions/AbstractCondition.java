@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package com.lyncode.xoai.dataprovider.sets;
+package com.lyncode.xoai.dataprovider.filter.conditions;
 
-import java.util.List;
-
-import com.lyncode.xoai.dataprovider.core.Set;
-import com.lyncode.xoai.dataprovider.filter.Filter;
+import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
+import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.9
  */
-public class StaticSet extends Set {
-	private List<Filter> _filters;
-
-	public StaticSet(List<Filter> filters, String spec, String name) {
-		super(spec, name);
-		_filters = filters;
-	}
-
-	public List<Filter> getFilters() {
-		return _filters;
-	}
+public abstract class AbstractCondition extends ConfigurableBundle {
+	public abstract boolean isItemShown(AbstractItemIdentifier item);
 }

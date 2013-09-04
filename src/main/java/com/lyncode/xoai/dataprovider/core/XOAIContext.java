@@ -28,7 +28,7 @@ import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 
@@ -39,13 +39,13 @@ import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatExcept
 public class XOAIContext extends ConfigurableBundle {
 	private static Logger log = LogManager.getLogger(XOAIContext.class);
 	private String _baseurl;
-	private List<AbstractFilter> _filters;
+	private List<Filter> _filters;
 	private Map<String, StaticSet> _sets;
 	private MetadataTransformer _transformer;
 	private Map<String, MetadataFormat> _formats;
 
 	public XOAIContext(String baseurl, MetadataTransformer transformer,
-			List<AbstractFilter> filters, List<MetadataFormat> formats,
+			List<Filter> filters, List<MetadataFormat> formats,
 			List<StaticSet> sets) {
 		_baseurl = baseurl;
 		_transformer = transformer;
@@ -62,7 +62,7 @@ public class XOAIContext extends ConfigurableBundle {
 		return this._baseurl;
 	}
 
-	public List<AbstractFilter> getFilters() {
+	public List<Filter> getFilters() {
 		return _filters;
 	}
 
@@ -80,7 +80,7 @@ public class XOAIContext extends ConfigurableBundle {
 		return cachedSets;
 	}
 
-	public List<AbstractFilter> getSetFilters(String setID) {
+	public List<Filter> getSetFilters(String setID) {
 		log.debug("{ XOAI } Getting StaticSet filters");
 		return _sets.get(setID).getFilters();
 	}
@@ -109,7 +109,7 @@ public class XOAIContext extends ConfigurableBundle {
 
 	public boolean isItemShown(AbstractItemIdentifier item) {
 		boolean shown = true;
-		for (AbstractFilter f : this.getFilters())
+		for (Filter f : this.getFilters())
 			if (!f.isItemShown(item))
 				shown = false;
 		return shown;

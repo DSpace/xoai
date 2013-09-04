@@ -24,7 +24,7 @@ import java.util.Map;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.format.MetadataFormatManager;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
@@ -48,10 +48,10 @@ public class ContextManager {
 		_contexts = new HashMap<String, XOAIContext>();
 
 		for (Context ct : contexts.getContext()) {
-			List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
+			List<Filter> filters = new ArrayList<Filter>();
 			for (BundleReference b : ct.getFilter()) {
 				if (!fm.filterExists(b.getRefid()))
-					throw new ConfigurationException("Filter referred as "
+					throw new ConfigurationException("ScopedFilter referred as "
 							+ b.getRefid() + " does not exist");
 				filters.add(fm.getFilter(b.getRefid()));
 			}

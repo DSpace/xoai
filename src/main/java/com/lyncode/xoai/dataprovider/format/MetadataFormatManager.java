@@ -29,7 +29,7 @@ import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats;
@@ -56,10 +56,10 @@ public class MetadataFormatManager {
 
 			MetadataFormat mdf = new MetadataFormat(f.getPrefix(), xsltFile,
 					f.getNamespace(), f.getSchemaLocation());
-			List<AbstractFilter> list = new ArrayList<AbstractFilter>();
+			List<Filter> list = new ArrayList<Filter>();
 			for (BundleReference refid : f.getFilter()) {
 				if (!fm.filterExists(refid.getRefid()))
-					throw new ConfigurationException("Filter referred as "
+					throw new ConfigurationException("ScopedFilter referred as "
 							+ refid.getRefid() + " does not exist");
 				list.add(fm.getFilter(refid.getRefid()));
 			}

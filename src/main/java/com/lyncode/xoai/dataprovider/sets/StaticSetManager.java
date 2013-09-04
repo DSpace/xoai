@@ -23,7 +23,7 @@ import java.util.Map;
 
 import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets;
@@ -42,10 +42,10 @@ public class StaticSetManager {
 		if (config != null && config.getSet() != null) {
 			for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
 					.getSet()) {
-				List<AbstractFilter> filters = new ArrayList<AbstractFilter>();
+				List<Filter> filters = new ArrayList<Filter>();
 				for (BundleReference r : s.getFilter()) {
 					if (!fm.filterExists(r.getRefid()))
-						throw new ConfigurationException("Filter referred as "
+						throw new ConfigurationException("ScopedFilter referred as "
 								+ r.getRefid() + " does not exist");
 					filters.add(fm.getFilter(r.getRefid()));
 				}

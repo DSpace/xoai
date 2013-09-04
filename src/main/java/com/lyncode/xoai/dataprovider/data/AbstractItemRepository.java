@@ -22,7 +22,7 @@ import java.util.List;
 import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
 import com.lyncode.xoai.dataprovider.core.ListItemsResults;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
-import com.lyncode.xoai.dataprovider.filter.Filter;
+import com.lyncode.xoai.dataprovider.filter.ScopedFilter;
 
 /**
  * This class wraps the data source of items.
@@ -54,7 +54,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiers(
-			List<Filter> filters, int offset, int length);
+			List<ScopedFilter> filters, int offset, int length);
 
 	/**
 	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
@@ -68,7 +68,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiers(
-			List<Filter> filters, int offset, int length, Date from);
+			List<ScopedFilter> filters, int offset, int length, Date from);
 
 	/**
 	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
@@ -82,7 +82,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiersUntil(
-			List<Filter> filters, int offset, int length, Date until);
+			List<ScopedFilter> filters, int offset, int length, Date until);
 
 	/**
 	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
@@ -97,7 +97,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiers(
-			List<Filter> filters, int offset, int length, Date from, Date until);
+			List<ScopedFilter> filters, int offset, int length, Date from, Date until);
 
 	/**
 	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
@@ -111,7 +111,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiers(
-			List<Filter> filters, int offset, int length, String setSpec);
+			List<ScopedFilter> filters, int offset, int length, String setSpec);
 
 	/**
 	 * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
@@ -126,7 +126,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiers(
-			List<Filter> filters, int offset, int length, String setSpec,
+			List<ScopedFilter> filters, int offset, int length, String setSpec,
 			Date from);
 
 	/**
@@ -142,7 +142,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiersUntil(
-			List<Filter> filters, int offset, int length, String setSpec,
+			List<ScopedFilter> filters, int offset, int length, String setSpec,
 			Date until);
 
 	/**
@@ -159,7 +159,7 @@ public abstract class AbstractItemRepository {
 	 * @return List of identifiers
 	 */
 	public abstract ListItemIdentifiersResult getItemIdentifiers(
-			List<Filter> filters, int offset, int length, String setSpec,
+			List<ScopedFilter> filters, int offset, int length, String setSpec,
 			Date from, Date until);
 
 	/**
@@ -172,7 +172,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItems(List<Filter> filters,
+	public abstract ListItemsResults getItems(List<ScopedFilter> filters,
 			int offset, int length);
 
 	/**
@@ -186,7 +186,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItems(List<Filter> filters,
+	public abstract ListItemsResults getItems(List<ScopedFilter> filters,
 			int offset, int length, Date from);
 
 	/**
@@ -200,7 +200,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItemsUntil(List<Filter> filters,
+	public abstract ListItemsResults getItemsUntil(List<ScopedFilter> filters,
 			int offset, int length, Date until);
 
 	/**
@@ -215,7 +215,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItems(List<Filter> filters,
+	public abstract ListItemsResults getItems(List<ScopedFilter> filters,
 			int offset, int length, Date from, Date until);
 
 	/**
@@ -229,7 +229,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItems(List<Filter> filters,
+	public abstract ListItemsResults getItems(List<ScopedFilter> filters,
 			int offset, int length, String setSpec);
 
 	/**
@@ -244,7 +244,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItems(List<Filter> filters,
+	public abstract ListItemsResults getItems(List<ScopedFilter> filters,
 			int offset, int length, String setSpec, Date from);
 
 	/**
@@ -259,7 +259,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItemsUntil(List<Filter> filters,
+	public abstract ListItemsResults getItemsUntil(List<ScopedFilter> filters,
 			int offset, int length, String setSpec, Date until);
 
 	/**
@@ -275,7 +275,7 @@ public abstract class AbstractItemRepository {
 	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#ListRecords">List Records Definition</a>
 	 * @return List of Items
 	 */
-	public abstract ListItemsResults getItems(List<Filter> filters,
+	public abstract ListItemsResults getItems(List<ScopedFilter> filters,
 			int offset, int length, String setSpec, Date from, Date until);
 
 }

@@ -1,39 +1,18 @@
-/**
- * Copyright 2012 Lyncode
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.lyncode.xoai.dataprovider.filter;
 
-/**
- * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
- */
-public final class Filter {
-	private AbstractFilter _filter;
-	private FilterScope _scope;
+import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
+import com.lyncode.xoai.dataprovider.filter.conditions.AbstractCondition;
 
-	public Filter(AbstractFilter filter, FilterScope scope) {
-		_filter = filter;
-		_scope = scope;
-	}
 
-	public AbstractFilter getFilter() {
-		return _filter;
-	}
+public class Filter {
+    private AbstractCondition condition;
+    
+    public Filter (AbstractCondition condition) {
+        this.condition = condition;
+    }
+    
 
-	public FilterScope getScope() {
-		return _scope;
-	}
+    public boolean isItemShown(AbstractItemIdentifier item) {
+        return this.condition.isItemShown(item);
+    }
 }
