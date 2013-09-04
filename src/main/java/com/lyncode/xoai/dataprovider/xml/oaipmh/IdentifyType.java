@@ -317,7 +317,7 @@ public class IdentifyType implements XMLWrittable {
         try {
             writeValue(writter, "repositoryName", repositoryName);
             writeValue(writter, "baseURL", baseURL);
-            writeValue(writter, protocolVersion, protocolVersion);
+            writeValue(writter, "protocolVersion", protocolVersion);
             for (String email : this.adminEmail) {
                 writeValue(writter, "adminEmail", email);
             }

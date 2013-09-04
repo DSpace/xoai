@@ -99,7 +99,7 @@ public class OAIDataProvider {
 		_itemRepo = new ItemRepository(itemRepository);
 		_compressions = new ArrayList<String>();
 		
-		getRecordHandler = new GetRecordHandler(_context, _itemRepo);
+		getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
 		identifyHandler = new IdentifyHandler(_identify, _compressions);
 		listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
 		listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context);
@@ -121,7 +121,7 @@ public class OAIDataProvider {
 		_itemRepo = new ItemRepository(itemRepository);
 		_compressions = compressions;
         
-        getRecordHandler = new GetRecordHandler(_context, _itemRepo);
+        getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
         identifyHandler = new IdentifyHandler(_identify, _compressions);
         listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
         listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context);
@@ -152,13 +152,21 @@ public class OAIDataProvider {
 			if (params.getIdentifier() != null)
 				request.setIdentifier(parameters.getIdentifier());
 			if (params.getFrom() != null)
-				request.setFrom(new DateInfo(DateUtils.parse(params.getFrom()), _identify.getGranularity().toGranularityType()));
+                try {
+                    request.setFrom(new DateInfo(DateUtils.parse(params.getFrom()), _identify.getGranularity().toGranularityType()));
+                } catch (ParseException e) {
+                    throw new BadArgumentException("Invalid date given in until parameter");
+                }
 			if (params.getMetadataPrefix() != null)
 				request.setMetadataPrefix(params.getMetadataPrefix());
 			if (params.getSet() != null)
 				request.setSet(params.getSet());
 			if (params.getUntil() != null)
-				request.setUntil(new DateInfo(DateUtils.parse(params.getUntil()), _identify.getGranularity().toGranularityType()));
+                try {
+                    request.setUntil(new DateInfo(DateUtils.parse(params.getUntil()), _identify.getGranularity().toGranularityType()));
+                } catch (ParseException e) {
+                    throw new BadArgumentException("Invalid date given in until parameter");
+                }
 
 			switch (verb) {
     			case IDENTIFY:
@@ -183,12 +191,12 @@ public class OAIDataProvider {
 		} catch (HandlerException e) {
 			log.debug(e.getMessage(), e);
 			info.getError().add(errorHandler.handle(e));
-		} catch (ParseException e) {
-		    info.getError().add(errorHandler.handle(new BadArgumentException("Invalid date")));
-        }
+		}
 		
 		XMLStreamWriter writer = factory.createXMLStreamWriter(out);
+		writer.writeStartDocument();
 		response.write(writer);
+		writer.writeEndDocument();
 		writer.flush();
 		writer.close();
 	}

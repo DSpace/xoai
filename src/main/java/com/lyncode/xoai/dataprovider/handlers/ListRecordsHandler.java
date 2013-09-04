@@ -1,5 +1,6 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -174,6 +175,8 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
                 }
                 record.setMetadata(metadata);
             } catch (XSLTransformationException e) {
+                throw new OAIException(e);
+            } catch (FileNotFoundException e) {
                 throw new OAIException(e);
             }
 

@@ -29,15 +29,14 @@ public class OAIPMH implements XMLWrittable {
     @Override
     public void write(XMLStreamWriter writter) throws WrittingXmlException {
         try {
-            writter.writeStartDocument();
             writter.writeStartElement("OAI-PMH");
             writter.writeDefaultNamespace(NAMESPACE_URI);
+            writter.writeNamespace(XSISchema.PREFIX, XSISchema.NAMESPACE_URI);
             writter.writeAttribute(XSISchema.PREFIX,XSISchema.NAMESPACE_URI, "schemaLocation", 
                                    NAMESPACE_URI+" "+SCHEMA_LOCATION);
             if (this.info != null)
                 info.write(writter);
             writter.writeEndElement();
-            writter.writeEndDocument();
         } catch (XMLStreamException e) {
             throw new WrittingXmlException(e);
         }

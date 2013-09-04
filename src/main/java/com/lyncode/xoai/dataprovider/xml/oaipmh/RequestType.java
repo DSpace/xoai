@@ -266,6 +266,9 @@ public class RequestType implements XMLWrittable {
                 writter.writeAttribute("set", set);
             if (resumptionToken != null)
                 writter.writeAttribute("resumptionToken", resumptionToken);
+            
+            if (value != null)
+                writter.writeCharacters(value);
         } catch (XMLStreamException e) { 
             throw new WrittingXmlException(e);
         }

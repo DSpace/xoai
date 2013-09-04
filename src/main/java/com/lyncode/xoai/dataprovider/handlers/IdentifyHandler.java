@@ -13,7 +13,6 @@ import com.lyncode.xoai.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.DeletedRecordType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.GranularityType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.IdentifyType;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 import com.lyncode.xoai.util.MarshallingUtils;
@@ -47,15 +46,7 @@ public class IdentifyHandler extends VerbHandler<IdentifyType> {
         ident.setEarliestDatestamp(identify.getEarliestDate());
         ident.setDeletedRecord(DeletedRecordType.valueOf(identify.getDeleteMethod().name()));
 
-        switch (identify.getGranularity()) {
-            case Day:
-                ident.setGranularity(GranularityType.YYYY_MM_DD);
-                break;
-            case Second:
-                ident.setGranularity(GranularityType.YYYY_MM_DD_THH_MM_SS_Z);
-                break;
-        }
-
+        ident.setGranularity(identify.getGranularity().toGranularityType());
         ident.setProtocolVersion(PROTOCOL_VERSION);
         for (String com : this.compressions)
             ident.getCompression().add(com);

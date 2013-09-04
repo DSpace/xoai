@@ -16,7 +16,7 @@ import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
 
 
 public class OAIPMHTest {
-    static String EXPECTED = "<?xml version='1.0' encoding='UTF-8'?><OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\" />";
+    static String EXPECTED = "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\" />";
     XMLOutputFactory factory2;
     
     
@@ -34,7 +34,7 @@ public class OAIPMHTest {
         XMLStreamWriter writter = factory2.createXMLStreamWriter(out);
         info.write(writter);
         writter.close();
-        
+        // System.out.println(out.toString());
         assertEquals(EXPECTED, out.toString());
     }
 

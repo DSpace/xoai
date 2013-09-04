@@ -1,5 +1,7 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
+import java.io.FileNotFoundException;
+
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
@@ -29,11 +31,12 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
     private ItemRepository itemRepository;
     private AbstractIdentify identify;
 
-    public GetRecordHandler(XOAIContext context, ItemRepository itemRepository) {
+    public GetRecordHandler(XOAIContext context, ItemRepository itemRepository, AbstractIdentify identify) {
 
         super();
         this.context = context;
         this.itemRepository = itemRepository;
+        this.identify = identify;
     }
 
 
@@ -68,6 +71,8 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
                     metadata = new MetadataType(XSLTUtils.transform(format.getXSLTFile(), item.getItem()));
                 }
             } catch (XSLTransformationException e) {
+                throw new OAIException(e);
+            } catch (FileNotFoundException e) {
                 throw new OAIException(e);
             }
             record.setMetadata(metadata);

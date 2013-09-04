@@ -173,7 +173,7 @@ public class HeaderType implements XMLWrittable {
                 writter.writeEndElement();
             }
             
-            for (String setSpec : this.setSpec) {
+            for (String setSpec : this.getSetSpec()) {
                 writter.writeStartElement("setSpec");
                 writter.writeCharacters(setSpec);
                 writter.writeEndElement();
