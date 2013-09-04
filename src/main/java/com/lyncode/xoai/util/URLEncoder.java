@@ -17,7 +17,7 @@
  * @version 2.2.9
  */
 
-package com.lyncode.xoai.serviceprovider.util;
+package com.lyncode.xoai.util;
 
 import java.io.UnsupportedEncodingException;
 

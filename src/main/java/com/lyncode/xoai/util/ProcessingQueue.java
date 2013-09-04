@@ -1,4 +1,4 @@
-package com.lyncode.xoai.serviceprovider.util;
+package com.lyncode.xoai.util;
 
 import java.util.LinkedList;
 import java.util.Queue;

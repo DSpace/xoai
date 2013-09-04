@@ -20,7 +20,7 @@ package com.lyncode.xoai.dataprovider.exceptions;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.9
  */
-public class IdDoesNotExistException extends Exception {
+public class IdDoesNotExistException extends HandlerException {
 
 	/**
 	 * 

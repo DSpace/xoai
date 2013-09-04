@@ -12,6 +12,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * <p>
@@ -35,7 +40,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OAI-PMHerrorType", propOrder = { "value" })
-public class OAIPMHerrorType {
+public class OAIPMHerrorType implements XMLWrittable {
 
 	@XmlValue
 	protected String value;
@@ -83,5 +88,18 @@ public class OAIPMHerrorType {
 	public void setCode(OAIPMHerrorcodeType value) {
 		this.code = value;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (this.code != null)
+                writter.writeAttribute("code", this.code.value());
+            
+            if (this.value != null)
+                writter.writeCharacters(value);
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

@@ -20,7 +20,7 @@ package com.lyncode.xoai.dataprovider.exceptions;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.9
  */
-public class DoesNotSupportSetsException extends Exception {
+public class DoesNotSupportSetsException extends HandlerException {
 
 	/**
 	 * 

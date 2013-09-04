@@ -11,6 +11,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * <p>
@@ -36,7 +41,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetRecordType", propOrder = { "record" })
-public class GetRecordType {
+public class GetRecordType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected RecordType record;
@@ -61,5 +66,17 @@ public class GetRecordType {
 	public void setRecord(RecordType value) {
 		this.record = value;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            writter.writeStartElement("record");
+            if (this.record != null)
+                this.record.write(writter);
+            writter.writeEndElement();
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

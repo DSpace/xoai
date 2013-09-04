@@ -16,18 +16,23 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.9
  */
 public class Set extends ReferenceSet {
 	private String setName;
-	private String description;
+	private List<Metadata> descriptions;
 
 	public Set(String setSpec, String setName) {
 		super(setSpec);
 		this.setName = setName;
-		this.description = null;
+		this.descriptions = new ArrayList<Metadata>();
 	}
 
 	/**
@@ -37,20 +42,23 @@ public class Set extends ReferenceSet {
 	 * @param xmldescription
 	 *            Marshable object
 	 */
-	public Set(String setSpec, String setName, String xmldescription) {
+	public Set(String setSpec, String setName, List<Metadata> descriptions) {
 		this(setSpec, setName);
-		this.description = xmldescription;
+		this.descriptions = descriptions;
 	}
 
 	public String getSetName() {
 		return setName;
 	}
 
-	public String getDescription() {
-		return description;
-	}
+    public List<Metadata> getDescriptions() {
+        return descriptions;
+    }
+    public void addDescription(Metadata desc) {
+        descriptions.add(desc);
+    }
 
 	public boolean hasDescription() {
-		return (this.description != null);
+		return (!this.descriptions.isEmpty());
 	}
 }

@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
-import com.lyncode.xoai.dataprovider.util.Base64Utils;
+import com.lyncode.xoai.util.Base64Utils;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>

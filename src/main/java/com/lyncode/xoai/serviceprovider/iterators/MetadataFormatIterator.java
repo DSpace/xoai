@@ -43,8 +43,8 @@ import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.MetadataFormatType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
-import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.verbs.Parameters;
+import com.lyncode.xoai.util.URLEncoder;
 
 
 /**

@@ -28,9 +28,9 @@ import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
+import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
-import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>

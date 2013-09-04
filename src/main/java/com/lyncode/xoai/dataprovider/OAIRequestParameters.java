@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
 import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
+import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>

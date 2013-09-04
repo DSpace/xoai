@@ -11,6 +11,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 
 /**
  * The descriptionType is used for the description element in Identify and for
@@ -40,10 +46,20 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "descriptionType")
-public class DescriptionType {
+public class DescriptionType implements XMLWrittable {
 
 	@XmlValue
 	protected String value;
+	
+	private Metadata metadata;
+	
+	public DescriptionType () {}
+    public DescriptionType (Metadata m) {
+        metadata = m;
+    }
+    public DescriptionType (String m) {
+        value = m;
+    }
 
 	/**
 	 * Gets the value of the any property.
@@ -65,5 +81,19 @@ public class DescriptionType {
 	public void setAny(String value) {
 		this.value = value;
 	}
+	
+	public void setAny (Metadata metadata) {
+	    this.metadata = metadata;
+	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        if (metadata != null) {
+            this.metadata.write(writter);
+        } else if (this.value != null) {
+            EchoElement echo = new EchoElement(value);
+            echo.write(writter);
+        }
+    }
 
 }

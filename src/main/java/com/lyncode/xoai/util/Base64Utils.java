@@ -1,4 +1,4 @@
-package com.lyncode.xoai.dataprovider.util;
+package com.lyncode.xoai.util;
 
 import org.apache.commons.codec.binary.Base64;
 

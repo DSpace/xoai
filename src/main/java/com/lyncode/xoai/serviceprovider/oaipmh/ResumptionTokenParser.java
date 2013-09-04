@@ -8,7 +8,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ResumptionTokenType;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
+import com.lyncode.xoai.util.DateUtils;
 
 public class ResumptionTokenParser extends ElementParser {
 	public static final String NAME = "resumptionToken";

@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.StatusType;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
+import com.lyncode.xoai.util.DateUtils;
 
 public class HeaderParser extends ElementParser {
 	public static final String NAME = "header";

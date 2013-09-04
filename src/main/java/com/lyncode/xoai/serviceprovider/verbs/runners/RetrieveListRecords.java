@@ -20,9 +20,9 @@ import com.lyncode.xoai.serviceprovider.oaipmh.OAIPMHParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
-import com.lyncode.xoai.serviceprovider.util.URLEncoder;
 import com.lyncode.xoai.serviceprovider.verbs.Parameters;
+import com.lyncode.xoai.util.ProcessingQueue;
+import com.lyncode.xoai.util.URLEncoder;
 
 public class RetrieveListRecords implements Runnable {
 	private ProcessingQueue<RecordType> queue;

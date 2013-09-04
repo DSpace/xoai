@@ -17,7 +17,7 @@
  * @version 2.2.9
  */
 
-package com.lyncode.xoai.serviceprovider.util;
+package com.lyncode.xoai.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,4 +59,10 @@ public class DateUtils
 		format.setTimeZone(TimeZone.getTimeZone("UTC"));
 		return format.format(date);
 	}
+
+    public static String formatOnlyDate(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return format.format(date);
+    }
 }

@@ -1,4 +1,4 @@
-package com.lyncode.xoai.dataprovider.util;
+package com.lyncode.xoai.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

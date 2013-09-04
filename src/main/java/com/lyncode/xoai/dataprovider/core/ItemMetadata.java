@@ -6,8 +6,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.dataprovider.exceptions.MetadataBindException;
-import com.lyncode.xoai.dataprovider.util.MarshallingUtils;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import com.lyncode.xoai.util.MarshallingUtils;
 
 public class ItemMetadata
 {

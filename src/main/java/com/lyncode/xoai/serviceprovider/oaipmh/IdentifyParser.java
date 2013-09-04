@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.DeletedRecordType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.GranularityType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
+import com.lyncode.xoai.util.DateUtils;
 
 public class IdentifyParser extends ElementParser {
 	public static final String NAME = "Identify";

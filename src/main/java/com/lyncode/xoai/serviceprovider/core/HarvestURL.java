@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
-import com.lyncode.xoai.serviceprovider.util.URLEncoder;
+import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.util.URLEncoder;
 
 public class HarvestURL {
 	//private static Logger log = LogManager.getLogger(HarvestURL.class);

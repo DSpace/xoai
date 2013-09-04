@@ -8,13 +8,21 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.util.DateUtils;
+
+import static com.lyncode.xoai.util.XmlIOUtils.*;
 
 /**
  * <p>
@@ -52,10 +60,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "OAI-PMHtype", propOrder = { "responseDate", "request",
 		"error", "identify", "listMetadataFormats", "listSets", "getRecord",
 		"listIdentifiers", "listRecords" })
-public class OAIPMHtype {
+public class OAIPMHtype implements XMLWrittable {
 
 	@XmlElement(required = true)
-	protected String responseDate;
+	protected Date responseDate;
 	@XmlElement(required = true)
 	protected RequestType request;
 	protected List<OAIPMHerrorType> error;
@@ -78,7 +86,7 @@ public class OAIPMHtype {
 	 * @return possible object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public String getResponseDate() {
+	public Date getResponseDate() {
 		return responseDate;
 	}
 
@@ -89,7 +97,7 @@ public class OAIPMHtype {
 	 *            allowed object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public void setResponseDate(String value) {
+	public void setResponseDate(Date value) {
 		this.responseDate = value;
 	}
 
@@ -269,5 +277,47 @@ public class OAIPMHtype {
 	public void setListRecords(ListRecordsType value) {
 		this.listRecords = value;
 	}
+
+	/**
+	 * 
+ *         &lt;element name="responseDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
+ *         &lt;element name="request" type="{http://www.openarchives.org/OAI/2.0/}requestType"/>
+ *         &lt;choice>
+ *           &lt;element name="error" type="{http://www.openarchives.org/OAI/2.0/}OAI-PMHerrorType" maxOccurs="unbounded"/>
+ *           &lt;element name="Identify" type="{http://www.openarchives.org/OAI/2.0/}IdentifyType"/>
+ *           &lt;element name="ListMetadataFormats" type="{http://www.openarchives.org/OAI/2.0/}ListMetadataFormatsType"/>
+ *           &lt;element name="ListSets" type="{http://www.openarchives.org/OAI/2.0/}ListSetsType"/>
+ *           &lt;element name="GetRecord" type="{http://www.openarchives.org/OAI/2.0/}GetRecordType"/>
+ *           &lt;element name="ListIdentifiers" type="{http://www.openarchives.org/OAI/2.0/}ListIdentifiersType"/>
+ *           &lt;element name="ListRecords" type="{http://www.openarchives.org/OAI/2.0/}ListRecordsType"/>
+ *         &lt;/choice>
+	 * 
+	 */
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            writeValue(writter, "responseDate", DateUtils.format(responseDate));
+            writeElement(writter, "request", request);
+            
+            if (this.error != null && !this.error.isEmpty()) {
+                for (OAIPMHerrorType er : this.error)
+                    writeElement(writter, "error", er);
+            } else if (this.identify != null) {
+                writeElement(writter, "Identify", identify);
+            } else if (this.listMetadataFormats != null) {
+                writeElement(writter, "ListMetadataFormats", listMetadataFormats);
+            } else if (listSets != null) {
+                writeElement(writter, "ListSets", listSets);
+            } else if (getRecord != null) {
+                writeElement(writter, "GetRecord", getRecord);
+            } else if (listIdentifiers != null) {
+                writeElement(writter, "ListIdentifiers", listIdentifiers);
+            } else {
+                writeElement(writter, "ListRecords", listRecords);
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

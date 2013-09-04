@@ -39,7 +39,6 @@ import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.oai_dc.OAIDCParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.schemas.oai_dc.OAIDC;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
 import com.lyncode.xoai.serviceprovider.verbs.GetRecord;
 import com.lyncode.xoai.serviceprovider.verbs.Identify;
 import com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers;
@@ -47,6 +46,7 @@ import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats;
 import com.lyncode.xoai.serviceprovider.verbs.ListRecords;
 import com.lyncode.xoai.serviceprovider.verbs.ListSets;
 import com.lyncode.xoai.serviceprovider.verbs.Parameters;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 /**
  * This class works as a wrapper to provide an API with all OAI-PMH possible requests.

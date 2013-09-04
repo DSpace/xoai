@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import com.lyncode.xoai.serviceprovider.iterators.RecordIterator;
 import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**

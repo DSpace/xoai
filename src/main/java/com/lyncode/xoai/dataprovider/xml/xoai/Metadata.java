@@ -10,10 +10,18 @@ package com.lyncode.xoai.dataprovider.xml.xoai;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XSISchema;
+import static com.lyncode.xoai.util.XmlIOUtils.*;
 
 /**
  * <p>
@@ -40,7 +48,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "element" })
 @XmlRootElement(name = "metadata")
-public class Metadata {
+public class Metadata  implements XMLWrittable {
+    public static final String NAMESPACE_URI = "http://www.lyncode.com/xoai";
+    public static final String SCHEMA_LOCATION = "http://www.lyncode.com/xsd/xoai.xsd";
+    
 
 	protected List<Element> element;
 
@@ -72,5 +83,25 @@ public class Metadata {
 		}
 		return this.element;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            String namespace = writter.getNamespaceContext().getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE);
+            writter.writeDefaultNamespace(NAMESPACE_URI);
+            writter.writeStartElement("metadata");
+            writter.writeAttribute(XSISchema.PREFIX,XSISchema.NAMESPACE_URI, "schemaLocation", 
+                                   NAMESPACE_URI+" "+SCHEMA_LOCATION);
+            
+            for (Element elem : this.getElement()) {
+                writeElement(writter, "element", elem);
+            }
+            writter.writeEndElement();
+            writter.writeDefaultNamespace(namespace);
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+        
+    }
 
 }

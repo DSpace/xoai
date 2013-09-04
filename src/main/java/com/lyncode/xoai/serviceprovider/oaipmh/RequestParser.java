@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RequestType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.VerbType;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
+import com.lyncode.xoai.util.DateUtils;
 
 public class RequestParser extends ElementParser {
 	public static final String NAME = "request";
