@@ -37,7 +37,9 @@ import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
+import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.data.AbstractSetRepository;
+import com.lyncode.xoai.dataprovider.data.DefaultResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
@@ -74,6 +76,7 @@ public class OAIDataProvider {
 	private ItemRepository _itemRepo;
 	private List<String> _compressions;
 	private XOAIContext _context;
+	private AbstractResumptionTokenFormat _format;
 	
 	private GetRecordHandler getRecordHandler;
 	private IdentifyHandler identifyHandler;
@@ -82,6 +85,7 @@ public class OAIDataProvider {
 	private ListRecordsHandler listRecordsHandler;
 	private ListSetsHandler listSetsHandler;
 	private ErrorHandler errorHandler;
+	
 
 	public OAIDataProvider(String contexturl, AbstractIdentify identify,
 			AbstractSetRepository listsets,
@@ -98,15 +102,43 @@ public class OAIDataProvider {
 		_listSets = new SetRepository(listsets);
 		_itemRepo = new ItemRepository(itemRepository);
 		_compressions = new ArrayList<String>();
+		_format = new DefaultResumptionTokenFormat();
 		
 		getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
 		identifyHandler = new IdentifyHandler(_identify, _compressions);
 		listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
-		listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context);
-		listIdentifiersHandler = new ListIdentifiersHandler(_listSets, _itemRepo, _identify, _context);
-		listSetsHandler = new ListSetsHandler(_listSets, _context);
+		listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context, _format);
+		listIdentifiersHandler = new ListIdentifiersHandler(_listSets, _itemRepo, _identify, _context, _format);
+		listSetsHandler = new ListSetsHandler(_listSets, _context, _format);
 		errorHandler = new ErrorHandler();
 	}
+
+    public OAIDataProvider(String contexturl, AbstractIdentify identify,
+            AbstractSetRepository listsets,
+            AbstractItemRepository itemRepository,
+            AbstractResumptionTokenFormat format)
+            throws InvalidContextException {
+        log.debug("Context chosen: " + contexturl);
+
+        _context = XOAIManager.getManager().getContextManager()
+                .getOAIContext(contexturl);
+        if (_context == null)
+            throw new InvalidContextException("Context \"" + contexturl
+                    + "\" does not exist");
+        _identify = identify;
+        _listSets = new SetRepository(listsets);
+        _itemRepo = new ItemRepository(itemRepository);
+        _compressions = new ArrayList<String>();
+        _format = format;
+        
+        getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
+        identifyHandler = new IdentifyHandler(_identify, _compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
+        listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context, _format);
+        listIdentifiersHandler = new ListIdentifiersHandler(_listSets, _itemRepo, _identify, _context, _format);
+        listSetsHandler = new ListSetsHandler(_listSets, _context, _format);
+        errorHandler = new ErrorHandler();
+    }
 
 	public OAIDataProvider(String contexturl, AbstractIdentify identify,
 			AbstractSetRepository listsets,
@@ -120,13 +152,14 @@ public class OAIDataProvider {
 		_listSets = new SetRepository(listsets);
 		_itemRepo = new ItemRepository(itemRepository);
 		_compressions = compressions;
+        _format = new DefaultResumptionTokenFormat();
         
         getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
         identifyHandler = new IdentifyHandler(_identify, _compressions);
         listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context);
-        listIdentifiersHandler = new ListIdentifiersHandler(_listSets, _itemRepo, _identify, _context);
-        listSetsHandler = new ListSetsHandler(_listSets, _context);
+        listRecordsHandler = new ListRecordsHandler(_listSets, _itemRepo, _identify, _context, _format);
+        listIdentifiersHandler = new ListIdentifiersHandler(_listSets, _itemRepo, _identify, _context, _format);
+        listSetsHandler = new ListSetsHandler(_listSets, _context, _format);
         errorHandler = new ErrorHandler();
 	}
 
@@ -143,7 +176,7 @@ public class OAIDataProvider {
         
 		request.setValue(this._identify.getBaseUrl());
 		try {
-			OAIParameters parameters = new OAIParameters(params);
+			OAIParameters parameters = new OAIParameters(params, _format);
 			VerbType verb = parameters.getVerb();
 			request.setVerb(verb);
 			

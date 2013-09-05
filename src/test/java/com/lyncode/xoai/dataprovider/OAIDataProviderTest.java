@@ -1,7 +1,11 @@
 package com.lyncode.xoai.dataprovider;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,13 +19,11 @@ import javax.xml.stream.XMLStreamException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.lyncode.xoai.dataprovider.configuration.ConfigurationManager;
-import com.lyncode.xoai.dataprovider.core.ContextManager;
 import com.lyncode.xoai.dataprovider.core.DeleteMethod;
 import com.lyncode.xoai.dataprovider.core.Granularity;
 import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
@@ -29,7 +31,6 @@ import com.lyncode.xoai.dataprovider.core.ListItemsResults;
 import com.lyncode.xoai.dataprovider.core.ListSetsResult;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
 import com.lyncode.xoai.dataprovider.core.Set;
-import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
@@ -56,6 +57,7 @@ public class OAIDataProviderTest {
     OAIDataProvider dataProvider;
     AbstractItemRepository itemRepository;
     AbstractSetRepository setRepository;
+    AbstractIdentify identify;
 
     @Before
     public void setUp() throws Exception {
@@ -85,14 +87,13 @@ public class OAIDataProviderTest {
         PowerMockito.mockStatic(XSLTUtils.class);
         when(XSLTUtils.transform(any(File.class), any(AbstractItem.class))).thenReturn("<test></test>");
         
-        AbstractIdentify identify = mock(AbstractIdentify.class);
+        identify = mock(AbstractIdentify.class);
         when(identify.getBaseUrl()).thenReturn("http://test.com/");
         when(identify.getDeleteMethod()).thenReturn(DeleteMethod.NO);
         when(identify.getGranularity()).thenReturn(Granularity.Day);
         when(identify.getRepositoryName()).thenReturn(REP_NAME);
         when(identify.getAdminEmails()).thenReturn(Arrays.asList(new String[]{ "test@gmail.com" }));
         when(identify.getEarliestDate()).thenReturn(new Date());
-        when(identify.getDescription()).thenReturn(Arrays.asList(new String[]{ DESC }));
         
         
         setRepository = mock(AbstractSetRepository.class);
@@ -123,6 +124,21 @@ public class OAIDataProviderTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         OAIRequestParameters params = mock(OAIRequestParameters.class);
         when(params.getVerb()).thenReturn("Identify");
+        when(identify.getDescription()).thenReturn(Arrays.asList(new String[]{ DESC }));
+        
+        dataProvider.handle(params, out);
+        
+        //System.out.println(out.toString());
+        
+        assertTrue(out.toString().contains(REP_NAME));
+    }
+    
+    @Test
+    public void shouldGiveGoodIdentifyResponse2() throws OAIException, XMLStreamException, WrittingXmlException, IllegalVerbException, UnknownParameterException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        OAIRequestParameters params = mock(OAIRequestParameters.class);
+        when(params.getVerb()).thenReturn("Identify");
+        when(identify.getDescription()).thenReturn(null);
         
         dataProvider.handle(params, out);
         
@@ -137,6 +153,7 @@ public class OAIDataProviderTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         OAIRequestParameters params = mock(OAIRequestParameters.class);
         when(params.getVerb()).thenReturn("Identify");
+        when(identify.getDescription()).thenReturn(Arrays.asList(new String[]{ DESC }));
         
         dataProvider.handle(params, out);
         
@@ -335,7 +352,7 @@ public class OAIDataProviderTest {
         AbstractItem item = mock(AbstractItem.class);
         when(item.getDatestamp()).thenReturn(new Date());
         when(item.getIdentifier()).thenReturn("Hello");
-        when(item.getSets()).thenReturn(new ArrayList<ReferenceSet>());
+        when(item.getSets()).thenReturn(Arrays.asList(new ReferenceSet[]{ new ReferenceSet("test") }));
         when(item.isDeleted()).thenReturn(false);
         
         when(itemRepository.getItem(anyString())).thenReturn(item);

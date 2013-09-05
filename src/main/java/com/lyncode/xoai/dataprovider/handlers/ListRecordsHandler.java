@@ -15,6 +15,7 @@ import com.lyncode.xoai.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.dataprovider.data.AbstractAbout;
 import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
@@ -45,19 +46,21 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
     private ItemRepository itemRepository;
     private AbstractIdentify identify;
     private XOAIContext context;
+    private AbstractResumptionTokenFormat resumptionFormat;
     
     
 
     public ListRecordsHandler(SetRepository setRepository,
                               ItemRepository itemRepository,
                               AbstractIdentify identify,
-                              XOAIContext context) {
+                              XOAIContext context, AbstractResumptionTokenFormat format) {
 
         super();
         this.setRepository = setRepository;
         this.itemRepository = itemRepository;
         this.identify = identify;
         this.context = context;
+        this.resumptionFormat = format;
     }
 
 
@@ -125,7 +128,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
         
         if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
             ResumptionTokenType resToken = new ResumptionTokenType();
-            resToken.setValue(newToken.toString());
+            resToken.setValue(resumptionFormat.format(newToken));
             resToken.setCursor(token.getOffset()/XOAIManager.getManager().getMaxListRecordsSize());
             if (result.hasTotalResults())
                 resToken.setCompleteListSize(result.getTotal());
