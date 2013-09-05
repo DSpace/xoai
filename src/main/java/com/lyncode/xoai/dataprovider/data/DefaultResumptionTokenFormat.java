@@ -18,6 +18,7 @@ public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat 
 
     @Override
     public ResumptionToken parse(String resumptionToken) throws BadResumptionToken {
+        if (resumptionToken == null) return new ResumptionToken();
         int _offset = 0;
         String _set = null;
         Date _from = null;
