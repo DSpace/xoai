@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
@@ -49,7 +49,7 @@ import com.lyncode.xoai.util.URLEncoder;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class MetadataFormatIterator
 {

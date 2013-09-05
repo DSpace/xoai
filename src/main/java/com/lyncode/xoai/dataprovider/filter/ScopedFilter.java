@@ -20,7 +20,7 @@ import com.lyncode.xoai.dataprovider.filter.conditions.AbstractCondition;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public final class ScopedFilter {
 	private AbstractCondition _filter;

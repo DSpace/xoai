@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public abstract class AbstractVerb
 {

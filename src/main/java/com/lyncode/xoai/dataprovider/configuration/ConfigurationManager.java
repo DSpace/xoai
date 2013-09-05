@@ -32,7 +32,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class ConfigurationManager {
     public static Configuration readConfiguration(InputStream reader)

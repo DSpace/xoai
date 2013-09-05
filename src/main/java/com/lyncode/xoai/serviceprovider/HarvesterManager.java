@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider;
@@ -53,7 +53,7 @@ import com.lyncode.xoai.util.ProcessingQueue;
  * It is based upon the definition at: http://www.openarchives.org/OAI/openarchivesprotocol.html
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class HarvesterManager
 {

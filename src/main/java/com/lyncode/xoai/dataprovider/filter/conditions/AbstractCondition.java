@@ -21,7 +21,7 @@ import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public abstract class AbstractCondition extends ConfigurableBundle {
 	public abstract boolean isItemShown(AbstractItemIdentifier item);

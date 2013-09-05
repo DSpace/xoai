@@ -14,7 +14,7 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
@@ -28,7 +28,7 @@ import com.lyncode.xoai.util.ProcessingQueue;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class ListIdentifiers extends AbstractVerb
 {
