@@ -81,6 +81,10 @@ public class FilterManager {
 	        return new NotCondition(this.getDefinition(definition.getNot().getCondition()));
 	    else return _conditions.get(definition.getCustom().getRefid());
     }
+	
+	public List<AbstractCondition> getConditions() {
+	    return new ArrayList<AbstractCondition>(_conditions.values());
+	}
 
     public boolean filterExists(String id) {
 		return this._filters.containsKey(id);

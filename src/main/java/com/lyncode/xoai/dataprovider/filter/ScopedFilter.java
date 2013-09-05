@@ -16,20 +16,22 @@
 
 package com.lyncode.xoai.dataprovider.filter;
 
+import com.lyncode.xoai.dataprovider.filter.conditions.AbstractCondition;
+
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 2.2.9
  */
 public final class ScopedFilter {
-	private Filter _filter;
+	private AbstractCondition _filter;
 	private FilterScope _scope;
 
-	public ScopedFilter(Filter filter, FilterScope scope) {
+	public ScopedFilter(AbstractCondition filter, FilterScope scope) {
 		_filter = filter;
 		_scope = scope;
 	}
 
-	public Filter getFilter() {
+	public AbstractCondition getCondition() {
 		return _filter;
 	}
 

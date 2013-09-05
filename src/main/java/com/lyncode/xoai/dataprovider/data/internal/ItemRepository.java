@@ -41,10 +41,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiers(filters, offset, length);
 	}
 
@@ -66,10 +66,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException  {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiers(filters, offset, length, from);
 	}
 
@@ -90,10 +90,10 @@ public class ItemRepository {
 			Date until) throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiersUntil(filters, offset, length, until);
 	}
 
@@ -115,10 +115,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiers(filters, offset, length, from, until);
 	}
 
@@ -139,13 +139,13 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemIdentifiers(filters, offset, length);
 		} else
 			return itemRepository.getItemIdentifiers(filters, offset, length, setSpec);
@@ -156,13 +156,13 @@ public class ItemRepository {
 			Date from) throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemIdentifiers(filters, offset, length, from);
 		} else
 			return itemRepository.getItemIdentifiers(filters, offset, length, setSpec,
@@ -174,13 +174,13 @@ public class ItemRepository {
 			String setSpec, Date until) throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemIdentifiersUntil(filters, offset, length, until);
 		} else
 			return itemRepository.getItemIdentifiersUntil(filters, offset, length,
@@ -192,13 +192,13 @@ public class ItemRepository {
 			Date from, Date until) throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository
 					.getItemIdentifiers(filters, offset, length, from, until);
 		} else
@@ -211,10 +211,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItems(filters, offset, length);
 	}
 
@@ -223,10 +223,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItems(filters, offset, length, from);
 	}
 
@@ -235,10 +235,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemsUntil(filters, offset, length, until);
 	}
 
@@ -247,10 +247,10 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItems(filters, offset, length, from, until);
 	}
 
@@ -260,13 +260,13 @@ public class ItemRepository {
 
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItems(filters, offset, length);
 		} else
 			return itemRepository.getItems(filters, offset, length, setSpec);
@@ -277,13 +277,13 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItems(filters, offset, length, from);
 		} else
 			return itemRepository.getItems(filters, offset, length, setSpec, from);
@@ -294,13 +294,13 @@ public class ItemRepository {
 			throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemsUntil(filters, offset, length, until);
 		} else
 			return itemRepository.getItemsUntil(filters, offset, length, setSpec, until);
@@ -311,13 +311,13 @@ public class ItemRepository {
 			Date until) throws CannotDisseminateFormatException {
 		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
 		for (Filter f : context.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.Context));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
 		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new ScopedFilter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
 			for (Filter f : context.getSetFilters(setSpec))
-				filters.add(new ScopedFilter(f, FilterScope.Set));
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItems(filters, offset, length, from, until);
 		} else
 			return itemRepository.getItems(filters, offset, length, setSpec, from, until);

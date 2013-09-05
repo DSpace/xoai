@@ -14,4 +14,8 @@ public class NotCondition extends AbstractCondition {
         return !this.condition.isItemShown(item);
     }
 
+    public AbstractCondition getCondition() {
+        return condition;
+    }
+
 }

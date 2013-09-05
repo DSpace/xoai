@@ -15,4 +15,8 @@ public class Filter {
     public boolean isItemShown(AbstractItemIdentifier item) {
         return this.condition.isItemShown(item);
     }
+    
+    public AbstractCondition getCondition () {
+        return this.condition;
+    }
 }

@@ -1,1 +1,56 @@
-<dim:dimxmlns:dim="http://www.dspace.org/xmlns/dspace/dim"xmlns:doc="http://www.lyncode.com/xoai"xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"xsi:schemaLocation="http://www.dspace.org/xmlns/dspace/dimhttp://www.dspace.org/schema/dim.xsd"><dim:fieldmdschema="dc"element="creator"lang="en_US">Cat,Lily</dim:field><dim:fieldmdschema="dc"element="date"qualifier="accessioned">1982-06-26T19:58:24Z</dim:field><dim:fieldmdschema="dc"element="date"qualifier="available">1982-06-26T19:58:24Z</dim:field><dim:fieldmdschema="dc"element="date"qualifier="created"lang="en_US">1982-11-11</dim:field><dim:fieldmdschema="dc"element="date"qualifier="issued">1982-11-11</dim:field><dim:fieldmdschema="dc"element="identifier"qualifier="issn"lang="en_US">123456789</dim:field><dim:fieldmdschema="dc"element="identifier"qualifier="uri">http://hdl.handle.net/10673/4</dim:field><dim:fieldmdschema="dc"element="description"qualifier="abstract"lang="en_US">ThisisaSampleHTMLwebpageincludingseveralimagesandstyles(CSS).</dim:field><dim:fieldmdschema="dc"element="description"qualifier="provenance"lang="en">MadeavailableinDSpaceon2012-06-26T19:58:24Z(GMT).No.ofbitstreams:7&#13;Lily-cat-of-day.htm:39970bytes,checksum:aae901336b56ae14070fdec8c79dd48e(MD5)&#13;cl_style.css:1181bytes,checksum:58178d41c221520d88333b9d482b31b8(MD5)&#13;kitty-1257950690.jpg:83390bytes,checksum:729596bb3ad09ebe958a150787418212(MD5)&#13;kitty-1257950690_002.jpg:86057bytes,checksum:37c07c8488042d064bd945765d9e2f98(MD5)&#13;logo.png:4157bytes,checksum:d64fb5f69c7820685d5ed3037b9670ed(MD5)&#13;style.css:49623bytes,checksum:89c2a0557993a8665574c0b52fc1582d(MD5)&#13;stylesheet.css:877bytes,checksum:d2b580ac1c89ae88dc05dcd9108b002e(MD5)</dim:field><dim:fieldmdschema="dc"element="language"lang="en_US">en</dim:field><dim:fieldmdschema="dc"element="rights"lang="en_US">©EverCats.com</dim:field><dim:fieldmdschema="dc"element="subject"lang="en_US">cat</dim:field><dim:fieldmdschema="dc"element="title"lang="en_US">TestWebpage</dim:field><dim:fieldmdschema="dc"element="type"lang="en_US">text</dim:field></dim:dim>
+<dim:dim xmlns:dim = "http://www.dspace.org/xmlns/dspace/dim" xmlns:doc="http://www.lyncode.com/xoai" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.dspace.org/xmlns/dspace/dimhttp://www.dspace.org/schema/dim.xsd">
+	<dim:field mdschema = "dc " element="creator" lang="en_US">
+		Cat,Lily
+	</dim:field>
+		<dim:field mdschema = "dc " element="date" qualifier="accessioned">
+			1982-06-26T19:58:24Z
+		</dim:field>
+			<dim:field mdschema = "dc " element="date" qualifier="available">
+				1982-06-26T19:58:24Z
+			</dim:field>
+				<dim:field mdschema =" dc " element="date"
+					qualifier="created" lang="en_US">
+					1982-11-11
+				</dim:field>
+					<dim:field mdschema = "dc " element="date"
+						qualifier="issued">
+						1982-11-11
+					</dim:field>
+						<dim:field mdschema = "dc " element="identifier"
+							qualifier="issn" lang="en_US">
+							123456789
+						</dim:field>
+							<dim:field mdschema = "dc " element="identifier"
+								qualifier="uri">
+								http://hdl.handle.net/10673/4
+							</dim:field>
+								<dim:field mdschema =" dc " element="description"
+									qualifier="abstract" lang="en_US">
+									ThisisaSampleHTMLwebpageincludingseveralimagesandstyles(CSS).
+								</dim:field>
+									<dim:field mdschema = "dc " element="description"
+										qualifier="provenance" lang="en">
+										MadeavailableinDSpaceon2012-06-26T19:58:24Z(GMT).No.ofbitstreams:7&#13;Lily-cat-of-day.htm:39970bytes,checksum:aae901336b56ae14070fdec8c79dd48e(MD5)&#13;cl_style.css:1181bytes,checksum:58178d41c221520d88333b9d482b31b8(MD5)&#13;kitty-1257950690.jpg:83390bytes,checksum:729596bb3ad09ebe958a150787418212(MD5)&#13;kitty-1257950690_002.jpg:86057bytes,checksum:37c07c8488042d064bd945765d9e2f98(MD5)&#13;logo.png:4157bytes,checksum:d64fb5f69c7820685d5ed3037b9670ed(MD5)&#13;style.css:49623bytes,checksum:89c2a0557993a8665574c0b52fc1582d(MD5)&#13;stylesheet.css:877bytes,checksum:d2b580ac1c89ae88dc05dcd9108b002e(MD5)
+									</dim:field>
+										<dim:field mdschema = "dc " element="language"
+											lang="en_US">
+											en
+										</dim:field>
+											<dim:field mdschema = "dc " element="rights"
+												lang="en_US">
+												©EverCats.com
+											</dim:field>
+												<dim:field mdschema = "dc " element="subject"
+													lang="en_US">
+													cat
+												</dim:field>
+													<dim:field mdschema = "dc " element="title"
+														lang="en_US">
+														TestWebpage
+													</dim:field>
+														<dim:field mdschema = "dc " element="type"
+															lang="en_US">
+															text
+														</dim:field>
+														</dim:dim>

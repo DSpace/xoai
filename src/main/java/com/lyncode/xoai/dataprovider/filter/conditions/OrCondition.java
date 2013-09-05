@@ -16,4 +16,22 @@ public class OrCondition extends AbstractCondition {
         return this.left.isItemShown(item) || this.right.isItemShown(item);
     }
 
+    
+    /**
+     * @return the left
+     */
+    public AbstractCondition getLeft() {
+    
+        return left;
+    }
+
+    
+    /**
+     * @return the right
+     */
+    public AbstractCondition getRight() {
+    
+        return right;
+    }
+
 }
