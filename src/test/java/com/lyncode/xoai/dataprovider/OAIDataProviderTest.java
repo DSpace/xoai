@@ -7,6 +7,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +52,48 @@ import com.lyncode.xoai.util.XSLTUtils;
 @PrepareForTest({ XOAIManager.class, XSLTUtils.class })
 @RunWith(PowerMockRunner.class)
 public class OAIDataProviderTest {
+    public static String XOAI_CFG = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
+    		"<!-- \r\n" + 
+    		"\r\n" + 
+    		"    The contents of this file are subject to the license and copyright\r\n" + 
+    		"    detailed in the LICENSE and NOTICE files at the root of the source\r\n" + 
+    		"    tree and available online at\r\n" + 
+    		"\r\n" + 
+    		"    http://www.dspace.org/license/\r\n" + 
+    		"\r\n" + 
+    		"    Developed by DSpace @ Lyncode <dspace@lyncode.com>\r\n" + 
+    		" -->\r\n" + 
+    		"<Configuration\r\n" + 
+    		"    identation=\"false\" maxListIdentifiersSize=\"100\" maxListRecordsSize=\"100\"\r\n" + 
+    		"    maxListSetsSize=\"100\" stylesheet=\"static/style.xsl\">\r\n" + 
+    		"\r\n" + 
+    		"    <Contexts>\r\n" + 
+    		"        <Context baseurl=\"request\">\r\n" + 
+    		"            <Format refid=\"xoai\" />\r\n" + 
+    		"        </Context> \r\n" + 
+    		"    </Contexts>\r\n" + 
+    		"    \r\n" + 
+    		"    \r\n" + 
+    		"    <Formats>\r\n" + 
+    		"        <Format id=\"xoai\">\r\n" + 
+    		"            <Prefix>xoai</Prefix>\r\n" + 
+    		"            <XSLT>metadataFormats/xoai.xsl</XSLT>\r\n" + 
+    		"            <Namespace>http://www.lyncode.com/xoai</Namespace>\r\n" + 
+    		"            <SchemaLocation>http://www.lyncode.com/schemas/xoai.xsd</SchemaLocation>\r\n" + 
+    		"        </Format>\r\n" + 
+    		"    </Formats>\r\n" + 
+    		"    \r\n" + 
+    		"    <Transformers>\r\n" + 
+    		"    </Transformers>\r\n" + 
+    		"    \r\n" + 
+    		"\r\n" + 
+    		"    <Filters>\r\n" + 
+    		"    </Filters>\r\n" + 
+    		"    \r\n" + 
+    		"    <Sets>\r\n" + 
+    		"    </Sets>\r\n" + 
+    		"</Configuration>";
+    
     static final String REP_NAME = "Hello";
     static final String DESC = "<a>test</a>";
     
@@ -61,7 +104,7 @@ public class OAIDataProviderTest {
 
     @Before
     public void setUp() throws Exception {
-        XOAIManager man = new XOAIManager("test", ConfigurationManager.readConfiguration(this.getClass().getResourceAsStream("xoai.xml")));
+        XOAIManager man = new XOAIManager("test", ConfigurationManager.readConfiguration(new ByteArrayInputStream(XOAI_CFG.getBytes())));
         
         MetadataFormat metadataFormat = mock(MetadataFormat.class);
         when(metadataFormat.isApplyable(any(AbstractItemIdentifier.class))).thenReturn(true);
