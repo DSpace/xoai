@@ -163,72 +163,77 @@ public class OAIDataProvider {
         errorHandler = new ErrorHandler();
 	}
 
-	public void handle(OAIRequestParameters params, OutputStream out)
-			throws OAIException, XMLStreamException, WrittingXmlException {
-		log.debug("Starting handling OAI request");
-		OAIPMH response = new OAIPMH();
-		OAIPMHtype info = new OAIPMHtype();
+	public OAIPMH handle (OAIRequestParameters params) throws OAIException {
+	    log.debug("Starting handling OAI request");
+        OAIPMH response = new OAIPMH();
+        OAIPMHtype info = new OAIPMHtype();
         response.setInfo(info);
         
         RequestType request = new RequestType();
         info.setRequest(request);
         info.setResponseDate(new Date());
         
-		request.setValue(this._identify.getBaseUrl());
-		try {
-			OAIParameters parameters = new OAIParameters(params, _format);
-			VerbType verb = parameters.getVerb();
-			request.setVerb(verb);
-			
-			if (params.getResumptionToken() != null)
-				request.setResumptionToken(params.getResumptionToken());
-			if (params.getIdentifier() != null)
-				request.setIdentifier(parameters.getIdentifier());
-			if (params.getFrom() != null)
+        request.setValue(this._identify.getBaseUrl());
+        try {
+            OAIParameters parameters = new OAIParameters(params, _format);
+            VerbType verb = parameters.getVerb();
+            request.setVerb(verb);
+            
+            if (params.getResumptionToken() != null)
+                request.setResumptionToken(params.getResumptionToken());
+            if (params.getIdentifier() != null)
+                request.setIdentifier(parameters.getIdentifier());
+            if (params.getFrom() != null)
                 try {
                     request.setFrom(new DateInfo(DateUtils.parse(params.getFrom()), _identify.getGranularity().toGranularityType()));
                 } catch (ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
-			if (params.getMetadataPrefix() != null)
-				request.setMetadataPrefix(params.getMetadataPrefix());
-			if (params.getSet() != null)
-				request.setSet(params.getSet());
-			if (params.getUntil() != null)
+            if (params.getMetadataPrefix() != null)
+                request.setMetadataPrefix(params.getMetadataPrefix());
+            if (params.getSet() != null)
+                request.setSet(params.getSet());
+            if (params.getUntil() != null)
                 try {
                     request.setUntil(new DateInfo(DateUtils.parse(params.getUntil()), _identify.getGranularity().toGranularityType()));
                 } catch (ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
 
-			switch (verb) {
-    			case IDENTIFY:
-    			    info.setIdentify(identifyHandler.handle(parameters));
-    				break;
-    			case LIST_SETS:
-    			    info.setListSets(listSetsHandler.handle(parameters));
-    				break;
-    			case LIST_METADATA_FORMATS:
-    			    info.setListMetadataFormats(listMetadataFormatsHandler.handle(parameters));
-    				break;
-    			case GET_RECORD:
-    			    info.setGetRecord(getRecordHandler.handle(parameters));
-    				break;
-    			case LIST_IDENTIFIERS:
-    			    info.setListIdentifiers(listIdentifiersHandler.handle(parameters));
-    				break;
-    			case LIST_RECORDS:
-    				info.setListRecords(listRecordsHandler.handle(parameters));
-    				break;
-			}
-		} catch (HandlerException e) {
-			log.debug(e.getMessage(), e);
-			info.getError().add(errorHandler.handle(e));
-		}
-		
+            switch (verb) {
+                case IDENTIFY:
+                    info.setIdentify(identifyHandler.handle(parameters));
+                    break;
+                case LIST_SETS:
+                    info.setListSets(listSetsHandler.handle(parameters));
+                    break;
+                case LIST_METADATA_FORMATS:
+                    info.setListMetadataFormats(listMetadataFormatsHandler.handle(parameters));
+                    break;
+                case GET_RECORD:
+                    info.setGetRecord(getRecordHandler.handle(parameters));
+                    break;
+                case LIST_IDENTIFIERS:
+                    info.setListIdentifiers(listIdentifiersHandler.handle(parameters));
+                    break;
+                case LIST_RECORDS:
+                    info.setListRecords(listRecordsHandler.handle(parameters));
+                    break;
+            }
+        } catch (HandlerException e) {
+            log.debug(e.getMessage(), e);
+            info.getError().add(errorHandler.handle(e));
+        }
+        
+        return response;
+	}
+	
+	public void handle(OAIRequestParameters params, OutputStream out)
+			throws OAIException, XMLStreamException, WrittingXmlException {
+	    
 		XMLStreamWriter writer = factory.createXMLStreamWriter(out);
 		writer.writeStartDocument();
-		response.write(writer);
+		this.handle(params).write(writer);
 		writer.writeEndDocument();
 		writer.flush();
 		writer.close();
