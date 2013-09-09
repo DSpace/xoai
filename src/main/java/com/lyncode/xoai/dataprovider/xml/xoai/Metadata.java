@@ -7,10 +7,11 @@
 
 package com.lyncode.xoai.dataprovider.xml.xoai;
 
+import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -21,7 +22,6 @@ import javax.xml.stream.XMLStreamWriter;
 import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
 import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 import com.lyncode.xoai.dataprovider.xml.XSISchema;
-import static com.lyncode.xoai.util.XmlIOUtils.*;
 
 /**
  * <p>
@@ -87,9 +87,9 @@ public class Metadata  implements XMLWrittable {
     @Override
     public void write(XMLStreamWriter writter) throws WrittingXmlException {
         try {
-            String namespace = writter.getNamespaceContext().getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE);
-            writter.writeDefaultNamespace(NAMESPACE_URI);
+            //String namespace = writter.getNamespaceContext().getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE);
             writter.writeStartElement("metadata");
+            writter.writeDefaultNamespace(NAMESPACE_URI);
             writter.writeAttribute(XSISchema.PREFIX,XSISchema.NAMESPACE_URI, "schemaLocation", 
                                    NAMESPACE_URI+" "+SCHEMA_LOCATION);
             
@@ -97,7 +97,7 @@ public class Metadata  implements XMLWrittable {
                 writeElement(writter, "element", elem);
             }
             writter.writeEndElement();
-            writter.writeDefaultNamespace(namespace);
+            //writter.writeDefaultNamespace(namespace);
         } catch (XMLStreamException e) {
             throw new WrittingXmlException(e);
         }
