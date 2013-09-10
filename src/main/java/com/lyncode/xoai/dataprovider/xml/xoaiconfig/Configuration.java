@@ -768,7 +768,7 @@ public class Configuration {
      *             &lt;/complexContent>
      *           &lt;/complexType>
      *         &lt;/element>
-     *         &lt;element name="ScopedFilter" maxOccurs="unbounded" minOccurs="0">
+     *         &lt;element name="Filter" maxOccurs="unbounded" minOccurs="0">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -797,7 +797,7 @@ public class Configuration {
 
         @XmlElement(name = "CustomFilter")
         protected List<Configuration.Filters.CustomFilter> customFilter;
-        @XmlElement(name = "ScopedFilter")
+        @XmlElement(name = "Filter")
         protected List<Configuration.Filters.Filter> filter;
 
         /**
