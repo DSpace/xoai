@@ -596,7 +596,7 @@ public class Configuration {
 
             @XmlElement(name = "Transformer")
             protected BundleReference transformer;
-            @XmlElement(name = "ScopedFilter")
+            @XmlElement(name = "Filter")
             protected List<BundleReference> filter;
             @XmlElement(name = "Set")
             protected List<BundleReference> set;

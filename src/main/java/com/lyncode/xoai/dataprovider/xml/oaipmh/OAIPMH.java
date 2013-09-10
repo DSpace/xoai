@@ -3,6 +3,7 @@ package com.lyncode.xoai.dataprovider.xml.oaipmh;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import com.lyncode.xoai.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
 import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 import com.lyncode.xoai.dataprovider.xml.XSISchema;
@@ -29,6 +30,8 @@ public class OAIPMH implements XMLWrittable {
     @Override
     public void write(XMLStreamWriter writter) throws WrittingXmlException {
         try {
+            if (XOAIManager.getManager().hasStyleSheet())
+                writter.writeProcessingInstruction("xml-stylesheet href='"+XOAIManager.getManager().getStyleSheet()+"' type='text/xsl'");
             writter.writeStartElement("OAI-PMH");
             writter.writeDefaultNamespace(NAMESPACE_URI);
             writter.writeNamespace(XSISchema.PREFIX, XSISchema.NAMESPACE_URI);

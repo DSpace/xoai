@@ -217,6 +217,7 @@ public class XOAIManagerTest {
         XOAIManager.initialize("USELESS");
         XOAIManager instance = XOAIManager.getManager();
         assertFalse(instance.getFilterManager().getFilters().isEmpty());
+        assertFalse(instance.getContextManager().getOAIContext("driver").getFilters().isEmpty());
     }
 
 }
