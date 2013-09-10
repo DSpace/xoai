@@ -10,7 +10,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -19,6 +19,7 @@ import com.lyncode.xoai.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.dataprovider.exceptions.MetadataBindException;
 import com.lyncode.xoai.dataprovider.xml.PrefixMapper;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import com.lyncode.xoai.dataprovider.xml.xoai.XOAIParser;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 
 public class MarshallingUtils {
@@ -85,20 +86,6 @@ public class MarshallingUtils {
 		return marshalWithoutXMLHeader(XOAIDescription.class.getPackage()
 				.getName(), xml, new PrefixMapper());
 	}
-	
-	public static Metadata readMetadata (InputStream in) throws MetadataBindException {
-        try
-        {
-            JAXBContext context = JAXBContext.newInstance(Metadata.class
-                    .getPackage().getName());
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            return (Metadata) unmarshaller.unmarshal(in);
-        }
-        catch (JAXBException e)
-        {
-            throw new MetadataBindException(e);
-        }
-    }
 
     public static void writeMetadata (OutputStream out, Metadata meta) throws MetadataBindException {
         try
