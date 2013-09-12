@@ -1,28 +1,46 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
-public class ListMetadataFormatsParser extends ElementParser {
+public class ListMetadataFormatsParser extends ElementParser<ListMetadataFormatsType> {
 	public static final String NAME = "ListMetadataFormats";
 
 	private MetadataFormatParser mdfParser;
 	
-	public ListMetadataFormatsParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
-		mdfParser = new MetadataFormatParser(log, reader);
+	public ListMetadataFormatsParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
+		mdfParser = new MetadataFormatParser(oaiServiceConfiguration);
 	}
 
-	public ListMetadataFormatsType parse (boolean getNext) throws ParseException {
-		ListMetadataFormatsType res = new ListMetadataFormatsType();
-		super.checkStart(NAME, getNext);
-		while (super.checkBooleanStart("metadataFormat", true)) {
-			res.getMetadataFormat().add(mdfParser.parse(false));
-		}
-		super.checkEnd(NAME, false);
-		return res;
-	}
+    @Override
+    protected ListMetadataFormatsType parseElement(XMLEventReader reader) throws ParseException {
+        ListMetadataFormatsType result = new ListMetadataFormatsType();
+
+        
+        try {
+            if (!reader.peek().asStartElement().getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expected "+NAME+" element");
+            
+            reader.nextEvent();
+            this.nextElement(reader);
+            
+            while (reader.peek().isStartElement() && reader.peek().asStartElement().getName().getLocalPart().equals("metadataFormat")) {
+                result.getMetadataFormat().add(mdfParser.parse(reader));
+            }
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+        
+        return result;
+    }
 }

@@ -19,12 +19,10 @@
 
 package com.lyncode.xoai.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-
-import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
-import com.lyncode.xoai.serviceprovider.oaipmh.UnknownParseException;
 
 
 /**
@@ -38,21 +36,17 @@ public class DateUtils
         return format.format(date);
     }
 
-	public static Date parse(String string) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		try {
-			return format.parse(string);
-		} catch (java.text.ParseException e) {
-			format = new SimpleDateFormat("yyyy-MM-dd");
-			format.setTimeZone(TimeZone.getTimeZone("UTC"));
-			try {
-				return format.parse(string);
-			} catch (java.text.ParseException e1) {
-				throw new UnknownParseException(e1);
-			}
-		}
-	}
+    public static Date parse(String string) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            return format.parse(string);
+        } catch (ParseException e) {
+            format = new SimpleDateFormat("yyyy-MM-dd");
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+            return format.parse(string);
+        }
+    }
 
 	public static String format(Date date) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

@@ -1,4 +1,5 @@
-package com.lyncode.xoai.serviceprovider.oaipmh;
+package com.lyncode.xoai.serviceprovider.exceptions;
+
 
 public class KnownParseException extends ParseException {
 

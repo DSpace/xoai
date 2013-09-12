@@ -19,7 +19,12 @@
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import org.apache.log4j.Logger;
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.core.Parameters;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
 
 /**
@@ -28,19 +33,19 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractVerb
 {
-    private String baseUrl;
-    private Logger log;
+    private Parameters parameters;
+    private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config;
     
-    public AbstractVerb (String baseUrl, Logger log) {
-        this.baseUrl = baseUrl;
-        this.log = log;
+    public AbstractVerb (Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
+        this.parameters = parameters;
+        this.config = config;
     }
     
-    protected String getBaseUrl () {
-        return this.baseUrl;
+    public Parameters getParameters () {
+        return this.parameters;
     }
 
-	public Logger getLogger() {
-		return log;
+	public OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> getServiceProvider() {
+		return config;
 	}
 }

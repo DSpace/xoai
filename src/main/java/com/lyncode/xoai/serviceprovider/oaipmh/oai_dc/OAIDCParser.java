@@ -1,44 +1,48 @@
 package com.lyncode.xoai.serviceprovider.oaipmh.oai_dc;
 
+import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.events.XMLEvent;
 
-import org.apache.log4j.Logger;
-
-import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
-import com.lyncode.xoai.serviceprovider.oaipmh.KnownParseException;
-import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
-import com.lyncode.xoai.serviceprovider.oaipmh.UnknownParseException;
-import com.lyncode.xoai.serviceprovider.oaipmh.XMLType;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.schemas.oai_dc.OAIDC;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
-public class OAIDCParser extends GenericParser {
+public class OAIDCParser implements MetadataParser {
 
-	public OAIDCParser(Logger log) {
-		super(log);
+	public OAIDCParser() {
 	}
 
 	@Override
-	public Object parse(XMLStreamReader reader) throws ParseException {
-		OAIDC oaidc = new OAIDC();
-		super.checkStart(reader, "dc", true);
-		while (!this.stop(reader)) {
-			oaidc.add(reader.getLocalName(), super.getString(reader, reader.getLocalName(), false));
-		}
-		super.checkEnd(reader, "dc", false);
-		return oaidc;
-	}
-
-	private boolean stop(XMLStreamReader reader) throws ParseException {
-		try {
-			if (!reader.hasNext()) 
-				throw new KnownParseException("Expecting an element (start or end) but none appeared");
-			int type = reader.nextTag();
-			if (type == XMLType.START_ELEMENT.getID()) return false;
-			else if (type == XMLType.END_ELEMENT.getID()) return true;
-			else throw new KnownParseException("Expecting an element (start or end) but another one appeared ("+XMLType.fromID(type).name()+")");
-		} catch (XMLStreamException e) {
-			throw new UnknownParseException(e);
-		}
+	public Object parse(XMLEventReader reader) throws ParseException {
+	    boolean started = false;
+        OAIDC oaidc = new OAIDC();
+	    XMLEventReader eventReader =  reader;
+        try {
+            while (eventReader.hasNext()) {
+                XMLEvent event = eventReader.nextEvent();
+                if (event.isStartElement()) {
+                    if (event.asStartElement().getName().getLocalPart().toLowerCase().equals("dc"))
+                        started = true;
+                    else if (started) {
+                        String name = event.asStartElement().getName().getLocalPart(); 
+                        while (eventReader.hasNext()) {
+                            XMLEvent event2 = eventReader.nextEvent();
+                            if (event2.isEndElement() && event2.asEndElement().getName().getLocalPart().equals(name))
+                                oaidc.add(name, "");
+                            else if (event2.isCharacters())
+                                oaidc.add(name, event2.asCharacters().getData());
+                        }
+                    } else throw new ParseException("Unexpected element found");
+                } else if (event.isEndElement()) {
+                    if (event.asStartElement().getName().getLocalPart().toLowerCase().equals("dc"))
+                        started = false;
+                }
+            }
+            
+            return oaidc;
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
 	}
 }

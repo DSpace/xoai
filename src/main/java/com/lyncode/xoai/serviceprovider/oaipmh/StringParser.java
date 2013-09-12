@@ -1,84 +1,83 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.util.Iterator;
 
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.Namespace;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.codehaus.stax2.XMLOutputFactory2;
 
-public class StringParser extends ElementParser {
-	
-	
-	public StringParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+
+public class StringParser extends ElementParser<String> {
+    private static XMLOutputFactory factory = XMLOutputFactory2.newFactory();
+    
+	public StringParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
 	}
 	
-	/**
-	 * 
-	 * @param getNext
-	 * @return true if everything goes fine, false if it finds a close element at the first time.
-	 * @throws ParseException
-	 */
-	public String parse (boolean getNext) throws ParseException {
-		String result = "";
-		try {
-			if (getNext) {
-				if (!super.getReader().hasNext()) throw new KnownParseException("Expecting an element, none appeared");
-				super.getReader().nextTag();
-			}
-			int type = super.getReader().getEventType();
-			if (type != XMLType.START_ELEMENT.getID())
-				return null;
-			
-			String elementName = super.getReader().getLocalName();
-			int count = 1;
-			
-			while (super.getReader().hasNext()) {
-				type = super.getReader().next();
-				switch (XMLType.fromID(type)) {
-					case START_ELEMENT:
-						result += "<"+super.getReader().getLocalName()+"";
-						getLogger().debug("Start of element "+super.getReader().getLocalName());
-						Map<String, String> attr = super.getRawAttributes();
-						if (!attr.isEmpty()) {
-							
-							List<String> join = new ArrayList<String>();
-							for (String k : attr.keySet())
-								join.add(k+"=\""+attr.get(k)+"\"");
-							result += " "+StringUtils.join(join, " ");
-						}
-						if (elementName.equals(super.getReader().getLocalName())) {
-							count++;
-						}
-						result += ">";
-						break;
-					case END_ELEMENT:
-						getLogger().debug("End of element "+super.getReader().getLocalName());
-						//System.out.println(super.getReader().getLocalName());
-						result += "</"+super.getReader().getLocalName()+">";
-						if (elementName.equals(super.getReader().getLocalName())) {
-							count--;
-						}
-						break;
-					case CHARACTERS:
-						result += super.getReader().getText();
-						break;
-					default:
-						break;
-				}
-				if (count == 0) break;
-			}
-			
-			if (count > 0) throw new KnownParseException("Expecting an element named "+elementName+", but it never appeared");
-			
-		} catch (XMLStreamException e) {
-			throw new UnknownParseException(e);
-		}
-		return result;
+	@SuppressWarnings("unchecked")
+    public String parseElement (XMLEventReader reader) throws ParseException {
+	    ByteArrayOutputStream output = new ByteArrayOutputStream();
+        int count = 0;
+        try {
+            XMLStreamWriter writer = factory.createXMLStreamWriter(output);;
+            //writer.writeStartDocument();
+            while (reader.peek() != null) {
+                XMLEvent event = reader.peek();
+                if (event.isStartElement()) {
+                    count++;
+                    StartElement start = event.asStartElement();
+                    writer.writeStartElement(start.getName().getPrefix(), start.getName().getLocalPart(), start.getName().getNamespaceURI());
+                    
+                    Iterator<Namespace> it = start.getNamespaces();
+                    while (it.hasNext()) {
+                        Namespace n = it.next();
+                        writer.writeNamespace(n.getPrefix(), n.getNamespaceURI());
+                    }
+                    
+                    Iterator<Attribute> attrs = start.getAttributes();
+                    while (attrs.hasNext()) {
+                        Attribute attr = attrs.next();
+                        writer.writeAttribute(attr.getName().getPrefix(), attr.getName().getNamespaceURI(), attr.getName().getLocalPart(), attr.getValue());
+                    }
+                    
+                } else if (event.isEndElement()) {
+                    count--;
+                    if (count == 0) {
+                        break;
+                    } else writer.writeEndElement();
+                } else if (event.isCharacters()) {
+                    writer.writeCharacters(event.asCharacters().getData());
+                }
+                
+                if (reader.hasNext())
+                    reader.nextEvent();
+                else
+                    break;
+            }
+            
+            if (count > 0) throw new ParseException("Unterminated structure");
+            
+            writer.flush();
+            writer.close();
+            String res = output.toString();
+            // System.out.println(res);
+            return res;
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }   
 	}
-
 }

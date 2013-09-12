@@ -19,9 +19,8 @@
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
-import org.apache.log4j.Logger;
-
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
+import com.lyncode.xoai.serviceprovider.verbs.ListSets;
 import com.lyncode.xoai.serviceprovider.verbs.runners.RetrieveListSets;
 import com.lyncode.xoai.util.ProcessingQueue;
 
@@ -32,24 +31,16 @@ import com.lyncode.xoai.util.ProcessingQueue;
  */
 public class SetIterator
 {
-    private Logger log;
-    private int configure;
-    private String baseUrl;
+    private ListSets listSets;
     
     
-    
-    public SetIterator(String string, int interval, Logger log)
-    {
-        super();
-        this.configure = interval;
-        this.baseUrl = string;
-        this.log = log;
-        
+    public SetIterator(ListSets listSets) {
+        this.listSets = listSets;
     }
-    
+
     public ProcessingQueue<SetType> harvest () {
     	ProcessingQueue<SetType> list = new ProcessingQueue<SetType>();
-    	RetrieveListSets l = new RetrieveListSets(configure, baseUrl, list, log);
+    	RetrieveListSets l = new RetrieveListSets(list, listSets.getServiceProvider(), listSets.getParameters());
     	Thread t = new Thread(l);
     	t.start();
     	return list;

@@ -59,7 +59,6 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHtype;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.RequestType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
-import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 import com.lyncode.xoai.util.DateUtils;
 
 /**
@@ -186,7 +185,7 @@ public class OAIDataProvider {
             if (params.getFrom() != null)
                 try {
                     request.setFrom(new DateInfo(DateUtils.parse(params.getFrom()), _identify.getGranularity().toGranularityType()));
-                } catch (ParseException e) {
+                } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
             if (params.getMetadataPrefix() != null)
@@ -196,7 +195,7 @@ public class OAIDataProvider {
             if (params.getUntil() != null)
                 try {
                     request.setUntil(new DateInfo(DateUtils.parse(params.getUntil()), _identify.getGranularity().toGranularityType()));
-                } catch (ParseException e) {
+                } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
 

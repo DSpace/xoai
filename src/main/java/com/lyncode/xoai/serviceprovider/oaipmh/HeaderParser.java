@@ -1,44 +1,69 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import java.util.Map;
+import java.util.Iterator;
 
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.StartElement;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.StatusType;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 import com.lyncode.xoai.util.DateUtils;
 
-public class HeaderParser extends ElementParser {
+public class HeaderParser extends ElementParser<HeaderType> {
 	public static final String NAME = "header";
+    public static final String IDENTIFIER = "identifier";
+    public static final String DATESTAMP = "datestamp";
+    public static final String SETSPEC = "setSpec";
+    public static final String STATUS = "status";
+	
 
-	public HeaderParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
+	public HeaderParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
 	}
 
-	public HeaderType parse(boolean b) throws ParseException {
-		HeaderType type = new HeaderType();
-		super.checkStart(NAME, b);
-		Map<String, String> attr = super.getAttributes();
-		if (attr.containsKey("status"))
-			type.setStatus(StatusType.fromValue(attr.get("status")));
-		while (this.parseContents(type));
-		super.checkEnd(NAME, false);
-		return type;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public HeaderType parseElement (XMLEventReader reader) throws ParseException {
+        HeaderType result = new HeaderType();
+        try {
+            StartElement start = reader.peek().asStartElement();
+            if (!start.getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expecting "+NAME+" element");
+            
+            Iterator<Attribute> attrs = start.getAttributes();
+            while (attrs.hasNext()) {
+                Attribute attr = attrs.next();
+                if (attr.getName().getLocalPart().equals(STATUS)) {
+                    result.setStatus(StatusType.fromValue(attr.getValue()));
+                }
+            }
 
-	private boolean parseContents(HeaderType type) throws ParseException {
-		if (super.checkBooleanStart("identifier", true)) {
-			type.setIdentifier(super.getString("identifier", false));
-			return true;
-		} else if (super.checkBooleanStart("datestamp", false)) {
-			type.setDatestamp(DateUtils.parse(super.getString("datestamp", false)));
-			return true;
-		} else if (super.checkBooleanStart("setSpec", false)) {
-			type.getSetSpec().add(super.getString("setSpec", false));
-			return true;
-		}
-		return false;
-	}
+            reader.nextEvent();
+            this.nextElement(reader);
+            result.setIdentifier(this.getElement(reader, IDENTIFIER));
+            this.nextElement(reader);
+            result.setDatestamp(DateUtils.parse(this.getElement(reader, DATESTAMP)));
+
+            this.nextElement(reader);
+            while (reader.peek() != null && reader.peek().isStartElement()) {
+                result.getSetSpec().add(this.getElement(reader, SETSPEC));
+                this.nextElement(reader);
+            }
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(e);
+        }
+        
+        return result;
+    }
 }

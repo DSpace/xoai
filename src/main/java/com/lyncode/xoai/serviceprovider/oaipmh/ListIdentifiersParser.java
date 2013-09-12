@@ -1,35 +1,49 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListIdentifiersType;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
-public class ListIdentifiersParser extends ElementParser {
+public class ListIdentifiersParser extends ElementParser<ListIdentifiersType> {
 	public static final String NAME = "ListIdentifiers";
 
 	private HeaderParser parser;
 	private ResumptionTokenParser resParser;
 	
-	public ListIdentifiersParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
-		parser = new HeaderParser(log, reader);
-		resParser = new ResumptionTokenParser(log, reader);
+	public ListIdentifiersParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
+		parser = new HeaderParser(oaiServiceConfiguration);
+		resParser = new ResumptionTokenParser(oaiServiceConfiguration);
 	}
 
-	public ListIdentifiersType parse (boolean getNext) throws ParseException {
-		ListIdentifiersType res = new ListIdentifiersType();
-		super.checkStart(NAME, getNext);
-		while (super.checkBooleanStart("header", true)) {
-			res.getHeader().add(parser.parse(false));
-		}
-		if (super.checkBooleanStart("resumptionToken", false)) {
-			res.setResumptionToken(resParser.parse(false));
-			super.checkEnd(NAME, true);
-		} else {
-			super.checkEnd(NAME, false);
-		}
-		return res;
-	}
+    @Override
+    protected ListIdentifiersType parseElement(XMLEventReader reader) throws ParseException {
+        ListIdentifiersType result = new ListIdentifiersType();
+        
+        try {
+            if (!reader.peek().asStartElement().getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expected "+NAME+" element");
+            
+            reader.nextEvent();
+            this.nextElement(reader);
+            
+            while (reader.peek().asStartElement().getName().getLocalPart().equals("header")) {
+                result.getHeader().add(parser.parse(reader));
+            }
+            
+            result.setResumptionToken(resParser.parse(reader));
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+        
+        return result;
+    }
 }

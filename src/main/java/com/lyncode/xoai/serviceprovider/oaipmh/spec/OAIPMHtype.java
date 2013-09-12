@@ -8,13 +8,13 @@
 package com.lyncode.xoai.serviceprovider.oaipmh.spec;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * <p>
@@ -55,7 +55,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class OAIPMHtype {
 
 	@XmlElement(required = true)
-	protected String responseDate;
+	protected Date responseDate;
 	@XmlElement(required = true)
 	protected RequestType request;
 	protected List<OAIPMHerrorType> error;
@@ -78,7 +78,7 @@ public class OAIPMHtype {
 	 * @return possible object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public String getResponseDate() {
+	public Date getResponseDate() {
 		return responseDate;
 	}
 
@@ -89,7 +89,7 @@ public class OAIPMHtype {
 	 *            allowed object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public void setResponseDate(String value) {
+	public void setResponseDate(Date value) {
 		this.responseDate = value;
 	}
 

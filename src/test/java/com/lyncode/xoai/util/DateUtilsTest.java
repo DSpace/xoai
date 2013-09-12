@@ -2,6 +2,7 @@ package com.lyncode.xoai.util;
 
 import static org.junit.Assert.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,8 +10,6 @@ import java.util.TimeZone;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 
 
 public class DateUtilsTest {

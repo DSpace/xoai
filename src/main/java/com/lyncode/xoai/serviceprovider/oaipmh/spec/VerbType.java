@@ -39,11 +39,16 @@ import javax.xml.bind.annotation.XmlType;
 public enum VerbType {
 
 	@XmlEnumValue("Identify")
-	IDENTIFY("Identify"), @XmlEnumValue("ListMetadataFormats")
-	LIST_METADATA_FORMATS("ListMetadataFormats"), @XmlEnumValue("ListSets")
-	LIST_SETS("ListSets"), @XmlEnumValue("GetRecord")
-	GET_RECORD("GetRecord"), @XmlEnumValue("ListIdentifiers")
-	LIST_IDENTIFIERS("ListIdentifiers"), @XmlEnumValue("ListRecords")
+	IDENTIFY("Identify"), 
+	@XmlEnumValue("ListMetadataFormats")
+	LIST_METADATA_FORMATS("ListMetadataFormats"), 
+	@XmlEnumValue("ListSets")
+	LIST_SETS("ListSets"), 
+	@XmlEnumValue("GetRecord")
+	GET_RECORD("GetRecord"), 
+	@XmlEnumValue("ListIdentifiers")
+	LIST_IDENTIFIERS("ListIdentifiers"), 
+	@XmlEnumValue("ListRecords")
 	LIST_RECORDS("ListRecords");
 	private final String value;
 

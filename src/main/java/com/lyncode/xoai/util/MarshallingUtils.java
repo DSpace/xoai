@@ -2,7 +2,6 @@ package com.lyncode.xoai.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.regex.Pattern;
 
@@ -10,7 +9,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
-import javax.xml.stream.XMLStreamException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -19,7 +17,6 @@ import com.lyncode.xoai.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.dataprovider.exceptions.MetadataBindException;
 import com.lyncode.xoai.dataprovider.xml.PrefixMapper;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
-import com.lyncode.xoai.dataprovider.xml.xoai.XOAIParser;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 
 public class MarshallingUtils {
