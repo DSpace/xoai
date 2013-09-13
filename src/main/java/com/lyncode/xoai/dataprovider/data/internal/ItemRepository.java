@@ -11,7 +11,6 @@ import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.ScopedFilter;
