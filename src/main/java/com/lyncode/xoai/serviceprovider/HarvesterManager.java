@@ -38,6 +38,7 @@ import com.lyncode.xoai.serviceprovider.oaipmh.NullParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.oai_dc.OAIDCParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.StatusType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.schemas.oai_dc.OAIDC;
 import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
 import com.lyncode.xoai.serviceprovider.verbs.GetRecord;
@@ -64,16 +65,17 @@ public class HarvesterManager
     private static boolean configured = false;
     
     public static void main (String... args) {
-    	//BasicConfigurator.configure();
-    	HarvesterManager harvester = new HarvesterManager("http://demo.dspace.org/oai/request", log);
+    	BasicConfigurator.configure();
+    	HarvesterManager harvester = new HarvesterManager("http://arca.igc.gulbenkian.pt/oai/request", log);
     	ListRecords lr = harvester.listRecords("oai_dc");
     	ProcessingQueue<RecordType> results = lr.harvest(new OAIDCParser(log));
     	while (!results.hasFinished()) {
     		RecordType rec = results.dequeue();
-    		if (rec != null) {
+    		if (rec != null && rec.getHeader().getStatus() != StatusType.DELETED) {
     			OAIDC dc = (OAIDC) rec.getMetadata().getAny();
-    			for (OAIDC.Element e : dc.getElements()) 
-    				System.out.println(e.getName()+"="+e.getValue());
+    			if (dc != null)
+    				for (OAIDC.Element e : dc.getElements()) 
+    					System.out.println(e.getName()+"="+e.getValue());
     		}
     	}
     	System.out.println("FINISH");

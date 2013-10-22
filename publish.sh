@@ -1,20 +1,27 @@
 #!/bin/bash
 
 echo "Script for Mac OS X"
+rm -rf target/*.asc
+rm -rf target/*.jar
+rm -f target/$ARTIFACT.jar
+
+
+VERSION=`xpath pom.xml "/project/version/text()"`
+ARTIFACT=`xpath pom.xml "/project/artifactId/text()"`
+USER="Lyncode <general@lyncode.com>"
+
+
+cp pom.xml target/$ARTIFACT-$VERSION.pom
+gpg2 -ab --default-key "$USER" target/$ARTIFACT-$VERSION.pom
 
 mvn package
-VERSION=`xpath pom.xml "/project/version/text()"`
+
+for i in `ls target/ | grep .jar`
+do
+	gpg2 -ab --default-key "$USER" target/$i
+done
 
 
-
-cp pom.xml target/xoai-$VERSION.pom
-
-rm -rf target/*.asc
-
-gpg2 --armor --sign --default-key "Lyncode <general@lyncode.com>" target/xoai-$VERSION.jar
-gpg2 --armor --sign --default-key "Lyncode <general@lyncode.com>" target/xoai-$VERSION-javadoc.jar
-gpg2 --armor --sign --default-key "Lyncode <general@lyncode.com>" target/xoai-$VERSION-sources.jar
-gpg2 --armor --sign --default-key "Lyncode <general@lyncode.com>" target/xoai-$VERSION.pom
-
-jar -cvf target/xoai.jar target/xoai-$VERSION.jar target/xoai-$VERSION-javadoc.jar target/xoai-$VERSION-sources.jar target/xoai-$VERSION.jar.asc target/xoai-$VERSION-javadoc.jar.asc target/xoai-$VERSION-sources.jar.asc target/xoai-$VERSION.pom target/xoai-$VERSION.pom.asc
-
+LIBS=`ls target/ | grep .jar | xargs`
+echo $LIBS
+jar -cvf target/$ARTIFACT.jar target/$ARTIFACT-$VERSION.pom $LIBS

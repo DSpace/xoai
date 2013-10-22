@@ -802,7 +802,7 @@ public class Configuration {
             "clazz",
             "parameter"
         })
-        public static class Filter {
+        public static class Filter implements Referable {
 
             @XmlElement(name = "Class", required = true)
             protected String clazz;
@@ -998,7 +998,7 @@ public class Configuration {
             "schemaLocation",
             "filter"
         })
-        public static class Format {
+        public static class Format implements Referable {
 
             @XmlElement(name = "Prefix", required = true)
             protected String prefix;
@@ -1510,7 +1510,7 @@ public class Configuration {
         @XmlType(name = "", propOrder = {
             "xslt"
         })
-        public static class Transformer {
+        public static class Transformer implements Referable {
 
             @XmlElement(name = "XSLT", required = true)
             protected String xslt;
