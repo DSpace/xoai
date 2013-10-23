@@ -9,12 +9,12 @@ import com.lyncode.xoai.dataprovider.core.ListItemsResults;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
+import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.filter.Filter;
+import com.lyncode.xoai.dataprovider.filter.ScopedFilter;
 import com.lyncode.xoai.dataprovider.filter.FilterScope;
-import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 
 public class ItemRepository {
 	private AbstractItemRepository itemRepository;
@@ -34,17 +34,18 @@ public class ItemRepository {
 	 * 
 	 * @return List of Identifiers
 	 * @throws NoMetadataFormatsException
-	 * @throws CannotDisseminateFormatException 
+	 * @throws CannotDisseminateFormatException, OAIException 
+	 * @throws OAIException 
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiers(filters, offset, length);
 	}
 
@@ -63,13 +64,13 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, Date from)
-			throws CannotDisseminateFormatException  {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException  {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiers(filters, offset, length, from);
 	}
 
@@ -87,13 +88,13 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiersUntil(
 			XOAIContext context, int offset, int length, String metadataPrefix,
-			Date until) throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			Date until) throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiersUntil(filters, offset, length, until);
 	}
 
@@ -112,13 +113,13 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, Date from, Date until)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemIdentifiers(filters, offset, length, from, until);
 	}
 
@@ -136,16 +137,16 @@ public class ItemRepository {
 	 */
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, String setSpec)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemIdentifiers(filters, offset, length);
 		} else
 			return itemRepository.getItemIdentifiers(filters, offset, length, setSpec);
@@ -153,16 +154,16 @@ public class ItemRepository {
 
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, String setSpec,
-			Date from) throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			Date from) throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemIdentifiers(filters, offset, length, from);
 		} else
 			return itemRepository.getItemIdentifiers(filters, offset, length, setSpec,
@@ -171,16 +172,16 @@ public class ItemRepository {
 
 	public ListItemIdentifiersResult getItemIdentifiersUntil(
 			XOAIContext context, int offset, int length, String metadataPrefix,
-			String setSpec, Date until) throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			String setSpec, Date until) throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemIdentifiersUntil(filters, offset, length, until);
 		} else
 			return itemRepository.getItemIdentifiersUntil(filters, offset, length,
@@ -189,16 +190,16 @@ public class ItemRepository {
 
 	public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
 			int offset, int length, String metadataPrefix, String setSpec,
-			Date from, Date until) throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			Date from, Date until) throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository
 					.getItemIdentifiers(filters, offset, length, from, until);
 		} else
@@ -208,65 +209,65 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItems(filters, offset, length);
 	}
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, Date from)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItems(filters, offset, length, from);
 	}
 
 	public ListItemsResults getItemsUntil(XOAIContext context, int offset,
 			int length, String metadataPrefix, Date until)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItemsUntil(filters, offset, length, until);
 	}
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, Date from, Date until)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		return itemRepository.getItems(filters, offset, length, from, until);
 	}
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec)
-			throws CannotDisseminateFormatException {
+			throws CannotDisseminateFormatException, OAIException {
 
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItems(filters, offset, length);
 		} else
 			return itemRepository.getItems(filters, offset, length, setSpec);
@@ -274,16 +275,16 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec, Date from)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItems(filters, offset, length, from);
 		} else
 			return itemRepository.getItems(filters, offset, length, setSpec, from);
@@ -291,16 +292,16 @@ public class ItemRepository {
 
 	public ListItemsResults getItemsUntil(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec, Date until)
-			throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItemsUntil(filters, offset, length, until);
 		} else
 			return itemRepository.getItemsUntil(filters, offset, length, setSpec, until);
@@ -308,22 +309,22 @@ public class ItemRepository {
 
 	public ListItemsResults getItems(XOAIContext context, int offset,
 			int length, String metadataPrefix, String setSpec, Date from,
-			Date until) throws CannotDisseminateFormatException {
-		List<Filter> filters = new ArrayList<Filter>();
-		for (AbstractFilter f : context.getFilters())
-			filters.add(new Filter(f, FilterScope.Context));
-		for (AbstractFilter f : context.getFormatByPrefix(metadataPrefix)
+			Date until) throws CannotDisseminateFormatException, OAIException {
+		List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+		for (Filter f : context.getFilters())
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.Context));
+		for (Filter f : context.getFormatByPrefix(metadataPrefix)
 				.getFilters())
-			filters.add(new Filter(f, FilterScope.MetadataFormat));
+			filters.add(new ScopedFilter(f.getCondition(), FilterScope.MetadataFormat));
 		if (context.isStaticSet(setSpec)) {
-			for (AbstractFilter f : context.getSetFilters(setSpec))
-				filters.add(new Filter(f, FilterScope.Set));
+			for (Filter f : context.getSetFilters(setSpec))
+				filters.add(new ScopedFilter(f.getCondition(), FilterScope.Set));
 			return itemRepository.getItems(filters, offset, length, from, until);
 		} else
 			return itemRepository.getItems(filters, offset, length, setSpec, from, until);
 	}
 
-	public AbstractItem getItem(String identifier) throws IdDoesNotExistException {
+	public AbstractItem getItem(String identifier) throws IdDoesNotExistException, OAIException {
 		return itemRepository.getItem(identifier);
 	}
 }

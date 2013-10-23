@@ -15,6 +15,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * A header has a unique identifier, a datestamp, and setSpec(s) in case the
@@ -48,12 +53,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "headerType", propOrder = { "identifier", "datestamp",
 		"setSpec" })
-public class HeaderType {
+public class HeaderType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected String identifier;
 	@XmlElement(required = true)
-	protected String datestamp;
+	protected DateInfo datestamp;
 	protected List<String> setSpec;
 	@XmlAttribute(name = "status")
 	protected StatusType status;
@@ -85,7 +90,7 @@ public class HeaderType {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getDatestamp() {
+	public DateInfo getDatestamp() {
 		return datestamp;
 	}
 
@@ -96,7 +101,7 @@ public class HeaderType {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setDatestamp(String value) {
+	public void setDatestamp(DateInfo value) {
 		this.datestamp = value;
 	}
 
@@ -149,5 +154,33 @@ public class HeaderType {
 	public void setStatus(StatusType value) {
 		this.status = value;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (this.status != null)
+                writter.writeAttribute("status", this.status.value());
+            
+            if (this.identifier != null) {
+                writter.writeStartElement("identifier");
+                writter.writeCharacters(this.identifier);
+                writter.writeEndElement();
+            }
+            
+            if (this.datestamp != null) {
+                writter.writeStartElement("datestamp");
+                writter.writeCharacters(this.datestamp.toString());
+                writter.writeEndElement();
+            }
+            
+            for (String setSpec : this.getSetSpec()) {
+                writter.writeStartElement("setSpec");
+                writter.writeCharacters(setSpec);
+                writter.writeEndElement();
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

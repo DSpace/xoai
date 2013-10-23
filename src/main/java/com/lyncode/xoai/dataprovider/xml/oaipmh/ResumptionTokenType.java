@@ -8,6 +8,7 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -16,6 +17,12 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.util.DateUtils;
 
 /**
  * A resumptionToken may have 3 optional attributes and can be used in ListSets,
@@ -44,19 +51,19 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "resumptionTokenType", propOrder = { "value" })
-public class ResumptionTokenType {
+public class ResumptionTokenType implements XMLWrittable {
 
 	@XmlValue
 	protected String value;
 	@XmlAttribute(name = "expirationDate")
 	@XmlSchemaType(name = "dateTime")
-	protected XMLGregorianCalendar expirationDate;
+	protected Date expirationDate;
 	@XmlAttribute(name = "completeListSize")
 	@XmlSchemaType(name = "positiveInteger")
-	protected BigInteger completeListSize;
+	protected Long completeListSize;
 	@XmlAttribute(name = "cursor")
 	@XmlSchemaType(name = "nonNegativeInteger")
-	protected BigInteger cursor;
+	protected Long cursor;
 
 	/**
 	 * Gets the value of the value property.
@@ -85,7 +92,7 @@ public class ResumptionTokenType {
 	 * @return possible object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public XMLGregorianCalendar getExpirationDate() {
+	public Date getExpirationDate() {
 		return expirationDate;
 	}
 
@@ -96,7 +103,7 @@ public class ResumptionTokenType {
 	 *            allowed object is {@link XMLGregorianCalendar }
 	 * 
 	 */
-	public void setExpirationDate(XMLGregorianCalendar value) {
+	public void setExpirationDate(Date value) {
 		this.expirationDate = value;
 	}
 
@@ -106,7 +113,7 @@ public class ResumptionTokenType {
 	 * @return possible object is {@link BigInteger }
 	 * 
 	 */
-	public BigInteger getCompleteListSize() {
+	public Long getCompleteListSize() {
 		return completeListSize;
 	}
 
@@ -117,8 +124,8 @@ public class ResumptionTokenType {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setCompleteListSize(BigInteger value) {
-		this.completeListSize = value;
+	public void setCompleteListSize(Number value) {
+		this.completeListSize = value.longValue();
 	}
 
 	/**
@@ -127,7 +134,7 @@ public class ResumptionTokenType {
 	 * @return possible object is {@link BigInteger }
 	 * 
 	 */
-	public BigInteger getCursor() {
+	public Long getCursor() {
 		return cursor;
 	}
 
@@ -138,8 +145,30 @@ public class ResumptionTokenType {
 	 *            allowed object is {@link BigInteger }
 	 * 
 	 */
-	public void setCursor(BigInteger value) {
-		this.cursor = value;
+	public void setCursor(Number value) {
+		this.cursor = value.longValue();
 	}
+
+	/*
+	 * 
+ *       &lt;attribute name="expirationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
+ *       &lt;attribute name="completeListSize" type="{http://www.w3.org/2001/XMLSchema}positiveInteger" />
+ *       &lt;attribute name="cursor" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" />
+	 */
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (this.expirationDate != null)
+                writter.writeAttribute("expirationDate", DateUtils.format(expirationDate));
+            if (this.completeListSize != null)
+                writter.writeAttribute("completeListSize", ""+this.completeListSize);
+            if (this.cursor != null)
+                writter.writeAttribute("cursor", ""+this.cursor);
+            if (this.value != null)
+                writter.writeCharacters(this.value);
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

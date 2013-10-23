@@ -11,6 +11,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * Data "about" the record must be expressed in XML that is compliant with an
@@ -39,7 +44,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "aboutType")
-public class AboutType {
+public class AboutType implements XMLWrittable {
 
 	@XmlValue
 	protected String value;
@@ -64,5 +69,13 @@ public class AboutType {
 	public void setAny(String value) {
 		this.value = value;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        if (this.value != null) {
+            EchoElement elem = new EchoElement(value);
+            elem.write(writter);
+        }
+    }
 
 }

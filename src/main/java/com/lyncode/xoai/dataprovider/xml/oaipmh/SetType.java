@@ -7,6 +7,7 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import static com.lyncode.xoai.util.XmlIOUtils.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * <p>
@@ -41,7 +47,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "setType", propOrder = { "setSpec", "setName", "setDescription" })
-public class SetType {
+public class SetType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected String setSpec;
@@ -120,5 +126,26 @@ public class SetType {
 		}
 		return this.setDescription;
 	}
+
+	/*
+	 * 
+ *         &lt;element name="setSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType"/>
+ *         &lt;element name="setName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="setDescription" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
+	 */
+	
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            writeValue(writter, "setSpec", setSpec);
+            writeValue(writter, "setName", setName);
+            if (this.setDescription != null && !this.setDescription.isEmpty()) {
+                for (DescriptionType desc : this.setDescription)
+                    writeElement(writter, "setDescription", desc);
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

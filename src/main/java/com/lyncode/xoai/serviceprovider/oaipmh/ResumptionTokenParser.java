@@ -1,50 +1,64 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import java.util.Map;
+import java.util.Iterator;
 
+import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.StartElement;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ResumptionTokenType;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.util.DateUtils;
 
-public class ResumptionTokenParser extends ElementParser {
+public class ResumptionTokenParser extends ElementParser<ResumptionTokenType> {
 	public static final String NAME = "resumptionToken";
+    public static final String EXPIRATION_DATE = "expirationDate";
+    public static final String COMPLETE_LIST_SIZE = "completeListSize";
+    public static final String CURSOR = "cursor";
+	
 
-	public ResumptionTokenParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
+	public ResumptionTokenParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
 	}
 
-	public ResumptionTokenType parse(boolean b) throws ParseException {
+	@SuppressWarnings("unchecked")
+    public ResumptionTokenType parseElement(XMLEventReader reader) throws ParseException {
 		ResumptionTokenType res = new ResumptionTokenType();
-		super.checkStart(NAME, b);
-		Map<String, String> attributes = super.getAttributes();
-		if (attributes.containsKey("cursor"))
-			res.setCursor(Long.parseLong(attributes.get("cursor")));
-		
-		if (attributes.containsKey("completeListSize"))
-			res.setCompleteListSize(Long.parseLong(attributes.get("completeListSize")));
-		
-		if (attributes.containsKey("expirationDate"))
-			res.setExpirationDate(DateUtils.parse(attributes.get("expirationDate")));
-		
-		try {
-			if (super.getReader().hasNext()) {
-				if (super.getReader().next() == XMLType.CHARACTERS.getID()) {
-					res.setValue(super.getString(false));
-					super.checkEnd(NAME, true);
-				} else {
-					res.setValue(null);
-					super.checkEnd(NAME, false);
-				}
-			}
-			
-		} catch (XMLStreamException e) {
-			throw new UnknownParseException(e);
-		}
-		
+        try {
+            StartElement start = reader.peek().asStartElement();
+            if (!start.getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expecting resumption token element");
+            
+            Iterator<Attribute> attrs = start.getAttributes();
+            while (attrs.hasNext()) {
+                Attribute attr = attrs.next();
+                if (attr.getName().getLocalPart().equals(EXPIRATION_DATE)) {
+                    res.setExpirationDate(DateUtils.parse(attr.getValue()));
+                } else if (attr.getName().getLocalPart().equals(COMPLETE_LIST_SIZE)) {
+                    res.setCompleteListSize(Long.parseLong(attr.getValue()));
+                } else if (attr.getName().getLocalPart().equals(CURSOR)) {
+                    res.setCursor(Long.parseLong(attr.getValue()));
+                }
+            }
+            
+            reader.nextEvent();
+            if (reader.peek().isCharacters()) {
+                res.setValue(reader.peek().asCharacters().getData());
+                reader.nextEvent();
+                this.nextElement(reader);
+            }
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(e);
+        }
 		
 		return res;
 	}

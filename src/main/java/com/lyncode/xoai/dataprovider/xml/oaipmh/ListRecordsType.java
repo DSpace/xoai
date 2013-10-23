@@ -14,6 +14,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * <p>
@@ -40,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListRecordsType", propOrder = { "record", "resumptionToken" })
-public class ListRecordsType {
+public class ListRecordsType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected List<RecordType> record;
@@ -96,5 +101,32 @@ public class ListRecordsType {
 	public void setResumptionToken(ResumptionTokenType value) {
 		this.resumptionToken = value;
 	}
+	
+	/*
+	 * 
+ *         &lt;element name="record" type="{http://www.openarchives.org/OAI/2.0/}recordType" maxOccurs="unbounded"/>
+ *         &lt;element name="resumptionToken" type="{http://www.openarchives.org/OAI/2.0/}resumptionTokenType" minOccurs="0"/>
+ *         
+	 */
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (this.record != null && !this.record.isEmpty()) {
+                for (RecordType record : this.record) {
+                    writter.writeStartElement("record");
+                    record.write(writter);
+                    writter.writeEndElement();
+                }
+            }
+            if (this.resumptionToken != null) {
+                writter.writeStartElement("resumptionToken");
+                resumptionToken.write(writter);
+                writter.writeEndElement();
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

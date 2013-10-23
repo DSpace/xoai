@@ -25,7 +25,7 @@ import com.lyncode.xoai.dataprovider.core.ItemMetadata;
  * It works as a wrapper for all OAI Items.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public abstract class AbstractItem extends AbstractItemIdentifier {
 	/**

@@ -8,6 +8,7 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,6 +16,13 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.util.DateUtils;
+import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 
 /**
  * <p>
@@ -50,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "IdentifyType", propOrder = { "repositoryName", "baseURL",
 		"protocolVersion", "adminEmail", "earliestDatestamp", "deletedRecord",
 		"granularity", "compression", "description" })
-public class IdentifyType {
+public class IdentifyType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected String repositoryName;
@@ -62,7 +70,7 @@ public class IdentifyType {
 	@XmlElement(required = true)
 	protected List<String> adminEmail;
 	@XmlElement(required = true)
-	protected String earliestDatestamp;
+	protected Date earliestDatestamp;
 	@XmlElement(required = true)
 	protected DeletedRecordType deletedRecord;
 	@XmlElement(required = true)
@@ -168,7 +176,7 @@ public class IdentifyType {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getEarliestDatestamp() {
+	public Date getEarliestDatestamp() {
 		return earliestDatestamp;
 	}
 
@@ -179,7 +187,7 @@ public class IdentifyType {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setEarliestDatestamp(String value) {
+	public void setEarliestDatestamp(Date value) {
 		this.earliestDatestamp = value;
 	}
 
@@ -284,4 +292,52 @@ public class IdentifyType {
 		return this.description;
 	}
 
+	/*
+ *         &lt;element name="repositoryName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="baseURL" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
+ *         &lt;element name="protocolVersion" type="{http://www.openarchives.org/OAI/2.0/}protocolVersionType"/>
+ *         &lt;element name="adminEmail" type="{http://www.openarchives.org/OAI/2.0/}emailType" maxOccurs="unbounded"/>
+ *         &lt;element name="earliestDatestamp" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType"/>
+ *         &lt;element name="deletedRecord" type="{http://www.openarchives.org/OAI/2.0/}deletedRecordType"/>
+ *         &lt;element name="granularity" type="{http://www.openarchives.org/OAI/2.0/}granularityType"/>
+ *         &lt;element name="compression" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="description" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
+	 */
+	
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        if (this.repositoryName == null) throw new WrittingXmlException("Repository Name cannot be null");
+        if (this.baseURL == null) throw new WrittingXmlException("Base URL cannot be null");
+        if (this.protocolVersion == null) throw new WrittingXmlException("Protocol version cannot be null");
+        if (this.earliestDatestamp == null) throw new WrittingXmlException("Eerliest datestamp cannot be null");
+        if (this.deletedRecord == null) throw new WrittingXmlException("Deleted record persistency cannot be null");
+        if (this.granularity == null) throw new WrittingXmlException("Granularity cannot be null");
+        if (this.adminEmail == null || this.adminEmail.isEmpty()) throw new WrittingXmlException("List of admin emails cannot be null or empty");
+        
+        try {
+            writeValue(writter, "repositoryName", repositoryName);
+            writeValue(writter, "baseURL", baseURL);
+            writeValue(writter, "protocolVersion", protocolVersion);
+            for (String email : this.adminEmail) {
+                writeValue(writter, "adminEmail", email);
+            }
+            writeValue(writter, "earliestDatestamp", DateUtils.format(earliestDatestamp));
+            writeValue(writter, "deletedRecord", deletedRecord.value());
+            writeValue(writter, "granularity", granularity.value());
+            if (this.compression != null && !this.compression.isEmpty()) {
+                for (String comp : this.compression) {
+                    writeValue(writter, "compression", comp);
+                }
+            }
+            if (this.description != null && !this.description.isEmpty()) {
+                for (DescriptionType desc : this.description) {
+                    writter.writeStartElement("description");
+                    desc.write(writter);
+                    writter.writeEndElement();
+                }
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 }

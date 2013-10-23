@@ -14,53 +14,42 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.core.Parameters;
 import com.lyncode.xoai.serviceprovider.iterators.RecordIterator;
-import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class ListRecords extends AbstractVerb
 {
-	
-    private String metadataPrefix;
-    private Parameters extra;
-    private int interval;
+    private Parameters parameters;
     
-    public ListRecords(String baseUrl, String metadataPrefix, int interval, Logger log)
+    public ListRecords(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
     {
-        super(baseUrl, log);
-        this.metadataPrefix = metadataPrefix;
-        this.extra = null;
-        this.interval = interval;
+        super(parameters, config);
+        this.parameters = parameters;
     }
     
-
-    public ListRecords(String baseUrl, String metadataPrefix, Parameters extra, int interval, Logger log)
+    public ProcessingQueue<RecordType> harvest()
     {
-        super(baseUrl, log);
-        this.metadataPrefix = metadataPrefix;
-        this.extra = extra;
-        this.interval = interval;
+        return (new RecordIterator(this)).harvest();
     }
-
-    public ProcessingQueue<RecordType> harvest(GenericParser metadata)
-    {
-        return (new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra, getLogger(), metadata)).harvest();
-    }
-    public ProcessingQueue<RecordType> harvest(GenericParser metadata, GenericParser about)
-    {
-        return (new RecordIterator(this.interval, super.getBaseUrl(), metadataPrefix, extra, getLogger(), metadata, about)).harvest();
+    
+    public Parameters getParameters () {
+        return parameters;
     }
 }

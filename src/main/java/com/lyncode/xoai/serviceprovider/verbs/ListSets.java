@@ -14,35 +14,36 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.core.Parameters;
 import com.lyncode.xoai.serviceprovider.iterators.SetIterator;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 public class ListSets extends AbstractVerb
 {
-	private int interval;
-	
-    public ListSets(String baseUrl, int interval, Logger log)
+    public ListSets(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
     {
-        super(baseUrl, log);
-        this.interval = interval;
+        super(params, config);
     }
 
     public ProcessingQueue<SetType> harvest()
     {
-        return new SetIterator(getBaseUrl(), interval, getLogger()).harvest();
+        return new SetIterator(this).harvest();
     }
 
 }

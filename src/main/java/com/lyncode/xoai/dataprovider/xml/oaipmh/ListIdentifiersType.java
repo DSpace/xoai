@@ -14,6 +14,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * <p>
@@ -41,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListIdentifiersType", propOrder = { "header",
 		"resumptionToken" })
-public class ListIdentifiersType {
+public class ListIdentifiersType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected List<HeaderType> header;
@@ -97,5 +102,26 @@ public class ListIdentifiersType {
 	public void setResumptionToken(ResumptionTokenType value) {
 		this.resumptionToken = value;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (this.header != null && !this.header.isEmpty()) {
+                for (HeaderType header : this.header) {
+                        writter.writeStartElement("header");
+                        header.write(writter);
+                        writter.writeEndElement();
+                }
+            }
+            
+            if (this.resumptionToken != null) {
+                writter.writeStartElement("resumptionToken");
+                this.resumptionToken.write(writter);
+                writter.writeEndElement();
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

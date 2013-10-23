@@ -18,9 +18,9 @@ package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
-public class CannotDisseminateRecordException extends Exception {
+public class CannotDisseminateRecordException extends HandlerException {
 
 	/**
 	 * 

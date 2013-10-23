@@ -28,7 +28,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class XOAIManager {
 	private static final String XOAI_CONFIG = "xoai.xml";
@@ -42,8 +42,7 @@ public class XOAIManager {
 	public static void initialize(String baseDir) throws ConfigurationException {
 		String configFile = (baseDir.endsWith(File.separator) ? baseDir
 				: baseDir + File.separator) + XOAI_CONFIG;
-		Configuration config = ConfigurationManager
-				.readConfiguration(configFile);
+		Configuration config = ConfigurationManager.readConfiguration(configFile);
 		_manager = new XOAIManager(baseDir, config);
 	}
 
@@ -58,7 +57,7 @@ public class XOAIManager {
 	private boolean _identation;
 	private String styleSheet;
 
-	private XOAIManager(String baseDir, Configuration config)
+	public XOAIManager(String baseDir, Configuration config)
 			throws ConfigurationException {
 		_filter = new FilterManager(config.getFilters());
 		_transformer = new TransformManager(baseDir, config.getTransformers());

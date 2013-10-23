@@ -14,44 +14,41 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.core.Parameters;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
-import com.lyncode.xoai.serviceprovider.verbs.Parameters;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 import com.lyncode.xoai.serviceprovider.verbs.runners.RetrieveListIdentifiers;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class IdentifierIterator
 {
-    private int config;
-    private String baseUrl;
-    private String metadataPrefix;
-    private Logger log;
-    private Parameters extra;
+    private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config;
+    private Parameters parameters;
 
-    public IdentifierIterator(int configuration, String baseUrl, String metadataPrefix, Parameters extra, Logger log)
+    public IdentifierIterator(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
     {
         super();
-        this.config = configuration;
-        this.baseUrl = baseUrl;
-        this.metadataPrefix = metadataPrefix;
-        this.log = log;
-        this.extra = extra;
+        this.config = config;
+        this.parameters = params;
     }
     
     public ProcessingQueue<HeaderType> harvest () {
     	ProcessingQueue<HeaderType> list = new ProcessingQueue<HeaderType>();
-    	RetrieveListIdentifiers l = new RetrieveListIdentifiers(config, baseUrl, metadataPrefix, extra, list, log);
+    	RetrieveListIdentifiers l = new RetrieveListIdentifiers(list, config, parameters);
     	Thread t = new Thread(l);
     	t.start();
     	return list;

@@ -17,8 +17,10 @@
 package com.lyncode.xoai.dataprovider.configuration;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -30,27 +32,34 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class ConfigurationManager {
+    public static Configuration readConfiguration(InputStream reader)
+                    throws ConfigurationException {
+                try {
+                    JAXBContext context = JAXBContext.newInstance(Configuration.class
+                            .getPackage().getName());
+                    Unmarshaller marshaller = context.createUnmarshaller();
+                    Object obj = marshaller.unmarshal(reader);
+                    reader.close();
+                    if (obj instanceof Configuration) {
+                        return (Configuration) obj;
+                    } else
+                        throw new ConfigurationException("Invalid configuration bundle");
+                } catch (IOException ex) {
+                    throw new ConfigurationException(ex.getMessage(), ex);
+                } catch (JAXBException ex) {
+                    throw new ConfigurationException(ex.getMessage(), ex);
+                }
+            }
 	public static Configuration readConfiguration(String filename)
 			throws ConfigurationException {
-		try {
-			JAXBContext context = JAXBContext.newInstance(Configuration.class
-					.getPackage().getName());
-			Unmarshaller marshaller = context.createUnmarshaller();
-			FileInputStream reader = new FileInputStream(filename);
-			Object obj = marshaller.unmarshal(reader);
-			reader.close();
-			if (obj instanceof Configuration) {
-				return (Configuration) obj;
-			} else
-				throw new ConfigurationException("Invalid configuration bundle");
-		} catch (IOException ex) {
-			throw new ConfigurationException(ex.getMessage(), ex);
-		} catch (JAXBException ex) {
-			throw new ConfigurationException(ex.getMessage(), ex);
-		}
+	    try {
+            return readConfiguration(new FileInputStream(filename));
+        } catch (FileNotFoundException e) {
+            throw new ConfigurationException(e.getMessage(), e);
+        }
 	}
 
 	public static void writeConfiguration(Configuration config, String filename)

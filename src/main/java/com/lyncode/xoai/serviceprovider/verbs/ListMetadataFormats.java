@@ -14,40 +14,37 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.core.Parameters;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.iterators.MetadataFormatIterator;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class ListMetadataFormats extends AbstractVerb
 {
-    private Parameters parameters;
 
-    public ListMetadataFormats(String baseUrl, Logger log)
+    public ListMetadataFormats(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
     {
-        super(baseUrl, log);
-        parameters = null;
-    }
-    public ListMetadataFormats(String baseUrl, Parameters extra, Logger log)
-    {
-        super(baseUrl, log);
-        parameters = extra;
+        super(parameters, config);
     }
 
     public ListMetadataFormatsType harvest() throws InternalHarvestException
     {
-        return (new MetadataFormatIterator(super.getBaseUrl(), parameters, getLogger())).harvest();
+        return (new MetadataFormatIterator(super.getServiceProvider(), this.getParameters())).harvest();
     }
 
 }

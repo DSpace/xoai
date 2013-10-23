@@ -7,6 +7,7 @@
 
 package com.lyncode.xoai.dataprovider.xml.xoai;
 
+import static com.lyncode.xoai.util.XmlIOUtils.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * <p>
@@ -50,7 +56,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Element", propOrder = { "field", "element" })
-public class Element {
+public class Element implements XMLWrittable {
 
 	protected List<Element.Field> field;
 	protected List<Element> element;
@@ -159,7 +165,7 @@ public class Element {
 	 */
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlType(name = "", propOrder = { "value" })
-	public static class Field {
+	public static class Field implements XMLWrittable {
 
 		@XmlValue
 		protected String value;
@@ -207,7 +213,40 @@ public class Element {
 		public void setName(String value) {
 			this.name = value;
 		}
+		
+
+        @Override
+        public void write(XMLStreamWriter writter) throws WrittingXmlException {
+            try {
+                if (this.name != null)
+                    writter.writeAttribute("name", this.getName());
+                
+                if (this.value != null)
+                    writter.writeCharacters(value);
+                    
+            } catch (XMLStreamException e) {
+                throw new WrittingXmlException(e);
+            }
+        }
 
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+            try {
+                if (this.name != null)
+                    writter.writeAttribute("name", this.getName());
+                
+                for (Field f : this.getField())
+                    writeElement(writter, "field", f);
+                
+                for (Element e : this.getElement())
+                    writeElement(writter, "element", e);
+                    
+            } catch (XMLStreamException e) {
+                throw new WrittingXmlException(e);
+            }
+        
+    }
 
 }

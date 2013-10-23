@@ -27,7 +27,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Transformers.T
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class TransformManager {
 	// private static Logger log = LogManager.getLogger(TransformManager.class);

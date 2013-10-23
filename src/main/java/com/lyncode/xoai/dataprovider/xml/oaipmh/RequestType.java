@@ -7,12 +7,18 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * Define requestType, indicating the protocol request that led to the response.
@@ -46,7 +52,7 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "requestType", propOrder = { "value" })
-public class RequestType {
+public class RequestType implements XMLWrittable {
 
 	@XmlValue
 	@XmlSchemaType(name = "anyURI")
@@ -58,9 +64,9 @@ public class RequestType {
 	@XmlAttribute(name = "metadataPrefix")
 	protected String metadataPrefix;
 	@XmlAttribute(name = "from")
-	protected String from;
+	protected DateInfo from;
 	@XmlAttribute(name = "until")
-	protected String until;
+	protected DateInfo until;
 	@XmlAttribute(name = "set")
 	protected String set;
 	@XmlAttribute(name = "resumptionToken")
@@ -156,7 +162,7 @@ public class RequestType {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getFrom() {
+	public DateInfo getFrom() {
 		return from;
 	}
 
@@ -167,7 +173,7 @@ public class RequestType {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setFrom(String value) {
+	public void setFrom(DateInfo value) {
 		this.from = value;
 	}
 
@@ -177,7 +183,7 @@ public class RequestType {
 	 * @return possible object is {@link String }
 	 * 
 	 */
-	public String getUntil() {
+	public DateInfo getUntil() {
 		return until;
 	}
 
@@ -188,7 +194,7 @@ public class RequestType {
 	 *            allowed object is {@link String }
 	 * 
 	 */
-	public void setUntil(String value) {
+	public void setUntil(DateInfo value) {
 		this.until = value;
 	}
 
@@ -233,5 +239,39 @@ public class RequestType {
 	public void setResumptionToken(String value) {
 		this.resumptionToken = value;
 	}
+/**
+ * 
+ *       &lt;attribute name="verb" type="{http://www.openarchives.org/OAI/2.0/}verbType" />
+ *       &lt;attribute name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType" />
+ *       &lt;attribute name="metadataPrefix" type="{http://www.openarchives.org/OAI/2.0/}metadataPrefixType" />
+ *       &lt;attribute name="from" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
+ *       &lt;attribute name="until" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
+ *       &lt;attribute name="set" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" />
+ *       &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
+ */
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (verb != null)
+                writter.writeAttribute("verb", verb.value());
+            if (identifier != null)
+                writter.writeAttribute("identifier", identifier);
+            if (metadataPrefix != null)
+                writter.writeAttribute("metadataPrefix", metadataPrefix);
+            if (from != null)
+                writter.writeAttribute("from", from.toString());
+            if (until != null)
+                writter.writeAttribute("until", until.toString());
+            if (set != null)
+                writter.writeAttribute("set", set);
+            if (resumptionToken != null)
+                writter.writeAttribute("resumptionToken", resumptionToken);
+            
+            if (value != null)
+                writter.writeCharacters(value);
+        } catch (XMLStreamException e) { 
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

@@ -20,18 +20,18 @@ import java.io.File;
 import java.util.List;
 
 import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
-import com.lyncode.xoai.dataprovider.filter.AbstractFilter;
+import com.lyncode.xoai.dataprovider.filter.Filter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class MetadataFormat extends ConfigurableBundle {
 	private String prefix;
 	private File xsltFile;
 	private String namespace;
 	private String schemaLocation;
-	private List<AbstractFilter> _list;
+	private List<Filter> _list;
 
 	public MetadataFormat(String prefix, File xsltFile, String namespace,
 			String schemaLocation) {
@@ -41,11 +41,11 @@ public class MetadataFormat extends ConfigurableBundle {
 		this.schemaLocation = schemaLocation;
 	}
 
-	public void loadFilters(List<AbstractFilter> filters) {
-		this._list = filters;
+	public void loadFilters(List<Filter> list) {
+		this._list = list;
 	}
 
-	public List<AbstractFilter> getFilters() {
+	public List<Filter> getFilters() {
 		return _list;
 	}
 
@@ -68,7 +68,7 @@ public class MetadataFormat extends ConfigurableBundle {
 	public boolean isApplyable(AbstractItemIdentifier item) {
 		if (item.isDeleted())
 			return true;
-		for (AbstractFilter filter : this.getFilters())
+		for (Filter filter : this.getFilters())
 			if (!filter.isItemShown(item))
 				return false;
 		return true;

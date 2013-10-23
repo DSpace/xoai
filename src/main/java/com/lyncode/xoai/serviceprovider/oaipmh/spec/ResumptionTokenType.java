@@ -7,7 +7,6 @@
 
 package com.lyncode.xoai.serviceprovider.oaipmh.spec;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,7 +15,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * A resumptionToken may have 3 optional attributes and can be used in ListSets,

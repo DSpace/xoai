@@ -14,62 +14,34 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
-import org.apache.log4j.Logger;
-
-import com.lyncode.xoai.serviceprovider.oaipmh.GenericParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
-import com.lyncode.xoai.serviceprovider.verbs.Parameters;
+import com.lyncode.xoai.serviceprovider.verbs.ListRecords;
 import com.lyncode.xoai.serviceprovider.verbs.runners.RetrieveListRecords;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class RecordIterator
 {
-    private Logger log;
-    private int config;
-    private String baseUrl;
-    private String metadataPrefix;
-    private Parameters extra;
-    private GenericParser met;
-    private GenericParser abt;
+    private ListRecords listRecords;
 
-    public RecordIterator(int interval, String baseUrl, String metadataPrefix,
-    		Parameters extra, Logger log, GenericParser metadata)
+    public RecordIterator(ListRecords listRecords)
     {
         super();
-        this.config = interval;
-        this.baseUrl = baseUrl;
-        this.metadataPrefix = metadataPrefix;
-        this.extra = extra;
-        this.log = log;
-        this.met = metadata;
-        this.abt = null;
+        this.listRecords = listRecords;
     }
-    public RecordIterator(int interval, String baseUrl, String metadataPrefix,
-    		Parameters extra, Logger log, GenericParser metadata, GenericParser about)
-    {
-        super();
-        this.config = interval;
-        this.baseUrl = baseUrl;
-        this.metadataPrefix = metadataPrefix;
-        this.extra = extra;
-        this.log = log;
-        this.met = metadata;
-        this.abt = about;
-    }
-
+    
     public ProcessingQueue<RecordType> harvest () {
     	ProcessingQueue<RecordType> list = new ProcessingQueue<RecordType>();
-    	RetrieveListRecords l = new RetrieveListRecords(config, baseUrl, metadataPrefix, extra, list, log, this.met, this.abt);
+    	RetrieveListRecords l = new RetrieveListRecords(list, listRecords.getServiceProvider(), listRecords.getParameters());
     	Thread t = new Thread(l);
     	t.start();
     	return list;

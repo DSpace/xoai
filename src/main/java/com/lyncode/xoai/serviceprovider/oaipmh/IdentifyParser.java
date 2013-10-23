@@ -1,47 +1,59 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.DeletedRecordType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.GranularityType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
-import com.lyncode.xoai.serviceprovider.util.DateUtils;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.util.DateUtils;
 
-public class IdentifyParser extends ElementParser {
+public class IdentifyParser extends ElementParser<IdentifyType> {
 	public static final String NAME = "Identify";
-	private DescriptionParser parser;
+	private DescriptionTypeParser parser;
 
-	public IdentifyParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
-		parser = new DescriptionParser(log, reader);
-	}
-	public IdentifyParser(Logger log, XMLStreamReader reader, GenericParser parse) {
-		super(log, reader);
-		parser = new DescriptionParser(log, reader, parse);
+	public IdentifyParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
+		parser = new DescriptionTypeParser(oaiServiceConfiguration);
 	}
 
-	public IdentifyType parse (boolean getNext) throws ParseException {
-		IdentifyType type = new IdentifyType();
-		super.checkStart(NAME, getNext);
-		type.setRepositoryName(super.getString("repositoryName", true));
-		type.setBaseURL(super.getString("baseURL", true));
-		type.setProtocolVersion(super.getString("protocolVersion", true));
-		while (super.checkBooleanStart("adminEmail", true))
-			type.getAdminEmail().add(super.getString("adminEmail", false));
-		type.setEarliestDatestamp(DateUtils.parse(super.getString("earliestDatestamp", false)));
-		type.setDeletedRecord(DeletedRecordType.fromValue(super.getString("deletedRecord", true)));
-		type.setGranularity(GranularityType.fromValue(super.getString("granularity", true)));
-		while (super.checkBooleanStart("compression", true))
-			type.getAdminEmail().add(super.getString("compression", false));
-		if (super.checkBooleanStart("description", false)) {
-			type.getDescription().add(parser.parse(false));
-			while (super.checkBooleanStart("description", true)) {
-				type.getDescription().add(parser.parse(false));
-			}
-		}
-		super.checkEnd(NAME, false);
-		return type;
-	}
+
+    @Override
+    protected IdentifyType parseElement(XMLEventReader reader) throws ParseException {
+        IdentifyType type = new IdentifyType();
+        
+        try {
+            if (!reader.peek().asStartElement().getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expecting "+NAME+" element");
+            
+            reader.nextEvent();
+            type.setRepositoryName(this.getElement(reader, "repositoryName"));
+            type.setBaseURL(this.getElement(reader, "baseURL"));
+            type.setProtocolVersion(this.getElement(reader, "protocolVersion"));
+            while(reader.peek().asStartElement().getName().getLocalPart().equals("adminEmail"))
+                type.getAdminEmail().add(this.getElement(reader, "adminEmail"));
+            type.setEarliestDatestamp(DateUtils.parse(this.getElement(reader, "earliestDatestamp")));
+            type.setDeletedRecord(DeletedRecordType.fromValue(this.getElement(reader, "deletedRecord")));
+            type.setGranularity(GranularityType.fromValue(this.getElement(reader, "granularity")));
+            while (reader.peek().asStartElement().getName().getLocalPart().equals("compression"))
+                type.getCompression().add(this.getElement(reader, "compression"));
+            
+            while (reader.peek().isStartElement() && reader.peek().asStartElement().getName().getLocalPart().equals("description"))
+                type.getDescription().add(parser.parse(reader));
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(e);
+        }
+        
+        
+        return type;
+    }
 }

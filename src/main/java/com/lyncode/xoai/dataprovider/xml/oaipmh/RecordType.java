@@ -14,6 +14,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * A record has a header, a metadata part, and an optional about container
@@ -43,7 +48,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "recordType", propOrder = { "header", "metadata", "about" })
-public class RecordType {
+public class RecordType implements XMLWrittable {
 
 	@XmlElement(required = true)
 	protected HeaderType header;
@@ -121,5 +126,30 @@ public class RecordType {
 		}
 		return this.about;
 	}
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        try {
+            if (this.header != null) {
+                writter.writeStartElement("header");
+                this.header.write(writter);
+                writter.writeEndElement();
+            }
+            
+            if (this.metadata != null) {
+                writter.writeStartElement("metadata");
+                this.metadata.write(writter);
+                writter.writeEndElement();
+            }
+            
+            for (int i=0;i<this.getAbout().size();i++) {
+                writter.writeStartElement("about");
+                this.getAbout().get(i).write(writter);
+                writter.writeEndElement();
+            }
+        } catch (XMLStreamException e) {
+            throw new WrittingXmlException(e);
+        }
+    }
 
 }

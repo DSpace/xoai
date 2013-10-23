@@ -25,7 +25,7 @@ import com.lyncode.xoai.dataprovider.core.ReferenceSet;
  * Base class for identifying an OAI-PMH record.
  * 
  * @author Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public abstract class AbstractItemIdentifier {
 	

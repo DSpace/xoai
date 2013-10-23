@@ -1,25 +1,44 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.MetadataFormatType;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
-public class MetadataFormatParser extends ElementParser {
-	public static final String NAME = "metadataFormat";
+public class MetadataFormatParser extends ElementParser<MetadataFormatType> {
+    public static final String NAME = "metadataFormat";
+    public static final String metadataPrefix = "metadataPrefix";
+    public static final String schema = "schema";
+    public static final String metadataNamespace = "metadataNamespace";
 
-	public MetadataFormatParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
+	public MetadataFormatParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
 	}
 
-	public MetadataFormatType parse (boolean b) throws ParseException {
-		MetadataFormatType error = new MetadataFormatType();
-		super.checkStart(NAME, b);
-		error.setMetadataPrefix(super.getString("metadataPrefix", true));
-		error.setSchema(super.getString("schema", true));
-		error.setMetadataNamespace(super.getString("metadataNamespace", true));
-		super.checkEnd(NAME, true);
-		return error;
-	}
+    @Override
+    protected MetadataFormatType parseElement(XMLEventReader reader) throws ParseException {
+        MetadataFormatType result = new MetadataFormatType();
+        try {
+            if (!reader.peek().asStartElement().getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expected metadataFormat");
+            
+            reader.nextEvent();
+            this.nextElement(reader);
+            result.setMetadataPrefix(this.getElement(reader, metadataPrefix));
+            this.nextElement(reader);
+            result.setSchema(this.getElement(reader, schema));
+            this.nextElement(reader);
+            result.setMetadataNamespace(this.getElement(reader, metadataNamespace));
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+        return result;
+    }
 }

@@ -22,27 +22,35 @@ import java.util.List;
 import java.util.Map;
 
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
+import com.lyncode.xoai.dataprovider.filter.conditions.AbstractCondition;
+import com.lyncode.xoai.dataprovider.filter.conditions.AndCondition;
+import com.lyncode.xoai.dataprovider.filter.conditions.CustomCondition;
+import com.lyncode.xoai.dataprovider.filter.conditions.NotCondition;
+import com.lyncode.xoai.dataprovider.filter.conditions.OrCondition;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ConditionDefinitionType;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class FilterManager {
 	// private static Logger log = LogManager.getLogger(FilterManager.class);
-	private Map<String, AbstractFilter> _contexts;
+	private Map<String, Filter> _filters;
+	private Map<String, CustomCondition> _conditions;
+	
 
 	public FilterManager(Filters filters) throws ConfigurationException {
-		_contexts = new HashMap<String, AbstractFilter>();
+	    _conditions = new HashMap<String, CustomCondition>();
 		if (filters != null && filters.getFilter() != null) {
-			for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters
-					.getFilter()) {
+			for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.CustomFilter f : filters
+					.getCustomFilter()) {
 				try {
 					Class<?> c = Class.forName(f.getClazz());
 					Object obj = c.newInstance();
-					if (obj instanceof AbstractFilter) {
-						((AbstractFilter) obj).load(f.getParameter());
-						_contexts.put(f.getId(), (AbstractFilter) obj);
+					if (obj instanceof AbstractCondition) {
+						((AbstractCondition) obj).load(f.getParameter());
+						_conditions.put(f.getId(), (CustomCondition) obj);
 					}
 				} catch (InstantiationException ex) {
 					throw new ConfigurationException(ex.getMessage(), ex);
@@ -53,17 +61,40 @@ public class FilterManager {
 				}
 			}
 		}
+		
+		_filters = new HashMap<String, Filter>();
+		for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters.getFilter()) {
+		    _filters.put(f.getId(), new Filter(this.getDefinition(f.getDefinition())));
+		}
 	}
 
-	public boolean filterExists(String id) {
-		return this._contexts.containsKey(id);
+	private AbstractCondition getDefinition(ConditionDefinitionType definition) {
+	    if (definition.getAnd() != null)
+	        return new AndCondition(
+	                                this.getDefinition(definition.getAnd().getLeftCondition()),
+	                                this.getDefinition(definition.getAnd().getLeftCondition()));
+	    else if (definition.getOr() != null)
+	        return new OrCondition(
+                                    this.getDefinition(definition.getOr().getLeftCondition()),
+                                    this.getDefinition(definition.getOr().getLeftCondition()));
+	    else if (definition.getNot() != null)
+	        return new NotCondition(this.getDefinition(definition.getNot().getCondition()));
+	    else return _conditions.get(definition.getCustom().getRefid());
+    }
+	
+	public List<AbstractCondition> getConditions() {
+	    return new ArrayList<AbstractCondition>(_conditions.values());
 	}
 
-	public AbstractFilter getFilter(String id) {
-		return _contexts.get(id);
+    public boolean filterExists(String id) {
+		return this._filters.containsKey(id);
 	}
 
-	public List<AbstractFilter> getFilters() {
-		return new ArrayList<AbstractFilter>(_contexts.values());
+	public Filter getFilter(String id) {
+		return _filters.get(id);
+	}
+
+	public List<Filter> getFilters() {
+		return new ArrayList<Filter>(_filters.values());
 	}
 }

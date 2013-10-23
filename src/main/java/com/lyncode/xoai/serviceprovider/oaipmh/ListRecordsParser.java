@@ -1,47 +1,48 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
-import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamException;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListRecordsType;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
-public class ListRecordsParser extends ElementParser {
+public class ListRecordsParser extends ElementParser<ListRecordsType> {
 	public static final String NAME = "ListRecords";
 	private ResumptionTokenParser resumptionTokenParser;
 	private RecordParser recordParser;
 	
-	public ListRecordsParser(Logger log, XMLStreamReader reader, GenericParser parser) {
-		super(log, reader);
-		resumptionTokenParser = new ResumptionTokenParser(log, reader);
-		recordParser = new RecordParser(log, reader, parser);
+	public ListRecordsParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
+		resumptionTokenParser = new ResumptionTokenParser(oaiServiceConfiguration);
+		recordParser = new RecordParser(oaiServiceConfiguration);
 	}
 
-	public ListRecordsParser(Logger log, XMLStreamReader reader,
-			GenericParser metadata, GenericParser about) {
-		super(log, reader);
-		resumptionTokenParser = new ResumptionTokenParser(log, reader);
-		recordParser = new RecordParser(log, reader, metadata, about);
-	}
-
-	public ListRecordsParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
-		resumptionTokenParser = new ResumptionTokenParser(log, reader);
-		recordParser = new RecordParser(log, reader);
-	}
-
-	public ListRecordsType parse (boolean getNext) throws ParseException {
-		ListRecordsType type = new ListRecordsType();
-		
-		super.checkStart(NAME, getNext);
-		while (super.checkBooleanStart("record", true)) {
-			type.getRecord().add(recordParser.parse(false));
-		}
-		if (super.checkBooleanStart("resumptionToken", false)) {
-			type.setResumptionToken(resumptionTokenParser.parse(false));
-			super.checkEnd(NAME, true);
-		} else 
-			super.checkEnd(NAME, false);
-		return type;
-	}
+    @Override
+    protected ListRecordsType parseElement(XMLEventReader reader) throws ParseException {
+        ListRecordsType result = new ListRecordsType();
+        
+        try {
+            if (!reader.peek().asStartElement().getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expected "+NAME+" element");
+            
+            reader.nextEvent();
+            this.nextElement(reader);
+            
+            while (reader.peek().asStartElement().getName().getLocalPart().equals("record")) {
+                result.getRecord().add(recordParser.parse(reader));
+            }
+            
+            result.setResumptionToken(resumptionTokenParser.parse(reader));
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+        
+        return result;
+    }
 }

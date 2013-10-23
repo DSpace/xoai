@@ -16,10 +16,17 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
+import com.lyncode.xoai.dataprovider.xml.oaipmh.GranularityType;
+
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public enum Granularity {
-	Day, Second
+	Day, Second;
+	
+	public GranularityType toGranularityType () {
+	    if (this == Day) return GranularityType.YYYY_MM_DD;
+	    else return GranularityType.YYYY_MM_DD_THH_MM_SS_Z;
+	}
 }

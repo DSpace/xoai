@@ -18,9 +18,9 @@ package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
-public class NoMetadataFormatsException extends Exception {
+public class NoMetadataFormatsException extends HandlerException {
 
 	/**
 	 * 

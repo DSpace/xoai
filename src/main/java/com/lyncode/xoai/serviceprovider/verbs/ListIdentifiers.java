@@ -14,39 +14,37 @@
  * limitations under the License.
  * 
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
 
-import org.apache.log4j.Logger;
-
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.core.Parameters;
 import com.lyncode.xoai.serviceprovider.iterators.IdentifierIterator;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
-import com.lyncode.xoai.serviceprovider.util.ProcessingQueue;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class ListIdentifiers extends AbstractVerb
 {
-    private String metadataPrefix;
-    private int interval;
-    private Parameters extra;
     
-    public ListIdentifiers(String baseUrl, String metadataPrefix, Parameters extra, int interval, Logger log)
+    public ListIdentifiers(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
     {
-        super(baseUrl, log);
-        this.metadataPrefix = metadataPrefix;
-        this.interval = interval;
-        this.extra = extra;
+        super(params, config);
     }
 
 
 	public ProcessingQueue<HeaderType> harvest()
     {
-        return (new IdentifierIterator(this.interval, super.getBaseUrl(), metadataPrefix, this.extra, getLogger())).harvest();
+        return (new IdentifierIterator(getParameters(), getServiceProvider())).harvest();
     }
 }

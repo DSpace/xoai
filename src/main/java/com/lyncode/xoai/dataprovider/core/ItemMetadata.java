@@ -2,12 +2,15 @@ package com.lyncode.xoai.dataprovider.core;
 
 import java.io.ByteArrayInputStream;
 
+import javax.xml.stream.XMLStreamException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.dataprovider.exceptions.MetadataBindException;
-import com.lyncode.xoai.dataprovider.util.MarshallingUtils;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import com.lyncode.xoai.dataprovider.xml.xoai.XOAIParser;
+import com.lyncode.xoai.util.MarshallingUtils;
 
 public class ItemMetadata
 {
@@ -25,13 +28,10 @@ public class ItemMetadata
     
     public Metadata getMetadata () {
         if (metadata == null) {
-            try
-            {
-                metadata = MarshallingUtils.readMetadata(new ByteArrayInputStream(compiled.getBytes()));
-            }
-            catch (MetadataBindException e)
-            {
-                log.error(e.getMessage(), e);
+            try {
+                metadata = XOAIParser.parse(new ByteArrayInputStream(compiled.getBytes()));
+            } catch (XMLStreamException e) {
+                metadata = null;
             }
         }
         return metadata;

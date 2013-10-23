@@ -11,6 +11,12 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.stream.XMLStreamWriter;
+
+import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 
 /**
  * Metadata must be expressed in XML that complies with another XML Schema
@@ -39,20 +45,11 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "metadataType")
-public class MetadataType {
-
+public class MetadataType implements XMLWrittable {
+    private String string;
+    
 	@XmlValue
-	protected String value;
-
-	/**
-	 * Gets the value of the any property.
-	 * 
-	 * @return possible object is {@link Object }
-	 * 
-	 */
-	public String getAny() {
-		return value;
-	}
+	protected Metadata value;
 
 	/**
 	 * Sets the value of the any property.
@@ -61,8 +58,21 @@ public class MetadataType {
 	 *            allowed object is {@link Object }
 	 * 
 	 */
-	public void setAny(String value) {
-		this.value = value;
-	}
+    public MetadataType (Metadata value) {
+        this.value = value;
+    }
+    public MetadataType (String value) {
+        this.string = value;
+    }
+
+    @Override
+    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+        if (this.value != null)
+            this.value.write(writter);
+        else {
+            EchoElement elem = new EchoElement(string);
+            elem.write(writter);
+        }
+    }
 
 }

@@ -25,6 +25,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.lyncode.xoai.dataprovider.OAIRequestParameters;
+import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
 import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
@@ -34,7 +35,7 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
- * @version 2.2.9
+ * @version 3.1.0
  */
 public class OAIParameters {
 	private static Logger log = LogManager.getLogger(OAIParameters.class);
@@ -46,7 +47,7 @@ public class OAIParameters {
 	private Date until;
 	private Date from;
 	
-	public OAIParameters(OAIRequestParameters request)
+	public OAIParameters(OAIRequestParameters request, AbstractResumptionTokenFormat resumptionTokenFormat)
 			throws IllegalVerbException, BadArgumentException,
 			BadResumptionToken, UnknownParameterException, DuplicateDefinitionException {
 		
@@ -62,7 +63,7 @@ public class OAIParameters {
 		this.metadataPrefix = request.getMetadataPrefix();
 		this.set = request.getSet();
 		this.identifier = request.getIdentifier();
-		this.resumptionToken = new ResumptionToken(request.getResumptionToken());
+		this.resumptionToken = resumptionTokenFormat.parse(request.getResumptionToken());
 
 		this.validate();
 		this.loadResumptionToken(this.resumptionToken);

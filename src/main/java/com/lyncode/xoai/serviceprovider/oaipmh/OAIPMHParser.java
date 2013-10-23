@@ -5,91 +5,63 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.codehaus.stax2.XMLInputFactory2;
 
+import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.util.DateUtils;
 
-public class OAIPMHParser extends ElementParser {
+public class OAIPMHParser extends ElementParser<OAIPMHtype> {
 	private static final String NAME = "OAI-PMH";
 	private static final String RESPONSE_DATE = "responseDate";
-	
-	public static void main (String... args) throws FileNotFoundException, XMLStreamException, ParseException {
-		BasicConfigurator.configure();
-		Logger log = LogManager.getLogger(OAIPMHParser.class);
-		OAIPMHParser p = OAIPMHParser.newInstance("test/test4.xml", log);
-		p.parse();
+	private static XMLInputFactory factory = XMLInputFactory2.newInstance();
+
+	private static void untilFirstStartElement (XMLEventReader reader) throws XMLStreamException {
+	    while (reader.peek() != null && !reader.peek().isStartElement() && !reader.peek().isEndDocument())
+	        reader.nextEvent();
 	}
 
-	public static OAIPMHParser newInstance (String filepath, Logger log) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(log, stream);
-	}
-	public static OAIPMHParser newInstance (File f, Logger log) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(log, stream);
-	}
-	public static OAIPMHParser newInstance (InputStream is, Logger log) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(log, stream);
-	}
+	public static OAIPMHtype parse (InputStream instream, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) throws ParseException {
+        XMLEventReader stream;
+        try {
+            stream = factory.createXMLEventReader(instream);
+            untilFirstStartElement(stream);
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+        OAIPMHParser parser = new OAIPMHParser(oaiServiceConfiguration);
+        return parser.parse(stream);
+    }
+    public static OAIPMHtype parse (File f, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) throws FileNotFoundException, ParseException {
+        try {
+            XMLEventReader stream = factory.createXMLEventReader(new FileInputStream(f));
+            untilFirstStartElement(stream);
+            OAIPMHParser parser =  new OAIPMHParser(oaiServiceConfiguration);
+            return parser.parse(stream);
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+    }
 
-	public static OAIPMHParser newInstance (String filepath, Logger log, GenericParser parser) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(log, stream, parser);
-	}
-	public static OAIPMHParser newInstance (File f, Logger log, GenericParser parser) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(log, stream, parser);
-	}
-	public static OAIPMHParser newInstance (InputStream is, Logger log, GenericParser parser) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(log, stream, parser);
-	}
-
-	public static OAIPMHParser newInstance (String filepath, Logger log, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(log, stream, parser, description);
-	}
-	public static OAIPMHParser newInstance (File f, Logger log, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(log, stream, parser, description);
-	}
-	public static OAIPMHParser newInstance (InputStream is, Logger log, GenericParser parser, GenericParser description) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(log, stream, parser, description);
-	}
-
-	public static OAIPMHParser newInstance (String filepath, Logger log, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(filepath));
-		return new OAIPMHParser(log, stream, parser, description);
-	}
-	public static OAIPMHParser newInstance (File f,  Logger log, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(new FileInputStream(f));
-		return new OAIPMHParser(log, stream, parser, description, about);
-	}
-	public static OAIPMHParser newInstance (InputStream is, Logger log, GenericParser parser, GenericParser description, GenericParser about) throws FileNotFoundException, XMLStreamException {
-		XMLInputFactory factory = XMLInputFactory2.newInstance();
-		XMLStreamReader stream = factory.createXMLStreamReader(is);
-		return new OAIPMHParser(log, stream, parser, description, about);
-	}
+    public static OAIPMHtype parse (String filepath, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) throws FileNotFoundException, XMLStreamException, ParseException {
+        try {
+            XMLEventReader stream = factory.createXMLEventReader(new FileInputStream(filepath));
+            untilFirstStartElement(stream);
+            OAIPMHParser parser =  new OAIPMHParser(oaiServiceConfiguration);
+            return parser.parse(stream);
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        }
+    }
 	
 	private RequestParser reqParser;
 	private ListRecordsParser listRecordsParser;
@@ -100,86 +72,59 @@ public class OAIPMHParser extends ElementParser {
 	private IdentifyParser identifyParser;
 	private ErrorParser errorParser;
 	
+	
+	public OAIPMHParser(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration) {
+		super(oaiServiceConfiguration);
+		reqParser = new RequestParser(oaiServiceConfiguration);
+		listRecordsParser = new ListRecordsParser(oaiServiceConfiguration);
+		getRecordParser = new GetRecordParser(oaiServiceConfiguration);
+		listIdentifiersParser = new ListIdentifiersParser(oaiServiceConfiguration);
+		listSetsParser = new ListSetsParser(oaiServiceConfiguration);
+		listMetadataFormatsParser = new ListMetadataFormatsParser(oaiServiceConfiguration);
+		identifyParser = new IdentifyParser(oaiServiceConfiguration);
+		errorParser = new ErrorParser(oaiServiceConfiguration);
+	}
 
-	private OAIPMHParser(Logger log, XMLStreamReader reader, GenericParser metadata, GenericParser description, GenericParser about) {
-		super(log, reader);
-		reqParser = new RequestParser(log, reader);
-		listRecordsParser = new ListRecordsParser(log, reader, metadata, about);
-		getRecordParser = new GetRecordParser(log, reader, metadata, about);
-		listIdentifiersParser = new ListIdentifiersParser(log, reader);
-		listSetsParser = new ListSetsParser(log, reader);
-		listMetadataFormatsParser = new ListMetadataFormatsParser(log, reader);
-		identifyParser = new IdentifyParser(log, reader, description);
-		errorParser = new ErrorParser(log, reader);
-	}
-
-	private OAIPMHParser(Logger log, XMLStreamReader reader, GenericParser metadata, GenericParser description) {
-		super(log, reader);
-		reqParser = new RequestParser(log, reader);
-		listRecordsParser = new ListRecordsParser(log, reader, metadata);
-		getRecordParser = new GetRecordParser(log, reader, metadata);
-		listIdentifiersParser = new ListIdentifiersParser(log, reader);
-		listSetsParser = new ListSetsParser(log, reader);
-		listMetadataFormatsParser = new ListMetadataFormatsParser(log, reader);
-		identifyParser = new IdentifyParser(log, reader, description);
-		errorParser = new ErrorParser(log, reader);
-	}
-	
-	private OAIPMHParser(Logger log, XMLStreamReader reader, GenericParser metadata) {
-		super(log, reader);
-		reqParser = new RequestParser(log, reader);
-		listRecordsParser = new ListRecordsParser(log, reader, metadata);
-		getRecordParser = new GetRecordParser(log, reader, metadata);
-		listIdentifiersParser = new ListIdentifiersParser(log, reader);
-		listSetsParser = new ListSetsParser(log, reader);
-		listMetadataFormatsParser = new ListMetadataFormatsParser(log, reader);
-		identifyParser = new IdentifyParser(log, reader);
-		errorParser = new ErrorParser(log, reader);
-	}
-	
-	private OAIPMHParser(Logger log, XMLStreamReader reader) {
-		super(log, reader);
-		reqParser = new RequestParser(log, reader);
-		listRecordsParser = new ListRecordsParser(log, reader);
-		getRecordParser = new GetRecordParser(log, reader);
-		listIdentifiersParser = new ListIdentifiersParser(log, reader);
-		listSetsParser = new ListSetsParser(log, reader);
-		listMetadataFormatsParser = new ListMetadataFormatsParser(log, reader);
-		identifyParser = new IdentifyParser(log, reader);
-		errorParser = new ErrorParser(log, reader);
-	}
-	
-	public OAIPMHtype parse () throws ParseException {
-		super.checkStart(NAME, true);
-		// Do something in between
-		OAIPMHtype pmh = new OAIPMHtype();
-		pmh.setResponseDate(super.getString(RESPONSE_DATE, true));
-		pmh.setRequest(reqParser.parse(true));
-		
-		boolean isChecked = true;
-		
-		if (super.checkBooleanStart("ListRecords", true)) {
-			pmh.setListRecords(listRecordsParser.parse(false));
-		} else if (super.checkBooleanStart("GetRecord", false)) {
-			pmh.setGetRecord(getRecordParser.parse(false));
-		} else if (super.checkBooleanStart("ListIdentifiers", false)) {
-			pmh.setListIdentifiers(listIdentifiersParser.parse(false));
-		} else if (super.checkBooleanStart("ListSets", false)) {
-			pmh.setListSets(listSetsParser.parse(false));
-		} else if (super.checkBooleanStart("ListMetadataFormats", false)) {
-			pmh.setListMetadataFormats(listMetadataFormatsParser.parse(false));
-		} else if (super.checkBooleanStart("Identify", false)) {
-			pmh.setIdentify(identifyParser.parse(false));
-		} else if (super.checkBooleanStart("error", false)) {
-			pmh.getError().add(errorParser.parse(false));
-			while (super.checkBooleanStart("error", true))
-				pmh.getError().add(errorParser.parse(false));
-			isChecked = false;
-		} else {
-			throw new KnownParseException("Unexpected element: "+super.getReader().getLocalName()+" expecting some of [ListRecords, GetRecord, ListIdentifiers, ListSets, ListMetadataFormats, Identify, error]");
-		}
-		
-		super.checkEnd(NAME, isChecked);
-		return pmh;
-	}
+    @Override
+    protected OAIPMHtype parseElement(XMLEventReader reader) throws ParseException {
+        OAIPMHtype pmh = new OAIPMHtype();
+        
+        try {
+            if (!reader.peek().asStartElement().getName().getLocalPart().equals(NAME))
+                throw new ParseException("Expecting "+NAME+" element");
+            
+            reader.nextEvent();
+            this.nextElement(reader);
+            
+            pmh.setResponseDate(DateUtils.parse(this.getElement(reader, RESPONSE_DATE)));
+            pmh.setRequest(reqParser.parse(reader));
+            
+            String name = reader.peek().asStartElement().getName().getLocalPart();
+            
+            if (name.equals("ListRecords"))
+                pmh.setListRecords(listRecordsParser.parse(reader));
+            else if (name.equals("GetRecord"))
+                pmh.setGetRecord(getRecordParser.parse(reader));
+            else if (name.equals("ListIdentifiers"))
+                pmh.setListIdentifiers(listIdentifiersParser.parse(reader));
+            else if (name.equals("ListSets"))
+                pmh.setListSets(listSetsParser.parse(reader));
+            else if (name.equals("ListMetadataFormats"))
+                pmh.setListMetadataFormats(listMetadataFormatsParser.parse(reader));
+            else if (name.equals("Identify"))
+                pmh.setIdentify(identifyParser.parse(reader));
+            else {
+                while (reader.peek().asStartElement().getName().getLocalPart().equals("error")) {
+                    pmh.getError().add(errorParser.parse(reader));
+                }
+            }
+            
+        } catch (XMLStreamException e) {
+            throw new ParseException(e);
+        } catch (java.text.ParseException e) {
+            throw new ParseException(e);
+        }
+        
+        return pmh;
+    }
 }
