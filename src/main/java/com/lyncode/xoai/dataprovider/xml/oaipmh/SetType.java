@@ -7,9 +7,8 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import static com.lyncode.xoai.util.XmlIOUtils.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,18 +16,20 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
+import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 
 /**
- * <p>
+ * <p/>
  * Java class for setType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="setType">
  *   &lt;complexContent>
@@ -42,100 +43,90 @@ import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setType", propOrder = { "setSpec", "setName", "setDescription" })
+@XmlType(name = "setType", propOrder = {"setSpec", "setName", "setDescription"})
 public class SetType implements XMLWrittable {
 
-	@XmlElement(required = true)
-	protected String setSpec;
-	@XmlElement(required = true)
-	protected String setName;
-	protected List<DescriptionType> setDescription;
+    @XmlElement(required = true)
+    protected String setSpec;
+    @XmlElement(required = true)
+    protected String setName;
+    protected List<DescriptionType> setDescription;
 
-	/**
-	 * Gets the value of the setSpec property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getSetSpec() {
-		return setSpec;
-	}
+    /**
+     * Gets the value of the setSpec property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getSetSpec() {
+        return setSpec;
+    }
 
-	/**
-	 * Sets the value of the setSpec property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setSetSpec(String value) {
-		this.setSpec = value;
-	}
+    /**
+     * Sets the value of the setSpec property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setSetSpec(String value) {
+        this.setSpec = value;
+    }
 
-	/**
-	 * Gets the value of the setName property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getSetName() {
-		return setName;
-	}
+    /**
+     * Gets the value of the setName property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getSetName() {
+        return setName;
+    }
 
-	/**
-	 * Sets the value of the setName property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setSetName(String value) {
-		this.setName = value;
-	}
+    /**
+     * Sets the value of the setName property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setSetName(String value) {
+        this.setName = value;
+    }
 
-	/**
-	 * Gets the value of the setDescription property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a
-	 * snapshot. Therefore any modification you make to the returned list will
-	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the setDescription property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getSetDescription().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list
-	 * {@link DescriptionType }
-	 * 
-	 * 
-	 */
-	public List<DescriptionType> getSetDescription() {
-		if (setDescription == null) {
-			setDescription = new ArrayList<DescriptionType>();
-		}
-		return this.setDescription;
-	}
+    /**
+     * Gets the value of the setDescription property.
+     * <p/>
+     * <p/>
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the setDescription property.
+     * <p/>
+     * <p/>
+     * For example, to add a new item, do as follows:
+     * <p/>
+     * <pre>
+     * getSetDescription().add(newItem);
+     * </pre>
+     * <p/>
+     * <p/>
+     * <p/>
+     * Objects of the following type(s) are allowed in the list
+     * {@link DescriptionType }
+     */
+    public List<DescriptionType> getSetDescription() {
+        if (setDescription == null) {
+            setDescription = new ArrayList<DescriptionType>();
+        }
+        return this.setDescription;
+    }
 
 	/*
-	 * 
+     *
  *         &lt;element name="setSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType"/>
  *         &lt;element name="setName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="setDescription" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
 	 */
-	
+
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         try {
             writeValue(writter, "setSpec", setSpec);
             writeValue(writter, "setName", setName);
@@ -144,7 +135,7 @@ public class SetType implements XMLWrittable {
                     writeElement(writter, "setDescription", desc);
             }
         } catch (XMLStreamException e) {
-            throw new WrittingXmlException(e);
+            throw new WritingXmlException(e);
         }
     }
 

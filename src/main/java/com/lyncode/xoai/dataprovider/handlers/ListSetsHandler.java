@@ -1,16 +1,6 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
-import java.util.List;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import com.lyncode.xoai.dataprovider.core.ListSetsResult;
-import com.lyncode.xoai.dataprovider.core.OAIParameters;
-import com.lyncode.xoai.dataprovider.core.ResumptionToken;
-import com.lyncode.xoai.dataprovider.core.Set;
-import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.core.XOAIManager;
+import com.lyncode.xoai.dataprovider.core.*;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
@@ -22,18 +12,24 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.ListSetsType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.SetType;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import java.util.List;
 
 
 public class ListSetsHandler extends VerbHandler<ListSetsType> {
     private static Logger log = LogManager.getLogger(ListSetsHandler.class);
+    private final int maxListSize;
     private SetRepository listSets;
     private XOAIContext context;
     private AbstractResumptionTokenFormat resumptionFormat;
 
-    
-    public ListSetsHandler(SetRepository listSets, XOAIContext context, AbstractResumptionTokenFormat _format) {
+
+    public ListSetsHandler(int maxListSize, SetRepository listSets, XOAIContext context, AbstractResumptionTokenFormat _format) {
 
         super();
+        this.maxListSize = maxListSize;
         this.listSets = listSets;
         this.context = context;
         this.resumptionFormat = _format;
@@ -47,7 +43,7 @@ public class ListSetsHandler extends VerbHandler<ListSetsType> {
             throw new DoesNotSupportSetsException();
 
         ResumptionToken resumptionToken = params.getResumptionToken();
-        int length = XOAIManager.getManager().getMaxListSetsSize();
+        int length = maxListSize;
         log.debug("Length: " + length);
         ListSetsResult res = listSets.getSets(context, resumptionToken.getOffset(), length);
         List<Set> sets = res.getResults();
@@ -76,17 +72,17 @@ public class ListSetsHandler extends VerbHandler<ListSetsType> {
         } else {
             rtoken = new ResumptionToken();
         }
-        
+
 
         if (params.hasResumptionToken() || !rtoken.isEmpty()) {
             ResumptionTokenType token = new ResumptionTokenType();
             token.setValue(resumptionFormat.format(rtoken));
-            token.setCursor(resumptionToken.getOffset()/XOAIManager.getManager().getMaxListSetsSize());
-            
+            token.setCursor(resumptionToken.getOffset() / maxListSize);
+
             if (res.hasTotalResults()) {
                 int total = res.getTotalResults();
                 token.setCompleteListSize(total);
-                log.debug("Total results: "+total);
+                log.debug("Total results: " + total);
             } else {
                 log.debug("Has no total results shown");
             }

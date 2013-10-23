@@ -1,7 +1,5 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
-import java.util.List;
-
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
@@ -13,11 +11,13 @@ import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ListMetadataFormatsType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.MetadataFormatType;
 
+import java.util.List;
+
 
 public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormatsType> {
     private ItemRepository itemRepository;
     private XOAIContext context;
-    
+
     public ListMetadataFormatsHandler(ItemRepository itemRepository, XOAIContext context) {
 
         super();
@@ -26,11 +26,10 @@ public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormatsT
     }
 
 
-
     @Override
     public ListMetadataFormatsType handle(OAIParameters params) throws OAIException, HandlerException {
         ListMetadataFormatsType result = new ListMetadataFormatsType();
-        
+
         if (params.hasIdentifier()) {
             AbstractItem item = itemRepository.getItem(params.getIdentifier());
             List<MetadataFormat> forms = context.getFormats(item);

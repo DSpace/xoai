@@ -16,11 +16,6 @@
 
 package com.lyncode.xoai.dataprovider.sets;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.Filter;
@@ -28,42 +23,47 @@ import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class StaticSetManager {
-	// private static Logger log = LogManager.getLogger(StaticSetManager.class);
-	private Map<String, StaticSet> _contexts;
+    // private static Logger log = LogManager.getLogger(StaticSetManager.class);
+    private Map<String, StaticSet> _contexts;
 
-	public StaticSetManager(Sets config, FilterManager fm)
-			throws ConfigurationException {
-		_contexts = new HashMap<String, StaticSet>();
-		if (config != null && config.getSet() != null) {
-			for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
-					.getSet()) {
-				List<Filter> filters = new ArrayList<Filter>();
-				for (BundleReference r : s.getFilter()) {
-					if (!fm.filterExists(r.getRefid()))
-						throw new ConfigurationException("ScopedFilter referred as "
-								+ r.getRefid() + " does not exist");
-					filters.add(fm.getFilter(r.getRefid()));
-				}
-				StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
-				_contexts.put(s.getId(), set);
-			}
-		}
-	}
+    public StaticSetManager(Sets config, FilterManager fm)
+            throws ConfigurationException {
+        _contexts = new HashMap<String, StaticSet>();
+        if (config != null && config.getSet() != null) {
+            for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
+                    .getSet()) {
+                List<Filter> filters = new ArrayList<Filter>();
+                for (BundleReference r : s.getFilter()) {
+                    if (!fm.filterExists(r.getRefid()))
+                        throw new ConfigurationException("ScopedFilter referred as "
+                                + r.getRefid() + " does not exist");
+                    filters.add(fm.getFilter(r.getRefid()));
+                }
+                StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
+                _contexts.put(s.getId(), set);
+            }
+        }
+    }
 
-	public boolean setExists(String id) {
-		return this._contexts.containsKey(id);
-	}
+    public boolean setExists(String id) {
+        return this._contexts.containsKey(id);
+    }
 
-	public StaticSet getSet(String id) {
-		return _contexts.get(id);
-	}
+    public StaticSet getSet(String id) {
+        return _contexts.get(id);
+    }
 
-	public List<Set> getSets() {
-		return new ArrayList<Set>(_contexts.values());
-	}
+    public List<Set> getSets() {
+        return new ArrayList<Set>(_contexts.values());
+    }
 }

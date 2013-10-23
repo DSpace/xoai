@@ -22,27 +22,26 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class MetadataFormatDoesNotExistsException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7169710535202336338L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7169710535202336338L;
 
-	/**
-	 * Creates a new instance of
-	 * <code>MetadataFormatDoesNotExistsException</code> without detail message.
-	 */
-	public MetadataFormatDoesNotExistsException() {
-	}
+    /**
+     * Creates a new instance of
+     * <code>MetadataFormatDoesNotExistsException</code> without detail message.
+     */
+    public MetadataFormatDoesNotExistsException() {
+    }
 
-	/**
-	 * Constructs an instance of
-	 * <code>MetadataFormatDoesNotExistsException</code> with the specified
-	 * detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public MetadataFormatDoesNotExistsException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of
+     * <code>MetadataFormatDoesNotExistsException</code> with the specified
+     * detail message.
+     *
+     * @param msg the detail message.
+     */
+    public MetadataFormatDoesNotExistsException(String msg) {
+        super(msg);
+    }
 }

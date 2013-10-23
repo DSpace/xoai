@@ -10,9 +10,6 @@ public class CustomFilterStub extends CustomCondition {
     }
 
 
-
-
-
     @Override
     public boolean isItemShown(AbstractItemIdentifier item) {
         return false;

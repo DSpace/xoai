@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -34,16 +34,13 @@ import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class ListMetadataFormats extends AbstractVerb
-{
+public class ListMetadataFormats extends AbstractVerb {
 
-    public ListMetadataFormats(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
-    {
+    public ListMetadataFormats(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
         super(parameters, config);
     }
 
-    public ListMetadataFormatsType harvest() throws InternalHarvestException
-    {
+    public ListMetadataFormatsType harvest() throws InternalHarvestException {
         return (new MetadataFormatIterator(super.getServiceProvider(), this.getParameters())).harvest();
     }
 

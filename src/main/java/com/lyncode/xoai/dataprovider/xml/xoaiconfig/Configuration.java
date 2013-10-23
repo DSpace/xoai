@@ -8,21 +8,16 @@
 
 package com.lyncode.xoai.dataprovider.xml.xoaiconfig;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 
 /**
  * <p>Java class for anonymous complex type.
- * 
+ * <p/>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -172,16 +167,14 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "contexts",
-    "formats",
-    "transformers",
-    "filters",
-    "sets"
+        "contexts",
+        "formats",
+        "transformers",
+        "filters",
+        "sets"
 })
 @XmlRootElement(name = "Configuration")
 public class Configuration {
@@ -211,11 +204,9 @@ public class Configuration {
 
     /**
      * Gets the value of the contexts property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Configuration.Contexts }
-     *     
+     *
+     * @return possible object is
+     *         {@link Configuration.Contexts }
      */
     public Configuration.Contexts getContexts() {
         return contexts;
@@ -223,11 +214,9 @@ public class Configuration {
 
     /**
      * Sets the value of the contexts property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Configuration.Contexts }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Configuration.Contexts }
      */
     public void setContexts(Configuration.Contexts value) {
         this.contexts = value;
@@ -235,11 +224,9 @@ public class Configuration {
 
     /**
      * Gets the value of the formats property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Configuration.Formats }
-     *     
+     *
+     * @return possible object is
+     *         {@link Configuration.Formats }
      */
     public Configuration.Formats getFormats() {
         return formats;
@@ -247,11 +234,9 @@ public class Configuration {
 
     /**
      * Sets the value of the formats property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Configuration.Formats }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Configuration.Formats }
      */
     public void setFormats(Configuration.Formats value) {
         this.formats = value;
@@ -259,11 +244,9 @@ public class Configuration {
 
     /**
      * Gets the value of the transformers property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Configuration.Transformers }
-     *     
+     *
+     * @return possible object is
+     *         {@link Configuration.Transformers }
      */
     public Configuration.Transformers getTransformers() {
         return transformers;
@@ -271,11 +254,9 @@ public class Configuration {
 
     /**
      * Sets the value of the transformers property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Configuration.Transformers }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Configuration.Transformers }
      */
     public void setTransformers(Configuration.Transformers value) {
         this.transformers = value;
@@ -283,11 +264,9 @@ public class Configuration {
 
     /**
      * Gets the value of the filters property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Configuration.Filters }
-     *     
+     *
+     * @return possible object is
+     *         {@link Configuration.Filters }
      */
     public Configuration.Filters getFilters() {
         return filters;
@@ -295,11 +274,9 @@ public class Configuration {
 
     /**
      * Sets the value of the filters property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Configuration.Filters }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Configuration.Filters }
      */
     public void setFilters(Configuration.Filters value) {
         this.filters = value;
@@ -307,11 +284,9 @@ public class Configuration {
 
     /**
      * Gets the value of the sets property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Configuration.Sets }
-     *     
+     *
+     * @return possible object is
+     *         {@link Configuration.Sets }
      */
     public Configuration.Sets getSets() {
         return sets;
@@ -319,11 +294,9 @@ public class Configuration {
 
     /**
      * Sets the value of the sets property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Configuration.Sets }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Configuration.Sets }
      */
     public void setSets(Configuration.Sets value) {
         this.sets = value;
@@ -331,15 +304,13 @@ public class Configuration {
 
     /**
      * Gets the value of the maxListRecordsSize property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     *         {@link Integer }
      */
     public int getMaxListRecordsSize() {
         if (maxListRecordsSize == null) {
-            return  100;
+            return 100;
         } else {
             return maxListRecordsSize;
         }
@@ -347,11 +318,9 @@ public class Configuration {
 
     /**
      * Sets the value of the maxListRecordsSize property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setMaxListRecordsSize(Integer value) {
         this.maxListRecordsSize = value;
@@ -359,15 +328,13 @@ public class Configuration {
 
     /**
      * Gets the value of the maxListSetsSize property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     *         {@link Integer }
      */
     public int getMaxListSetsSize() {
         if (maxListSetsSize == null) {
-            return  100;
+            return 100;
         } else {
             return maxListSetsSize;
         }
@@ -375,11 +342,9 @@ public class Configuration {
 
     /**
      * Sets the value of the maxListSetsSize property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setMaxListSetsSize(Integer value) {
         this.maxListSetsSize = value;
@@ -387,15 +352,13 @@ public class Configuration {
 
     /**
      * Gets the value of the maxListIdentifiersSize property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     *         {@link Integer }
      */
     public int getMaxListIdentifiersSize() {
         if (maxListIdentifiersSize == null) {
-            return  100;
+            return 100;
         } else {
             return maxListIdentifiersSize;
         }
@@ -403,11 +366,9 @@ public class Configuration {
 
     /**
      * Sets the value of the maxListIdentifiersSize property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setMaxListIdentifiersSize(Integer value) {
         this.maxListIdentifiersSize = value;
@@ -415,11 +376,9 @@ public class Configuration {
 
     /**
      * Gets the value of the indentation property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
+     *
+     * @return possible object is
+     *         {@link Boolean }
      */
     public boolean isIndentation() {
         if (indentation == null) {
@@ -431,11 +390,9 @@ public class Configuration {
 
     /**
      * Sets the value of the indentation property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Boolean }
      */
     public void setIndentation(Boolean value) {
         this.indentation = value;
@@ -443,11 +400,9 @@ public class Configuration {
 
     /**
      * Gets the value of the stylesheet property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     *         {@link String }
      */
     public String getStylesheet() {
         return stylesheet;
@@ -455,11 +410,9 @@ public class Configuration {
 
     /**
      * Sets the value of the stylesheet property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setStylesheet(String value) {
         this.stylesheet = value;
@@ -467,11 +420,9 @@ public class Configuration {
 
     /**
      * Gets the value of the descriptionFile property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     *         {@link String }
      */
     public String getDescriptionFile() {
         return descriptionFile;
@@ -479,11 +430,9 @@ public class Configuration {
 
     /**
      * Sets the value of the descriptionFile property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setDescriptionFile(String value) {
         this.descriptionFile = value;
@@ -492,9 +441,9 @@ public class Configuration {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -520,12 +469,10 @@ public class Configuration {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "context"
+            "context"
     })
     public static class Contexts {
 
@@ -534,25 +481,23 @@ public class Configuration {
 
         /**
          * Gets the value of the context property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the context property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getContext().add(newItem);
          * </pre>
-         * 
-         * 
-         * <p>
+         * <p/>
+         * <p/>
+         * <p/>
          * Objects of the following type(s) are allowed in the list
          * {@link Configuration.Contexts.Context }
-         * 
-         * 
          */
         public List<Configuration.Contexts.Context> getContext() {
             if (context == null) {
@@ -564,9 +509,9 @@ public class Configuration {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         * <p/>
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         * <p/>
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -582,15 +527,13 @@ public class Configuration {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "transformer",
-            "filter",
-            "set",
-            "format"
+                "transformer",
+                "filter",
+                "set",
+                "format"
         })
         public static class Context {
 
@@ -607,11 +550,9 @@ public class Configuration {
 
             /**
              * Gets the value of the transformer property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link BundleReference }
-             *     
+             *
+             * @return possible object is
+             *         {@link BundleReference }
              */
             public BundleReference getTransformer() {
                 return transformer;
@@ -619,11 +560,9 @@ public class Configuration {
 
             /**
              * Sets the value of the transformer property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link BundleReference }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link BundleReference }
              */
             public void setTransformer(BundleReference value) {
                 this.transformer = value;
@@ -631,25 +570,23 @@ public class Configuration {
 
             /**
              * Gets the value of the filter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the filter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getFilter().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link BundleReference }
-             * 
-             * 
              */
             public List<BundleReference> getFilter() {
                 if (filter == null) {
@@ -660,25 +597,23 @@ public class Configuration {
 
             /**
              * Gets the value of the set property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the set property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getSet().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link BundleReference }
-             * 
-             * 
              */
             public List<BundleReference> getSet() {
                 if (set == null) {
@@ -689,25 +624,23 @@ public class Configuration {
 
             /**
              * Gets the value of the format property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the format property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getFormat().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link BundleReference }
-             * 
-             * 
              */
             public List<BundleReference> getFormat() {
                 if (format == null) {
@@ -718,11 +651,9 @@ public class Configuration {
 
             /**
              * Gets the value of the baseurl property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getBaseurl() {
                 return baseurl;
@@ -730,11 +661,9 @@ public class Configuration {
 
             /**
              * Sets the value of the baseurl property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setBaseurl(String value) {
                 this.baseurl = value;
@@ -747,9 +676,9 @@ public class Configuration {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -785,13 +714,11 @@ public class Configuration {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "customFilter",
-        "filter"
+            "customFilter",
+            "filter"
     })
     public static class Filters {
 
@@ -802,25 +729,23 @@ public class Configuration {
 
         /**
          * Gets the value of the customFilter property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the customFilter property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getCustomFilter().add(newItem);
          * </pre>
-         * 
-         * 
-         * <p>
+         * <p/>
+         * <p/>
+         * <p/>
          * Objects of the following type(s) are allowed in the list
          * {@link Configuration.Filters.CustomFilter }
-         * 
-         * 
          */
         public List<Configuration.Filters.CustomFilter> getCustomFilter() {
             if (customFilter == null) {
@@ -831,25 +756,23 @@ public class Configuration {
 
         /**
          * Gets the value of the filter property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the filter property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getFilter().add(newItem);
          * </pre>
-         * 
-         * 
-         * <p>
+         * <p/>
+         * <p/>
+         * <p/>
          * Objects of the following type(s) are allowed in the list
          * {@link Configuration.Filters.Filter }
-         * 
-         * 
          */
         public List<Configuration.Filters.Filter> getFilter() {
             if (filter == null) {
@@ -861,9 +784,9 @@ public class Configuration {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         * <p/>
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         * <p/>
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -877,15 +800,13 @@ public class Configuration {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "clazz",
-            "parameter"
+                "clazz",
+                "parameter"
         })
-        public static class CustomFilter {
+        public static class CustomFilter implements Referable {
 
             @XmlElement(name = "Class", required = true)
             protected String clazz;
@@ -896,11 +817,9 @@ public class Configuration {
 
             /**
              * Gets the value of the clazz property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getClazz() {
                 return clazz;
@@ -908,11 +827,9 @@ public class Configuration {
 
             /**
              * Sets the value of the clazz property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setClazz(String value) {
                 this.clazz = value;
@@ -920,25 +837,23 @@ public class Configuration {
 
             /**
              * Gets the value of the parameter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the parameter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getParameter().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link Parameter }
-             * 
-             * 
              */
             public List<Parameter> getParameter() {
                 if (parameter == null) {
@@ -949,11 +864,9 @@ public class Configuration {
 
             /**
              * Gets the value of the id property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getId() {
                 return id;
@@ -961,11 +874,9 @@ public class Configuration {
 
             /**
              * Sets the value of the id property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setId(String value) {
                 this.id = value;
@@ -976,9 +887,9 @@ public class Configuration {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         * <p/>
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         * <p/>
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -991,14 +902,12 @@ public class Configuration {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "definition"
+                "definition"
         })
-        public static class Filter {
+        public static class Filter implements Referable {
 
             protected ConditionDefinitionType definition;
             @XmlAttribute(name = "id")
@@ -1006,11 +915,9 @@ public class Configuration {
 
             /**
              * Gets the value of the definition property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link ConditionDefinitionType }
-             *     
+             *
+             * @return possible object is
+             *         {@link ConditionDefinitionType }
              */
             public ConditionDefinitionType getDefinition() {
                 return definition;
@@ -1018,11 +925,9 @@ public class Configuration {
 
             /**
              * Sets the value of the definition property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link ConditionDefinitionType }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link ConditionDefinitionType }
              */
             public void setDefinition(ConditionDefinitionType value) {
                 this.definition = value;
@@ -1030,11 +935,9 @@ public class Configuration {
 
             /**
              * Gets the value of the id property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getId() {
                 return id;
@@ -1042,11 +945,9 @@ public class Configuration {
 
             /**
              * Sets the value of the id property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setId(String value) {
                 this.id = value;
@@ -1059,9 +960,9 @@ public class Configuration {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1088,12 +989,10 @@ public class Configuration {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "format"
+            "format"
     })
     public static class Formats {
 
@@ -1102,25 +1001,23 @@ public class Configuration {
 
         /**
          * Gets the value of the format property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the format property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getFormat().add(newItem);
          * </pre>
-         * 
-         * 
-         * <p>
+         * <p/>
+         * <p/>
+         * <p/>
          * Objects of the following type(s) are allowed in the list
          * {@link Configuration.Formats.Format }
-         * 
-         * 
          */
         public List<Configuration.Formats.Format> getFormat() {
             if (format == null) {
@@ -1132,9 +1029,9 @@ public class Configuration {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         * <p/>
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         * <p/>
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1151,18 +1048,16 @@ public class Configuration {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "prefix",
-            "xslt",
-            "namespace",
-            "schemaLocation",
-            "filter"
+                "prefix",
+                "xslt",
+                "namespace",
+                "schemaLocation",
+                "filter"
         })
-        public static class Format {
+        public static class Format implements Referable {
 
             @XmlElement(name = "Prefix", required = true)
             protected String prefix;
@@ -1179,11 +1074,9 @@ public class Configuration {
 
             /**
              * Gets the value of the prefix property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getPrefix() {
                 return prefix;
@@ -1191,11 +1084,9 @@ public class Configuration {
 
             /**
              * Sets the value of the prefix property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setPrefix(String value) {
                 this.prefix = value;
@@ -1203,11 +1094,9 @@ public class Configuration {
 
             /**
              * Gets the value of the xslt property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getXSLT() {
                 return xslt;
@@ -1215,11 +1104,9 @@ public class Configuration {
 
             /**
              * Sets the value of the xslt property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setXSLT(String value) {
                 this.xslt = value;
@@ -1227,11 +1114,9 @@ public class Configuration {
 
             /**
              * Gets the value of the namespace property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getNamespace() {
                 return namespace;
@@ -1239,11 +1124,9 @@ public class Configuration {
 
             /**
              * Sets the value of the namespace property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setNamespace(String value) {
                 this.namespace = value;
@@ -1251,11 +1134,9 @@ public class Configuration {
 
             /**
              * Gets the value of the schemaLocation property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getSchemaLocation() {
                 return schemaLocation;
@@ -1263,11 +1144,9 @@ public class Configuration {
 
             /**
              * Sets the value of the schemaLocation property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setSchemaLocation(String value) {
                 this.schemaLocation = value;
@@ -1275,25 +1154,23 @@ public class Configuration {
 
             /**
              * Gets the value of the filter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the filter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getFilter().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link BundleReference }
-             * 
-             * 
              */
             public List<BundleReference> getFilter() {
                 if (filter == null) {
@@ -1304,11 +1181,9 @@ public class Configuration {
 
             /**
              * Gets the value of the id property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getId() {
                 return id;
@@ -1316,11 +1191,9 @@ public class Configuration {
 
             /**
              * Sets the value of the id property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setId(String value) {
                 this.id = value;
@@ -1333,9 +1206,9 @@ public class Configuration {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1361,12 +1234,10 @@ public class Configuration {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "set"
+            "set"
     })
     public static class Sets {
 
@@ -1375,25 +1246,23 @@ public class Configuration {
 
         /**
          * Gets the value of the set property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the set property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getSet().add(newItem);
          * </pre>
-         * 
-         * 
-         * <p>
+         * <p/>
+         * <p/>
+         * <p/>
          * Objects of the following type(s) are allowed in the list
          * {@link Configuration.Sets.Set }
-         * 
-         * 
          */
         public List<Configuration.Sets.Set> getSet() {
             if (set == null) {
@@ -1405,9 +1274,9 @@ public class Configuration {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         * <p/>
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         * <p/>
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1423,17 +1292,15 @@ public class Configuration {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "pattern",
-            "name",
-            "filter",
-            "parameter"
+                "pattern",
+                "name",
+                "filter",
+                "parameter"
         })
-        public static class Set {
+        public static class Set implements Referable {
 
             @XmlElement(name = "Pattern", required = true)
             protected String pattern;
@@ -1448,11 +1315,9 @@ public class Configuration {
 
             /**
              * Gets the value of the pattern property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getPattern() {
                 return pattern;
@@ -1460,11 +1325,9 @@ public class Configuration {
 
             /**
              * Sets the value of the pattern property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setPattern(String value) {
                 this.pattern = value;
@@ -1472,11 +1335,9 @@ public class Configuration {
 
             /**
              * Gets the value of the name property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getName() {
                 return name;
@@ -1484,11 +1345,9 @@ public class Configuration {
 
             /**
              * Sets the value of the name property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setName(String value) {
                 this.name = value;
@@ -1496,25 +1355,23 @@ public class Configuration {
 
             /**
              * Gets the value of the filter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the filter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getFilter().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link BundleReference }
-             * 
-             * 
              */
             public List<BundleReference> getFilter() {
                 if (filter == null) {
@@ -1525,25 +1382,23 @@ public class Configuration {
 
             /**
              * Gets the value of the parameter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the parameter property.
-             * 
-             * <p>
+             * <p/>
+             * <p/>
              * For example, to add a new item, do as follows:
              * <pre>
              *    getParameter().add(newItem);
              * </pre>
-             * 
-             * 
-             * <p>
+             * <p/>
+             * <p/>
+             * <p/>
              * Objects of the following type(s) are allowed in the list
              * {@link Parameter }
-             * 
-             * 
              */
             public List<Parameter> getParameter() {
                 if (parameter == null) {
@@ -1554,11 +1409,9 @@ public class Configuration {
 
             /**
              * Gets the value of the id property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getId() {
                 return id;
@@ -1566,11 +1419,9 @@ public class Configuration {
 
             /**
              * Sets the value of the id property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setId(String value) {
                 this.id = value;
@@ -1583,9 +1434,9 @@ public class Configuration {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1608,12 +1459,10 @@ public class Configuration {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "transformer"
+            "transformer"
     })
     public static class Transformers {
 
@@ -1622,25 +1471,23 @@ public class Configuration {
 
         /**
          * Gets the value of the transformer property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the transformer property.
-         * 
-         * <p>
+         * <p/>
+         * <p/>
          * For example, to add a new item, do as follows:
          * <pre>
          *    getTransformer().add(newItem);
          * </pre>
-         * 
-         * 
-         * <p>
+         * <p/>
+         * <p/>
+         * <p/>
          * Objects of the following type(s) are allowed in the list
          * {@link Configuration.Transformers.Transformer }
-         * 
-         * 
          */
         public List<Configuration.Transformers.Transformer> getTransformer() {
             if (transformer == null) {
@@ -1652,9 +1499,9 @@ public class Configuration {
 
         /**
          * <p>Java class for anonymous complex type.
-         * 
+         * <p/>
          * <p>The following schema fragment specifies the expected content contained within this class.
-         * 
+         * <p/>
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1667,14 +1514,12 @@ public class Configuration {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
-            "xslt"
+                "xslt"
         })
-        public static class Transformer {
+        public static class Transformer implements Referable {
 
             @XmlElement(name = "XSLT", required = true)
             protected String xslt;
@@ -1683,11 +1528,9 @@ public class Configuration {
 
             /**
              * Gets the value of the xslt property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getXSLT() {
                 return xslt;
@@ -1695,11 +1538,9 @@ public class Configuration {
 
             /**
              * Sets the value of the xslt property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setXSLT(String value) {
                 this.xslt = value;
@@ -1707,11 +1548,9 @@ public class Configuration {
 
             /**
              * Gets the value of the id property.
-             * 
-             * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *
+             * @return possible object is
+             *         {@link String }
              */
             public String getId() {
                 return id;
@@ -1719,11 +1558,9 @@ public class Configuration {
 
             /**
              * Sets the value of the id property.
-             * 
-             * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *
+             * @param value allowed object is
+             *              {@link String }
              */
             public void setId(String value) {
                 this.id = value;

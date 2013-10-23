@@ -22,26 +22,25 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class BadArgumentException extends HandlerException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6436751364163509217L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6436751364163509217L;
 
-	/**
-	 * Creates a new instance of <code>BadArgumentException</code> without
-	 * detail message.
-	 */
-	public BadArgumentException() {
-	}
+    /**
+     * Creates a new instance of <code>BadArgumentException</code> without
+     * detail message.
+     */
+    public BadArgumentException() {
+    }
 
-	/**
-	 * Constructs an instance of <code>BadArgumentException</code> with the
-	 * specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public BadArgumentException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of <code>BadArgumentException</code> with the
+     * specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public BadArgumentException(String msg) {
+        super(msg);
+    }
 }

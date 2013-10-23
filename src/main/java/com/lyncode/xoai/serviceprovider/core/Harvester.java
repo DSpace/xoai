@@ -5,56 +5,46 @@ import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.GetRecordType;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.*;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import com.lyncode.xoai.serviceprovider.verbs.GetRecord;
-import com.lyncode.xoai.serviceprovider.verbs.Identify;
-import com.lyncode.xoai.serviceprovider.verbs.ListIdentifiers;
-import com.lyncode.xoai.serviceprovider.verbs.ListMetadataFormats;
-import com.lyncode.xoai.serviceprovider.verbs.ListRecords;
-import com.lyncode.xoai.serviceprovider.verbs.ListSets;
+import com.lyncode.xoai.serviceprovider.verbs.*;
 import com.lyncode.xoai.util.ProcessingQueue;
 
 
 public class Harvester {
     private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config;
     private Parameters parameters;
-    
+
     public Harvester(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config, String baseURL) {
         this.config = config;
         this.parameters = new Parameters(baseURL);
     }
 
 
-    public ProcessingQueue<RecordType> listRecords (Parameters parameters) {
+    public ProcessingQueue<RecordType> listRecords(Parameters parameters) {
         return new ListRecords(this.parameters.merge(parameters).verb(OAIVerb.ListRecords), config).harvest();
     }
 
-    public ProcessingQueue<HeaderType> listIdentifiers (Parameters parameters) {
+    public ProcessingQueue<HeaderType> listIdentifiers(Parameters parameters) {
         return new ListIdentifiers(this.parameters.merge(parameters).verb(OAIVerb.ListIdentifiers), config).harvest();
     }
-    
-    public ListMetadataFormatsType listMetadataFormats (Parameters parameters) throws InternalHarvestException {
+
+    public ListMetadataFormatsType listMetadataFormats(Parameters parameters) throws InternalHarvestException {
         return new ListMetadataFormats(this.parameters.merge(parameters).verb(OAIVerb.ListMetadataFormats), config).harvest();
     }
-    
-    public ProcessingQueue<SetType> listSets (Parameters parameters) {
+
+    public ProcessingQueue<SetType> listSets(Parameters parameters) {
         return new ListSets(this.parameters.merge(parameters).verb(OAIVerb.ListSets), config).harvest();
     }
-    
-    public GetRecordType getRecord (Parameters parameters) throws InternalHarvestException, BadArgumentException, CannotDisseminateFormatException, IdDoesNotExistException {
+
+    public GetRecordType getRecord(Parameters parameters) throws InternalHarvestException, BadArgumentException, CannotDisseminateFormatException, IdDoesNotExistException {
         return new GetRecord(this.parameters.merge(parameters).verb(OAIVerb.GetRecord), config).harvest();
     }
-    
-    public IdentifyType identify () throws InternalHarvestException, BadArgumentException {
+
+    public IdentifyType identify() throws InternalHarvestException, BadArgumentException {
         return new Identify(this.parameters.merge(parameters).verb(OAIVerb.Identify), config).harvest();
     }
 }

@@ -22,26 +22,25 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class NoMetadataFormatsException extends HandlerException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7091872607176190034L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7091872607176190034L;
 
-	/**
-	 * Creates a new instance of <code>NoMetadataFormatsException</code> without
-	 * detail message.
-	 */
-	public NoMetadataFormatsException() {
-	}
+    /**
+     * Creates a new instance of <code>NoMetadataFormatsException</code> without
+     * detail message.
+     */
+    public NoMetadataFormatsException() {
+    }
 
-	/**
-	 * Constructs an instance of <code>NoMetadataFormatsException</code> with
-	 * the specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public NoMetadataFormatsException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of <code>NoMetadataFormatsException</code> with
+     * the specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public NoMetadataFormatsException(String msg) {
+        super(msg);
+    }
 }

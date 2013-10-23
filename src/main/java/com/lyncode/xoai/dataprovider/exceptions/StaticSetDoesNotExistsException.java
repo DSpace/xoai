@@ -22,26 +22,25 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class StaticSetDoesNotExistsException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2596586736462175699L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2596586736462175699L;
 
-	/**
-	 * Creates a new instance of <code>StaticSetDoesNotExistsException</code>
-	 * without detail message.
-	 */
-	public StaticSetDoesNotExistsException() {
-	}
+    /**
+     * Creates a new instance of <code>StaticSetDoesNotExistsException</code>
+     * without detail message.
+     */
+    public StaticSetDoesNotExistsException() {
+    }
 
-	/**
-	 * Constructs an instance of <code>StaticSetDoesNotExistsException</code>
-	 * with the specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public StaticSetDoesNotExistsException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of <code>StaticSetDoesNotExistsException</code>
+     * with the specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public StaticSetDoesNotExistsException(String msg) {
+        super(msg);
+    }
 }

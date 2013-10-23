@@ -7,29 +7,29 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.stream.XMLStreamWriter;
 
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
-
 /**
  * The descriptionType is used for the description element in Identify and for
  * setDescription element in ListSets. Content must be compliant with an XML
  * Schema defined by a community.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * Java class for descriptionType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="descriptionType">
  *   &lt;complexContent>
@@ -41,53 +41,51 @@ import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "descriptionType")
 public class DescriptionType implements XMLWrittable {
 
-	@XmlValue
-	protected String value;
-	
-	private Metadata metadata;
-	
-	public DescriptionType () {}
-    public DescriptionType (Metadata m) {
+    @XmlValue
+    protected String value;
+
+    private Metadata metadata;
+
+    public DescriptionType() {
+    }
+
+    public DescriptionType(Metadata m) {
         metadata = m;
     }
-    public DescriptionType (String m) {
+
+    public DescriptionType(String m) {
         value = m;
     }
 
-	/**
-	 * Gets the value of the any property.
-	 * 
-	 * @return possible object is {@link Object }
-	 * 
-	 */
-	public String getAny() {
-		return value;
-	}
+    /**
+     * Gets the value of the any property.
+     *
+     * @return possible object is {@link Object }
+     */
+    public String getAny() {
+        return value;
+    }
 
-	/**
-	 * Sets the value of the any property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Object }
-	 * 
-	 */
-	public void setAny(String value) {
-		this.value = value;
-	}
-	
-	public void setAny (Metadata metadata) {
-	    this.metadata = metadata;
-	}
+    /**
+     * Sets the value of the any property.
+     *
+     * @param value allowed object is {@link Object }
+     */
+    public void setAny(String value) {
+        this.value = value;
+    }
+
+    public void setAny(Metadata metadata) {
+        this.metadata = metadata;
+    }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         if (metadata != null) {
             this.metadata.write(writter);
         } else if (this.value != null) {

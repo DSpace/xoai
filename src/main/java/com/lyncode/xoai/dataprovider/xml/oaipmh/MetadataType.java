@@ -7,28 +7,29 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.stream.XMLStreamWriter;
-
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import java.io.InputStream;
 
 /**
  * Metadata must be expressed in XML that complies with another XML Schema
  * (namespace=#other). Metadata must be explicitly qualified in the response.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * Java class for metadataType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="metadataType">
  *   &lt;complexContent>
@@ -40,33 +41,34 @@ import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "metadataType")
 public class MetadataType implements XMLWrittable {
     private String string;
-    
-	@XmlValue
-	protected Metadata value;
 
-	/**
-	 * Sets the value of the any property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Object }
-	 * 
-	 */
-    public MetadataType (Metadata value) {
+    @XmlValue
+    protected Metadata value;
+
+    /**
+     * Sets the value of the any property.
+     *
+     * @param value allowed object is {@link Object }
+     */
+    public MetadataType(Metadata value) {
         this.value = value;
     }
-    public MetadataType (String value) {
+
+    public MetadataType(String value) {
         this.string = value;
     }
 
+    public MetadataType(InputStream value) {
+        this.string = value.toString();
+    }
+
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         if (this.value != null)
             this.value.write(writter);
         else {

@@ -1,10 +1,10 @@
 package com.lyncode.xoai.serviceprovider.parser;
 
-import javax.xml.stream.XMLEventReader;
-
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
+
+import javax.xml.stream.XMLEventReader;
 
 
 public interface XMLParser {
-    public Object parse (XMLEventReader xmlStreamReader) throws ParseException;
+    public Object parse(XMLEventReader xmlStreamReader) throws ParseException;
 }

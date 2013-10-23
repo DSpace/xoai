@@ -17,25 +17,24 @@ package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
  * @author "João Melo <jmelo@lyncode.com>"
- *
  */
 public class UnknownParameterException extends HandlerException {
-	private static final long serialVersionUID = -813886035789840394L;
+    private static final long serialVersionUID = -813886035789840394L;
 
-	public UnknownParameterException() {
-		super();
-	}
+    public UnknownParameterException() {
+        super();
+    }
 
-	public UnknownParameterException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public UnknownParameterException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	public UnknownParameterException(String message) {
-		super(message);
-	}
+    public UnknownParameterException(String message) {
+        super(message);
+    }
 
-	public UnknownParameterException(Throwable cause) {
-		super(cause);
-	}
-	
+    public UnknownParameterException(Throwable cause) {
+        super(cause);
+    }
+
 }

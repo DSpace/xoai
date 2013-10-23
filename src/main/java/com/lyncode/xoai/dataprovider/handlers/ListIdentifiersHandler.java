@@ -1,13 +1,6 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
-import java.util.List;
-
-import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
-import com.lyncode.xoai.dataprovider.core.OAIParameters;
-import com.lyncode.xoai.dataprovider.core.ReferenceSet;
-import com.lyncode.xoai.dataprovider.core.ResumptionToken;
-import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.core.XOAIManager;
+import com.lyncode.xoai.dataprovider.core.*;
 import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
@@ -15,34 +8,28 @@ import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.ItemIdentify;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
-import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
-import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
-import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateRecordException;
-import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMatchesException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.dataprovider.exceptions.OAIException;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.DateInfo;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.HeaderType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.ListIdentifiersType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.StatusType;
+import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
+
+import java.util.List;
 
 
 public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
+    private final int maxListSize;
     private SetRepository setRepository;
     private ItemRepository itemRepository;
     private AbstractIdentify identify;
     private XOAIContext context;
     private AbstractResumptionTokenFormat resumptionFormat;
-    
-    public ListIdentifiersHandler(SetRepository setRepository,
+
+    public ListIdentifiersHandler(int maxListSize,
+                                  SetRepository setRepository,
                                   ItemRepository itemRepository,
                                   AbstractIdentify identify,
                                   XOAIContext context, AbstractResumptionTokenFormat _format) {
 
         super();
+        this.maxListSize = maxListSize;
         this.setRepository = setRepository;
         this.itemRepository = itemRepository;
         this.identify = identify;
@@ -59,7 +46,7 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
         if (parameters.hasSet() && !setRepository.supportSets())
             throw new DoesNotSupportSetsException();
 
-        int length = XOAIManager.getManager().getMaxListIdentifiersSize();
+        int length = maxListSize;
         ListItemIdentifiersResult result;
         if (!parameters.hasSet()) {
             if (parameters.hasFrom() && !parameters.hasUntil())
@@ -117,7 +104,7 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
         if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
             ResumptionTokenType resToken = new ResumptionTokenType();
             resToken.setValue(resumptionFormat.format(newToken));
-            resToken.setCursor(token.getOffset()/XOAIManager.getManager().getMaxListIdentifiersSize());
+            resToken.setCursor(token.getOffset() / maxListSize);
             if (result.hasTotalResults())
                 resToken.setCompleteListSize(result.getTotal());
             res.setResumptionToken(resToken);
@@ -131,7 +118,7 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
 
 
     private HeaderType createHeader(OAIParameters parameters,
-            AbstractItemIdentifier ii) throws BadArgumentException,
+                                    AbstractItemIdentifier ii) throws BadArgumentException,
             CannotDisseminateRecordException, OAIException,
             NoMetadataFormatsException, CannotDisseminateFormatException {
         MetadataFormat format = context.getFormatByPrefix(parameters
@@ -144,9 +131,9 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
         header.setIdentifier(ii.getIdentifier());
         if (ii.isDeleted())
             header.setStatus(StatusType.DELETED);
-        
+
         ItemIdentify ident = new ItemIdentify(ii);
-        
+
         for (ReferenceSet s : ident.getSets(context))
             header.getSetSpec().add(s.getSetSpec());
         return header;

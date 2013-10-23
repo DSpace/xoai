@@ -7,26 +7,20 @@
 
 package com.lyncode.xoai.serviceprovider.oaipmh.spec;
 
+import javax.xml.bind.annotation.*;
 import java.util.Date;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * A resumptionToken may have 3 optional attributes and can be used in ListSets,
  * ListIdentifiers, ListRecords responses.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * Java class for resumptionTokenType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="resumptionTokenType">
  *   &lt;simpleContent>
@@ -38,107 +32,93 @@ import javax.xml.bind.annotation.XmlValue;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "resumptionTokenType", propOrder = { "value" })
+@XmlType(name = "resumptionTokenType", propOrder = {"value"})
 public class ResumptionTokenType {
 
-	@XmlValue
-	protected String value;
-	@XmlAttribute(name = "expirationDate")
-	@XmlSchemaType(name = "dateTime")
-	protected Date expirationDate;
-	@XmlAttribute(name = "completeListSize")
-	@XmlSchemaType(name = "positiveInteger")
-	protected long completeListSize;
-	@XmlAttribute(name = "cursor")
-	@XmlSchemaType(name = "nonNegativeInteger")
-	protected long cursor;
+    @XmlValue
+    protected String value;
+    @XmlAttribute(name = "expirationDate")
+    @XmlSchemaType(name = "dateTime")
+    protected Date expirationDate;
+    @XmlAttribute(name = "completeListSize")
+    @XmlSchemaType(name = "positiveInteger")
+    protected long completeListSize;
+    @XmlAttribute(name = "cursor")
+    @XmlSchemaType(name = "nonNegativeInteger")
+    protected long cursor;
 
-	/**
-	 * Gets the value of the value property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getValue() {
-		return value;
-	}
+    /**
+     * Gets the value of the value property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getValue() {
+        return value;
+    }
 
-	/**
-	 * Sets the value of the value property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    /**
+     * Sets the value of the value property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	/**
-	 * Gets the value of the expirationDate property.
-	 * 
-	 * @return possible object is {@link XMLGregorianCalendar }
-	 * 
-	 */
-	public Date getExpirationDate() {
-		return expirationDate;
-	}
+    /**
+     * Gets the value of the expirationDate property.
+     *
+     * @return possible object is {@link XMLGregorianCalendar }
+     */
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
 
-	/**
-	 * Sets the value of the expirationDate property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link XMLGregorianCalendar }
-	 * 
-	 */
-	public void setExpirationDate(Date value) {
-		this.expirationDate = value;
-	}
+    /**
+     * Sets the value of the expirationDate property.
+     *
+     * @param value allowed object is {@link XMLGregorianCalendar }
+     */
+    public void setExpirationDate(Date value) {
+        this.expirationDate = value;
+    }
 
-	/**
-	 * Gets the value of the completeListSize property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public long getCompleteListSize() {
-		return completeListSize;
-	}
+    /**
+     * Gets the value of the completeListSize property.
+     *
+     * @return possible object is {@link BigInteger }
+     */
+    public long getCompleteListSize() {
+        return completeListSize;
+    }
 
-	/**
-	 * Sets the value of the completeListSize property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setCompleteListSize(long value) {
-		this.completeListSize = value;
-	}
+    /**
+     * Sets the value of the completeListSize property.
+     *
+     * @param value allowed object is {@link BigInteger }
+     */
+    public void setCompleteListSize(long value) {
+        this.completeListSize = value;
+    }
 
-	/**
-	 * Gets the value of the cursor property.
-	 * 
-	 * @return possible object is {@link BigInteger }
-	 * 
-	 */
-	public long getCursor() {
-		return cursor;
-	}
+    /**
+     * Gets the value of the cursor property.
+     *
+     * @return possible object is {@link BigInteger }
+     */
+    public long getCursor() {
+        return cursor;
+    }
 
-	/**
-	 * Sets the value of the cursor property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link BigInteger }
-	 * 
-	 */
-	public void setCursor(long value) {
-		this.cursor = value;
-	}
+    /**
+     * Sets the value of the cursor property.
+     *
+     * @param value allowed object is {@link BigInteger }
+     */
+    public void setCursor(long value) {
+        this.cursor = value;
+    }
 
 }

@@ -7,25 +7,21 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+
+import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-
 /**
- * <p>
+ * <p/>
  * Java class for OAI-PMHerrorType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="OAI-PMHerrorType">
  *   &lt;simpleContent>
@@ -35,70 +31,62 @@ import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "OAI-PMHerrorType", propOrder = { "value" })
+@XmlType(name = "OAI-PMHerrorType", propOrder = {"value"})
 public class OAIPMHerrorType implements XMLWrittable {
 
-	@XmlValue
-	protected String value;
-	@XmlAttribute(name = "code", required = true)
-	protected OAIPMHerrorcodeType code;
+    @XmlValue
+    protected String value;
+    @XmlAttribute(name = "code", required = true)
+    protected OAIPMHerrorcodeType code;
 
-	/**
-	 * Gets the value of the value property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getValue() {
-		return value;
-	}
+    /**
+     * Gets the value of the value property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getValue() {
+        return value;
+    }
 
-	/**
-	 * Sets the value of the value property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    /**
+     * Sets the value of the value property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	/**
-	 * Gets the value of the code property.
-	 * 
-	 * @return possible object is {@link OAIPMHerrorcodeType }
-	 * 
-	 */
-	public OAIPMHerrorcodeType getCode() {
-		return code;
-	}
+    /**
+     * Gets the value of the code property.
+     *
+     * @return possible object is {@link OAIPMHerrorcodeType }
+     */
+    public OAIPMHerrorcodeType getCode() {
+        return code;
+    }
 
-	/**
-	 * Sets the value of the code property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link OAIPMHerrorcodeType }
-	 * 
-	 */
-	public void setCode(OAIPMHerrorcodeType value) {
-		this.code = value;
-	}
+    /**
+     * Sets the value of the code property.
+     *
+     * @param value allowed object is {@link OAIPMHerrorcodeType }
+     */
+    public void setCode(OAIPMHerrorcodeType value) {
+        this.code = value;
+    }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         try {
             if (this.code != null)
                 writter.writeAttribute("code", this.code.value());
-            
+
             if (this.value != null)
                 writter.writeCharacters(value);
         } catch (XMLStreamException e) {
-            throw new WrittingXmlException(e);
+            throw new WritingXmlException(e);
         }
     }
 

@@ -16,34 +16,29 @@
 
 package com.lyncode.xoai.dataprovider.data;
 
-import java.io.File;
-
 import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
+import com.lyncode.xoai.dataprovider.transform.XSLTransformer;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class MetadataTransformer extends ConfigurableBundle {
-	private File xsltFile;
+    private XSLTransformer xslTransformer;
 
-	public MetadataTransformer() {
-		xsltFile = null;
-	}
+    public MetadataTransformer() {
+        xslTransformer = null;
+    }
 
-	public MetadataTransformer(File xsltFile) {
-		this.xsltFile = xsltFile;
-	}
+    public MetadataTransformer(XSLTransformer xsltTransformer) {
+        this.xslTransformer = xsltTransformer;
+    }
 
-	public MetadataTransformer(String path) {
-		this.xsltFile = new File(path);
-	}
+    public boolean hasTransformer() {
+        return (this.xslTransformer != null);
+    }
 
-	public boolean hasTransformer() {
-		return (this.xsltFile != null);
-	}
-
-	public File getXSLTFile() {
-		return xsltFile;
-	}
+    public XSLTransformer getXslTransformer() {
+        return this.xslTransformer;
+    }
 }

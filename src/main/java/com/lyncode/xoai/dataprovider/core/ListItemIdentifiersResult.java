@@ -16,45 +16,45 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import java.util.List;
-
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
+
+import java.util.List;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class ListItemIdentifiersResult {
-	private boolean hasMore;
-	private List<AbstractItemIdentifier> results;
-	private int totalResults = -1;
-
-	public ListItemIdentifiersResult(boolean hasMoreResults,
-			List<AbstractItemIdentifier> results) {
-		this.hasMore = hasMoreResults;
-		this.results = results;
-	}
+    private boolean hasMore;
+    private List<AbstractItemIdentifier> results;
+    private int totalResults = -1;
 
     public ListItemIdentifiersResult(boolean hasMoreResults,
-            List<AbstractItemIdentifier> results, int totalResults) {
+                                     List<AbstractItemIdentifier> results) {
+        this.hasMore = hasMoreResults;
+        this.results = results;
+    }
+
+    public ListItemIdentifiersResult(boolean hasMoreResults,
+                                     List<AbstractItemIdentifier> results, int totalResults) {
         this.hasMore = hasMoreResults;
         this.results = results;
         this.totalResults = totalResults;
     }
 
-	public boolean hasMore() {
-		return hasMore;
-	}
+    public boolean hasMore() {
+        return hasMore;
+    }
 
-	public List<AbstractItemIdentifier> getResults() {
-		return results;
-	}
-	
-	public boolean hasTotalResults () {
-	    return this.totalResults > 0;
-	}
-	
-	public int getTotal () {
-	    return this.totalResults;
-	}
+    public List<AbstractItemIdentifier> getResults() {
+        return results;
+    }
+
+    public boolean hasTotalResults() {
+        return this.totalResults > 0;
+    }
+
+    public int getTotal() {
+        return this.totalResults;
+    }
 }

@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -34,23 +34,21 @@ import com.lyncode.xoai.util.ProcessingQueue;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class IdentifierIterator
-{
+public class IdentifierIterator {
     private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config;
     private Parameters parameters;
 
-    public IdentifierIterator(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
-    {
+    public IdentifierIterator(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
         super();
         this.config = config;
         this.parameters = params;
     }
-    
-    public ProcessingQueue<HeaderType> harvest () {
-    	ProcessingQueue<HeaderType> list = new ProcessingQueue<HeaderType>();
-    	RetrieveListIdentifiers l = new RetrieveListIdentifiers(list, config, parameters);
-    	Thread t = new Thread(l);
-    	t.start();
-    	return list;
+
+    public ProcessingQueue<HeaderType> harvest() {
+        ProcessingQueue<HeaderType> list = new ProcessingQueue<HeaderType>();
+        RetrieveListIdentifiers l = new RetrieveListIdentifiers(list, config, parameters);
+        Thread t = new Thread(l);
+        t.start();
+        return list;
     }
 }

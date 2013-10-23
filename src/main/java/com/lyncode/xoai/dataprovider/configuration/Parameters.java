@@ -16,42 +16,42 @@
 
 package com.lyncode.xoai.dataprovider.configuration;
 
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Parameter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Parameter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class Parameters {
-	private Map<String, List<String>> _params;
+    private Map<String, List<String>> _params;
 
-	public Parameters(List<Parameter> param) {
-		_params = new HashMap<String, List<String>>();
-		for (Parameter p : param)
-			_params.put(p.getKey(), p.getValue());
-	}
+    public Parameters(List<Parameter> param) {
+        _params = new HashMap<String, List<String>>();
+        for (Parameter p : param)
+            _params.put(p.getKey(), p.getValue());
+    }
 
-	public List<String> getParameter(String key) {
-		return _params.get(key);
-	}
+    public List<String> getParameter(String key) {
+        return _params.get(key);
+    }
 
-	public boolean hasParameter(String key) {
-		return _params.containsKey(key);
-	}
+    public boolean hasParameter(String key) {
+        return _params.containsKey(key);
+    }
 
-	public String getFirstParameter(String key) {
-		if (this.hasParameter(key) && this.getParameter(key).size() > 0)
-			return this.getParameter(key).get(0);
-		else
-			return null;
-	}
+    public String getFirstParameter(String key) {
+        if (this.hasParameter(key) && this.getParameter(key).size() > 0)
+            return this.getParameter(key).get(0);
+        else
+            return null;
+    }
 
-	public Set<String> getKeys() {
-		return this._params.keySet();
-	}
+    public Set<String> getKeys() {
+        return this._params.keySet();
+    }
 }

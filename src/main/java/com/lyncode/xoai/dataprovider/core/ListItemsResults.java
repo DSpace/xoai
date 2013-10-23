@@ -16,42 +16,43 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import java.util.List;
-
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
+
+import java.util.List;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class ListItemsResults {
-	private boolean hasMore;
-	private List<AbstractItem> results;
-	private int totalResults = -1;
+    private boolean hasMore;
+    private List<AbstractItem> results;
+    private int totalResults = -1;
 
-	public ListItemsResults(boolean hasMoreResults, List<AbstractItem> results) {
-		this.hasMore = hasMoreResults;
-		this.results = results;
-	}
+    public ListItemsResults(boolean hasMoreResults, List<AbstractItem> results) {
+        this.hasMore = hasMoreResults;
+        this.results = results;
+    }
+
     public ListItemsResults(boolean hasMoreResults, List<AbstractItem> results, int total) {
         this.hasMore = hasMoreResults;
         this.results = results;
         this.totalResults = total;
     }
 
-	public boolean hasMore() {
-		return hasMore;
-	}
+    public boolean hasMore() {
+        return hasMore;
+    }
 
-	public List<AbstractItem> getResults() {
-		return results;
-	}
+    public List<AbstractItem> getResults() {
+        return results;
+    }
 
-    public boolean hasTotalResults () {
+    public boolean hasTotalResults() {
         return this.totalResults > 0;
     }
-    
-    public int getTotal () {
+
+    public int getTotal() {
         return this.totalResults;
     }
 }

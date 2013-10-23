@@ -16,26 +16,26 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import java.util.Date;
-
 import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
+
+import java.util.Date;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class ResumptionToken {
-	//private static Logger log = LogManager.getLogger(ResumptionToken.class);
-	
-	private int _offset;
-	private String _set;
-	private Date _from;
-	private Date _until;
-	private String _metadataPrefix;
-	private boolean empty;
-	
+    //private static Logger log = LogManager.getLogger(ResumptionToken.class);
 
-    public ResumptionToken (int offset, String metadataPrefix, String set, Date from, Date until) {
+    private int _offset;
+    private String _set;
+    private Date _from;
+    private Date _until;
+    private String _metadataPrefix;
+    private boolean empty;
+
+
+    public ResumptionToken(int offset, String metadataPrefix, String set, Date from, Date until) {
         empty = false;
         _set = set;
         _offset = offset;
@@ -62,57 +62,57 @@ public class ResumptionToken {
         _metadataPrefix = null;
     }
 
-	public ResumptionToken(int offset, OAIParameters parameters)
-			throws BadArgumentException {
-		empty = false;
-		_offset = offset;
-		if (parameters.hasFrom())
-			_from = parameters.getFrom();
-		if (parameters.hasUntil())
-			_until = parameters.getUntil();
-		if (parameters.hasSet())
-			_set = parameters.getSet();
-		if (parameters.hasMetadataPrefix())
-			_metadataPrefix = parameters.getMetadataPrefix();
-	}
+    public ResumptionToken(int offset, OAIParameters parameters)
+            throws BadArgumentException {
+        empty = false;
+        _offset = offset;
+        if (parameters.hasFrom())
+            _from = parameters.getFrom();
+        if (parameters.hasUntil())
+            _until = parameters.getUntil();
+        if (parameters.hasSet())
+            _set = parameters.getSet();
+        if (parameters.hasMetadataPrefix())
+            _metadataPrefix = parameters.getMetadataPrefix();
+    }
 
     public boolean isEmpty() {
         return empty;
     }
 
-	public boolean hasFrom() {
-		return (_from != null);
-	}
+    public boolean hasFrom() {
+        return (_from != null);
+    }
 
-	public boolean hasUntil() {
-		return (_until != null);
-	}
+    public boolean hasUntil() {
+        return (_until != null);
+    }
 
-	public boolean hasSet() {
-		return (_set != null);
-	}
+    public boolean hasSet() {
+        return (_set != null);
+    }
 
-	public boolean hasMetadataPrefix() {
-		return (_metadataPrefix != null);
-	}
+    public boolean hasMetadataPrefix() {
+        return (_metadataPrefix != null);
+    }
 
-	public String getMetadatePrefix() {
-		return _metadataPrefix;
-	}
+    public String getMetadatePrefix() {
+        return _metadataPrefix;
+    }
 
-	public Date getFrom() {
-		return _from;
-	}
+    public Date getFrom() {
+        return _from;
+    }
 
-	public String getSet() {
-		return _set;
-	}
+    public String getSet() {
+        return _set;
+    }
 
-	public Date getUntil() {
-		return _until;
-	}
+    public Date getUntil() {
+        return _until;
+    }
 
-	public int getOffset() {
-		return _offset;
-	}
+    public int getOffset() {
+        return _offset;
+    }
 }

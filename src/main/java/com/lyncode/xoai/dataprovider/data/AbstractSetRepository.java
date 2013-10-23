@@ -21,35 +21,35 @@ import com.lyncode.xoai.dataprovider.core.ListSetsResult;
 /**
  * API for implementing a repository of sets.
  * It is possible to have a data provider without sets.
- * 
+ *
  * @author Development @ Lyncode
  * @version 3.1.0
  */
 public abstract class AbstractSetRepository {
 
-	/**
-	 * Checks if the actual data source supports sets.
-	 * 
-	 * @return Supports sets?
-	 */
-	public abstract boolean supportSets();
-	
-	/**
-	 * Returns a paged list of sets. 
-	 * It is common to use a partial result of 100 sets however, in XOAI this is a configured parameter.
-	 * 
-	 * @param offset Starting offset
-	 * @param length Max size of the returned list
-	 * @return List of Sets
-	 */
-	public abstract ListSetsResult retrieveSets(int offset, int length);
-	
-	/**
-	 * Checks if a specific set exists in the data source.
-	 * 
-	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Set">Set definition</a>
-	 * @param setSpec Set spec
-	 * @return Set exists
-	 */
-	public abstract boolean exists(String setSpec);
+    /**
+     * Checks if the actual data source supports sets.
+     *
+     * @return Supports sets?
+     */
+    public abstract boolean supportSets();
+
+    /**
+     * Returns a paged list of sets.
+     * It is common to use a partial result of 100 sets however, in XOAI this is a configured parameter.
+     *
+     * @param offset Starting offset
+     * @param length Max size of the returned list
+     * @return List of Sets
+     */
+    public abstract ListSetsResult retrieveSets(int offset, int length);
+
+    /**
+     * Checks if a specific set exists in the data source.
+     *
+     * @param setSpec Set spec
+     * @return Set exists
+     * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Set">Set definition</a>
+     */
+    public abstract boolean exists(String setSpec);
 }

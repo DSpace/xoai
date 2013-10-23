@@ -1,17 +1,17 @@
 package com.lyncode.xoai.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 
 public class XMLUtils {
     static final TransformerFactory factory = TransformerFactory.newInstance();
+
     public static String format(String unformattedXml) {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();

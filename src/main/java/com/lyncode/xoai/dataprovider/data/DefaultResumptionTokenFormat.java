@@ -1,16 +1,15 @@
 package com.lyncode.xoai.dataprovider.data;
 
+import com.lyncode.xoai.dataprovider.core.ResumptionToken;
+import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
+import com.lyncode.xoai.util.Base64Utils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import com.lyncode.xoai.dataprovider.core.ResumptionToken;
-import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
-import com.lyncode.xoai.util.Base64Utils;
 
 
 public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat {
@@ -25,7 +24,7 @@ public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat 
         Date _until = null;
         String _metadataPrefix = null;
         if (resumptionToken == null || resumptionToken.trim().equals("")) {
-            return new ResumptionToken(); 
+            return new ResumptionToken();
         } else {
             String s = Base64Utils.decode(resumptionToken);
             String[] pieces = s.split(Pattern.quote("|"));
@@ -62,7 +61,7 @@ public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat 
     public String format(ResumptionToken resumptionToken) {
         if (resumptionToken.isEmpty())
             return "";
-        
+
         String s = "1:" + resumptionToken.getOffset();
         s += "|2:";
         if (resumptionToken.hasSet())
@@ -79,9 +78,8 @@ public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat 
 
         return Base64Utils.encode(s);
     }
-    
 
-    
+
     private String dateToString(Date date) {
         SimpleDateFormat formatDate = new SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss'Z'");

@@ -1,24 +1,12 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
-import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
-import com.lyncode.xoai.dataprovider.exceptions.BadResumptionToken;
-import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
-import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateRecordException;
-import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
-import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
-import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
-import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMatchesException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.dataprovider.exceptions.OAIException;
-import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
+import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHerrorType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHerrorcodeType;
 
 
 public class ErrorHandler {
-    
+
     public OAIPMHerrorType handle(HandlerException ex) throws OAIException {
         OAIPMHerrorType error = new OAIPMHerrorType();
         if (ex instanceof IllegalVerbException) {
@@ -30,7 +18,7 @@ public class ErrorHandler {
         } else if (ex instanceof NoMatchesException) {
             error.setValue("No matches for the query");
             error.setCode(OAIPMHerrorcodeType.NO_RECORDS_MATCH);
-            
+
         } else if (ex instanceof BadResumptionToken) {
             error.setValue("The resumption token is invalid");
             error.setCode(OAIPMHerrorcodeType.BAD_RESUMPTION_TOKEN);

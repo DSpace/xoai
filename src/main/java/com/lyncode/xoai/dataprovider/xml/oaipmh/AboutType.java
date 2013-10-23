@@ -7,27 +7,27 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.stream.XMLStreamWriter;
 
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-
 /**
  * Data "about" the record must be expressed in XML that is compliant with an
  * XML Schema defined by a community.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * Java class for aboutType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="aboutType">
  *   &lt;complexContent>
@@ -39,39 +39,34 @@ import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "aboutType")
 public class AboutType implements XMLWrittable {
 
-	@XmlValue
-	protected String value;
+    @XmlValue
+    protected String value;
 
-	/**
-	 * Gets the value of the any property.
-	 * 
-	 * @return possible object is {@link Object }
-	 * 
-	 */
-	public String getAny() {
-		return value;
-	}
+    /**
+     * Gets the value of the any property.
+     *
+     * @return possible object is {@link Object }
+     */
+    public String getAny() {
+        return value;
+    }
 
-	/**
-	 * Sets the value of the any property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link Object }
-	 * 
-	 */
-	public void setAny(String value) {
-		this.value = value;
-	}
+    /**
+     * Sets the value of the any property.
+     *
+     * @param value allowed object is {@link Object }
+     */
+    public void setAny(String value) {
+        this.value = value;
+    }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         if (this.value != null) {
             EchoElement elem = new EchoElement(value);
             elem.write(writter);

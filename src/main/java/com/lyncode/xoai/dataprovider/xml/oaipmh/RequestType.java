@@ -8,30 +8,25 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+
+import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
 
 /**
  * Define requestType, indicating the protocol request that led to the response.
  * Element content is BASE-URL, attributes are arguments of protocol request,
  * attribute-values are values of arguments of protocol request
- * 
- * <p>
+ * <p/>
+ * <p/>
  * Java class for requestType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="requestType">
  *   &lt;simpleContent>
@@ -47,210 +42,184 @@ import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
  *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "requestType", propOrder = { "value" })
+@XmlType(name = "requestType", propOrder = {"value"})
 public class RequestType implements XMLWrittable {
 
-	@XmlValue
-	@XmlSchemaType(name = "anyURI")
-	protected String value;
-	@XmlAttribute(name = "verb")
-	protected VerbType verb;
-	@XmlAttribute(name = "identifier")
-	protected String identifier;
-	@XmlAttribute(name = "metadataPrefix")
-	protected String metadataPrefix;
-	@XmlAttribute(name = "from")
-	protected DateInfo from;
-	@XmlAttribute(name = "until")
-	protected DateInfo until;
-	@XmlAttribute(name = "set")
-	protected String set;
-	@XmlAttribute(name = "resumptionToken")
-	protected String resumptionToken;
+    @XmlValue
+    @XmlSchemaType(name = "anyURI")
+    protected String value;
+    @XmlAttribute(name = "verb")
+    protected VerbType verb;
+    @XmlAttribute(name = "identifier")
+    protected String identifier;
+    @XmlAttribute(name = "metadataPrefix")
+    protected String metadataPrefix;
+    @XmlAttribute(name = "from")
+    protected DateInfo from;
+    @XmlAttribute(name = "until")
+    protected DateInfo until;
+    @XmlAttribute(name = "set")
+    protected String set;
+    @XmlAttribute(name = "resumptionToken")
+    protected String resumptionToken;
 
-	/**
-	 * Gets the value of the value property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getValue() {
-		return value;
-	}
+    /**
+     * Gets the value of the value property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getValue() {
+        return value;
+    }
 
-	/**
-	 * Sets the value of the value property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    /**
+     * Sets the value of the value property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	/**
-	 * Gets the value of the verb property.
-	 * 
-	 * @return possible object is {@link VerbType }
-	 * 
-	 */
-	public VerbType getVerb() {
-		return verb;
-	}
+    /**
+     * Gets the value of the verb property.
+     *
+     * @return possible object is {@link VerbType }
+     */
+    public VerbType getVerb() {
+        return verb;
+    }
 
-	/**
-	 * Sets the value of the verb property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link VerbType }
-	 * 
-	 */
-	public void setVerb(VerbType value) {
-		this.verb = value;
-	}
+    /**
+     * Sets the value of the verb property.
+     *
+     * @param value allowed object is {@link VerbType }
+     */
+    public void setVerb(VerbType value) {
+        this.verb = value;
+    }
 
-	/**
-	 * Gets the value of the identifier property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getIdentifier() {
-		return identifier;
-	}
+    /**
+     * Gets the value of the identifier property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getIdentifier() {
+        return identifier;
+    }
 
-	/**
-	 * Sets the value of the identifier property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setIdentifier(String value) {
-		this.identifier = value;
-	}
+    /**
+     * Sets the value of the identifier property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setIdentifier(String value) {
+        this.identifier = value;
+    }
 
-	/**
-	 * Gets the value of the metadataPrefix property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getMetadataPrefix() {
-		return metadataPrefix;
-	}
+    /**
+     * Gets the value of the metadataPrefix property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getMetadataPrefix() {
+        return metadataPrefix;
+    }
 
-	/**
-	 * Sets the value of the metadataPrefix property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setMetadataPrefix(String value) {
-		this.metadataPrefix = value;
-	}
+    /**
+     * Sets the value of the metadataPrefix property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setMetadataPrefix(String value) {
+        this.metadataPrefix = value;
+    }
 
-	/**
-	 * Gets the value of the from property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public DateInfo getFrom() {
-		return from;
-	}
+    /**
+     * Gets the value of the from property.
+     *
+     * @return possible object is {@link String }
+     */
+    public DateInfo getFrom() {
+        return from;
+    }
 
-	/**
-	 * Sets the value of the from property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setFrom(DateInfo value) {
-		this.from = value;
-	}
+    /**
+     * Sets the value of the from property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setFrom(DateInfo value) {
+        this.from = value;
+    }
 
-	/**
-	 * Gets the value of the until property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public DateInfo getUntil() {
-		return until;
-	}
+    /**
+     * Gets the value of the until property.
+     *
+     * @return possible object is {@link String }
+     */
+    public DateInfo getUntil() {
+        return until;
+    }
 
-	/**
-	 * Sets the value of the until property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setUntil(DateInfo value) {
-		this.until = value;
-	}
+    /**
+     * Sets the value of the until property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setUntil(DateInfo value) {
+        this.until = value;
+    }
 
-	/**
-	 * Gets the value of the set property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getSet() {
-		return set;
-	}
+    /**
+     * Gets the value of the set property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getSet() {
+        return set;
+    }
 
-	/**
-	 * Sets the value of the set property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setSet(String value) {
-		this.set = value;
-	}
+    /**
+     * Sets the value of the set property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setSet(String value) {
+        this.set = value;
+    }
 
-	/**
-	 * Gets the value of the resumptionToken property.
-	 * 
-	 * @return possible object is {@link String }
-	 * 
-	 */
-	public String getResumptionToken() {
-		return resumptionToken;
-	}
+    /**
+     * Gets the value of the resumptionToken property.
+     *
+     * @return possible object is {@link String }
+     */
+    public String getResumptionToken() {
+        return resumptionToken;
+    }
 
-	/**
-	 * Sets the value of the resumptionToken property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link String }
-	 * 
-	 */
-	public void setResumptionToken(String value) {
-		this.resumptionToken = value;
-	}
-/**
- * 
- *       &lt;attribute name="verb" type="{http://www.openarchives.org/OAI/2.0/}verbType" />
- *       &lt;attribute name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType" />
- *       &lt;attribute name="metadataPrefix" type="{http://www.openarchives.org/OAI/2.0/}metadataPrefixType" />
- *       &lt;attribute name="from" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
- *       &lt;attribute name="until" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
- *       &lt;attribute name="set" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" />
- *       &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
- */
+    /**
+     * Sets the value of the resumptionToken property.
+     *
+     * @param value allowed object is {@link String }
+     */
+    public void setResumptionToken(String value) {
+        this.resumptionToken = value;
+    }
+
+    /**
+     * &lt;attribute name="verb" type="{http://www.openarchives.org/OAI/2.0/}verbType" />
+     * &lt;attribute name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType" />
+     * &lt;attribute name="metadataPrefix" type="{http://www.openarchives.org/OAI/2.0/}metadataPrefixType" />
+     * &lt;attribute name="from" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
+     * &lt;attribute name="until" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
+     * &lt;attribute name="set" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" />
+     * &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
+     */
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         try {
             if (verb != null)
                 writter.writeAttribute("verb", verb.value());
@@ -266,11 +235,11 @@ public class RequestType implements XMLWrittable {
                 writter.writeAttribute("set", set);
             if (resumptionToken != null)
                 writter.writeAttribute("resumptionToken", resumptionToken);
-            
+
             if (value != null)
                 writter.writeCharacters(value);
-        } catch (XMLStreamException e) { 
-            throw new WrittingXmlException(e);
+        } catch (XMLStreamException e) {
+            throw new WritingXmlException(e);
         }
     }
 

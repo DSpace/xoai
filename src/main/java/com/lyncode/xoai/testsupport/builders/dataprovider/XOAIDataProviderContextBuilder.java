@@ -13,50 +13,53 @@ public class XOAIDataProviderContextBuilder {
     private List<BundleReference> sets;
     private BundleReference transformer;
 
-    public XOAIDataProviderContextBuilder () {
+    public XOAIDataProviderContextBuilder() {
         this.formats = new ArrayList<BundleReference>();
         this.filters = new ArrayList<BundleReference>();
         this.sets = new ArrayList<BundleReference>();
     }
 
-    public XOAIDataProviderContextBuilder withDefaults () {
+    public XOAIDataProviderContextBuilder withDefaults() {
         this.baseUrl = "http://www.lyncode.com/dspace/xsd/xoai";
         return this;
     }
 
-    public XOAIDataProviderContextBuilder withFormats (String... ids) {
-        this.formats.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
-        return this;
-    }
-    public XOAIDataProviderContextBuilder withFormats (List<String> ids) {
+    public XOAIDataProviderContextBuilder withFormats(String... ids) {
         this.formats.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
         return this;
     }
 
-    public XOAIDataProviderContextBuilder withSets (String... ids) {
-        this.sets.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
+    public XOAIDataProviderContextBuilder withFormats(List<String> ids) {
+        this.formats.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
         return this;
     }
-    public XOAIDataProviderContextBuilder withSets (List<String> ids) {
+
+    public XOAIDataProviderContextBuilder withSets(String... ids) {
         this.sets.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
         return this;
     }
 
-    public XOAIDataProviderContextBuilder withTransformer (String id) {
+    public XOAIDataProviderContextBuilder withSets(List<String> ids) {
+        this.sets.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
+        return this;
+    }
+
+    public XOAIDataProviderContextBuilder withTransformer(String id) {
         this.transformer = XOAIDataProviderBundleReferenceBuilder.build(id);
         return this;
     }
 
-    public XOAIDataProviderContextBuilder withFilters (String... ids) {
-        this.filters.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
-        return this;
-    }
-    public XOAIDataProviderContextBuilder withFilters (List<String> ids) {
+    public XOAIDataProviderContextBuilder withFilters(String... ids) {
         this.filters.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
         return this;
     }
 
-    public Configuration.Contexts.Context build () {
+    public XOAIDataProviderContextBuilder withFilters(List<String> ids) {
+        this.filters.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
+        return this;
+    }
+
+    public Configuration.Contexts.Context build() {
         Configuration.Contexts.Context context = new Configuration.Contexts.Context();
         context.setBaseurl(this.baseUrl);
         context.setTransformer(this.transformer);

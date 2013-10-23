@@ -22,26 +22,25 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class IllegalVerbException extends HandlerException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2748244610538429452L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2748244610538429452L;
 
-	/**
-	 * Creates a new instance of <code>IllegalVerbException</code> without
-	 * detail message.
-	 */
-	public IllegalVerbException() {
-	}
+    /**
+     * Creates a new instance of <code>IllegalVerbException</code> without
+     * detail message.
+     */
+    public IllegalVerbException() {
+    }
 
-	/**
-	 * Constructs an instance of <code>IllegalVerbException</code> with the
-	 * specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public IllegalVerbException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of <code>IllegalVerbException</code> with the
+     * specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public IllegalVerbException(String msg) {
+        super(msg);
+    }
 }

@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -31,21 +31,20 @@ import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public abstract class AbstractVerb
-{
+public abstract class AbstractVerb {
     private Parameters parameters;
     private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config;
-    
-    public AbstractVerb (Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
+
+    public AbstractVerb(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
         this.parameters = parameters;
         this.config = config;
     }
-    
-    public Parameters getParameters () {
+
+    public Parameters getParameters() {
         return this.parameters;
     }
 
-	public OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> getServiceProvider() {
-		return config;
-	}
+    public OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> getServiceProvider() {
+        return config;
+    }
 }

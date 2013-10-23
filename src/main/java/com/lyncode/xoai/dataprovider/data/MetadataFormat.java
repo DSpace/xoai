@@ -16,61 +16,61 @@
 
 package com.lyncode.xoai.dataprovider.data;
 
-import java.io.File;
-import java.util.List;
-
 import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 import com.lyncode.xoai.dataprovider.filter.Filter;
+
+import javax.xml.transform.Transformer;
+import java.util.List;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class MetadataFormat extends ConfigurableBundle {
-	private String prefix;
-	private File xsltFile;
-	private String namespace;
-	private String schemaLocation;
-	private List<Filter> _list;
+    private String prefix;
+    private Transformer xsltTransformer;
+    private String namespace;
+    private String schemaLocation;
+    private List<Filter> _list;
 
-	public MetadataFormat(String prefix, File xsltFile, String namespace,
-			String schemaLocation) {
-		this.prefix = prefix;
-		this.xsltFile = xsltFile;
-		this.namespace = namespace;
-		this.schemaLocation = schemaLocation;
-	}
+    public MetadataFormat(String prefix, Transformer transformer, String namespace,
+                          String schemaLocation) {
+        this.prefix = prefix;
+        this.xsltTransformer = transformer;
+        this.namespace = namespace;
+        this.schemaLocation = schemaLocation;
+    }
 
-	public void loadFilters(List<Filter> list) {
-		this._list = list;
-	}
+    public void loadFilters(List<Filter> list) {
+        this._list = list;
+    }
 
-	public List<Filter> getFilters() {
-		return _list;
-	}
+    public List<Filter> getFilters() {
+        return _list;
+    }
 
-	public String getPrefix() {
-		return prefix;
-	}
+    public String getPrefix() {
+        return prefix;
+    }
 
-	public File getXSLTFile() {
-		return xsltFile;
-	}
+    public Transformer getTransformer() {
+        return xsltTransformer;
+    }
 
-	public String getNamespace() {
-		return namespace;
-	}
+    public String getNamespace() {
+        return namespace;
+    }
 
-	public String getSchemaLocation() {
-		return schemaLocation;
-	}
+    public String getSchemaLocation() {
+        return schemaLocation;
+    }
 
-	public boolean isApplyable(AbstractItemIdentifier item) {
-		if (item.isDeleted())
-			return true;
-		for (Filter filter : this.getFilters())
-			if (!filter.isItemShown(item))
-				return false;
-		return true;
-	}
+    public boolean isApplyable(AbstractItemIdentifier item) {
+        if (item.isDeleted())
+            return true;
+        for (Filter filter : this.getFilters())
+            if (!filter.isItemShown(item))
+                return false;
+        return true;
+    }
 }

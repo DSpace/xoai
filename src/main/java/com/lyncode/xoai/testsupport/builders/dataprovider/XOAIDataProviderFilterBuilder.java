@@ -13,20 +13,22 @@ public class XOAIDataProviderFilterBuilder {
     private String clazz;
     private Collection<Parameter> parameters = new ArrayList<Parameter>();
 
-    public XOAIDataProviderFilterBuilder withId (String id) {
+    public XOAIDataProviderFilterBuilder withId(String id) {
         this.id = id;
         return this;
     }
-    public XOAIDataProviderFilterBuilder withClass (String clazz) {
+
+    public XOAIDataProviderFilterBuilder withClass(String clazz) {
         this.clazz = clazz;
         return this;
     }
-    public XOAIDataProviderFilterBuilder withParameters (Parameter... parameters) {
+
+    public XOAIDataProviderFilterBuilder withParameters(Parameter... parameters) {
         this.parameters.addAll(asList(parameters));
         return this;
     }
 
-    public Configuration.Filters.Filter build () {
+    public Configuration.Filters.Filter build() {
         Configuration.Filters.Filter filter = new Configuration.Filters.Filter();
         filter.setId(id);
 //        filter.setClazz(clazz);

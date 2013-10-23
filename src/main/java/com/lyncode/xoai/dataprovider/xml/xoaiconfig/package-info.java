@@ -5,5 +5,4 @@
 // Generated on: 2013.09.03 at 11:34:41 PM BST 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.lyncode.com/XOAIConfiguration", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.lyncode.xoai.dataprovider.xml.xoaiconfig;
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.lyncode.com/XOAIConfiguration", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED) package com.lyncode.xoai.dataprovider.xml.xoaiconfig;

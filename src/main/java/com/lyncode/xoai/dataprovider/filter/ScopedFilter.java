@@ -23,19 +23,19 @@ import com.lyncode.xoai.dataprovider.filter.conditions.AbstractCondition;
  * @version 3.1.0
  */
 public final class ScopedFilter {
-	private AbstractCondition _filter;
-	private FilterScope _scope;
+    private AbstractCondition _filter;
+    private FilterScope _scope;
 
-	public ScopedFilter(AbstractCondition filter, FilterScope scope) {
-		_filter = filter;
-		_scope = scope;
-	}
+    public ScopedFilter(AbstractCondition filter, FilterScope scope) {
+        _filter = filter;
+        _scope = scope;
+    }
 
-	public AbstractCondition getCondition() {
-		return _filter;
-	}
+    public AbstractCondition getCondition() {
+        return _filter;
+    }
 
-	public FilterScope getScope() {
-		return _scope;
-	}
+    public FilterScope getScope() {
+        return _scope;
+    }
 }

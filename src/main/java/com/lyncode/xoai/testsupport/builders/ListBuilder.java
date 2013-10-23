@@ -11,21 +11,22 @@ public class ListBuilder<T> {
         list = new ArrayList<T>();
     }
 
-    public ListBuilder<T> add (Collection<T> list) {
+    public ListBuilder<T> add(Collection<T> list) {
         list.addAll(list);
         return this;
     }
-    public ListBuilder<T> add (T... list) {
+
+    public ListBuilder<T> add(T... list) {
         for (T t : list)
             this.list.add(t);
         return this;
     }
 
-    public List<T> build () {
+    public List<T> build() {
         return list;
     }
 
-    public <E> List<E> build (Transformer<T, E> transformer) {
+    public <E> List<E> build(Transformer<T, E> transformer) {
         List<E> transformed = new ArrayList<E>();
         for (T elem : this.list)
             transformed.add(transformer.transform(elem));
@@ -33,6 +34,6 @@ public class ListBuilder<T> {
     }
 
     public abstract static class Transformer<T, E> {
-        public abstract E transform (T elem);
+        public abstract E transform(T elem);
     }
 }

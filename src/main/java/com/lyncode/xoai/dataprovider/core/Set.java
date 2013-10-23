@@ -16,49 +16,48 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class Set extends ReferenceSet {
-	private String setName;
-	private List<Metadata> descriptions;
+    private String setName;
+    private List<Metadata> descriptions;
 
-	public Set(String setSpec, String setName) {
-		super(setSpec);
-		this.setName = setName;
-		this.descriptions = new ArrayList<Metadata>();
-	}
+    public Set(String setSpec, String setName) {
+        super(setSpec);
+        this.setName = setName;
+        this.descriptions = new ArrayList<Metadata>();
+    }
 
-	/**
-	 * 
-	 * @param setSpec
-	 * @param setName
-	 * @param xmldescription
-	 *            Marshable object
-	 */
-	public Set(String setSpec, String setName, List<Metadata> descriptions) {
-		this(setSpec, setName);
-		this.descriptions = descriptions;
-	}
+    /**
+     * @param setSpec
+     * @param setName
+     * @param xmldescription Marshable object
+     */
+    public Set(String setSpec, String setName, List<Metadata> descriptions) {
+        this(setSpec, setName);
+        this.descriptions = descriptions;
+    }
 
-	public String getSetName() {
-		return setName;
-	}
+    public String getSetName() {
+        return setName;
+    }
 
     public List<Metadata> getDescriptions() {
         return descriptions;
     }
+
     public void addDescription(Metadata desc) {
         descriptions.add(desc);
     }
 
-	public boolean hasDescription() {
-		return (!this.descriptions.isEmpty());
-	}
+    public boolean hasDescription() {
+        return (!this.descriptions.isEmpty());
+    }
 }

@@ -21,17 +21,17 @@ package com.lyncode.xoai.dataprovider.core;
  * @version 3.1.0
  */
 public class ReferenceSet {
-	private String _setSpec;
+    private String _setSpec;
 
-	public ReferenceSet(String setSpec) {
-		_setSpec = setSpec;
-	}
+    public ReferenceSet(String setSpec) {
+        _setSpec = setSpec;
+    }
 
-	public String getSetSpec() {
-		return _setSpec;
-	}
+    public String getSetSpec() {
+        return _setSpec;
+    }
 
-	public boolean equals(ReferenceSet set) {
-		return (_setSpec.equals(set.getSetSpec()));
-	}
+    public boolean equals(ReferenceSet set) {
+        return (_setSpec.equals(set.getSetSpec()));
+    }
 }

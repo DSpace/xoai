@@ -22,26 +22,25 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class FilterDoesNotExistsException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 795857368865831163L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 795857368865831163L;
 
-	/**
-	 * Creates a new instance of <code>FilterDoesNotExistsException</code>
-	 * without detail message.
-	 */
-	public FilterDoesNotExistsException() {
-	}
+    /**
+     * Creates a new instance of <code>FilterDoesNotExistsException</code>
+     * without detail message.
+     */
+    public FilterDoesNotExistsException() {
+    }
 
-	/**
-	 * Constructs an instance of <code>FilterDoesNotExistsException</code> with
-	 * the specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public FilterDoesNotExistsException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of <code>FilterDoesNotExistsException</code> with
+     * the specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public FilterDoesNotExistsException(String msg) {
+        super(msg);
+    }
 }

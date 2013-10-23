@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -34,22 +34,19 @@ import com.lyncode.xoai.util.ProcessingQueue;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class ListRecords extends AbstractVerb
-{
+public class ListRecords extends AbstractVerb {
     private Parameters parameters;
-    
-    public ListRecords(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
-    {
+
+    public ListRecords(Parameters parameters, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
         super(parameters, config);
         this.parameters = parameters;
     }
-    
-    public ProcessingQueue<RecordType> harvest()
-    {
+
+    public ProcessingQueue<RecordType> harvest() {
         return (new RecordIterator(this)).harvest();
     }
-    
-    public Parameters getParameters () {
+
+    public Parameters getParameters() {
         return parameters;
     }
 }

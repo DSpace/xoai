@@ -9,28 +9,32 @@ public class XOAIDataProviderFormatBuilder {
     private String schemaLocation;
     private String xslt;
 
-    public XOAIDataProviderFormatBuilder withId (String id) {
+    public XOAIDataProviderFormatBuilder withId(String id) {
         this.id = id;
         return this;
     }
-    public XOAIDataProviderFormatBuilder withXslt (String xslt) {
+
+    public XOAIDataProviderFormatBuilder withXslt(String xslt) {
         this.xslt = xslt;
         return this;
     }
-    public XOAIDataProviderFormatBuilder withPrefix (String prefix) {
+
+    public XOAIDataProviderFormatBuilder withPrefix(String prefix) {
         this.prefix = prefix;
         return this;
     }
-    public XOAIDataProviderFormatBuilder withNamespace (String namespace) {
+
+    public XOAIDataProviderFormatBuilder withNamespace(String namespace) {
         this.namespace = namespace;
         return this;
     }
-    public XOAIDataProviderFormatBuilder withSchemaLocation (String schemaLocation) {
+
+    public XOAIDataProviderFormatBuilder withSchemaLocation(String schemaLocation) {
         this.schemaLocation = schemaLocation;
         return this;
     }
 
-    public Configuration.Formats.Format build () {
+    public Configuration.Formats.Format build() {
         Configuration.Formats.Format format = new Configuration.Formats.Format();
         format.setId(id);
         format.setPrefix(prefix);

@@ -16,11 +16,6 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
@@ -34,62 +29,67 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Contexts;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Contexts.Context;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class ContextManager {
 
-	private Map<String, XOAIContext> _contexts;
+    private Map<String, XOAIContext> _contexts;
 
-	public ContextManager(Contexts contexts, FilterManager fm,
-			TransformManager tm, MetadataFormatManager mfm, StaticSetManager sm)
-			throws ConfigurationException {
-		_contexts = new HashMap<String, XOAIContext>();
+    public ContextManager(Contexts contexts, FilterManager fm,
+                          TransformManager tm, MetadataFormatManager mfm, StaticSetManager sm)
+            throws ConfigurationException {
+        _contexts = new HashMap<String, XOAIContext>();
 
-		for (Context ct : contexts.getContext()) {
-			List<Filter> filters = new ArrayList<Filter>();
-			for (BundleReference b : ct.getFilter()) {
-				if (!fm.filterExists(b.getRefid()))
-					throw new ConfigurationException("ScopedFilter referred as "
-							+ b.getRefid() + " does not exist");
-				filters.add(fm.getFilter(b.getRefid()));
-			}
+        for (Context ct : contexts.getContext()) {
+            List<Filter> filters = new ArrayList<Filter>();
+            for (BundleReference b : ct.getFilter()) {
+                if (!fm.filterExists(b.getRefid()))
+                    throw new ConfigurationException("ScopedFilter referred as "
+                            + b.getRefid() + " does not exist");
+                filters.add(fm.getFilter(b.getRefid()));
+            }
 
-			MetadataTransformer transformer = new MetadataTransformer();
-			if (ct.getTransformer() != null)
-				if (ct.getTransformer().getRefid() != null)
-					transformer = tm.getTransformer(ct.getTransformer()
-							.getRefid());
+            MetadataTransformer transformer = new MetadataTransformer();
+            if (ct.getTransformer() != null)
+                if (ct.getTransformer().getRefid() != null)
+                    transformer = tm.getTransformer(ct.getTransformer()
+                            .getRefid());
 
-			List<StaticSet> sets = new ArrayList<StaticSet>();
-			for (BundleReference b : ct.getSet()) {
-				if (!sm.setExists(b.getRefid()))
-					throw new ConfigurationException("Set referred as "
-							+ b.getRefid() + " does not exist");
-				sets.add(sm.getSet(b.getRefid()));
-			}
+            List<StaticSet> sets = new ArrayList<StaticSet>();
+            for (BundleReference b : ct.getSet()) {
+                if (!sm.setExists(b.getRefid()))
+                    throw new ConfigurationException("Set referred as "
+                            + b.getRefid() + " does not exist");
+                sets.add(sm.getSet(b.getRefid()));
+            }
 
-			List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
-			for (BundleReference b : ct.getFormat()) {
-				if (!mfm.formatExists(b.getRefid()))
-					throw new ConfigurationException(
-							"Metadata Format referred as " + b.getRefid()
-									+ " does not exist");
-				formats.add(mfm.getFormat(b.getRefid()));
-			}
+            List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
+            for (BundleReference b : ct.getFormat()) {
+                if (!mfm.formatExists(b.getRefid()))
+                    throw new ConfigurationException(
+                            "Metadata Format referred as " + b.getRefid()
+                                    + " does not exist");
+                formats.add(mfm.getFormat(b.getRefid()));
+            }
 
-			_contexts.put(ct.getBaseurl(), new XOAIContext(ct.getBaseurl(),
-					transformer, filters, formats, sets));
-		}
-	}
+            _contexts.put(ct.getBaseurl(), new XOAIContext(ct.getBaseurl(),
+                    transformer, filters, formats, sets));
+        }
+    }
 
-	public boolean contextExists(String baseurl) {
-		return this._contexts.containsKey(baseurl);
-	}
+    public boolean contextExists(String baseurl) {
+        return this._contexts.containsKey(baseurl);
+    }
 
-	public XOAIContext getOAIContext(String baseurl) {
-		return _contexts.get(baseurl);
-	}
+    public XOAIContext getOAIContext(String baseurl) {
+        return _contexts.get(baseurl);
+    }
 
 }

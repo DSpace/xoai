@@ -1,11 +1,21 @@
 package com.lyncode.xoai.util;
 
-/**
- * Created with IntelliJ IDEA.
- * User: jmelo
- * Date: 10/23/13
- * Time: 12:29 AM
- * To change this template use File | Settings | File Templates.
- */
-public class TinyType {
+public class TinyType<T> {
+    private T value = null;
+
+    public TinyType() {
+    }
+
+    public TinyType(T val) {
+        this.value = val;
+    }
+
+
+    public T getValue() {
+        return value;
+    }
+
+    public void setValue(T value) {
+        this.value = value;
+    }
 }

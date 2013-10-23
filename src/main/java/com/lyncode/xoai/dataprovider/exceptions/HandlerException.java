@@ -28,5 +28,5 @@ public abstract class HandlerException extends Exception {
         // TODO Auto-generated constructor stub
     }
 
-    
+
 }

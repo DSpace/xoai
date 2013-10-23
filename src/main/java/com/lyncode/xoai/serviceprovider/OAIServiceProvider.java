@@ -8,14 +8,14 @@ import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
 
 public class OAIServiceProvider {
-    
+
     private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config;
-    
-    public OAIServiceProvider (OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
+
+    public OAIServiceProvider(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
         this.config = config;
     }
-    
-    public Harvester build (String baseURL) {
+
+    public Harvester build(String baseURL) {
         return new Harvester(config, baseURL);
     }
 }

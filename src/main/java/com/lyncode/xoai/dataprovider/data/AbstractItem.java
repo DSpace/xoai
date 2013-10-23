@@ -16,41 +16,41 @@
 
 package com.lyncode.xoai.dataprovider.data;
 
-import java.util.List;
-
 import com.lyncode.xoai.dataprovider.core.ItemMetadata;
+
+import java.util.List;
 
 /**
  * This is a required class to extend when implementing a specific OAI Data Provider.
  * It works as a wrapper for all OAI Items.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public abstract class AbstractItem extends AbstractItemIdentifier {
-	/**
-	 * Most of the implementations would return an empty list.
-	 * Anyway, the OAI-PMH protocol establishes an about section for each item.
-	 * 
-	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
-	 * @return List of information about the item (marshable information)
-	 */
-	public abstract List<AbstractAbout> getAbout();
+    /**
+     * Most of the implementations would return an empty list.
+     * Anyway, the OAI-PMH protocol establishes an about section for each item.
+     *
+     * @return List of information about the item (marshable information)
+     * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
+     */
+    public abstract List<AbstractAbout> getAbout();
 
-	/**
-	 * Checks if the about section is empty or not.
-	 * 
-	 * @return Has any about information?
-	 */
-	public boolean hasAbout() {
-		return (!this.getAbout().isEmpty());
-	}
-	
-	/**
-	 * Metadata associated to the OAI-PMH Record.
-	 * 
-	 * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
-	 * @return Metadata associated to the OAI-PMH Record
-	 */
-	public abstract ItemMetadata getMetadata();
+    /**
+     * Checks if the about section is empty or not.
+     *
+     * @return Has any about information?
+     */
+    public boolean hasAbout() {
+        return (!this.getAbout().isEmpty());
+    }
+
+    /**
+     * Metadata associated to the OAI-PMH Record.
+     *
+     * @return Metadata associated to the OAI-PMH Record
+     * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
+     */
+    public abstract ItemMetadata getMetadata();
 }

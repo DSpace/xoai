@@ -17,30 +17,33 @@ public class XOAIDataProviderSetBuilder {
     private Collection<Parameter> parameters = new ArrayList<Parameter>();
     private Collection<BundleReference> filters = new ArrayList<BundleReference>();
 
-    public XOAIDataProviderSetBuilder withId (String id) {
+    public XOAIDataProviderSetBuilder withId(String id) {
         this.id = id;
         return this;
     }
-    public XOAIDataProviderSetBuilder withName (String name) {
+
+    public XOAIDataProviderSetBuilder withName(String name) {
         this.name = name;
         return this;
     }
-    public XOAIDataProviderSetBuilder withSpec (String spec) {
+
+    public XOAIDataProviderSetBuilder withSpec(String spec) {
         this.pattern = spec;
         return this;
     }
 
 
-    public XOAIDataProviderSetBuilder withParameter (Parameter... parameters) {
+    public XOAIDataProviderSetBuilder withParameter(Parameter... parameters) {
         this.parameters.addAll(asList(parameters));
         return this;
     }
-    public XOAIDataProviderSetBuilder withFilters (String... ids) {
+
+    public XOAIDataProviderSetBuilder withFilters(String... ids) {
         this.filters.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
         return this;
     }
 
-    public Configuration.Sets.Set build () {
+    public Configuration.Sets.Set build() {
         Configuration.Sets.Set set = new Configuration.Sets.Set();
         set.setId(id);
         set.setName(name);

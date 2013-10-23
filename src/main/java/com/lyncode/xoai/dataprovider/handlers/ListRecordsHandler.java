@@ -1,61 +1,38 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
-import java.io.FileNotFoundException;
-import java.util.List;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
-import com.lyncode.xoai.dataprovider.core.ListItemsResults;
-import com.lyncode.xoai.dataprovider.core.OAIParameters;
-import com.lyncode.xoai.dataprovider.core.ReferenceSet;
-import com.lyncode.xoai.dataprovider.core.ResumptionToken;
-import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.core.XOAIManager;
-import com.lyncode.xoai.dataprovider.data.AbstractAbout;
-import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
-import com.lyncode.xoai.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.dataprovider.core.*;
+import com.lyncode.xoai.dataprovider.data.*;
 import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
-import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
-import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
-import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateRecordException;
-import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMatchesException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
-import com.lyncode.xoai.dataprovider.exceptions.OAIException;
-import com.lyncode.xoai.dataprovider.exceptions.XSLTransformationException;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.AboutType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.DateInfo;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.HeaderType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.ListRecordsType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.MetadataType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.RecordType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.StatusType;
-import com.lyncode.xoai.util.XSLTUtils;
+import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.TransformerException;
+import java.util.List;
 
 
 public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
     private static Logger log = LogManager.getLogger(ListRecordsHandler.class);
+    private final int maxListSize;
     private SetRepository setRepository;
     private ItemRepository itemRepository;
     private AbstractIdentify identify;
     private XOAIContext context;
     private AbstractResumptionTokenFormat resumptionFormat;
-    
-    
 
-    public ListRecordsHandler(SetRepository setRepository,
+
+    public ListRecordsHandler(int maxListSize,
+                              SetRepository setRepository,
                               ItemRepository itemRepository,
                               AbstractIdentify identify,
                               XOAIContext context, AbstractResumptionTokenFormat format) {
 
         super();
+        this.maxListSize = maxListSize;
         this.setRepository = setRepository;
         this.itemRepository = itemRepository;
         this.identify = identify;
@@ -68,7 +45,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
     public ListRecordsType handle(OAIParameters parameters) throws OAIException, HandlerException {
         ListRecordsType res = new ListRecordsType();
         ResumptionToken token = parameters.getResumptionToken();
-        int length = XOAIManager.getManager().getMaxListRecordsSize();
+        int length = maxListSize;
 
         if (parameters.hasSet() && !setRepository.supportSets())
             throw new DoesNotSupportSetsException();
@@ -125,11 +102,11 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
         } else {
             newToken = new ResumptionToken();
         }
-        
+
         if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
             ResumptionTokenType resToken = new ResumptionTokenType();
             resToken.setValue(resumptionFormat.format(newToken));
-            resToken.setCursor(token.getOffset()/XOAIManager.getManager().getMaxListRecordsSize());
+            resToken.setCursor(token.getOffset() / maxListSize);
             if (result.hasTotalResults())
                 resToken.setCompleteListSize(result.getTotal());
             res.setResumptionToken(resToken);
@@ -153,9 +130,9 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
         HeaderType header = new HeaderType();
         log.debug("Item: " + item.getIdentifier());
         header.setIdentifier(item.getIdentifier());
-        
+
         Item itemWrap = new Item(item);
-        
+
         header.setDatestamp(new DateInfo(item.getDatestamp(), identify.getGranularity().toGranularityType()));
         for (ReferenceSet s : itemWrap.getSets(context))
             header.getSetSpec().add(s.getSetSpec());
@@ -164,24 +141,27 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
         record.setHeader(header);
 
         if (!item.isDeleted()) {
+            MetadataType metadata = null;
             try {
-                log.debug("Outputting Metadata");
-                MetadataType metadata = null;
                 if (context.getTransformer().hasTransformer()) {
-                    log.debug("Transforming metadata (using transformer)");
-                    metadata = new MetadataType(XSLTUtils.transform(context
-                                                                    .getTransformer().getXSLTFile(), format
-                                                                    .getXSLTFile(), item));
+                    metadata = new MetadataType(itemWrap.toPipeline(true)
+                            .apply(context.getTransformer().getXslTransformer().getValue())
+                            .apply(format.getTransformer())
+                            .getTransformed());
                 } else {
-                    log.debug("Transforming metadata (without transformer)");
-                    metadata = new MetadataType(XSLTUtils.transform(format.getXSLTFile(), item));
+                    metadata = new MetadataType(itemWrap.toPipeline(true)
+                            .apply(format.getTransformer())
+                            .getTransformed());
                 }
-                record.setMetadata(metadata);
-            } catch (XSLTransformationException e) {
+            } catch (WritingXmlException e) {
                 throw new OAIException(e);
-            } catch (FileNotFoundException e) {
+            } catch (XMLStreamException e) {
+                throw new OAIException(e);
+            } catch (TransformerException e) {
                 throw new OAIException(e);
             }
+
+            record.setMetadata(metadata);
 
             log.debug("Outputting About");
             if (item.hasAbout()) {

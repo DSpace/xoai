@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -29,9 +29,8 @@ import java.util.TimeZone;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class DateUtils
-{
-    public static String fromDate (Date date) {
+public class DateUtils {
+    public static String fromDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         return format.format(date);
     }
@@ -48,11 +47,11 @@ public class DateUtils
         }
     }
 
-	public static String format(Date date) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-		format.setTimeZone(TimeZone.getTimeZone("UTC"));
-		return format.format(date);
-	}
+    public static String format(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return format.format(date);
+    }
 
     public static String formatOnlyDate(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,10 +1,10 @@
 package com.lyncode.xoai.dataprovider.xml;
 
-import javax.xml.stream.XMLStreamWriter;
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
+import javax.xml.stream.XMLStreamWriter;
 
 
 public interface XMLWrittable {
-    void write (XMLStreamWriter writter) throws WrittingXmlException;
+    void write(XMLStreamWriter writter) throws WritingXmlException;
 }

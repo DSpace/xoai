@@ -12,22 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.verbs;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.core.Parameters;
@@ -41,75 +31,79 @@ import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class Identify extends AbstractVerb
-{
-    
-	public Identify(Parameters baseUrl, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) throws InternalHarvestException, BadArgumentException
-    {
+public class Identify extends AbstractVerb {
+
+    public Identify(Parameters baseUrl, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) throws InternalHarvestException, BadArgumentException {
         super(baseUrl, config);
     }
-    
 
-    private String makeUrl () {
+
+    private String makeUrl() {
         return getParameters().toUrl();
     }
-    
-    public IdentifyType harvest () throws InternalHarvestException, BadArgumentException {
+
+    public IdentifyType harvest() throws InternalHarvestException, BadArgumentException {
         HttpClient httpclient = new DefaultHttpClient();
         String url = makeUrl();
-        this.getServiceProvider().getLogger().info("Harvesting: "+url);
+        this.getServiceProvider().getLogger().info("Harvesting: " + url);
         HttpGet httpget = new HttpGet(url);
-        httpget.addHeader("User-Agent", getServiceProvider().getServiceName()+ " : XOAI Service Provider");
+        httpget.addHeader("User-Agent", getServiceProvider().getServiceName() + " : XOAI Service Provider");
         httpget.addHeader("From", getServiceProvider().getServiceName());
-        
+
         HttpResponse response = null;
-        
-        try
-        {
+
+        try {
             response = httpclient.execute(httpget);
             StatusLine status = response.getStatusLine();
-            
+
             this.getServiceProvider().getLogger().debug(response.getStatusLine());
-            
-            if(status.getStatusCode() == 503) // 503 Status (must wait)
+
+            if (status.getStatusCode() == 503) // 503 Status (must wait)
             {
                 org.apache.http.Header[] headers = response.getAllHeaders();
                 for (org.apache.http.Header h : headers) {
                     if (h.getName().equals("Retry-After")) {
                         String retry_time = h.getValue();
                         try {
-							Thread.sleep(Integer.parseInt(retry_time)*1000);
-						} catch (NumberFormatException e) {
-						    this.getServiceProvider().getLogger().warn("Cannot parse "+retry_time+" to Integer", e);
-						} catch (InterruptedException e) {
-						    this.getServiceProvider().getLogger().debug(e.getMessage(), e);
-						}
+                            Thread.sleep(Integer.parseInt(retry_time) * 1000);
+                        } catch (NumberFormatException e) {
+                            this.getServiceProvider().getLogger().warn("Cannot parse " + retry_time + " to Integer", e);
+                        } catch (InterruptedException e) {
+                            this.getServiceProvider().getLogger().debug(e.getMessage(), e);
+                        }
                         httpclient.getConnectionManager().shutdown();
                         httpclient = new DefaultHttpClient();
                         response = httpclient.execute(httpget);
                     }
                 }
             }
-            
+
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
-            
+
             OAIPMHtype pmh = OAIPMHParser.parse(instream, getServiceProvider());
-            
+
             return pmh.getIdentify();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new InternalHarvestException(e);
         } catch (ParseException e) {
             throw new InternalHarvestException(e);
-		}
-        
-    }   
+        }
+
+    }
 }

@@ -7,11 +7,10 @@
 
 package com.lyncode.xoai.dataprovider.xml.xoai;
 
-import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
-
-import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XSISchema;
+import org.codehaus.stax2.XMLOutputFactory2;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -20,21 +19,20 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.codehaus.stax2.XMLOutputFactory2;
-
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.dataprovider.xml.XSISchema;
+import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
 
 /**
- * <p>
+ * <p/>
  * Java class for anonymous complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -46,75 +44,71 @@ import com.lyncode.xoai.dataprovider.xml.XSISchema;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "element" })
+@XmlType(name = "", propOrder = {"element"})
 @XmlRootElement(name = "metadata")
-public class Metadata  implements XMLWrittable {
+public class Metadata implements XMLWrittable {
     private static XMLOutputFactory factory = XMLOutputFactory2.newFactory();
     public static final String NAMESPACE_URI = "http://www.lyncode.com/xoai";
     public static final String SCHEMA_LOCATION = "http://www.lyncode.com/xsd/xoai.xsd";
-    
 
-	protected List<Element> element;
 
-	/**
-	 * Gets the value of the element property.
-	 * 
-	 * <p>
-	 * This accessor method returns a reference to the live list, not a
-	 * snapshot. Therefore any modification you make to the returned list will
-	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the element property.
-	 * 
-	 * <p>
-	 * For example, to add a new item, do as follows:
-	 * 
-	 * <pre>
-	 * getElement().add(newItem);
-	 * </pre>
-	 * 
-	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link Element }
-	 * 
-	 * 
-	 */
-	public List<Element> getElement() {
-		if (element == null) {
-			element = new ArrayList<Element>();
-		}
-		return this.element;
-	}
+    protected List<Element> element;
+
+    /**
+     * Gets the value of the element property.
+     * <p/>
+     * <p/>
+     * This accessor method returns a reference to the live list, not a
+     * snapshot. Therefore any modification you make to the returned list will
+     * be present inside the JAXB object. This is why there is not a
+     * <CODE>set</CODE> method for the element property.
+     * <p/>
+     * <p/>
+     * For example, to add a new item, do as follows:
+     * <p/>
+     * <pre>
+     * getElement().add(newItem);
+     * </pre>
+     * <p/>
+     * <p/>
+     * <p/>
+     * Objects of the following type(s) are allowed in the list {@link Element }
+     */
+    public List<Element> getElement() {
+        if (element == null) {
+            element = new ArrayList<Element>();
+        }
+        return this.element;
+    }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         try {
             //String namespace = writter.getNamespaceContext().getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE);
             writter.writeStartElement("metadata");
             writter.writeDefaultNamespace(NAMESPACE_URI);
             writter.writeNamespace(XSISchema.PREFIX, XSISchema.NAMESPACE_URI);
-            writter.writeAttribute(XSISchema.PREFIX,XSISchema.NAMESPACE_URI, "schemaLocation", 
-                                   NAMESPACE_URI+" "+SCHEMA_LOCATION);
-            
+            writter.writeAttribute(XSISchema.PREFIX, XSISchema.NAMESPACE_URI, "schemaLocation",
+                    NAMESPACE_URI + " " + SCHEMA_LOCATION);
+
             for (Element elem : this.getElement()) {
                 writeElement(writter, "element", elem);
             }
             writter.writeEndElement();
             //writter.writeDefaultNamespace(namespace);
         } catch (XMLStreamException e) {
-            throw new WrittingXmlException(e);
+            throw new WritingXmlException(e);
         }
-        
+
     }
 
-    public String toString () {
+    public String toString() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
             this.write(factory.createXMLStreamWriter(out));
-        } catch (WrittingXmlException e) {
+        } catch (WritingXmlException e) {
             e.printStackTrace();
         } catch (XMLStreamException e) {
             e.printStackTrace();

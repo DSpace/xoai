@@ -22,26 +22,25 @@ package com.lyncode.xoai.dataprovider.exceptions;
  */
 public class NoMatchesException extends HandlerException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7051492953854730413L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7051492953854730413L;
 
-	/**
-	 * Creates a new instance of <code>NoMatchesException</code> without detail
-	 * message.
-	 */
-	public NoMatchesException() {
-	}
+    /**
+     * Creates a new instance of <code>NoMatchesException</code> without detail
+     * message.
+     */
+    public NoMatchesException() {
+    }
 
-	/**
-	 * Constructs an instance of <code>NoMatchesException</code> with the
-	 * specified detail message.
-	 * 
-	 * @param msg
-	 *            the detail message.
-	 */
-	public NoMatchesException(String msg) {
-		super(msg);
-	}
+    /**
+     * Constructs an instance of <code>NoMatchesException</code> with the
+     * specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public NoMatchesException(String msg) {
+        super(msg);
+    }
 }

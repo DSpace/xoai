@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -24,26 +24,21 @@ package com.lyncode.xoai.serviceprovider.exceptions;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class InternalHarvestException extends Exception
-{
+public class InternalHarvestException extends Exception {
     private static final long serialVersionUID = -1824340625967423555L;
 
-    public InternalHarvestException()
-    {
+    public InternalHarvestException() {
     }
 
-    public InternalHarvestException(String arg0)
-    {
+    public InternalHarvestException(String arg0) {
         super(arg0);
     }
 
-    public InternalHarvestException(Throwable arg0)
-    {
+    public InternalHarvestException(Throwable arg0) {
         super(arg0);
     }
 
-    public InternalHarvestException(String arg0, Throwable arg1)
-    {
+    public InternalHarvestException(String arg0, Throwable arg1) {
         super(arg0, arg1);
     }
 

@@ -12,18 +12,17 @@ import javax.xml.bind.annotation.XmlRegistry;
 
 
 /**
- * This object contains factory methods for each 
- * Java content interface and Java element interface 
- * generated in the com.lyncode.xoai.dataprovider.xml.xoaiconfig package. 
- * <p>An ObjectFactory allows you to programatically 
- * construct new instances of the Java representation 
- * for XML content. The Java representation of XML 
- * content can consist of schema derived interfaces 
- * and classes representing the binding of schema 
- * type definitions, element declarations and model 
- * groups.  Factory methods for each of these are 
+ * This object contains factory methods for each
+ * Java content interface and Java element interface
+ * generated in the com.lyncode.xoai.dataprovider.xml.xoaiconfig package.
+ * <p>An ObjectFactory allows you to programatically
+ * construct new instances of the Java representation
+ * for XML content. The Java representation of XML
+ * content can consist of schema derived interfaces
+ * and classes representing the binding of schema
+ * type definitions, element declarations and model
+ * groups.  Factory methods for each of these are
  * provided in this class.
- * 
  */
 @XmlRegistry
 public class ObjectFactory {
@@ -31,14 +30,12 @@ public class ObjectFactory {
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.lyncode.xoai.dataprovider.xml.xoaiconfig
-     * 
      */
     public ObjectFactory() {
     }
 
     /**
      * Create an instance of {@link Configuration }
-     * 
      */
     public Configuration createConfiguration() {
         return new Configuration();
@@ -46,7 +43,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ConditionDefinitionType }
-     * 
      */
     public ConditionDefinitionType createConditionDefinitionType() {
         return new ConditionDefinitionType();
@@ -54,7 +50,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Sets }
-     * 
      */
     public Configuration.Sets createConfigurationSets() {
         return new Configuration.Sets();
@@ -62,7 +57,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Filters }
-     * 
      */
     public Configuration.Filters createConfigurationFilters() {
         return new Configuration.Filters();
@@ -70,7 +64,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Transformers }
-     * 
      */
     public Configuration.Transformers createConfigurationTransformers() {
         return new Configuration.Transformers();
@@ -78,7 +71,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Formats }
-     * 
      */
     public Configuration.Formats createConfigurationFormats() {
         return new Configuration.Formats();
@@ -86,7 +78,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Contexts }
-     * 
      */
     public Configuration.Contexts createConfigurationContexts() {
         return new Configuration.Contexts();
@@ -94,7 +85,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link BundleReference }
-     * 
      */
     public BundleReference createBundleReference() {
         return new BundleReference();
@@ -102,7 +92,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Parameter }
-     * 
      */
     public Parameter createParameter() {
         return new Parameter();
@@ -110,7 +99,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ConditionDefinitionType.And }
-     * 
      */
     public ConditionDefinitionType.And createConditionDefinitionTypeAnd() {
         return new ConditionDefinitionType.And();
@@ -118,7 +106,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ConditionDefinitionType.Or }
-     * 
      */
     public ConditionDefinitionType.Or createConditionDefinitionTypeOr() {
         return new ConditionDefinitionType.Or();
@@ -126,7 +113,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ConditionDefinitionType.Not }
-     * 
      */
     public ConditionDefinitionType.Not createConditionDefinitionTypeNot() {
         return new ConditionDefinitionType.Not();
@@ -134,7 +120,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Sets.Set }
-     * 
      */
     public Configuration.Sets.Set createConfigurationSetsSet() {
         return new Configuration.Sets.Set();
@@ -142,7 +127,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Filters.CustomFilter }
-     * 
      */
     public Configuration.Filters.CustomFilter createConfigurationFiltersCustomFilter() {
         return new Configuration.Filters.CustomFilter();
@@ -150,7 +134,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Filters.Filter }
-     * 
      */
     public Configuration.Filters.Filter createConfigurationFiltersFilter() {
         return new Configuration.Filters.Filter();
@@ -158,7 +141,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Transformers.Transformer }
-     * 
      */
     public Configuration.Transformers.Transformer createConfigurationTransformersTransformer() {
         return new Configuration.Transformers.Transformer();
@@ -166,7 +148,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Formats.Format }
-     * 
      */
     public Configuration.Formats.Format createConfigurationFormatsFormat() {
         return new Configuration.Formats.Format();
@@ -174,7 +155,6 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link Configuration.Contexts.Context }
-     * 
      */
     public Configuration.Contexts.Context createConfigurationContextsContext() {
         return new Configuration.Contexts.Context();

@@ -16,9 +16,9 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * <p>Java class for ConditionDefinitionType complex type.
- * 
+ * <p/>
  * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="ConditionDefinitionType">
  *   &lt;complexContent>
@@ -65,15 +65,13 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ConditionDefinitionType", propOrder = {
-    "and",
-    "or",
-    "not",
-    "custom"
+        "and",
+        "or",
+        "not",
+        "custom"
 })
 public class ConditionDefinitionType {
 
@@ -88,11 +86,9 @@ public class ConditionDefinitionType {
 
     /**
      * Gets the value of the and property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ConditionDefinitionType.And }
-     *     
+     *
+     * @return possible object is
+     *         {@link ConditionDefinitionType.And }
      */
     public ConditionDefinitionType.And getAnd() {
         return and;
@@ -100,11 +96,9 @@ public class ConditionDefinitionType {
 
     /**
      * Sets the value of the and property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ConditionDefinitionType.And }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link ConditionDefinitionType.And }
      */
     public void setAnd(ConditionDefinitionType.And value) {
         this.and = value;
@@ -112,11 +106,9 @@ public class ConditionDefinitionType {
 
     /**
      * Gets the value of the or property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ConditionDefinitionType.Or }
-     *     
+     *
+     * @return possible object is
+     *         {@link ConditionDefinitionType.Or }
      */
     public ConditionDefinitionType.Or getOr() {
         return or;
@@ -124,11 +116,9 @@ public class ConditionDefinitionType {
 
     /**
      * Sets the value of the or property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ConditionDefinitionType.Or }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link ConditionDefinitionType.Or }
      */
     public void setOr(ConditionDefinitionType.Or value) {
         this.or = value;
@@ -136,11 +126,9 @@ public class ConditionDefinitionType {
 
     /**
      * Gets the value of the not property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link ConditionDefinitionType.Not }
-     *     
+     *
+     * @return possible object is
+     *         {@link ConditionDefinitionType.Not }
      */
     public ConditionDefinitionType.Not getNot() {
         return not;
@@ -148,11 +136,9 @@ public class ConditionDefinitionType {
 
     /**
      * Sets the value of the not property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link ConditionDefinitionType.Not }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link ConditionDefinitionType.Not }
      */
     public void setNot(ConditionDefinitionType.Not value) {
         this.not = value;
@@ -160,11 +146,9 @@ public class ConditionDefinitionType {
 
     /**
      * Gets the value of the custom property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BundleReference }
-     *     
+     *
+     * @return possible object is
+     *         {@link BundleReference }
      */
     public BundleReference getCustom() {
         return custom;
@@ -172,11 +156,9 @@ public class ConditionDefinitionType {
 
     /**
      * Sets the value of the custom property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BundleReference }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link BundleReference }
      */
     public void setCustom(BundleReference value) {
         this.custom = value;
@@ -185,9 +167,9 @@ public class ConditionDefinitionType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -200,13 +182,11 @@ public class ConditionDefinitionType {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "leftCondition",
-        "rightCondition"
+            "leftCondition",
+            "rightCondition"
     })
     public static class And {
 
@@ -217,11 +197,9 @@ public class ConditionDefinitionType {
 
         /**
          * Gets the value of the leftCondition property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @return possible object is
+         *         {@link ConditionDefinitionType }
          */
         public ConditionDefinitionType getLeftCondition() {
             return leftCondition;
@@ -229,11 +207,9 @@ public class ConditionDefinitionType {
 
         /**
          * Sets the value of the leftCondition property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link ConditionDefinitionType }
          */
         public void setLeftCondition(ConditionDefinitionType value) {
             this.leftCondition = value;
@@ -241,11 +217,9 @@ public class ConditionDefinitionType {
 
         /**
          * Gets the value of the rightCondition property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @return possible object is
+         *         {@link ConditionDefinitionType }
          */
         public ConditionDefinitionType getRightCondition() {
             return rightCondition;
@@ -253,11 +227,9 @@ public class ConditionDefinitionType {
 
         /**
          * Sets the value of the rightCondition property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link ConditionDefinitionType }
          */
         public void setRightCondition(ConditionDefinitionType value) {
             this.rightCondition = value;
@@ -268,9 +240,9 @@ public class ConditionDefinitionType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -282,12 +254,10 @@ public class ConditionDefinitionType {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "condition"
+            "condition"
     })
     public static class Not {
 
@@ -296,11 +266,9 @@ public class ConditionDefinitionType {
 
         /**
          * Gets the value of the condition property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @return possible object is
+         *         {@link ConditionDefinitionType }
          */
         public ConditionDefinitionType getCondition() {
             return condition;
@@ -308,11 +276,9 @@ public class ConditionDefinitionType {
 
         /**
          * Sets the value of the condition property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link ConditionDefinitionType }
          */
         public void setCondition(ConditionDefinitionType value) {
             this.condition = value;
@@ -323,9 +289,9 @@ public class ConditionDefinitionType {
 
     /**
      * <p>Java class for anonymous complex type.
-     * 
+     * <p/>
      * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p/>
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -338,13 +304,11 @@ public class ConditionDefinitionType {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
-        "leftCondition",
-        "rightCondition"
+            "leftCondition",
+            "rightCondition"
     })
     public static class Or {
 
@@ -355,11 +319,9 @@ public class ConditionDefinitionType {
 
         /**
          * Gets the value of the leftCondition property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @return possible object is
+         *         {@link ConditionDefinitionType }
          */
         public ConditionDefinitionType getLeftCondition() {
             return leftCondition;
@@ -367,11 +329,9 @@ public class ConditionDefinitionType {
 
         /**
          * Sets the value of the leftCondition property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link ConditionDefinitionType }
          */
         public void setLeftCondition(ConditionDefinitionType value) {
             this.leftCondition = value;
@@ -379,11 +339,9 @@ public class ConditionDefinitionType {
 
         /**
          * Gets the value of the rightCondition property.
-         * 
-         * @return
-         *     possible object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @return possible object is
+         *         {@link ConditionDefinitionType }
          */
         public ConditionDefinitionType getRightCondition() {
             return rightCondition;
@@ -391,11 +349,9 @@ public class ConditionDefinitionType {
 
         /**
          * Sets the value of the rightCondition property.
-         * 
-         * @param value
-         *     allowed object is
-         *     {@link ConditionDefinitionType }
-         *     
+         *
+         * @param value allowed object is
+         *              {@link ConditionDefinitionType }
          */
         public void setRightCondition(ConditionDefinitionType value) {
             this.rightCondition = value;

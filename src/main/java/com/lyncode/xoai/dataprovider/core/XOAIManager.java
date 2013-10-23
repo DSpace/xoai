@@ -16,12 +16,10 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import java.io.File;
-
-import com.lyncode.xoai.dataprovider.configuration.ConfigurationManager;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.format.MetadataFormatManager;
+import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.sets.StaticSetManager;
 import com.lyncode.xoai.dataprovider.transform.TransformManager;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
@@ -31,90 +29,74 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
  * @version 3.1.0
  */
 public class XOAIManager {
-	private static final String XOAI_CONFIG = "xoai.xml";
+    private FilterManager _filter;
+    private ContextManager _context;
+    private TransformManager _transformer;
+    private MetadataFormatManager _format;
+    private StaticSetManager _set;
+    private int _listSetsSize;
+    private int _listRecordsSize;
+    private int _listIdentifiersSize;
+    private boolean _identation;
+    private String styleSheet;
 
-	private static XOAIManager _manager = null;
+    public XOAIManager(ResourceResolver resolver, Configuration config)
+            throws ConfigurationException {
+        _filter = new FilterManager(config.getFilters());
+        _transformer = new TransformManager(resolver, config.getTransformers());
+        _format = new MetadataFormatManager(resolver, config.getFormats(), _filter);
+        _set = new StaticSetManager(config.getSets(), _filter);
+        _listSetsSize = config.getMaxListSetsSize();
+        _listIdentifiersSize = config.getMaxListRecordsSize();
+        _listRecordsSize = config.getMaxListRecordsSize();
+        _identation = config.isIndentation();
+        styleSheet = config.getStylesheet();
+        _context = new ContextManager(config.getContexts(), _filter,
+                _transformer, _format, _set);
+    }
 
-	public static XOAIManager getManager() {
-		return _manager;
-	}
+    public boolean hasStyleSheet() {
+        return (styleSheet != null);
+    }
 
-	public static void initialize(String baseDir) throws ConfigurationException {
-		String configFile = (baseDir.endsWith(File.separator) ? baseDir
-				: baseDir + File.separator) + XOAI_CONFIG;
-		Configuration config = ConfigurationManager.readConfiguration(configFile);
-		_manager = new XOAIManager(baseDir, config);
-	}
+    public String getStyleSheet() {
+        return styleSheet;
+    }
 
-	private FilterManager _filter;
-	private ContextManager _context;
-	private TransformManager _transformer;
-	private MetadataFormatManager _format;
-	private StaticSetManager _set;
-	private int _listSetsSize;
-	private int _listRecordsSize;
-	private int _listIdentifiersSize;
-	private boolean _identation;
-	private String styleSheet;
+    public ContextManager getContextManager() {
+        return _context;
+    }
 
-	public XOAIManager(String baseDir, Configuration config)
-			throws ConfigurationException {
-		_filter = new FilterManager(config.getFilters());
-		_transformer = new TransformManager(baseDir, config.getTransformers());
-		_format = new MetadataFormatManager(baseDir, config.getFormats(),
-				_filter);
-		_set = new StaticSetManager(config.getSets(), _filter);
-		_listSetsSize = config.getMaxListSetsSize();
-		_listIdentifiersSize = config.getMaxListRecordsSize();
-		_listRecordsSize = config.getMaxListRecordsSize();
-		_identation = config.isIndentation();
-		styleSheet = config.getStylesheet();
-		_context = new ContextManager(config.getContexts(), _filter,
-				_transformer, _format, _set);
-	}
+    public FilterManager getFilterManager() {
+        return _filter;
+    }
 
-	public boolean hasStyleSheet () {
-		return (styleSheet != null);
-	}
-	
-	public String getStyleSheet () {
-		return styleSheet;
-	}
-	
-	public ContextManager getContextManager() {
-		return _context;
-	}
+    public MetadataFormatManager getFormatManager() {
+        return _format;
+    }
 
-	public FilterManager getFilterManager() {
-		return _filter;
-	}
+    public StaticSetManager getSetManager() {
+        return _set;
+    }
 
-	public MetadataFormatManager getFormatManager() {
-		return _format;
-	}
+    public TransformManager getTransformerManager() {
+        return _transformer;
+    }
 
-	public StaticSetManager getSetManager() {
-		return _set;
-	}
+    public int getMaxListIdentifiersSize() {
+        return _listIdentifiersSize;
+    }
 
-	public TransformManager getTransformerManager() {
-		return _transformer;
-	}
+    public int getMaxListRecordsSize() {
+        return _listRecordsSize;
+    }
 
-	public int getMaxListIdentifiersSize() {
-		return _listIdentifiersSize;
-	}
+    public int getMaxListSetsSize() {
+        return _listSetsSize;
+    }
 
-	public int getMaxListRecordsSize() {
-		return _listRecordsSize;
-	}
-
-	public int getMaxListSetsSize() {
-		return _listSetsSize;
-	}
-
-	public boolean isIndentated() {
-		return _identation;
-	}
+    public boolean isIndentated() {
+        return _identation;
+    }
 
 }

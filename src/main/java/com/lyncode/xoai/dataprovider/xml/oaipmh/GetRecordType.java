@@ -7,6 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,17 +17,14 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-import com.lyncode.xoai.dataprovider.exceptions.WrittingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-
 /**
- * <p>
+ * <p/>
  * Java class for GetRecordType complex type.
- * 
- * <p>
+ * <p/>
+ * <p/>
  * The following schema fragment specifies the expected content contained within
  * this class.
- * 
+ * <p/>
  * <pre>
  * &lt;complexType name="GetRecordType">
  *   &lt;complexContent>
@@ -36,46 +36,41 @@ import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetRecordType", propOrder = { "record" })
+@XmlType(name = "GetRecordType", propOrder = {"record"})
 public class GetRecordType implements XMLWrittable {
 
-	@XmlElement(required = true)
-	protected RecordType record;
+    @XmlElement(required = true)
+    protected RecordType record;
 
-	/**
-	 * Gets the value of the record property.
-	 * 
-	 * @return possible object is {@link RecordType }
-	 * 
-	 */
-	public RecordType getRecord() {
-		return record;
-	}
+    /**
+     * Gets the value of the record property.
+     *
+     * @return possible object is {@link RecordType }
+     */
+    public RecordType getRecord() {
+        return record;
+    }
 
-	/**
-	 * Sets the value of the record property.
-	 * 
-	 * @param value
-	 *            allowed object is {@link RecordType }
-	 * 
-	 */
-	public void setRecord(RecordType value) {
-		this.record = value;
-	}
+    /**
+     * Sets the value of the record property.
+     *
+     * @param value allowed object is {@link RecordType }
+     */
+    public void setRecord(RecordType value) {
+        this.record = value;
+    }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WrittingXmlException {
+    public void write(XMLStreamWriter writter) throws WritingXmlException {
         try {
             writter.writeStartElement("record");
             if (this.record != null)
                 this.record.write(writter);
             writter.writeEndElement();
         } catch (XMLStreamException e) {
-            throw new WrittingXmlException(e);
+            throw new WritingXmlException(e);
         }
     }
 

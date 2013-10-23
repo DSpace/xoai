@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -26,17 +26,13 @@ import java.io.UnsupportedEncodingException;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class URLEncoder
-{
+public class URLEncoder {
     public static final String SEPARATOR = "&";
-    
-    public static String encode (String value) {
-        try
-        {
+
+    public static String encode(String value) {
+        try {
             return java.net.URLEncoder.encode(value, "UTF-8");
-        }
-        catch (UnsupportedEncodingException e)
-        {
+        } catch (UnsupportedEncodingException e) {
             return value;
         }
     }

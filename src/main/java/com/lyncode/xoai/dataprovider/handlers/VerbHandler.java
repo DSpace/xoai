@@ -6,5 +6,5 @@ import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 
 
 public abstract class VerbHandler<T> {
-    public abstract T handle (OAIParameters params) throws OAIException, HandlerException;
+    public abstract T handle(OAIParameters params) throws OAIException, HandlerException;
 }

@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
@@ -34,17 +34,14 @@ import com.lyncode.xoai.util.ProcessingQueue;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class ListIdentifiers extends AbstractVerb
-{
-    
-    public ListIdentifiers(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config)
-    {
+public class ListIdentifiers extends AbstractVerb {
+
+    public ListIdentifiers(Parameters params, OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config) {
         super(params, config);
     }
 
 
-	public ProcessingQueue<HeaderType> harvest()
-    {
+    public ProcessingQueue<HeaderType> harvest() {
         return (new IdentifierIterator(getParameters(), getServiceProvider())).harvest();
     }
 }

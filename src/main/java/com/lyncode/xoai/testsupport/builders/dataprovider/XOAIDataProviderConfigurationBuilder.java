@@ -17,7 +17,7 @@ public class XOAIDataProviderConfigurationBuilder {
     private Configuration.Sets sets;
     private Configuration.Filters filters;
 
-    public XOAIDataProviderConfigurationBuilder withDefaults () {
+    public XOAIDataProviderConfigurationBuilder withDefaults() {
         this.maxListIdentifiers = 100;
         this.maxListRecords = 100;
         this.maxListSets = 100;
@@ -28,48 +28,52 @@ public class XOAIDataProviderConfigurationBuilder {
         return this;
     }
 
-    public XOAIDataProviderConfigurationBuilder withMaxListIdentifiers (int value) {
+    public XOAIDataProviderConfigurationBuilder withMaxListIdentifiers(int value) {
         this.maxListIdentifiers = value;
         return this;
     }
-    public XOAIDataProviderConfigurationBuilder withIndentation (boolean value) {
+
+    public XOAIDataProviderConfigurationBuilder withIndentation(boolean value) {
         this.indentation = value;
         return this;
     }
-    public XOAIDataProviderConfigurationBuilder withMaxListRecords (int value) {
+
+    public XOAIDataProviderConfigurationBuilder withMaxListRecords(int value) {
         this.maxListRecords = value;
         return this;
     }
-    public XOAIDataProviderConfigurationBuilder withStylesheet (String value) {
+
+    public XOAIDataProviderConfigurationBuilder withStylesheet(String value) {
         this.stylesheet = value;
         return this;
     }
-    public XOAIDataProviderConfigurationBuilder withMaxListSets (int value) {
+
+    public XOAIDataProviderConfigurationBuilder withMaxListSets(int value) {
         this.maxListSets = value;
         return this;
     }
 
-    public XOAIDataProviderConfigurationBuilder withContexts (Configuration.Contexts.Context... contexts) {
+    public XOAIDataProviderConfigurationBuilder withContexts(Configuration.Contexts.Context... contexts) {
         this.contexts.getContext().addAll(asList(contexts));
         return this;
     }
 
-    public XOAIDataProviderConfigurationBuilder withFormats (Configuration.Formats.Format... formats) {
+    public XOAIDataProviderConfigurationBuilder withFormats(Configuration.Formats.Format... formats) {
         this.formats.getFormat().addAll(asList(formats));
         return this;
     }
 
-    public XOAIDataProviderConfigurationBuilder withSets (Configuration.Sets.Set... sets) {
+    public XOAIDataProviderConfigurationBuilder withSets(Configuration.Sets.Set... sets) {
         this.sets.getSet().addAll(asList(sets));
         return this;
     }
 
-    public XOAIDataProviderConfigurationBuilder withFilters (Configuration.Filters.Filter... filters) {
+    public XOAIDataProviderConfigurationBuilder withFilters(Configuration.Filters.Filter... filters) {
         this.filters.getFilter().addAll(asList(filters));
         return this;
     }
 
-    public Configuration build () {
+    public Configuration build() {
         Configuration configuration = new Configuration();
         configuration.setMaxListIdentifiersSize(maxListIdentifiers);
         configuration.setMaxListRecordsSize(maxListRecords);
