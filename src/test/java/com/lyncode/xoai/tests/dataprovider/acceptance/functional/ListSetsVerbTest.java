@@ -35,11 +35,8 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
 
     @Test
     public void shouldListGivenSetList () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
-        given(theSetRepository()
-                .contains(
-                        aSet(with(NAME_1), and(with(SPEC_1))),
-                        and(aSet(with(NAME_2), and(with(SPEC_2))))
-                ));
+        given(theSetRepository())
+                .withRandomSets(2);
 
         afterHandling(aRequest().withVerb("ListSets"));
 
@@ -49,10 +46,8 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
     @Test
     public void shouldReturnResumptionTokenIfExceedsTheMaximumSetsPerPage () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
         given(theConfiguration().withMaxListSets(5));
-        and(given(theSetRepository().containsPages(5, new ListBuilder<List<Set>>()
-                .add(generateRandomSets(5))
-                .add(generateRandomSets(5))
-                .build())));
+        and(given(theSetRepository()))
+            .withRandomSets(9);
 
         afterHandling(aRequest().withVerb("ListSets"));
 
@@ -63,29 +58,18 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
 
         afterHandling(aRequest().withVerb("ListSets").withResumptionToken(resumptionToken));
 
-        assertThat(theResult(), hasXPath("count(//o:set)", String.valueOf(5)));
-        assertThat(theResult(), not(hasXPath("//o:resumptionToken")));
-    }
-
-    private List<Set> generateRandomSets(int number) {
-        List<Set> sets = new ArrayList<Set>();
-        for (int i=0;i<number;i++)
-            sets.add(new Set(randomAlphabetic(5), randomAlphabetic(5)));
-        return sets;
+        assertThat(theResult(), hasXPath("count(//o:set)", String.valueOf(4)));
+        assertThat(theResult(), hasXPath("//o:resumptionToken", ""));
     }
 
     @Test
     public void shouldReturnAnErrorIfItDoesNotSupportSets () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
-        given(theSetRepository().doesNotSupportSets());
+        given(theSetRepository().doesntSupportSets());
 
         afterHandling(aRequest().withVerb("ListSets"));
 
         assertThat(theResult(), hasXPath("count(//o:error)", String.valueOf(1)));
         assertThat(theResult(), hasXPath("//o:error/@code", "noSetHierarchy"));
-    }
-
-    private Set aSet(String name, String spec) {
-        return new Set(name, spec);
     }
 
 }

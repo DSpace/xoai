@@ -35,7 +35,7 @@ public class TimeZoneTest extends AbstractDataProviderTest {
 
     @Test
     public void shouldReturnGmtTimezoneAlwaysInResponseDate () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
-        given(theSetRepository().doesNotSupportSets());
+        given(theSetRepository().doesntSupportSets());
         and(given(theDateIs(date(TEST_DATE, IN_TIMEZONE_GMT_LESS_2))));
 
         afterHandling(aRequest().withVerb("ListSets"));

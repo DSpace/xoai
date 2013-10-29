@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class RecordParserTest {
+public class RecordParserTest extends AbstractParseTest {
     static String XML = "<record>\r\n" +
             "            <header>\r\n" +
             "                <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
@@ -55,17 +55,13 @@ public class RecordParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        RecordParser parser = new RecordParser(config);
+        RecordParser parser = new RecordParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         RecordType result = parser.parse(reader);
 
         assertEquals("oai:demo.dspace.org:10673/4", result.getHeader().getIdentifier());
         assertTrue(result.getHeader().getSetSpec().contains("com_10673_1"));
         assertTrue(result.getHeader().getSetSpec().contains("col_10673_2"));
-
-        //System.out.println(result.getMetadata().getAny());
     }
 
 }

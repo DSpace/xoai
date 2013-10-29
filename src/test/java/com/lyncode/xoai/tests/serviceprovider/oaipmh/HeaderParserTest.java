@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
-public class HeaderParserTest {
+public class HeaderParserTest extends AbstractParseTest {
     static String XML = "<header>\r\n" +
             "                <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
             "                <datestamp>2013-09-10T20:40:03Z</datestamp>\r\n" +
@@ -38,10 +38,8 @@ public class HeaderParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        HeaderParser parser = new HeaderParser(config);
+        HeaderParser parser = new HeaderParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         HeaderType result = parser.parse(reader);
 
         assertEquals("oai:demo.dspace.org:10673/4", result.getIdentifier());

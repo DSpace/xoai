@@ -1,5 +1,6 @@
 package com.lyncode.xoai.tests.serviceprovider.oaipmh;
 
+import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.GetRecordParser;
@@ -19,9 +20,11 @@ import java.io.ByteArrayInputStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
-public class GetRecordParserTest {
+public class GetRecordParserTest extends AbstractParseTest {
     static String XML = "<GetRecord>\r\n" +
             "        <record>\r\n" +
             "            <header>\r\n" +
@@ -57,17 +60,13 @@ public class GetRecordParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        GetRecordParser parser = new GetRecordParser(config);
+        GetRecordParser parser = new GetRecordParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         GetRecordType result = parser.parse(reader);
 
         assertEquals("oai:demo.dspace.org:10673/4", result.getRecord().getHeader().getIdentifier());
         assertTrue(result.getRecord().getHeader().getSetSpec().contains("com_10673_1"));
         assertTrue(result.getRecord().getHeader().getSetSpec().contains("col_10673_2"));
-
-        //System.out.println(result.getMetadata().getAny());
     }
 
 }

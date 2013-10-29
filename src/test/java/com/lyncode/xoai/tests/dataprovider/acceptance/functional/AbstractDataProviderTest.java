@@ -15,11 +15,13 @@ import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
 import com.lyncode.xoai.tests.XPathMatchers;
 import com.lyncode.xoai.tests.dataprovider.stubs.StubbedItemRepository;
+import com.lyncode.xoai.tests.dataprovider.stubs.StubbedSetRepository;
 import com.lyncode.xoai.tests.helpers.AbstractIdentifyBuilder;
-import com.lyncode.xoai.tests.helpers.AbstractSetRepositoryBuilder;
 import org.codehaus.stax2.XMLOutputFactory2;
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
+import org.dom4j.XPath;
 import org.hamcrest.Matcher;
 import org.junit.Before;
 
@@ -50,7 +52,7 @@ public abstract class AbstractDataProviderTest {
     private OAIDataProvider dataProvider;
     private XOAIManager manager;
     private AbstractIdentifyBuilder identify = new AbstractIdentifyBuilder();
-    private AbstractSetRepositoryBuilder setRepository = new AbstractSetRepositoryBuilder();
+    private StubbedSetRepository setRepository = new StubbedSetRepository();
     private StubbedItemRepository itemRepository = new StubbedItemRepository();
     private ResourceResolver resourceResolver = mock(ResourceResolver.class);
     private XOAIDataProviderConfigurationBuilder configuration;
@@ -80,7 +82,7 @@ public abstract class AbstractDataProviderTest {
 
     protected void afterHandling(OAIRequestParametersBuilder params) throws InvalidContextException, ConfigurationException, OAIException, XMLStreamException, WritingXmlException, IOException {
         if (dataProvider == null)
-            dataProvider = new OAIDataProvider(theManager(), CONTEXT, identify.build(), setRepository.build(), itemRepository);
+            dataProvider = new OAIDataProvider(theManager(), CONTEXT, identify.build(), setRepository, itemRepository);
         result = dataProvider.handle(params.build());
     }
 
@@ -122,7 +124,7 @@ public abstract class AbstractDataProviderTest {
     protected AbstractIdentifyBuilder theRepositoryIsConfiguredto() {
         return identify;
     }
-    protected AbstractSetRepositoryBuilder theSetRepository() {
+    protected StubbedSetRepository theSetRepository() {
         return setRepository;
     }
     protected StubbedItemRepository theItemRepository() {
@@ -154,6 +156,11 @@ public abstract class AbstractDataProviderTest {
     }
 
     protected String getXPath(String s) throws WritingXmlException, XMLStreamException, IOException, DocumentException {
-        return DocumentHelper.parseText(theResult()).valueOf(s);
+        Document document = DocumentHelper.parseText(theResult());
+        XPath xPath = document.createXPath(s);
+        xPath.setNamespaceURIs(new MapBuilder<String, String>()
+                .withPair("o", "http://www.openarchives.org/OAI/2.0/")
+                .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance").build());
+        return xPath.valueOf(document);
     }
 }

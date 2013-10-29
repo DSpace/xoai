@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class MetadataFormatParserTest {
+public class MetadataFormatParserTest extends AbstractParseTest {
     static String XML = "\r\n" +
             "        <metadataFormat>\r\n" +
             "            <metadataPrefix>uketd_dc</metadataPrefix>\r\n" +
@@ -36,10 +36,8 @@ public class MetadataFormatParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        MetadataFormatParser parser = new MetadataFormatParser(config);
+        MetadataFormatParser parser = new MetadataFormatParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         MetadataFormatType result = parser.parse(reader);
 
 

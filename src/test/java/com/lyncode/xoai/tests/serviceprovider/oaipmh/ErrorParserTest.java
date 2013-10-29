@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class ErrorParserTest {
+public class ErrorParserTest extends AbstractParseTest {
     static String XML = "<error code=\"badVerb\">Illegal verb</error>";
 
     @Test
@@ -31,8 +31,7 @@ public class ErrorParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        ErrorParser parser = new ErrorParser(config);
+        ErrorParser parser = new ErrorParser(theConfiguration());
 
         //System.out.println(parser.parse(reader));
         OAIPMHerrorType result = parser.parse(reader);

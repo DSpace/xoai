@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class OAIPMHParserTest {
+public class OAIPMHParserTest extends AbstractParseTest {
     static String XML = "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\"><responseDate>2013-09-12T21:15:35Z</responseDate>\r\n" +
             "    <request verb=\"Identify\">http://demo.dspace.org/oai/request</request>\r\n" +
             "    <Identify>\r\n" +
@@ -45,10 +45,8 @@ public class OAIPMHParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        OAIPMHParser parser = new OAIPMHParser(config);
+        OAIPMHParser parser = new OAIPMHParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         OAIPMHtype result = parser.parse(reader);
 
 

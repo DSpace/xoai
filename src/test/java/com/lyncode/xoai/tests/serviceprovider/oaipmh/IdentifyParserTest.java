@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class IdentifyParserTest {
+public class IdentifyParserTest extends AbstractParseTest {
     static String XML = "<Identify>\r\n" +
             "        <repositoryName>DSpace Demo Repository</repositoryName>\r\n" +
             "        <baseURL>http://demo.dspace.org/oai/request</baseURL>\r\n" +
@@ -42,8 +42,7 @@ public class IdentifyParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        IdentifyParser parser = new IdentifyParser(config);
+        IdentifyParser parser = new IdentifyParser(theConfiguration());
 
         //System.out.println(parser.parse(reader));
         IdentifyType result = parser.parse(reader);

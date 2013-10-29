@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class ListIdentifiersParserTest {
+public class ListIdentifiersParserTest extends AbstractParseTest {
     static String XML = "<ListIdentifiers>\r\n" +
             "        <header>\r\n" +
             "            <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
@@ -633,10 +633,8 @@ public class ListIdentifiersParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        ListIdentifiersParser parser = new ListIdentifiersParser(config);
+        ListIdentifiersParser parser = new ListIdentifiersParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         ListIdentifiersType result = parser.parse(reader);
 
 

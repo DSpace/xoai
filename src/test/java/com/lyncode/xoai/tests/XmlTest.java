@@ -1,6 +1,8 @@
 package com.lyncode.xoai.tests;
 
+import com.lyncode.xoai.builders.MapBuilder;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
+import org.hamcrest.Matcher;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -48,5 +50,18 @@ public abstract class XmlTest {
         } catch (XMLStreamException e) {
             throw new RuntimeException(e.getMessage(), e);
         }
+    }
+
+
+    protected Matcher<? super String> hasXPath(String s) {
+        return XPathMatchers.hasXPath(s, new MapBuilder<String, String>()
+                .withPair("xoai", "http://www.lyncode.com/xoai")
+                .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
+    }
+
+    protected Matcher<? super String> hasXPath(String s, String val) {
+        return XPathMatchers.hasXPath(s, val, new MapBuilder<String, String>()
+                .withPair("xoai", "http://www.lyncode.com/xoai")
+                .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }
 }

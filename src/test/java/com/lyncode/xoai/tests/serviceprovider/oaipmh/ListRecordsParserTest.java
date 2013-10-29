@@ -20,7 +20,7 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class ListRecordsParserTest {
+public class ListRecordsParserTest extends AbstractParseTest {
     static String XML = "<ListRecords>\r\n" +
             "        <record>\r\n" +
             "            <header>\r\n" +
@@ -62,10 +62,8 @@ public class ListRecordsParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        ListRecordsParser parser = new ListRecordsParser(config);
+        ListRecordsParser parser = new ListRecordsParser(theConfiguration());
 
-        //System.out.println(parser.parse(reader));
         ListRecordsType result = parser.parse(reader);
 
 

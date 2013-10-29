@@ -18,7 +18,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
 
 
-public class MetadataTypeParserTest {
+public class MetadataTypeParserTest extends AbstractParseTest {
     static String XML = "<metadata><oai_dc:dc xmlns:oai_dc=\"http://www.openarchives.org/OAI/2.0/oai_dc/\" xmlns:doc=\"http://www.lyncode.com/xoai\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">\r\n" +
             "<dc:title>Test Webpage</dc:title>\r\n" +
             "<dc:subject>cat</dc:subject>\r\n" +
@@ -43,8 +43,7 @@ public class MetadataTypeParserTest {
         reader.nextEvent();
         reader.peek();
 
-        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        MetadataTypeParser parser = new MetadataTypeParser(config);
+        MetadataTypeParser parser = new MetadataTypeParser(theConfiguration());
 
         MetadataType result = parser.parse(reader);
     }

@@ -1,18 +1,15 @@
 package com.lyncode.xoai.tests.dataprovider.unit.xml.xoai;
 
-import com.lyncode.xoai.tests.XPathMatchers;
-import com.lyncode.xoai.tests.XmlTest;
 import com.lyncode.xoai.builders.MetadataBuilder;
 import com.lyncode.xoai.builders.MetadataElementBuilder;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
-import com.lyncode.xoai.tests.SyntacticSugar;
+import com.lyncode.xoai.tests.XmlTest;
 import org.junit.Test;
 
 import javax.xml.stream.XMLStreamException;
 
 import static com.lyncode.xoai.tests.SyntacticSugar.to;
-import static com.lyncode.xoai.tests.XPathMatchers.hasXPath;
 import static org.junit.Assert.assertThat;
 
 
@@ -31,7 +28,7 @@ public class MetadataTest extends XmlTest {
 
         metadata.write(to(theContextWriter()));
 
-        assertThat(theOutput(), hasXPath("//element[@name='" + ELEMENT_NAME + "']/field[@name='" + FIELD_NAME + "']"));
+        assertThat(theOutput(), hasXPath("//xoai:element[@name='" + ELEMENT_NAME + "']/xoai:field[@name='" + FIELD_NAME + "']"));
 
     }
 
