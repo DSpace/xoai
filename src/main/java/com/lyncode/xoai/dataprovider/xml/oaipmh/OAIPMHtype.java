@@ -7,6 +7,7 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.core.Granularity;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
 import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
 import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 
@@ -265,7 +267,7 @@ public class OAIPMHtype implements XMLWritable {
     @Override
     public void write(XmlOutputContext context) throws WritingXmlException {
         try {
-            writeValue(context.getWriter(), "responseDate", context.format(this.responseDate));
+            writeValue(context.getWriter(), "responseDate", context.format(this.responseDate, Second));
             writeElement(context, "request", request);
 
             if (this.error != null && !this.error.isEmpty()) {

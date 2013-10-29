@@ -7,6 +7,7 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.core.Granularity;
 import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
@@ -17,6 +18,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.math.BigInteger;
 import java.util.Date;
+
+import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
 
 /**
  * A resumptionToken may have 3 optional attributes and can be used in ListSets,
@@ -139,7 +142,7 @@ public class ResumptionTokenType implements XMLWritable {
     public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (this.expirationDate != null)
-                context.getWriter().writeAttribute("expirationDate", context.format(this.expirationDate));
+                context.getWriter().writeAttribute("expirationDate", context.format(this.expirationDate, Second));
             if (this.completeListSize != null)
                 context.getWriter().writeAttribute("completeListSize", "" + this.completeListSize);
             if (this.cursor != null)

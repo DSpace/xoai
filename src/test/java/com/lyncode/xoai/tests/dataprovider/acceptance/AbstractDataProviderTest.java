@@ -88,7 +88,7 @@ public abstract class AbstractDataProviderTest {
 
     protected String theResult() throws XMLStreamException, WritingXmlException, IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        XmlOutputContext context = new XmlOutputContext(this.formatter, XMLOutputFactory2.newFactory().createXMLStreamWriter(output), Granularity.Second);
+        XmlOutputContext context = new XmlOutputContext(this.formatter, XMLOutputFactory2.newFactory().createXMLStreamWriter(output), identify.getGranularity());
         result.write(context);
         context.getWriter().close();
         return output.toString();

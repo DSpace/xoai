@@ -102,7 +102,7 @@ public class XPathMatchers {
 
         @Override
         public void describeTo(Description description) {
-            description.appendText("XPath ").appendValue(this.expression).appendText(" must ");
+            description.appendText("XPath ").appendValue(this.expression).appendText(" must resolve to ");
             value.describeTo(description);
         }
     }

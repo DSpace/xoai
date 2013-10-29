@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 public class AbstractIdentifyBuilder {
     private AbstractIdentify identify = mock(AbstractIdentify.class);
+    private Granularity granularity = Granularity.Second;
 
     public AbstractIdentifyBuilder resolveAllAdminEmailsTo(String... email) {
         when(identify.getAdminEmails()).thenReturn(asList(email));
@@ -29,6 +30,7 @@ public class AbstractIdentifyBuilder {
     }
 
     public AbstractIdentifyBuilder resolveTheGranularityTo(Granularity granularity) {
+        this.granularity = granularity;
         when(identify.getGranularity()).thenReturn(granularity);
         return this;
     }
@@ -51,5 +53,9 @@ public class AbstractIdentifyBuilder {
 
     public AbstractIdentify build () {
         return identify;
+    }
+
+    public Granularity getGranularity() {
+        return granularity;
     }
 }

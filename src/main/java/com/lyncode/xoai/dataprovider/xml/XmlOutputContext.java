@@ -37,6 +37,10 @@ public class XmlOutputContext {
         return formatter.format(date, granularity);
     }
 
+    public String format (Date date, Granularity granularity) {
+        return formatter.format(date, granularity);
+    }
+
     public XMLStreamWriter getWriter() {
         return writer;
     }
