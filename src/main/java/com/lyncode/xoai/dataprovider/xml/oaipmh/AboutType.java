@@ -7,9 +7,10 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,7 +43,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "aboutType")
-public class AboutType implements XMLWrittable {
+public class AboutType implements XMLWritable {
 
     @XmlValue
     protected String value;
@@ -66,10 +67,10 @@ public class AboutType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         if (this.value != null) {
             EchoElement elem = new EchoElement(value);
-            elem.write(writter);
+            elem.write(context);
         }
     }
 

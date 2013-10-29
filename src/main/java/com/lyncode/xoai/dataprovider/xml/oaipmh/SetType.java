@@ -8,7 +8,8 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -46,7 +47,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "setType", propOrder = {"setSpec", "setName", "setDescription"})
-public class SetType implements XMLWrittable {
+public class SetType implements XMLWritable {
 
     @XmlElement(required = true)
     protected String setSpec;
@@ -126,13 +127,13 @@ public class SetType implements XMLWrittable {
 	 */
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
-            writeValue(writter, "setSpec", setSpec);
-            writeValue(writter, "setName", setName);
+            writeValue(context.getWriter(), "setSpec", setSpec);
+            writeValue(context.getWriter(), "setName", setName);
             if (this.setDescription != null && !this.setDescription.isEmpty()) {
                 for (DescriptionType desc : this.setDescription)
-                    writeElement(writter, "setDescription", desc);
+                    writeElement(context, "setDescription", desc);
             }
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);

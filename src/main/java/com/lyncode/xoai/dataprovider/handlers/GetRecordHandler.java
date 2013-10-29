@@ -3,16 +3,18 @@ package com.lyncode.xoai.dataprovider.handlers;
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.data.AbstractAbout;
-import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
+import com.lyncode.xoai.dataprovider.data.AbstractAbout;
+import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 
 public class GetRecordHandler extends VerbHandler<GetRecordType> {
@@ -21,8 +23,8 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
     private ItemRepository itemRepository;
     private AbstractIdentify identify;
 
-    public GetRecordHandler(XOAIContext context, ItemRepository itemRepository, AbstractIdentify identify) {
-        super();
+    public GetRecordHandler(DateProvider formatter, XOAIContext context, ItemRepository itemRepository, AbstractIdentify identify) {
+        super(formatter);
         this.context = context;
         this.itemRepository = itemRepository;
         this.identify = identify;
@@ -41,8 +43,8 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
         if (!format.isApplyable(item.getItem()))
             throw new CannotDisseminateRecordException("Format not appliable to this item");
         header.setIdentifier(item.getItem().getIdentifier());
-        header.setDatestamp(new DateInfo(item.getItem().getDatestamp(),
-                identify.getGranularity().toGranularityType()));
+        header.setDatestamp(getFormatter().format(item.getItem().getDatestamp(),
+                identify.getGranularity()));
         for (ReferenceSet s : item.getSets(context))
             header.getSetSpec().add(s.getSetSpec());
         if (item.getItem().isDeleted())
@@ -67,6 +69,8 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
             } catch (XMLStreamException e) {
                 throw new OAIException(e);
             } catch (TransformerException e) {
+                throw new OAIException(e);
+            } catch (IOException e) {
                 throw new OAIException(e);
             }
 

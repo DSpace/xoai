@@ -1,6 +1,6 @@
 package com.lyncode.xoai.serviceprovider.core;
 
-import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.util.URLEncoder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Parameters {
+    private DateProvider formatter;
+
     private String baseURL;
     private OAIVerb verb;
     private String metadataPrefix;
@@ -18,13 +20,13 @@ public class Parameters {
     private String identifier;
     private String resumptionToken;
 
-    public Parameters() {
-        super();
+    public Parameters(DateProvider formatter) {
+        this.formatter = formatter;
         this.verb = OAIVerb.Identify;
     }
 
-    public Parameters(String baseURL) {
-        super();
+    public Parameters(DateProvider formatter, String baseURL) {
+        this.formatter = formatter;
         this.verb = OAIVerb.Identify;
         this.baseURL = baseURL;
     }
@@ -34,7 +36,7 @@ public class Parameters {
     }
 
     private Parameters deepClone() {
-        Parameters params = new Parameters(this.baseURL);
+        Parameters params = new Parameters(formatter, this.baseURL);
         params.from = this.from;
         params.identifier = this.identifier;
         params.until = this.until;
@@ -94,8 +96,8 @@ public class Parameters {
         List<String> string = new ArrayList<String>();
         string.add("verb=" + this.verb.name());
         if (set != null) string.add("set=" + URLEncoder.encode(set));
-        if (from != null) string.add("from=" + URLEncoder.encode(DateUtils.fromDate(from)));
-        if (until != null) string.add("until=" + URLEncoder.encode(DateUtils.fromDate(until)));
+        if (from != null) string.add("from=" + URLEncoder.encode(formatter.format(from)));
+        if (until != null) string.add("until=" + URLEncoder.encode(formatter.format(until)));
         if (identifier != null) string.add("identifier=" + URLEncoder.encode(identifier));
         if (metadataPrefix != null) string.add("metadataPrefix=" + URLEncoder.encode(metadataPrefix));
         if (resumptionToken != null) string.add("resumptionToken=" + URLEncoder.encode(resumptionToken));

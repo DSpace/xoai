@@ -19,10 +19,10 @@
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
 import com.lyncode.xoai.serviceprovider.verbs.ListRecords;
 import com.lyncode.xoai.serviceprovider.verbs.runners.RetrieveListRecords;
 import com.lyncode.xoai.util.ProcessingQueue;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
 
 
 /**

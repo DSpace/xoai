@@ -1,10 +1,16 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
+import com.lyncode.xoai.serviceprovider.parser.ConcurrentParser;
+import com.lyncode.xoai.serviceprovider.parser.XMLParser;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.DescriptionType;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
-import com.lyncode.xoai.serviceprovider.parser.*;
+
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;

@@ -1,10 +1,10 @@
 package com.lyncode.xoai.dataprovider.data.internal;
 
+import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
 import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
 import com.lyncode.xoai.dataprovider.core.ListItemsResults;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;

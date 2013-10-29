@@ -8,7 +8,8 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
@@ -46,12 +47,12 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "headerType", propOrder = {"identifier", "datestamp",
         "setSpec"})
-public class HeaderType implements XMLWrittable {
+public class HeaderType implements XMLWritable {
 
     @XmlElement(required = true)
     protected String identifier;
     @XmlElement(required = true)
-    protected DateInfo datestamp;
+    protected String datestamp;
     protected List<String> setSpec;
     @XmlAttribute(name = "status")
     protected StatusType status;
@@ -79,7 +80,7 @@ public class HeaderType implements XMLWrittable {
      *
      * @return possible object is {@link String }
      */
-    public DateInfo getDatestamp() {
+    public String getDatestamp() {
         return datestamp;
     }
 
@@ -88,7 +89,7 @@ public class HeaderType implements XMLWrittable {
      *
      * @param value allowed object is {@link String }
      */
-    public void setDatestamp(DateInfo value) {
+    public void setDatestamp(String value) {
         this.datestamp = value;
     }
 
@@ -138,27 +139,27 @@ public class HeaderType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (this.status != null)
-                writter.writeAttribute("status", this.status.value());
+                context.getWriter().writeAttribute("status", this.status.value());
 
             if (this.identifier != null) {
-                writter.writeStartElement("identifier");
-                writter.writeCharacters(this.identifier);
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("identifier");
+                context.getWriter().writeCharacters(this.identifier);
+                context.getWriter().writeEndElement();
             }
 
             if (this.datestamp != null) {
-                writter.writeStartElement("datestamp");
-                writter.writeCharacters(this.datestamp.toString());
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("datestamp");
+                context.getWriter().writeCharacters(this.datestamp);
+                context.getWriter().writeEndElement();
             }
 
             for (String setSpec : this.getSetSpec()) {
-                writter.writeStartElement("setSpec");
-                writter.writeCharacters(setSpec);
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("setSpec");
+                context.getWriter().writeCharacters(setSpec);
+                context.getWriter().writeEndElement();
             }
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);

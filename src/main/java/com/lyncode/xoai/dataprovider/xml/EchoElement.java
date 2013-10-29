@@ -14,7 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 
 
-public class EchoElement implements XMLWrittable {
+public class EchoElement implements XMLWritable {
     private static XMLInputFactory factory = XMLInputFactory2.newFactory();
     private String xmlString = null;
 
@@ -23,7 +23,7 @@ public class EchoElement implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(xmlString.getBytes()));
             while (reader.hasNext()) {
@@ -31,7 +31,7 @@ public class EchoElement implements XMLWrittable {
 
                 if (event.isStartElement()) {
                     QName name = event.asStartElement().getName();
-                    writter.writeStartElement(name.getPrefix(), name.getLocalPart(), name.getNamespaceURI());
+                    context.getWriter().writeStartElement(name.getPrefix(), name.getLocalPart(), name.getNamespaceURI());
 
                     @SuppressWarnings("unchecked")
                     Iterator<Attribute> it = event.asStartElement().getAttributes();
@@ -39,17 +39,16 @@ public class EchoElement implements XMLWrittable {
                     while (it.hasNext()) {
                         Attribute attr = it.next();
                         QName attrName = attr.getName();
-                        writter.writeAttribute(attrName.getPrefix(), attrName.getNamespaceURI(), attrName.getLocalPart(), attr.getValue());
+                        context.getWriter().writeAttribute(attrName.getPrefix(), attrName.getNamespaceURI(), attrName.getLocalPart(), attr.getValue());
                     }
                 } else if (event.isEndElement()) {
-                    writter.writeEndElement();
+                    context.getWriter().writeEndElement();
                 } else if (event.isCharacters()) {
-                    writter.writeCharacters(event.asCharacters().getData());
+                    context.getWriter().writeCharacters(event.asCharacters().getData());
                 }
             }
         } catch (XMLStreamException e) {
-            // Unexpected!
-            throw new WritingXmlException("Shouldn't happen!", e);
+            throw new WritingXmlException("Error trying to output '"+this.xmlString+"'", e);
         }
     }
 

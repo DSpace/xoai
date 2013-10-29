@@ -74,7 +74,7 @@ public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat 
             s += dateToString(resumptionToken.getUntil());
         s += "|5:";
         if (resumptionToken.hasMetadataPrefix())
-            s += resumptionToken.getMetadatePrefix();
+            s += resumptionToken.getMetadataPrefix();
 
         return Base64Utils.encode(s);
     }

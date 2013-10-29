@@ -3,14 +3,13 @@ package com.lyncode.xoai.dataprovider.data.internal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import com.lyncode.xoai.dataprovider.core.ListSetsResult;
 import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.data.AbstractSetRepository;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class SetRepository {
 	private static Logger log = LogManager.getLogger(SetRepository.class);

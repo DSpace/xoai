@@ -7,8 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
@@ -41,7 +42,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "metadataFormatType", propOrder = {"metadataPrefix", "schema",
         "metadataNamespace"})
-public class MetadataFormatType implements XMLWrittable {
+public class MetadataFormatType implements XMLWritable {
 
     @XmlElement(required = true)
     protected String metadataPrefix;
@@ -113,14 +114,14 @@ public class MetadataFormatType implements XMLWrittable {
  *         &lt;element name="metadataNamespace" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
      */
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (metadataPrefix != null)
-                writeValue(writter, "metadataPrefix", metadataPrefix);
+                writeValue(context.getWriter(), "metadataPrefix", metadataPrefix);
             if (schema != null)
-                writeValue(writter, "schema", schema);
+                writeValue(context.getWriter(), "schema", schema);
             if (metadataNamespace != null)
-                writeValue(writter, "metadataNamespace", metadataNamespace);
+                writeValue(context.getWriter(), "metadataNamespace", metadataNamespace);
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);
         }

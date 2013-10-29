@@ -3,8 +3,8 @@ package com.lyncode.xoai.serviceprovider;
 import com.lyncode.xoai.serviceprovider.core.Harvester;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 
 
 public class OAIServiceProvider {

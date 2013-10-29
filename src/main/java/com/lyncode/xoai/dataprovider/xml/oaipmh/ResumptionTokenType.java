@@ -7,9 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -43,7 +43,7 @@ import java.util.Date;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "resumptionTokenType", propOrder = {"value"})
-public class ResumptionTokenType implements XMLWrittable {
+public class ResumptionTokenType implements XMLWritable {
 
     @XmlValue
     protected String value;
@@ -136,16 +136,16 @@ public class ResumptionTokenType implements XMLWrittable {
  *       &lt;attribute name="cursor" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" />
      */
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (this.expirationDate != null)
-                writter.writeAttribute("expirationDate", DateUtils.format(expirationDate));
+                context.getWriter().writeAttribute("expirationDate", context.format(this.expirationDate));
             if (this.completeListSize != null)
-                writter.writeAttribute("completeListSize", "" + this.completeListSize);
+                context.getWriter().writeAttribute("completeListSize", "" + this.completeListSize);
             if (this.cursor != null)
-                writter.writeAttribute("cursor", "" + this.cursor);
+                context.getWriter().writeAttribute("cursor", "" + this.cursor);
             if (this.value != null)
-                writter.writeCharacters(this.value);
+                context.getWriter().writeCharacters(this.value);
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);
         }

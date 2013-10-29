@@ -20,9 +20,9 @@
 package com.lyncode.xoai.serviceprovider.iterators;
 
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
+import com.lyncode.xoai.util.ProcessingQueue;
 import com.lyncode.xoai.serviceprovider.verbs.ListSets;
 import com.lyncode.xoai.serviceprovider.verbs.runners.RetrieveListSets;
-import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**

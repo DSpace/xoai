@@ -7,8 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -41,7 +42,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListMetadataFormatsType", propOrder = {"metadataFormat"})
-public class ListMetadataFormatsType implements XMLWrittable {
+public class ListMetadataFormatsType implements XMLWritable {
 
     @XmlElement(required = true)
     protected List<MetadataFormatType> metadataFormat;
@@ -75,14 +76,14 @@ public class ListMetadataFormatsType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         //&lt;element name="metadataFormat" type="{http://www.openarchives.org/OAI/2.0/}metadataFormatType" maxOccurs="unbounded"/>
         try {
             if (this.metadataFormat != null && !this.metadataFormat.isEmpty()) {
                 for (MetadataFormatType format : this.metadataFormat) {
-                    writter.writeStartElement("metadataFormat");
-                    format.write(writter);
-                    writter.writeEndElement();
+                    context.getWriter().writeStartElement("metadataFormat");
+                    format.write(context);
+                    context.getWriter().writeEndElement();
                 }
             }
         } catch (XMLStreamException e) {

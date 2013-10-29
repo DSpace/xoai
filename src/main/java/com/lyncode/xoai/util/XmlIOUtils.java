@@ -1,7 +1,8 @@
 package com.lyncode.xoai.util;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
@@ -14,9 +15,9 @@ public class XmlIOUtils {
         writer.writeEndElement();
     }
 
-    public static void writeElement(XMLStreamWriter writer, String name, XMLWrittable elem) throws XMLStreamException, WritingXmlException {
-        writer.writeStartElement(name);
-        elem.write(writer);
-        writer.writeEndElement();
+    public static void writeElement(XmlOutputContext context, String name, XMLWritable elem) throws XMLStreamException, WritingXmlException {
+        context.getWriter().writeStartElement(name);
+        elem.write(context);
+        context.getWriter().writeEndElement();
     }
 }

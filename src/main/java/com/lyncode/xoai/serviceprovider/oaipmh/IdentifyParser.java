@@ -1,15 +1,14 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.DeletedRecordType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.GranularityType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import com.lyncode.xoai.util.DateUtils;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
@@ -38,7 +37,7 @@ public class IdentifyParser extends ElementParser<IdentifyType> {
             type.setProtocolVersion(this.getElement(reader, "protocolVersion"));
             while (reader.peek().asStartElement().getName().getLocalPart().equals("adminEmail"))
                 type.getAdminEmail().add(this.getElement(reader, "adminEmail"));
-            type.setEarliestDatestamp(DateUtils.parse(this.getElement(reader, "earliestDatestamp")));
+            type.setEarliestDatestamp(super.getConfiguration().getFormatter().parse(this.getElement(reader, "earliestDatestamp")));
             type.setDeletedRecord(DeletedRecordType.fromValue(this.getElement(reader, "deletedRecord")));
             type.setGranularity(GranularityType.fromValue(this.getElement(reader, "granularity")));
             while (reader.peek().asStartElement().getName().getLocalPart().equals("compression"))

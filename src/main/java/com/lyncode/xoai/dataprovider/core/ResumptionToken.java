@@ -96,7 +96,7 @@ public class ResumptionToken {
         return (_metadataPrefix != null);
     }
 
-    public String getMetadatePrefix() {
+    public String getMetadataPrefix() {
         return _metadataPrefix;
     }
 

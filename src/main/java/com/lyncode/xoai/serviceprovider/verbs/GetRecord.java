@@ -21,10 +21,10 @@ package com.lyncode.xoai.serviceprovider.verbs;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.core.Parameters;
-import com.lyncode.xoai.serviceprovider.exceptions.*;
 import com.lyncode.xoai.serviceprovider.oaipmh.OAIPMHParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.GetRecordType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
+import com.lyncode.xoai.serviceprovider.exceptions.*;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;

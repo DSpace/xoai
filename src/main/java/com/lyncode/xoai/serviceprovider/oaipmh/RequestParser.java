@@ -8,7 +8,6 @@ import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import com.lyncode.xoai.util.DateUtils;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
@@ -50,14 +49,14 @@ public class RequestParser extends ElementParser<RequestType> {
                     result.setMetadataPrefix(attr.getValue());
                 } else if (attr.getName().getLocalPart().equals(FROM)) {
                     try {
-                        result.setFrom(DateUtils.parse(attr.getValue()));
+                        result.setFrom(super.getConfiguration().getFormatter().parse(attr.getValue()));
                     } catch (java.text.ParseException e) {
                         // Unable to parse date! 
                         // FIXME: Must do something? or not?
                     }
                 } else if (attr.getName().getLocalPart().equals(UNTIL)) {
                     try {
-                        result.setUntil(DateUtils.parse(attr.getValue()));
+                        result.setUntil(super.getConfiguration().getFormatter().parse(attr.getValue()));
                     } catch (java.text.ParseException e) {
                         // FIXME: Must do something? or not?
                     }

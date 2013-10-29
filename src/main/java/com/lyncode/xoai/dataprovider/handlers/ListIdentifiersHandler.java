@@ -1,14 +1,15 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.*;
-import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.ItemIdentify;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
+import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
 
 import java.util.List;
@@ -22,13 +23,13 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
     private XOAIContext context;
     private AbstractResumptionTokenFormat resumptionFormat;
 
-    public ListIdentifiersHandler(int maxListSize,
+    public ListIdentifiersHandler(DateProvider formatter, int maxListSize,
                                   SetRepository setRepository,
                                   ItemRepository itemRepository,
                                   AbstractIdentify identify,
                                   XOAIContext context, AbstractResumptionTokenFormat _format) {
 
-        super();
+        super(formatter);
         this.maxListSize = maxListSize;
         this.setRepository = setRepository;
         this.itemRepository = itemRepository;
@@ -127,7 +128,7 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
             throw new CannotDisseminateRecordException();
 
         HeaderType header = new HeaderType();
-        header.setDatestamp(new DateInfo(ii.getDatestamp(), identify.getGranularity().toGranularityType()));
+        header.setDatestamp(getFormatter().format(ii.getDatestamp(), identify.getGranularity()));
         header.setIdentifier(ii.getIdentifier());
         if (ii.isDeleted())
             header.setStatus(StatusType.DELETED);

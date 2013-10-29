@@ -18,12 +18,12 @@ package com.lyncode.xoai.dataprovider.format;
 
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
-import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
+import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats.Format;
 import org.apache.log4j.LogManager;
@@ -46,7 +46,6 @@ import java.util.Map;
 public class MetadataFormatManager {
 
     private static Logger log = LogManager.getLogger(MetadataFormatManager.class);
-    private static TransformerFactory tFactory = TransformerFactory.newInstance();
 
     private Map<String, MetadataFormat> _contexts;
 
@@ -57,7 +56,7 @@ public class MetadataFormatManager {
             Transformer transformer = null;
 
             try {
-                transformer = tFactory.newTransformer(new StreamSource(resolver.getResource(f.getXSLT())));
+                transformer = resolver.getTransformer(f.getXSLT());
             } catch (TransformerConfigurationException e) {
                 throw new ConfigurationException(e.getMessage(), e);
             } catch (IOException e) {

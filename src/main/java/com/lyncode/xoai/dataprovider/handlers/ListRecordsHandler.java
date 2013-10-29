@@ -6,12 +6,14 @@ import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -25,13 +27,13 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
     private AbstractResumptionTokenFormat resumptionFormat;
 
 
-    public ListRecordsHandler(int maxListSize,
+    public ListRecordsHandler(DateProvider formatter, int maxListSize,
                               SetRepository setRepository,
                               ItemRepository itemRepository,
                               AbstractIdentify identify,
                               XOAIContext context, AbstractResumptionTokenFormat format) {
 
-        super();
+        super(formatter);
         this.maxListSize = maxListSize;
         this.setRepository = setRepository;
         this.itemRepository = itemRepository;
@@ -133,7 +135,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
 
         Item itemWrap = new Item(item);
 
-        header.setDatestamp(new DateInfo(item.getDatestamp(), identify.getGranularity().toGranularityType()));
+        header.setDatestamp(getFormatter().format(item.getDatestamp(), identify.getGranularity()));
         for (ReferenceSet s : itemWrap.getSets(context))
             header.getSetSpec().add(s.getSetSpec());
         if (item.isDeleted())
@@ -158,6 +160,8 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
             } catch (XMLStreamException e) {
                 throw new OAIException(e);
             } catch (TransformerException e) {
+                throw new OAIException(e);
+            } catch (IOException e) {
                 throw new OAIException(e);
             }
 

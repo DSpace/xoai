@@ -16,9 +16,9 @@
 
 package com.lyncode.xoai.dataprovider.transform;
 
+import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Transformers;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Transformers.Transformer;
 
@@ -35,7 +35,6 @@ import java.util.Map;
  */
 public class TransformManager {
     // private static Logger log = LogManager.getLogger(TransformManager.class);
-    private static TransformerFactory tFactory = TransformerFactory.newInstance();
     private Map<String, MetadataTransformer> _contexts;
 
     public TransformManager(ResourceResolver resolver, Transformers config)
@@ -46,7 +45,7 @@ public class TransformManager {
                 try {
                     _contexts.put(t.getId(),
                             new MetadataTransformer(new XSLTransformer(
-                                    tFactory.newTransformer(new StreamSource(resolver.getResource(t.getXSLT())))
+                                    resolver.getTransformer(t.getXSLT())
                             ))
                     );
                 } catch (TransformerConfigurationException e) {

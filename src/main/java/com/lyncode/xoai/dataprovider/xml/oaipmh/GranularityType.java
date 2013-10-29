@@ -7,6 +7,8 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.core.Granularity;
+
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
@@ -56,4 +58,8 @@ public enum GranularityType {
 		throw new IllegalArgumentException(v);
 	}
 
+    public Granularity toGranularity() {
+        if (this == YYYY_MM_DD) return Granularity.Day;
+        else return Granularity.Second;
+    }
 }

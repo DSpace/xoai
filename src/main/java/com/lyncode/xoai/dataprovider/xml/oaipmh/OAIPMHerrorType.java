@@ -7,8 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
@@ -34,7 +35,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OAI-PMHerrorType", propOrder = {"value"})
-public class OAIPMHerrorType implements XMLWrittable {
+public class OAIPMHerrorType implements XMLWritable {
 
     @XmlValue
     protected String value;
@@ -78,13 +79,13 @@ public class OAIPMHerrorType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (this.code != null)
-                writter.writeAttribute("code", this.code.value());
+                context.getWriter().writeAttribute("code", this.code.value());
 
             if (this.value != null)
-                writter.writeCharacters(value);
+                context.getWriter().writeCharacters(value);
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);
         }

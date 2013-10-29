@@ -7,8 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -45,7 +46,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "recordType", propOrder = {"header", "metadata", "about"})
-public class RecordType implements XMLWrittable {
+public class RecordType implements XMLWritable {
 
     @XmlElement(required = true)
     protected HeaderType header;
@@ -117,24 +118,24 @@ public class RecordType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (this.header != null) {
-                writter.writeStartElement("header");
-                this.header.write(writter);
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("header");
+                this.header.write(context);
+                context.getWriter().writeEndElement();
             }
 
             if (this.metadata != null) {
-                writter.writeStartElement("metadata");
-                this.metadata.write(writter);
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("metadata");
+                this.metadata.write(context);
+                context.getWriter().writeEndElement();
             }
 
             for (int i = 0; i < this.getAbout().size(); i++) {
-                writter.writeStartElement("about");
-                this.getAbout().get(i).write(writter);
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("about");
+                this.getAbout().get(i).write(context);
+                context.getWriter().writeEndElement();
             }
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);

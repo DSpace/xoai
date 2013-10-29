@@ -2,14 +2,15 @@ package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ListMetadataFormatsType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.MetadataFormatType;
+import com.lyncode.xoai.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
+import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 
 import java.util.List;
 
@@ -18,9 +19,8 @@ public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormatsT
     private ItemRepository itemRepository;
     private XOAIContext context;
 
-    public ListMetadataFormatsHandler(ItemRepository itemRepository, XOAIContext context) {
-
-        super();
+    public ListMetadataFormatsHandler(DateProvider formatter, ItemRepository itemRepository, XOAIContext context) {
+        super(formatter);
         this.itemRepository = itemRepository;
         this.context = context;
     }

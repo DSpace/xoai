@@ -8,6 +8,11 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
+import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+
 public abstract class ElementParser<T> implements XMLParser {
     private OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> oaiServiceConfiguration;
 

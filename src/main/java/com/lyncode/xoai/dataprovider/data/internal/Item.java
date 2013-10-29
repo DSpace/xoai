@@ -2,6 +2,7 @@ package com.lyncode.xoai.dataprovider.data.internal;
 
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import com.lyncode.xoai.util.XSLPipeline;
 import org.codehaus.stax2.XMLOutputFactory2;
 
@@ -30,10 +31,10 @@ public class Item extends ItemIdentify {
             return new ByteArrayInputStream(item.getMetadata().getCompiled().getBytes());
         } else {
             ByteArrayOutputStream mdOUT = new ByteArrayOutputStream();
-            XMLStreamWriter writer = outputFactory.createXMLStreamWriter(mdOUT);
-            item.getMetadata().getMetadata().write(writer);
-            writer.flush();
-            writer.close();
+            XmlOutputContext context = XmlOutputContext.emptyContext(mdOUT);
+            item.getMetadata().getMetadata().write(context);
+            context.getWriter().flush();
+            context.getWriter().close();
             return new ByteArrayInputStream(mdOUT.toByteArray());
         }
     }

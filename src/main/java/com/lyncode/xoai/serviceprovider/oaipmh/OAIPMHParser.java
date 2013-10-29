@@ -1,13 +1,12 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
-import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import org.codehaus.stax2.XMLInputFactory2;
 
 import javax.xml.stream.XMLEventReader;
@@ -95,7 +94,7 @@ public class OAIPMHParser extends ElementParser<OAIPMHtype> {
             reader.nextEvent();
             this.nextElement(reader);
 
-            pmh.setResponseDate(DateUtils.parse(this.getElement(reader, RESPONSE_DATE)));
+            pmh.setResponseDate(super.getConfiguration().getFormatter().parse(this.getElement(reader, RESPONSE_DATE)));
             pmh.setRequest(reqParser.parse(reader));
 
             String name = reader.peek().asStartElement().getName().getLocalPart();

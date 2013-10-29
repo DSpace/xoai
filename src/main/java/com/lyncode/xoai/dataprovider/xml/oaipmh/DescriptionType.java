@@ -9,14 +9,14 @@ package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
  * The descriptionType is used for the description element in Identify and for
@@ -44,7 +44,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "descriptionType")
-public class DescriptionType implements XMLWrittable {
+public class DescriptionType implements XMLWritable {
 
     @XmlValue
     protected String value;
@@ -85,12 +85,12 @@ public class DescriptionType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext writer) throws WritingXmlException {
         if (metadata != null) {
-            this.metadata.write(writter);
+            this.metadata.write(writer);
         } else if (this.value != null) {
             EchoElement echo = new EchoElement(value);
-            echo.write(writter);
+            echo.write(writer);
         }
     }
 

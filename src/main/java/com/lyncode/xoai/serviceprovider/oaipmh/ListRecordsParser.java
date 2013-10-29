@@ -1,8 +1,8 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
-import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListRecordsType;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;

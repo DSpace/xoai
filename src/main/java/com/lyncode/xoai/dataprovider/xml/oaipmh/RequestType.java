@@ -8,12 +8,14 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import java.util.Date;
 
 /**
  * Define requestType, indicating the protocol request that led to the response.
@@ -45,7 +47,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "requestType", propOrder = {"value"})
-public class RequestType implements XMLWrittable {
+public class RequestType implements XMLWritable {
 
     @XmlValue
     @XmlSchemaType(name = "anyURI")
@@ -57,9 +59,9 @@ public class RequestType implements XMLWrittable {
     @XmlAttribute(name = "metadataPrefix")
     protected String metadataPrefix;
     @XmlAttribute(name = "from")
-    protected DateInfo from;
+    protected Date from;
     @XmlAttribute(name = "until")
-    protected DateInfo until;
+    protected Date until;
     @XmlAttribute(name = "set")
     protected String set;
     @XmlAttribute(name = "resumptionToken")
@@ -142,7 +144,7 @@ public class RequestType implements XMLWrittable {
      *
      * @return possible object is {@link String }
      */
-    public DateInfo getFrom() {
+    public Date getFrom() {
         return from;
     }
 
@@ -151,7 +153,7 @@ public class RequestType implements XMLWrittable {
      *
      * @param value allowed object is {@link String }
      */
-    public void setFrom(DateInfo value) {
+    public void setFrom(Date value) {
         this.from = value;
     }
 
@@ -160,7 +162,7 @@ public class RequestType implements XMLWrittable {
      *
      * @return possible object is {@link String }
      */
-    public DateInfo getUntil() {
+    public Date getUntil() {
         return until;
     }
 
@@ -169,7 +171,7 @@ public class RequestType implements XMLWrittable {
      *
      * @param value allowed object is {@link String }
      */
-    public void setUntil(DateInfo value) {
+    public void setUntil(Date value) {
         this.until = value;
     }
 
@@ -219,25 +221,25 @@ public class RequestType implements XMLWrittable {
      * &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
      */
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (verb != null)
-                writter.writeAttribute("verb", verb.value());
+                context.getWriter().writeAttribute("verb", verb.value());
             if (identifier != null)
-                writter.writeAttribute("identifier", identifier);
+                context.getWriter().writeAttribute("identifier", identifier);
             if (metadataPrefix != null)
-                writter.writeAttribute("metadataPrefix", metadataPrefix);
+                context.getWriter().writeAttribute("metadataPrefix", metadataPrefix);
             if (from != null)
-                writter.writeAttribute("from", from.toString());
+                context.getWriter().writeAttribute("from", context.format(from));
             if (until != null)
-                writter.writeAttribute("until", until.toString());
+                context.getWriter().writeAttribute("until", context.format(until));
             if (set != null)
-                writter.writeAttribute("set", set);
+                context.getWriter().writeAttribute("set", set);
             if (resumptionToken != null)
-                writter.writeAttribute("resumptionToken", resumptionToken);
+                context.getWriter().writeAttribute("resumptionToken", resumptionToken);
 
             if (value != null)
-                writter.writeCharacters(value);
+                context.getWriter().writeCharacters(value);
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);
         }

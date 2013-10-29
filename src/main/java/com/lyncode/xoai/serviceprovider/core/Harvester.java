@@ -2,12 +2,12 @@ package com.lyncode.xoai.serviceprovider.core;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
+import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.*;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
 import com.lyncode.xoai.serviceprovider.verbs.*;
@@ -20,7 +20,7 @@ public class Harvester {
 
     public Harvester(OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config, String baseURL) {
         this.config = config;
-        this.parameters = new Parameters(baseURL);
+        this.parameters = new Parameters(this.config.getFormatter(), baseURL);
     }
 
 

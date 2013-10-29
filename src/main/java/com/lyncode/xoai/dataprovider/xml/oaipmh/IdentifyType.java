@@ -8,12 +8,11 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +51,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 @XmlType(name = "IdentifyType", propOrder = {"repositoryName", "baseURL",
         "protocolVersion", "adminEmail", "earliestDatestamp", "deletedRecord",
         "granularity", "compression", "description"})
-public class IdentifyType implements XMLWrittable {
+public class IdentifyType implements XMLWritable {
 
     @XmlElement(required = true)
     protected String repositoryName;
@@ -275,7 +274,7 @@ public class IdentifyType implements XMLWrittable {
 	 */
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext writer) throws WritingXmlException {
         if (this.repositoryName == null) throw new WritingXmlException("Repository Name cannot be null");
         if (this.baseURL == null) throw new WritingXmlException("Base URL cannot be null");
         if (this.protocolVersion == null) throw new WritingXmlException("Protocol version cannot be null");
@@ -286,25 +285,25 @@ public class IdentifyType implements XMLWrittable {
             throw new WritingXmlException("List of admin emails cannot be null or empty");
 
         try {
-            writeValue(writter, "repositoryName", repositoryName);
-            writeValue(writter, "baseURL", baseURL);
-            writeValue(writter, "protocolVersion", protocolVersion);
+            writeValue(writer.getWriter(), "repositoryName", repositoryName);
+            writeValue(writer.getWriter(), "baseURL", baseURL);
+            writeValue(writer.getWriter(), "protocolVersion", protocolVersion);
             for (String email : this.adminEmail) {
-                writeValue(writter, "adminEmail", email);
+                writeValue(writer.getWriter(), "adminEmail", email);
             }
-            writeValue(writter, "earliestDatestamp", DateUtils.format(earliestDatestamp));
-            writeValue(writter, "deletedRecord", deletedRecord.value());
-            writeValue(writter, "granularity", granularity.value());
+            writeValue(writer.getWriter(), "earliestDatestamp", writer.format(earliestDatestamp));
+            writeValue(writer.getWriter(), "deletedRecord", deletedRecord.value());
+            writeValue(writer.getWriter(), "granularity", granularity.value());
             if (this.compression != null && !this.compression.isEmpty()) {
                 for (String comp : this.compression) {
-                    writeValue(writter, "compression", comp);
+                    writeValue(writer.getWriter(), "compression", comp);
                 }
             }
             if (this.description != null && !this.description.isEmpty()) {
                 for (DescriptionType desc : this.description) {
-                    writter.writeStartElement("description");
-                    desc.write(writter);
-                    writter.writeEndElement();
+                    writer.getWriter().writeStartElement("description");
+                    desc.write(writer);
+                    writer.getWriter().writeEndElement();
                 }
             }
         } catch (XMLStreamException e) {

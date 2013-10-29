@@ -1,14 +1,13 @@
 package com.lyncode.xoai.serviceprovider.oaipmh;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
-import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.HeaderType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.StatusType;
+import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import com.lyncode.xoai.util.DateUtils;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
@@ -49,7 +48,7 @@ public class HeaderParser extends ElementParser<HeaderType> {
             this.nextElement(reader);
             result.setIdentifier(this.getElement(reader, IDENTIFIER));
             this.nextElement(reader);
-            result.setDatestamp(DateUtils.parse(this.getElement(reader, DATESTAMP)));
+            result.setDatestamp(super.getConfiguration().getFormatter().parse(this.getElement(reader, DATESTAMP)));
 
             this.nextElement(reader);
             while (reader.peek() != null && reader.peek().isStartElement()) {

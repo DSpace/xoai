@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -208,6 +209,8 @@ public class OAIParameters {
                 if (this.hasIdentifier())
                     throw new BadArgumentException(
                             "ListIdentifiers verb does not accept the identifier parameter");
+                if (this.hasFrom() && this.hasUntil())
+                    this.validateDates();
                 break;
             case LIST_RECORDS:
                 if (!this.hasResumptionToken() && !this.hasMetadataPrefix())
@@ -216,15 +219,27 @@ public class OAIParameters {
                 if (this.hasIdentifier())
                     throw new BadArgumentException(
                             "ListRecords verb does not accept the identifier parameter");
+                if (this.hasFrom() && this.hasUntil())
+                    this.validateDates();
                 break;
         }
+    }
+
+    private void validateDates() throws BadArgumentException {
+        Calendar from = Calendar.getInstance();
+        Calendar until = Calendar.getInstance();
+
+        from.setTime(this.from);
+        until.setTime(this.until);
+
+        if (from.after(until)) throw new BadArgumentException("The 'from' date must be less then the 'until' one");
     }
 
     private void loadResumptionToken(ResumptionToken resumptionToken) {
         if (resumptionToken.hasFrom())
             this.from = resumptionToken.getFrom();
         if (resumptionToken.hasMetadataPrefix())
-            this.metadataPrefix = resumptionToken.getMetadatePrefix();
+            this.metadataPrefix = resumptionToken.getMetadataPrefix();
         if (resumptionToken.hasSet())
             this.set = resumptionToken.getSet();
         if (resumptionToken.hasUntil())

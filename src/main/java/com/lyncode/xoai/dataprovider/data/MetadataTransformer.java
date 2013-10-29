@@ -16,8 +16,8 @@
 
 package com.lyncode.xoai.dataprovider.data;
 
-import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 import com.lyncode.xoai.dataprovider.transform.XSLTransformer;
+import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>

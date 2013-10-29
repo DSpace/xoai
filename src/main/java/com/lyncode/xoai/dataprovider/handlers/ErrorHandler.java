@@ -1,8 +1,8 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.exceptions.*;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHerrorType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHerrorcodeType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHerrorType;
 
 
 public class ErrorHandler {

@@ -7,7 +7,6 @@ import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import com.lyncode.xoai.util.DateUtils;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
@@ -38,7 +37,7 @@ public class ResumptionTokenParser extends ElementParser<ResumptionTokenType> {
             while (attrs.hasNext()) {
                 Attribute attr = attrs.next();
                 if (attr.getName().getLocalPart().equals(EXPIRATION_DATE)) {
-                    res.setExpirationDate(DateUtils.parse(attr.getValue()));
+                    res.setExpirationDate(super.getConfiguration().getFormatter().parse(attr.getValue()));
                 } else if (attr.getName().getLocalPart().equals(COMPLETE_LIST_SIZE)) {
                     res.setCompleteListSize(Long.parseLong(attr.getValue()));
                 } else if (attr.getName().getLocalPart().equals(CURSOR)) {

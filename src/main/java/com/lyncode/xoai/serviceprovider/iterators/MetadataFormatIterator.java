@@ -21,7 +21,6 @@ package com.lyncode.xoai.serviceprovider.iterators;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.core.Parameters;
-import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
@@ -31,8 +30,9 @@ import com.lyncode.xoai.serviceprovider.oaipmh.spec.MetadataFormatType;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
+import com.lyncode.xoai.serviceprovider.exceptions.IdDoesNotExistException;
+import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;

@@ -2,16 +2,17 @@ package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.*;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
-import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
 import com.lyncode.xoai.dataprovider.exceptions.NoMatchesException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.ListSetsType;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.SetType;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
+import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.ListSetsType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -26,9 +27,8 @@ public class ListSetsHandler extends VerbHandler<ListSetsType> {
     private AbstractResumptionTokenFormat resumptionFormat;
 
 
-    public ListSetsHandler(int maxListSize, SetRepository listSets, XOAIContext context, AbstractResumptionTokenFormat _format) {
-
-        super();
+    public ListSetsHandler(DateProvider formatter, int maxListSize, SetRepository listSets, XOAIContext context, AbstractResumptionTokenFormat _format) {
+        super(formatter);
         this.maxListSize = maxListSize;
         this.listSets = listSets;
         this.context = context;

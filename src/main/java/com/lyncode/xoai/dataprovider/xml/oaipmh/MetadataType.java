@@ -7,16 +7,19 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
+import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
+import org.apache.commons.io.IOUtils;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.stream.XMLStreamWriter;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -44,7 +47,7 @@ import java.io.InputStream;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "metadataType")
-public class MetadataType implements XMLWrittable {
+public class MetadataType implements XMLWritable {
     private String string;
 
     @XmlValue
@@ -63,17 +66,17 @@ public class MetadataType implements XMLWrittable {
         this.string = value;
     }
 
-    public MetadataType(InputStream value) {
-        this.string = value.toString();
+    public MetadataType(InputStream value) throws IOException {
+        this.string = IOUtils.toString(value);
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         if (this.value != null)
-            this.value.write(writter);
+            this.value.write(context);
         else {
             EchoElement elem = new EchoElement(string);
-            elem.write(writter);
+            elem.write(context);
         }
     }
 

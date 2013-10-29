@@ -7,8 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -42,7 +43,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListRecordsType", propOrder = {"record", "resumptionToken"})
-public class ListRecordsType implements XMLWrittable {
+public class ListRecordsType implements XMLWritable {
 
     @XmlElement(required = true)
     protected List<RecordType> record;
@@ -102,19 +103,19 @@ public class ListRecordsType implements XMLWrittable {
 	 */
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             if (this.record != null && !this.record.isEmpty()) {
                 for (RecordType record : this.record) {
-                    writter.writeStartElement("record");
-                    record.write(writter);
-                    writter.writeEndElement();
+                    context.getWriter().writeStartElement("record");
+                    record.write(context);
+                    context.getWriter().writeEndElement();
                 }
             }
             if (this.resumptionToken != null) {
-                writter.writeStartElement("resumptionToken");
-                resumptionToken.write(writter);
-                writter.writeEndElement();
+                context.getWriter().writeStartElement("resumptionToken");
+                resumptionToken.write(context);
+                context.getWriter().writeEndElement();
             }
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);

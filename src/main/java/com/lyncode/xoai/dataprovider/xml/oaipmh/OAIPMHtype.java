@@ -8,15 +8,14 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
-import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +57,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 @XmlType(name = "OAI-PMHtype", propOrder = {"responseDate", "request",
         "error", "identify", "listMetadataFormats", "listSets", "getRecord",
         "listIdentifiers", "listRecords"})
-public class OAIPMHtype implements XMLWrittable {
+public class OAIPMHtype implements XMLWritable {
 
     @XmlElement(required = true)
     protected Date responseDate;
@@ -81,7 +80,7 @@ public class OAIPMHtype implements XMLWrittable {
     /**
      * Gets the value of the responseDate property.
      *
-     * @return possible object is {@link XMLGregorianCalendar }
+     * @return possible object is {@link Date }
      */
     public Date getResponseDate() {
         return responseDate;
@@ -90,7 +89,7 @@ public class OAIPMHtype implements XMLWrittable {
     /**
      * Sets the value of the responseDate property.
      *
-     * @param value allowed object is {@link XMLGregorianCalendar }
+     * @param value allowed object is {@link Date }
      */
     public void setResponseDate(Date value) {
         this.responseDate = value;
@@ -264,26 +263,26 @@ public class OAIPMHtype implements XMLWrittable {
      * &lt;/choice>
      */
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
-            writeValue(writter, "responseDate", DateUtils.format(responseDate));
-            writeElement(writter, "request", request);
+            writeValue(context.getWriter(), "responseDate", context.format(this.responseDate));
+            writeElement(context, "request", request);
 
             if (this.error != null && !this.error.isEmpty()) {
                 for (OAIPMHerrorType er : this.error)
-                    writeElement(writter, "error", er);
+                    writeElement(context, "error", er);
             } else if (this.identify != null) {
-                writeElement(writter, "Identify", identify);
+                writeElement(context, "Identify", identify);
             } else if (this.listMetadataFormats != null) {
-                writeElement(writter, "ListMetadataFormats", listMetadataFormats);
+                writeElement(context, "ListMetadataFormats", listMetadataFormats);
             } else if (listSets != null) {
-                writeElement(writter, "ListSets", listSets);
+                writeElement(context, "ListSets", listSets);
             } else if (getRecord != null) {
-                writeElement(writter, "GetRecord", getRecord);
+                writeElement(context, "GetRecord", getRecord);
             } else if (listIdentifiers != null) {
-                writeElement(writter, "ListIdentifiers", listIdentifiers);
+                writeElement(context, "ListIdentifiers", listIdentifiers);
             } else {
-                writeElement(writter, "ListRecords", listRecords);
+                writeElement(context, "ListRecords", listRecords);
             }
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);

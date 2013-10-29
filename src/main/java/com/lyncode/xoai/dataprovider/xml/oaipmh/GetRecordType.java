@@ -7,8 +7,9 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -39,7 +40,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetRecordType", propOrder = {"record"})
-public class GetRecordType implements XMLWrittable {
+public class GetRecordType implements XMLWritable {
 
     @XmlElement(required = true)
     protected RecordType record;
@@ -63,12 +64,12 @@ public class GetRecordType implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext writer) throws WritingXmlException {
         try {
-            writter.writeStartElement("record");
+            writer.getWriter().writeStartElement("record");
             if (this.record != null)
-                this.record.write(writter);
-            writter.writeEndElement();
+                this.record.write(writer);
+            writer.getWriter().writeEndElement();
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);
         }

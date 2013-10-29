@@ -16,9 +16,9 @@
 
 package com.lyncode.xoai.dataprovider.filter;
 
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ConditionDefinitionType;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.conditions.*;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ConditionDefinitionType;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters;
 
 import java.util.ArrayList;
@@ -59,8 +59,10 @@ public class FilterManager {
         }
 
         _filters = new HashMap<String, Filter>();
-        for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters.getFilter()) {
-            _filters.put(f.getId(), new Filter(this.getDefinition(f.getDefinition())));
+        if (filters != null) {
+            for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters.getFilter()) {
+                _filters.put(f.getId(), new Filter(this.getDefinition(f.getDefinition())));
+            }
         }
     }
 

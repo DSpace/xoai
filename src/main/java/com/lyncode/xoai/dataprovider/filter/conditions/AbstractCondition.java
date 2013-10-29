@@ -16,8 +16,8 @@
 
 package com.lyncode.xoai.dataprovider.filter.conditions;
 
-import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
+import com.lyncode.xoai.dataprovider.core.ConfigurableBundle;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>

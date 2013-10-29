@@ -27,18 +27,19 @@ import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.handlers.*;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
-import com.lyncode.xoai.util.DateUtils;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHtype;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.RequestType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.codehaus.stax2.XMLOutputFactory2;
 
-import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,8 +48,11 @@ import java.util.List;
  */
 public class OAIDataProvider {
     private static Logger log = LogManager.getLogger(OAIDataProvider.class);
+    private static DateProvider formatter = new BaseDateProvider();
 
-    private static XMLOutputFactory factory = XMLOutputFactory2.newFactory();
+    public static void setDateFormatter (DateProvider newFormat) {
+        formatter = newFormat;
+    }
 
     private XOAIManager _manager;
 
@@ -68,31 +72,32 @@ public class OAIDataProvider {
     private ErrorHandler errorHandler;
 
 
-    public OAIDataProvider(XOAIManager manager, String contexturl, AbstractIdentify identify,
-                           AbstractSetRepository listsets,
+    public OAIDataProvider(XOAIManager manager, String contextUrl, AbstractIdentify identify,
+                           AbstractSetRepository listSets,
                            AbstractItemRepository itemRepository)
             throws InvalidContextException {
-        log.debug("Context chosen: " + contexturl);
+        log.debug("Context chosen: " + contextUrl);
 
         _manager = manager;
 
-        _context = _manager.getContextManager().getOAIContext(contexturl);
+        _context = _manager.getContextManager().getOAIContext(contextUrl);
 
         if (_context == null)
-            throw new InvalidContextException("Context \"" + contexturl
+            throw new InvalidContextException("Context \"" + contextUrl
                     + "\" does not exist");
+
         _identify = identify;
-        _listSets = new SetRepository(listsets);
+        _listSets = new SetRepository(listSets);
         _itemRepo = new ItemRepository(itemRepository);
         _compressions = new ArrayList<String>();
         _format = new DefaultResumptionTokenFormat();
 
-        getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
-        identifyHandler = new IdentifyHandler(_identify, _compressions);
-        listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(_manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listIdentifiersHandler = new ListIdentifiersHandler(_manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listSetsHandler = new ListSetsHandler(_manager.getMaxListSetsSize(), _listSets, _context, _format);
+        getRecordHandler = new GetRecordHandler(formatter, _context, _itemRepo, _identify);
+        identifyHandler = new IdentifyHandler(formatter, _identify, _compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, _itemRepo, _context);
+        listRecordsHandler = new ListRecordsHandler(formatter, _manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
+        listIdentifiersHandler = new ListIdentifiersHandler(formatter, _manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
+        listSetsHandler = new ListSetsHandler(formatter, _manager.getMaxListSetsSize(), _listSets, _context, _format);
         errorHandler = new ErrorHandler();
     }
 
@@ -116,12 +121,12 @@ public class OAIDataProvider {
         _compressions = new ArrayList<String>();
         _format = format;
 
-        getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
-        identifyHandler = new IdentifyHandler(_identify, _compressions);
-        listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(_manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listIdentifiersHandler = new ListIdentifiersHandler(_manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listSetsHandler = new ListSetsHandler(_manager.getMaxListSetsSize(), _listSets, _context, _format);
+        getRecordHandler = new GetRecordHandler(formatter, _context, _itemRepo, _identify);
+        identifyHandler = new IdentifyHandler(formatter, _identify, _compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, _itemRepo, _context);
+        listRecordsHandler = new ListRecordsHandler(formatter, _manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
+        listIdentifiersHandler = new ListIdentifiersHandler(formatter, _manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
+        listSetsHandler = new ListSetsHandler(formatter, _manager.getMaxListSetsSize(), _listSets, _context, _format);
         errorHandler = new ErrorHandler();
     }
 
@@ -141,12 +146,12 @@ public class OAIDataProvider {
         _compressions = compressions;
         _format = new DefaultResumptionTokenFormat();
 
-        getRecordHandler = new GetRecordHandler(_context, _itemRepo, _identify);
-        identifyHandler = new IdentifyHandler(_identify, _compressions);
-        listMetadataFormatsHandler = new ListMetadataFormatsHandler(_itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(_manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listIdentifiersHandler = new ListIdentifiersHandler(_manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listSetsHandler = new ListSetsHandler(_manager.getMaxListSetsSize(), _listSets, _context, _format);
+        getRecordHandler = new GetRecordHandler(formatter, _context, _itemRepo, _identify);
+        identifyHandler = new IdentifyHandler(formatter, _identify, _compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, _itemRepo, _context);
+        listRecordsHandler = new ListRecordsHandler(formatter, _manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
+        listIdentifiersHandler = new ListIdentifiersHandler(formatter, _manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
+        listSetsHandler = new ListSetsHandler(formatter, _manager.getMaxListSetsSize(), _listSets, _context, _format);
         errorHandler = new ErrorHandler();
     }
 
@@ -159,7 +164,7 @@ public class OAIDataProvider {
 
         RequestType request = new RequestType();
         info.setRequest(request);
-        info.setResponseDate(new Date());
+        info.setResponseDate(formatter.now());
 
         request.setValue(this._identify.getBaseUrl());
         try {
@@ -173,7 +178,7 @@ public class OAIDataProvider {
                 request.setIdentifier(parameters.getIdentifier());
             if (params.getFrom() != null)
                 try {
-                    request.setFrom(new DateInfo(DateUtils.parse(params.getFrom()), _identify.getGranularity().toGranularityType()));
+                    request.setFrom(formatter.parse(params.getFrom(), _identify.getGranularity()));
                 } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
@@ -183,7 +188,7 @@ public class OAIDataProvider {
                 request.setSet(params.getSet());
             if (params.getUntil() != null)
                 try {
-                    request.setUntil(new DateInfo(DateUtils.parse(params.getUntil()), _identify.getGranularity().toGranularityType()));
+                    request.setUntil(formatter.parse(params.getUntil(), _identify.getGranularity()));
                 } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
@@ -219,11 +224,11 @@ public class OAIDataProvider {
     public void handle(OAIRequestParameters params, OutputStream out)
             throws OAIException, XMLStreamException, WritingXmlException {
 
-        XMLStreamWriter writer = factory.createXMLStreamWriter(out);
-        writer.writeStartDocument();
-        this.handle(params).write(writer);
-        writer.writeEndDocument();
-        writer.flush();
-        writer.close();
+        XmlOutputContext context = XmlOutputContext.emptyContext(out);
+        context.getWriter().writeStartDocument();
+        this.handle(params).write(context);
+        context.getWriter().writeEndDocument();
+        context.getWriter().flush();
+        context.getWriter().close();
     }
 }

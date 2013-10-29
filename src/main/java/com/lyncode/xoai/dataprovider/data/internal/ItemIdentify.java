@@ -3,8 +3,8 @@ package com.lyncode.xoai.dataprovider.data.internal;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
-import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
+import com.lyncode.xoai.dataprovider.filter.Filter;
 
 import java.util.List;
 

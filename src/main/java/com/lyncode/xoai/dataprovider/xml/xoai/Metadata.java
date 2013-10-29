@@ -8,17 +8,15 @@
 package com.lyncode.xoai.dataprovider.xml.xoai;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.dataprovider.xml.XMLWrittable;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XSISchema;
-import org.codehaus.stax2.XMLOutputFactory2;
+import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +46,8 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {"element"})
 @XmlRootElement(name = "metadata")
-public class Metadata implements XMLWrittable {
-    private static XMLOutputFactory factory = XMLOutputFactory2.newFactory();
+public class Metadata implements XMLWritable {
+
     public static final String NAMESPACE_URI = "http://www.lyncode.com/xoai";
     public static final String SCHEMA_LOCATION = "http://www.lyncode.com/xsd/xoai.xsd";
 
@@ -84,19 +82,19 @@ public class Metadata implements XMLWrittable {
     }
 
     @Override
-    public void write(XMLStreamWriter writter) throws WritingXmlException {
+    public void write(XmlOutputContext context) throws WritingXmlException {
         try {
             //String namespace = writter.getNamespaceContext().getNamespaceURI(XMLConstants.XMLNS_ATTRIBUTE);
-            writter.writeStartElement("metadata");
-            writter.writeDefaultNamespace(NAMESPACE_URI);
-            writter.writeNamespace(XSISchema.PREFIX, XSISchema.NAMESPACE_URI);
-            writter.writeAttribute(XSISchema.PREFIX, XSISchema.NAMESPACE_URI, "schemaLocation",
+            context.getWriter().writeStartElement("metadata");
+            context.getWriter().writeDefaultNamespace(NAMESPACE_URI);
+            context.getWriter().writeNamespace(XSISchema.PREFIX, XSISchema.NAMESPACE_URI);
+            context.getWriter().writeAttribute(XSISchema.PREFIX, XSISchema.NAMESPACE_URI, "schemaLocation",
                     NAMESPACE_URI + " " + SCHEMA_LOCATION);
 
             for (Element elem : this.getElement()) {
-                writeElement(writter, "element", elem);
+                writeElement(context, "element", elem);
             }
-            writter.writeEndElement();
+            context.getWriter().writeEndElement();
             //writter.writeDefaultNamespace(namespace);
         } catch (XMLStreamException e) {
             throw new WritingXmlException(e);
@@ -107,7 +105,7 @@ public class Metadata implements XMLWrittable {
     public String toString() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
-            this.write(factory.createXMLStreamWriter(out));
+            this.write(XmlOutputContext.emptyContext(out));
         } catch (WritingXmlException e) {
             e.printStackTrace();
         } catch (XMLStreamException e) {
