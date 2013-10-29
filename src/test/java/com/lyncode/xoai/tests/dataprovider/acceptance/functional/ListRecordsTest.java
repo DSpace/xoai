@@ -4,6 +4,7 @@ import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.exceptions.InvalidContextException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.tests.dataprovider.acceptance.AbstractDataProviderTest;
 import com.lyncode.xoai.tests.dataprovider.stubs.StubbedItem;
 import org.junit.Test;
 

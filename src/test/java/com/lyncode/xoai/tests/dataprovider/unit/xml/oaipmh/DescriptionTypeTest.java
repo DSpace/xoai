@@ -9,6 +9,7 @@ import javax.xml.stream.XMLStreamException;
 
 import static com.lyncode.xoai.tests.SyntacticSugar.to;
 import static com.lyncode.xoai.tests.XPathMatchers.hasXPath;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
@@ -26,8 +27,8 @@ public class DescriptionTypeTest extends XmlTest {
         theWriter().writeStartElement("description");
         type.write(to(theContextWriter()));
 
-        assertThat(theOutput(), hasXPath("/description/a", "Test"));
-        assertThat(theOutput(), hasXPath("/description/a/@a", "n"));
+        assertThat(theOutput(), hasXPath("/description/a", is("Test")));
+        assertThat(theOutput(), hasXPath("/description/a/@a", is("n")));
     }
 
 }

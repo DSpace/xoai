@@ -1,29 +1,20 @@
 package com.lyncode.xoai.tests.dataprovider.acceptance.functional;
 
-import com.lyncode.xoai.builders.ListBuilder;
-import com.lyncode.xoai.builders.MapBuilder;
-import com.lyncode.xoai.builders.OAIRequestParametersBuilder;
-import com.lyncode.xoai.dataprovider.OAIRequestParameters;
-import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.exceptions.InvalidContextException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import org.apache.commons.lang3.RandomStringUtils;
+import com.lyncode.xoai.tests.dataprovider.acceptance.AbstractDataProviderTest;
 import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.junit.Test;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.lyncode.xoai.tests.SyntacticSugar.and;
 import static com.lyncode.xoai.tests.SyntacticSugar.given;
-import static com.lyncode.xoai.tests.SyntacticSugar.with;
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNot.not;
 
 public class ListSetsVerbTest extends AbstractDataProviderTest {
@@ -40,7 +31,7 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
 
         afterHandling(aRequest().withVerb("ListSets"));
 
-        assertThat(theResult(), hasXPath("count(//o:set)", String.valueOf(2)));
+        assertThat(theResult(), xPath("count(//o:set)", is(String.valueOf(2))));
     }
 
     @Test
@@ -51,15 +42,19 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
 
         afterHandling(aRequest().withVerb("ListSets"));
 
-        assertThat(theResult(), hasXPath("count(//o:set)", String.valueOf(5)));
+        assertThat(theResult(), xPath("count(//o:set)", is(String.valueOf(5))));
         assertThat(theResult(), hasXPath("//o:resumptionToken"));
 
         String resumptionToken = getXPath("//o:resumptionToken");
 
         afterHandling(aRequest().withVerb("ListSets").withResumptionToken(resumptionToken));
 
-        assertThat(theResult(), hasXPath("count(//o:set)", String.valueOf(4)));
-        assertThat(theResult(), hasXPath("//o:resumptionToken", ""));
+        assertThat(theResult(), xPath("count(//o:set)", is(String.valueOf(4))));
+        assertThat(theResult(), xPath("//o:resumptionToken", is(empty())));
+    }
+
+    private String empty() {
+        return "";
     }
 
     @Test
@@ -68,8 +63,8 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
 
         afterHandling(aRequest().withVerb("ListSets"));
 
-        assertThat(theResult(), hasXPath("count(//o:error)", String.valueOf(1)));
-        assertThat(theResult(), hasXPath("//o:error/@code", "noSetHierarchy"));
+        assertThat(theResult(), xPath("count(//o:error)", is(String.valueOf(1))));
+        assertThat(theResult(), xPath("//o:error/@code", is("noSetHierarchy")));
     }
 
 }

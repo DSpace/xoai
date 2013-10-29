@@ -1,9 +1,10 @@
-package com.lyncode.xoai.tests.dataprovider.acceptance.functional;
+package com.lyncode.xoai.tests.dataprovider.acceptance.nonfunctional;
 
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.exceptions.InvalidContextException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.tests.dataprovider.acceptance.AbstractDataProviderTest;
 import org.dom4j.DocumentException;
 import org.junit.Test;
 
@@ -17,6 +18,7 @@ import java.util.TimeZone;
 import static com.lyncode.xoai.tests.SyntacticSugar.and;
 import static com.lyncode.xoai.tests.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class TimeZoneTest extends AbstractDataProviderTest {
     private static final String TEST_DATE = "2013-01-01T00:12:13Z";
@@ -40,6 +42,6 @@ public class TimeZoneTest extends AbstractDataProviderTest {
 
         afterHandling(aRequest().withVerb("ListSets"));
 
-        assertThat(theResult(), hasXPath("//o:responseDate", DATE_GMT));
+        assertThat(theResult(), xPath("//o:responseDate", is(DATE_GMT)));
     }
 }

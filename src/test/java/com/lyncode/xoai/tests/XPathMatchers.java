@@ -4,17 +4,18 @@ import com.lyncode.xoai.builders.MapBuilder;
 import org.dom4j.*;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.jaxen.SimpleNamespaceContext;
 
 import java.util.List;
 import java.util.Map;
 
 public class XPathMatchers {
-    public static XPathValueMatcher hasXPath(String expression, String value) {
+    public static <T> XPathValueMatcher hasXPath(String expression, Matcher<T> value) {
         return new XPathValueMatcher(expression, value);
     }
 
-    public static XPathValueMatcher hasXPath(String expression, String value, MapBuilder<String, String> namespaces) {
+    public static <T> XPathValueMatcher xPath(String expression, Matcher<T> value, MapBuilder<String, String> namespaces) {
         return new XPathValueMatcher(expression, value, namespaces);
     }
 
@@ -64,17 +65,17 @@ public class XPathMatchers {
         }
     }
 
-    private static class XPathValueMatcher extends BaseMatcher<String> {
+    private static class XPathValueMatcher<T> extends BaseMatcher<String> {
         private MapBuilder<String, String> namespaces;
-        private String value;
+        private Matcher<T> value;
         private String expression;
 
-        public XPathValueMatcher (String expression, String value) {
+        public XPathValueMatcher (String expression, Matcher<T> value) {
             this.value = value;
             this.expression = expression;
         }
 
-        public XPathValueMatcher(String expression, String value, MapBuilder<String, String> namespaces) {
+        public XPathValueMatcher(String expression, Matcher<T> value, MapBuilder<String, String> namespaces) {
             this.value = value;
             this.expression = expression;
             this.namespaces = namespaces;
@@ -90,7 +91,7 @@ public class XPathMatchers {
                     if (this.namespaces != null)
                         xPath.setNamespaceURIs(this.namespaces.build());
                     String evaluatedValue = xPath.valueOf(document);
-                    return this.value.equals(evaluatedValue);
+                    return value.matches(evaluatedValue);
                 } catch (DocumentException e) {
                     throw new RuntimeException(e.getMessage(), e);
                 }
@@ -101,7 +102,8 @@ public class XPathMatchers {
 
         @Override
         public void describeTo(Description description) {
-            description.appendText("XPath ").appendValue(this.expression).appendText(" must resolve to ").appendValue(this.value);
+            description.appendText("XPath ").appendValue(this.expression).appendText(" must ");
+            value.describeTo(description);
         }
     }
 }

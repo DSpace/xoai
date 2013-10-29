@@ -1,4 +1,4 @@
-package com.lyncode.xoai.tests.dataprovider.acceptance.functional;
+package com.lyncode.xoai.tests.dataprovider.acceptance;
 
 import com.lyncode.xoai.builders.*;
 import com.lyncode.xoai.dataprovider.OAIDataProvider;
@@ -137,8 +137,8 @@ public abstract class AbstractDataProviderTest {
                 .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }
 
-    protected Matcher<? super String> hasXPath(String s, String val) {
-        return XPathMatchers.hasXPath(s, val, new MapBuilder<String, String>()
+    protected <T> Matcher<? super String> xPath(String s, Matcher<T> val) {
+        return XPathMatchers.xPath(s, val, new MapBuilder<String, String>()
                 .withPair("o", "http://www.openarchives.org/OAI/2.0/")
                 .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }

@@ -59,8 +59,8 @@ public abstract class XmlTest {
                 .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }
 
-    protected Matcher<? super String> hasXPath(String s, String val) {
-        return XPathMatchers.hasXPath(s, val, new MapBuilder<String, String>()
+    protected <T> Matcher<? super String> hasXPath(String s, Matcher<T> val) {
+        return XPathMatchers.xPath(s, val, new MapBuilder<String, String>()
                 .withPair("xoai", "http://www.lyncode.com/xoai")
                 .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }

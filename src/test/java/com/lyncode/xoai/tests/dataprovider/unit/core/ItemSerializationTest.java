@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import static com.lyncode.xoai.tests.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class ItemSerializationTest {
     public static final String TEST_1 = "test1";
@@ -36,8 +37,8 @@ public class ItemSerializationTest {
         Item item = new Item(theItem());
 
         assertThat(serializing(item), hasXPath("/o:metadata"));
-        assertThat(serializing(item), hasXPath("//o:field[@name='"+ FIELD_1 +"']", TEST_1));
-        assertThat(serializing(item), hasXPath("//o:field[@name='"+ FIELD_2 +"']", TEST_2));
+        assertThat(serializing(item), xPath("//o:field[@name='" + FIELD_1 + "']", is(TEST_1)));
+        assertThat(serializing(item), xPath("//o:field[@name='" + FIELD_2 + "']", is(TEST_2)));
     }
 
     private String serializing(Item item) throws IOException, WritingXmlException, XMLStreamException {
@@ -62,8 +63,8 @@ public class ItemSerializationTest {
                 .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }
 
-    protected Matcher<? super String> hasXPath(String s, String val) {
-        return XPathMatchers.hasXPath(s, val, new MapBuilder<String, String>()
+    protected <T> Matcher<? super String> xPath(String s, Matcher<T> val) {
+        return XPathMatchers.xPath(s, val, new MapBuilder<String, String>()
                 .withPair("o", "http://www.lyncode.com/xoai")
                 .withPair("xsi", "http://www.w3.org/2001/XMLSchema-instance"));
     }

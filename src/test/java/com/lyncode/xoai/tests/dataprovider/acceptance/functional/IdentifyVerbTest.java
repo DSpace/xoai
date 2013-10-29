@@ -6,6 +6,7 @@ import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
+import com.lyncode.xoai.tests.dataprovider.acceptance.AbstractDataProviderTest;
 import org.junit.Test;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,6 +19,7 @@ import static com.lyncode.xoai.dataprovider.core.DeleteMethod.PERSISTENT;
 import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
 import static com.lyncode.xoai.tests.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 public class IdentifyVerbTest extends AbstractDataProviderTest {
 
@@ -44,12 +46,12 @@ public class IdentifyVerbTest extends AbstractDataProviderTest {
 
         afterHandling(aRequest().withVerb("Identify"));
 
-        assertThat(theResult(), hasXPath("//o:repositoryName", REPOSITORY_NAME));
-        assertThat(theResult(), hasXPath("//o:granularity", Second.toGranularityType().value()));
-        assertThat(theResult(), hasXPath("//o:earliestDatestamp", formatter.format(EARLIEST_DATE, Second)));
-        assertThat(theResult(), hasXPath("//o:adminEmail[1]", ADMIN_EMAIL_1));
-        assertThat(theResult(), hasXPath("//o:adminEmail[2]", ADMIN_EMAIL_2));
-        assertThat(theResult(), hasXPath("//o:desc", DESCRIPTION));
+        assertThat(theResult(), xPath("//o:repositoryName", is(REPOSITORY_NAME)));
+        assertThat(theResult(), xPath("//o:granularity", is(Second.toGranularityType().value())));
+        assertThat(theResult(), xPath("//o:earliestDatestamp", is(formatter.format(EARLIEST_DATE, Second))));
+        assertThat(theResult(), xPath("//o:adminEmail[1]", is(ADMIN_EMAIL_1)));
+        assertThat(theResult(), xPath("//o:adminEmail[2]", is(ADMIN_EMAIL_2)));
+        assertThat(theResult(), xPath("//o:desc", is(DESCRIPTION)));
     }
 
 }
