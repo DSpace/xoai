@@ -2,19 +2,17 @@ package com.lyncode.xoai.tests.dataprovider.unit.xml;
 
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.EchoElement;
-import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
-import com.lyncode.xoai.tests.XmlTest;
+import com.lyncode.xoai.tests.dataprovider.unit.XmlTest;
 import org.junit.Test;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.to;
-import static com.lyncode.xoai.tests.XPathMatchers.hasXPath;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.to;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class EchoElementTest extends XmlTest {
 
     @Test
-    public void shouldOutputTheSameThing () throws WritingXmlException {
+    public void shouldOutputTheSameThing() throws WritingXmlException {
         givenAnEmptyStreamWriter();
         EchoElement echoElement = new EchoElement("<a />");
         echoElement.write(to(theContextWriter()));
@@ -22,7 +20,7 @@ public class EchoElementTest extends XmlTest {
     }
 
     @Test
-    public void shouldOutputTheSameThingWithAttributes () throws WritingXmlException {
+    public void shouldOutputTheSameThingWithAttributes() throws WritingXmlException {
         givenAnEmptyStreamWriter();
         EchoElement echoElement = new EchoElement("<a attribute=\"b\" />");
 

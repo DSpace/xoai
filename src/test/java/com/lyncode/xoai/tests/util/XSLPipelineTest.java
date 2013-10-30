@@ -1,13 +1,10 @@
 package com.lyncode.xoai.tests.util;
 
-import com.lyncode.xoai.tests.XmlTest;
+import com.lyncode.xoai.tests.dataprovider.unit.XmlTest;
 import com.lyncode.xoai.util.XSLPipeline;
 import org.apache.commons.io.IOUtils;
-import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import java.io.ByteArrayInputStream;
@@ -25,19 +22,20 @@ public class XSLPipelineTest extends XmlTest {
     private ByteArrayInputStream input = new ByteArrayInputStream(TEST_XML.getBytes());
 
     @Test
-    public void shouldGiveTheSameIfNoTransformationIsApplied () throws IOException {
+    public void shouldGiveTheSameIfNoTransformationIsApplied() throws IOException {
         XSLPipeline underTest = new XSLPipeline(input, true);
         assertEquals(TEST_XML, IOUtils.toString(underTest.getTransformed()));
     }
 
     @Test
-    public void shouldTransformWithXmlDeclarationOnTop () throws TransformerException, IOException {
+    public void shouldTransformWithXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, false);
         underTest.apply(identityTransformer());
         assertThat(IOUtils.toString(underTest.getTransformed()), containsString("<?xml"));
     }
+
     @Test
-    public void shouldTransformWithoutXmlDeclarationOnTop () throws TransformerException, IOException {
+    public void shouldTransformWithoutXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, true);
         underTest.apply(identityTransformer());
         assertThat(IOUtils.toString(underTest.getTransformed()), not(containsString("<?xml")));

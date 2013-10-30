@@ -1,7 +1,8 @@
-package com.lyncode.xoai.tests;
+package com.lyncode.xoai.tests.dataprovider.unit;
 
 import com.lyncode.xoai.builders.MapBuilder;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
+import com.lyncode.xoai.tests.matchers.XPathMatchers;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.XMLStreamException;
@@ -26,7 +27,7 @@ public abstract class XmlTest {
         return output.toString();
     }
 
-    protected Transformer identityTransformer () {
+    protected Transformer identityTransformer() {
         try {
             return tFactory.newTransformer();
         } catch (TransformerConfigurationException e) {
@@ -34,7 +35,7 @@ public abstract class XmlTest {
         }
     }
 
-    protected XMLStreamWriter theWriter () {
+    protected XMLStreamWriter theWriter() {
         return context.getWriter();
     }
 

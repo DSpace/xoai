@@ -1,4 +1,4 @@
-package com.lyncode.xoai.tests.dataprovider.stubs;
+package com.lyncode.xoai.tests.helpers.stubs;
 
 import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
 import com.lyncode.xoai.dataprovider.core.ListItemsResults;
@@ -23,17 +23,18 @@ public class StubbedItemRepository extends AbstractItemRepository {
         return this;
     }
 
-    public StubbedItemRepository withItem (StubbedItem item) {
+    public StubbedItemRepository withItem(StubbedItem item) {
         list.add(item);
         return this;
     }
-    public StubbedItemRepository withItems (StubbedItem... item) {
+
+    public StubbedItemRepository withItems(StubbedItem... item) {
         list.addAll(asList(item));
         return this;
     }
 
-    public StubbedItemRepository withRandomItems (int number) {
-        for (int i=0;i<number;i++)
+    public StubbedItemRepository withRandomItems(int number) {
+        for (int i = 0; i < number; i++)
             list.add(StubbedItem.randomItem());
         return this;
     }
@@ -49,7 +50,7 @@ public class StubbedItemRepository extends AbstractItemRepository {
 
     @Override
     public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length) throws OAIException {
-        return new ListItemIdentifiersResult(offset+length < list.size(), new ArrayList<AbstractItemIdentifier>(list.subList(offset, min(offset + length, list.size()))));
+        return new ListItemIdentifiersResult(offset + length < list.size(), new ArrayList<AbstractItemIdentifier>(list.subList(offset, min(offset + length, list.size()))));
     }
 
     @Override
@@ -89,7 +90,7 @@ public class StubbedItemRepository extends AbstractItemRepository {
 
     @Override
     public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length) throws OAIException {
-        return new ListItemsResults(offset+length < list.size(), new ArrayList<AbstractItem>(list.subList(offset, min(offset + length, list.size()))));
+        return new ListItemsResults(offset + length < list.size(), new ArrayList<AbstractItem>(list.subList(offset, min(offset + length, list.size()))));
     }
 
     @Override

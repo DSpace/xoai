@@ -8,8 +8,8 @@ import org.junit.Test;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamException;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.given;
-import static com.lyncode.xoai.tests.SyntacticSugar.with;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.with;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;

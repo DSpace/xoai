@@ -1,16 +1,14 @@
 package com.lyncode.xoai.tests.dataprovider.unit.xml.oaipmh;
 
-import com.lyncode.xoai.tests.XmlTest;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
+import com.lyncode.xoai.tests.dataprovider.unit.XmlTest;
 import org.junit.Test;
 
 import javax.xml.stream.XMLStreamException;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.to;
-import static com.lyncode.xoai.tests.XPathMatchers.hasXPath;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.to;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 

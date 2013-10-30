@@ -1,4 +1,4 @@
-package com.lyncode.xoai.tests.dataprovider.stubs;
+package com.lyncode.xoai.tests.helpers.stubs;
 
 import com.lyncode.xoai.builders.ListBuilder;
 import com.lyncode.xoai.builders.MetadataBuilder;
@@ -17,7 +17,7 @@ import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 public class StubbedItem extends AbstractItem {
     private Map<String, Object> values = new HashMap<String, Object>();
 
-    public StubbedItem () {
+    public StubbedItem() {
         this.withDefauls();
     }
 
@@ -29,13 +29,13 @@ public class StubbedItem extends AbstractItem {
                 .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
     }
 
-    public StubbedItem with (String name, Object value) {
+    public StubbedItem with(String name, Object value) {
         values.put(name, value);
         return this;
     }
 
-    public StubbedItem withSet (String name) {
-        ((List<String>)values.get("sets")).add(name);
+    public StubbedItem withSet(String name) {
+        ((List<String>) values.get("sets")).add(name);
         return this;
     }
 
@@ -62,7 +62,7 @@ public class StubbedItem extends AbstractItem {
                 List<String> obj = (List<String>) value;
                 int i = 1;
                 for (String e : obj)
-                    metadataElementBuilder.withField("value-"+(i++), e);
+                    metadataElementBuilder.withField("value-" + (i++), e);
             }
             builder.withElement(metadataElementBuilder.build());
         }

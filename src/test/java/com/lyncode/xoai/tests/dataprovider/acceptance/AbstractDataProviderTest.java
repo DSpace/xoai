@@ -13,10 +13,10 @@ import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
-import com.lyncode.xoai.tests.XPathMatchers;
-import com.lyncode.xoai.tests.dataprovider.stubs.StubbedItemRepository;
-import com.lyncode.xoai.tests.dataprovider.stubs.StubbedSetRepository;
 import com.lyncode.xoai.tests.helpers.AbstractIdentifyBuilder;
+import com.lyncode.xoai.tests.helpers.stubs.StubbedItemRepository;
+import com.lyncode.xoai.tests.helpers.stubs.StubbedSetRepository;
+import com.lyncode.xoai.tests.matchers.XPathMatchers;
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -61,7 +61,7 @@ public abstract class AbstractDataProviderTest {
     private OAIPMH result;
 
     @Before
-    public void setUp () throws IOException, TransformerConfigurationException, ParseException {
+    public void setUp() throws IOException, TransformerConfigurationException, ParseException {
         when(resourceResolver.getTransformer(XOAI_XSLT_LOCATION)).thenReturn(tFactory.newTransformer());
 
         configuration = new XOAIDataProviderConfigurationBuilder().withDefaults().withIndentation(true);
@@ -94,11 +94,11 @@ public abstract class AbstractDataProviderTest {
         return output.toString();
     }
 
-    protected XOAIDataProviderConfigurationBuilder theConfiguration () {
+    protected XOAIDataProviderConfigurationBuilder theConfiguration() {
         return this.configuration;
     }
 
-    protected Date theDateIs (Date date) {
+    protected Date theDateIs(Date date) {
         BaseDateProvider resource = new BaseDateProvider();
         formatter = mock(DateProvider.class);
         when(formatter.now()).thenReturn(date);
@@ -107,26 +107,28 @@ public abstract class AbstractDataProviderTest {
         return date;
     }
 
-    protected XOAIDataProviderFilterBuilder aFilter () {
+    protected XOAIDataProviderFilterBuilder aFilter() {
         return new XOAIDataProviderFilterBuilder();
     }
 
-    protected XOAIManager theManager () throws ConfigurationException {
+    protected XOAIManager theManager() throws ConfigurationException {
         if (manager == null)
             manager = new XOAIManager(resourceResolver, configuration.build());
         return manager;
     }
 
-    protected String theFormatPrefix () {
+    protected String theFormatPrefix() {
         return XOAI_PREFIX;
     }
 
     protected AbstractIdentifyBuilder theRepositoryIsConfiguredto() {
         return identify;
     }
+
     protected StubbedSetRepository theSetRepository() {
         return setRepository;
     }
+
     protected StubbedItemRepository theItemRepository() {
         return itemRepository;
     }
@@ -147,7 +149,7 @@ public abstract class AbstractDataProviderTest {
         return new ListBuilder<String>().add(single).build();
     }
 
-    protected OAIRequestParametersBuilder aRequest () {
+    protected OAIRequestParametersBuilder aRequest() {
         return new OAIRequestParametersBuilder();
     }
 

@@ -17,7 +17,7 @@ import java.util.Date;
 
 import static com.lyncode.xoai.dataprovider.core.DeleteMethod.PERSISTENT;
 import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
-import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -34,15 +34,15 @@ public class IdentifyVerbTest extends AbstractDataProviderTest {
 
 
     @Test
-    public void identifyMustRespondToWithTheConfiguredData () throws InvalidContextException, ConfigurationException, OAIException, XMLStreamException, WritingXmlException, IOException, XPathExpressionException, ParserConfigurationException {
+    public void identifyMustRespondToWithTheConfiguredData() throws InvalidContextException, ConfigurationException, OAIException, XMLStreamException, WritingXmlException, IOException, XPathExpressionException, ParserConfigurationException {
         given(theRepositoryIsConfiguredto())
-            .resolveTheRepositoryNameTo(REPOSITORY_NAME)
-            .and().resolveAllAdminEmailsTo(ADMIN_EMAIL_1, ADMIN_EMAIL_2)
-            .and().resolveTheDeletedMethodTo(PERSISTENT)
-            .and().resolveAllDescriptionsTo("<desc>" + DESCRIPTION + "</desc>")
-            .and().resolveTheGranularityTo(Second)
-            .and().resolveBaseUrlTo(BASE_URL)
-            .and().resolveTheEarliestDateTo(EARLIEST_DATE);
+                .resolveTheRepositoryNameTo(REPOSITORY_NAME)
+                .and().resolveAllAdminEmailsTo(ADMIN_EMAIL_1, ADMIN_EMAIL_2)
+                .and().resolveTheDeletedMethodTo(PERSISTENT)
+                .and().resolveAllDescriptionsTo("<desc>" + DESCRIPTION + "</desc>")
+                .and().resolveTheGranularityTo(Second)
+                .and().resolveBaseUrlTo(BASE_URL)
+                .and().resolveTheEarliestDateTo(EARLIEST_DATE);
 
         afterHandling(aRequest().withVerb("Identify"));
 

@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.Date;
 
 import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
-import static com.lyncode.xoai.tests.SyntacticSugar.and;
-import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.and;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -24,28 +24,28 @@ public class BasicErrorScenariosTest extends AbstractDataProviderTest {
     private static final Date NOW = new Date();
 
     @Test
-    public void shouldNotAllowTwoVerbs () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldNotAllowTwoVerbs() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         afterHandling(aRequest().with("verb", "one", and("two")));
 
         assertThat(theResult(), xPath("//o:error/@code", is("badVerb")));
     }
 
     @Test
-    public void shouldNotAllowWrongVerbs () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldNotAllowWrongVerbs() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         afterHandling(aRequest().withVerb("wrong"));
 
         assertThat(theResult(), xPath("//o:error/@code", is("badVerb")));
     }
 
     @Test
-    public void shouldNotAllowNoVerbs () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldNotAllowNoVerbs() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         afterHandling(aRequest().withVerb(missing()));
 
         assertThat(theResult(), xPath("//o:error/@code", is("badVerb")));
     }
 
     @Test
-    public void shouldNotAllowMalformedFromDate () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldNotAllowMalformedFromDate() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         afterHandling(aRequest().withVerb("ListRecords").with("from", "unExpectedFormat"));
 
         assertThat(theResult(), xPath("//o:error/@code", is("badArgument")));
@@ -53,7 +53,7 @@ public class BasicErrorScenariosTest extends AbstractDataProviderTest {
     }
 
     @Test
-    public void shouldNotAllowMalformedUntilDate () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldNotAllowMalformedUntilDate() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         afterHandling(aRequest().withVerb("ListRecords").with("until", "unExpectedFormat"));
 
         assertThat(theResult(), xPath("//o:error/@code", is("badArgument")));
@@ -61,7 +61,7 @@ public class BasicErrorScenariosTest extends AbstractDataProviderTest {
     }
 
     @Test
-    public void shouldNotAllowUntilDatesBeforeFromDates () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldNotAllowUntilDatesBeforeFromDates() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         given(theRepositoryIsConfiguredto())
                 .resolveTheGranularityTo(Second);
 

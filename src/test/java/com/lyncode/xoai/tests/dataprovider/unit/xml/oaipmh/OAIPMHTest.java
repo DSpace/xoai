@@ -3,15 +3,13 @@ package com.lyncode.xoai.tests.dataprovider.unit.xml.oaipmh;
 import com.lyncode.xoai.dataprovider.core.XOAIManager;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
-import com.lyncode.xoai.tests.SyntacticSugar;
-import com.lyncode.xoai.tests.XmlTest;
+import com.lyncode.xoai.tests.dataprovider.unit.XmlTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.to;
-import static com.lyncode.xoai.tests.SyntacticSugar.when;
-import static com.lyncode.xoai.tests.XPathMatchers.hasXPath;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.to;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.when;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -26,7 +24,7 @@ public class OAIPMHTest extends XmlTest {
     private OAIPMH oaipmh = new OAIPMH(manager);
 
     @Before
-    public void setUp () {
+    public void setUp() {
         Mockito.when(manager.hasStyleSheet()).thenReturn(false);
     }
 

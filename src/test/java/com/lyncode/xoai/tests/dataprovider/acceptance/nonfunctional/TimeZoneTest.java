@@ -15,8 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.and;
-import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.and;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -25,7 +25,7 @@ public class TimeZoneTest extends AbstractDataProviderTest {
     private static final String DATE_GMT = "2013-01-01T02:12:13Z";
     public static final String IN_TIMEZONE_GMT_LESS_2 = "GMT-2";
 
-    private static Date date (String given, String timezone) {
+    private static Date date(String given, String timezone) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         format.setTimeZone(TimeZone.getTimeZone(timezone));
         try {
@@ -36,7 +36,7 @@ public class TimeZoneTest extends AbstractDataProviderTest {
     }
 
     @Test
-    public void shouldReturnGmtTimezoneAlwaysInResponseDate () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
+    public void shouldReturnGmtTimezoneAlwaysInResponseDate() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
         given(theSetRepository().doesntSupportSets());
         and(given(theDateIs(date(TEST_DATE, IN_TIMEZONE_GMT_LESS_2))));
 

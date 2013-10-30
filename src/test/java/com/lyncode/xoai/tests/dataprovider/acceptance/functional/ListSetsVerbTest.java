@@ -11,11 +11,10 @@ import org.junit.Test;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.and;
-import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.and;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNot.not;
 
 public class ListSetsVerbTest extends AbstractDataProviderTest {
 
@@ -25,7 +24,7 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
     private static final String SPEC_2 = "SPEC_2";
 
     @Test
-    public void shouldListGivenSetList () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldListGivenSetList() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         given(theSetRepository())
                 .withRandomSets(2);
 
@@ -35,10 +34,10 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
     }
 
     @Test
-    public void shouldReturnResumptionTokenIfExceedsTheMaximumSetsPerPage () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
+    public void shouldReturnResumptionTokenIfExceedsTheMaximumSetsPerPage() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
         given(theConfiguration().withMaxListSets(5));
         and(given(theSetRepository()))
-            .withRandomSets(9);
+                .withRandomSets(9);
 
         afterHandling(aRequest().withVerb("ListSets"));
 
@@ -58,7 +57,7 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
     }
 
     @Test
-    public void shouldReturnAnErrorIfItDoesNotSupportSets () throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
+    public void shouldReturnAnErrorIfItDoesNotSupportSets() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
         given(theSetRepository().doesntSupportSets());
 
         afterHandling(aRequest().withVerb("ListSets"));

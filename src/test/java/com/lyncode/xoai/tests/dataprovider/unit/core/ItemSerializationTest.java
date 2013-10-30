@@ -6,8 +6,8 @@ import com.lyncode.xoai.builders.MetadataElementBuilder;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
-import com.lyncode.xoai.tests.XPathMatchers;
 import com.lyncode.xoai.tests.helpers.AbstractItemBuilder;
+import com.lyncode.xoai.tests.matchers.XPathMatchers;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
-import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -25,14 +25,14 @@ public class ItemSerializationTest {
     public static final String FIELD_1 = "field1";
     public static final String FIELD_2 = "field2";
     private AbstractItemBuilder abstractItem = new AbstractItemBuilder();
-    
+
     @Test
-    public void shouldOutputDefinedData () throws WritingXmlException, XMLStreamException, IOException {
+    public void shouldOutputDefinedData() throws WritingXmlException, XMLStreamException, IOException {
         given(theSourceItem())
                 .withMetadata(
                         anElement().withName("test1").withField(FIELD_1, TEST_1),
                         anElement().withName("test2").withField(FIELD_2, TEST_2)
-                        );
+                );
 
         Item item = new Item(theItem());
 
@@ -53,7 +53,7 @@ public class ItemSerializationTest {
         return abstractItem.build();
     }
 
-    private MetadataElementBuilder anElement () {
+    private MetadataElementBuilder anElement() {
         return new MetadataElementBuilder();
     }
 
