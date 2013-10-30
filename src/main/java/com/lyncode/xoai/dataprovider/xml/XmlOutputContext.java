@@ -12,11 +12,17 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.Date;
 
+import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
+
 public class XmlOutputContext {
     private static XMLOutputFactory factory = XMLOutputFactory2.newFactory();
 
     public static XmlOutputContext emptyContext(OutputStream out) throws XMLStreamException {
-        return new XmlOutputContext(new BaseDateProvider(), factory.createXMLStreamWriter(out), Granularity.Second);
+        return emptyContext(out, Second);
+    }
+
+    public static XmlOutputContext emptyContext(OutputStream out, Granularity granularity) throws XMLStreamException {
+        return new XmlOutputContext(new BaseDateProvider(), factory.createXMLStreamWriter(out), granularity);
     }
 
     private DateProvider formatter;
@@ -29,15 +35,15 @@ public class XmlOutputContext {
         this.granularity = granularity;
     }
 
-    public Date parse (String string) throws ParseException {
+    public Date parse(String string) throws ParseException {
         return this.formatter.parse(string, granularity);
     }
 
-    public String format (Date date) {
+    public String format(Date date) {
         return formatter.format(date, granularity);
     }
 
-    public String format (Date date, Granularity granularity) {
+    public String format(Date date, Granularity granularity) {
         return formatter.format(date, granularity);
     }
 

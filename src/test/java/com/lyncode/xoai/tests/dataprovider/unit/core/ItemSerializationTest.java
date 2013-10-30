@@ -7,7 +7,7 @@ import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.tests.helpers.AbstractItemBuilder;
-import com.lyncode.xoai.tests.matchers.XPathMatchers;
+import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.Matcher;
 import org.junit.Test;

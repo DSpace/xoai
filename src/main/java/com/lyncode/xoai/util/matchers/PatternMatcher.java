@@ -1,4 +1,4 @@
-package com.lyncode.xoai.tests.matchers;
+package com.lyncode.xoai.util.matchers;
 
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;

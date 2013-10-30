@@ -11,9 +11,9 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
 import static com.lyncode.xoai.dataprovider.core.Granularity.Day;
-import static com.lyncode.xoai.tests.matchers.PatternMatcher.pattern;
 import static com.lyncode.xoai.tests.syntax.SyntacticSugar.given;
 import static com.lyncode.xoai.tests.syntax.SyntacticSugar.with;
+import static com.lyncode.xoai.util.matchers.PatternMatcher.pattern;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 // http://www.openarchives.org/OAI/openarchivesprotocol.html#Dates

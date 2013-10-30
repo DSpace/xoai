@@ -1,4 +1,4 @@
-package com.lyncode.xoai.tests.matchers;
+package com.lyncode.xoai.util.matchers;
 
 import com.lyncode.xoai.builders.MapBuilder;
 import org.dom4j.*;

@@ -2,7 +2,7 @@ package com.lyncode.xoai.tests.dataprovider.unit;
 
 import com.lyncode.xoai.builders.MapBuilder;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
-import com.lyncode.xoai.tests.matchers.XPathMatchers;
+import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.XMLStreamException;

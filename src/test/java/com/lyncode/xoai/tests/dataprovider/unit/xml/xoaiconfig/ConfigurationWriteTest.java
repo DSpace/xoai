@@ -6,7 +6,7 @@ import com.lyncode.xoai.builders.XOAIDataProviderContextBuilder;
 import com.lyncode.xoai.builders.XOAIDataProviderFormatBuilder;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
-import com.lyncode.xoai.tests.matchers.XPathMatchers;
+import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 

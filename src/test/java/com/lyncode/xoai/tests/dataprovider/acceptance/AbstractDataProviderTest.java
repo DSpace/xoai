@@ -16,7 +16,7 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
 import com.lyncode.xoai.tests.helpers.AbstractIdentifyBuilder;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedItemRepository;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedSetRepository;
-import com.lyncode.xoai.tests.matchers.XPathMatchers;
+import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
