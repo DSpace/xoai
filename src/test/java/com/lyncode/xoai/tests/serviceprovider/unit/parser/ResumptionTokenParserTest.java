@@ -1,9 +1,9 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
-import com.lyncode.xoai.serviceprovider.oaipmh.ErrorParser;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHerrorType;
+import com.lyncode.xoai.serviceprovider.oaipmh.ResumptionTokenParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.ResumptionTokenType;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
@@ -20,24 +20,25 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class ErrorParserTest extends AbstractParseTest {
-    static String XML = "<error code=\"badVerb\">Illegal verb</error>";
+public class ResumptionTokenParserTest {
+    static String XML = "<resumptionToken completeListSize=\"16816\" cursor=\"0\">MToxMDB8Mjp8Mzp8NDp8NTpvYWlfZGM=</resumptionToken>";
 
     @Test
-    public void testError() throws XMLStreamException, ParseException {
+    public void testResumptionToken() throws XMLStreamException, ParseException {
         XMLInputFactory factory = XMLInputFactory2.newFactory();
         XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
 
         reader.nextEvent();
         reader.peek();
 
-        ErrorParser parser = new ErrorParser(theConfiguration());
+        OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
+        ResumptionTokenParser parser = new ResumptionTokenParser(config);
 
         //System.out.println(parser.parse(reader));
-        OAIPMHerrorType result = parser.parse(reader);
+        ResumptionTokenType result = parser.parse(reader);
 
-
-        assertEquals("badVerb", result.getCode().value());
+        assertEquals((long) 16816, result.getCompleteListSize());
+        assertEquals((long) 0, result.getCursor());
     }
 
 }

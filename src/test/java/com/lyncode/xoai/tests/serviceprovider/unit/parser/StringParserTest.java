@@ -1,4 +1,4 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;

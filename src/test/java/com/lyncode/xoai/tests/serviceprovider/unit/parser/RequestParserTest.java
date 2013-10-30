@@ -1,9 +1,9 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
-import com.lyncode.xoai.serviceprovider.oaipmh.ResumptionTokenParser;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.ResumptionTokenType;
+import com.lyncode.xoai.serviceprovider.oaipmh.RequestParser;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.RequestType;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
@@ -20,11 +20,11 @@ import java.io.ByteArrayInputStream;
 import static org.junit.Assert.assertEquals;
 
 
-public class ResumptionTokenParserTest {
-    static String XML = "<resumptionToken completeListSize=\"16816\" cursor=\"0\">MToxMDB8Mjp8Mzp8NDp8NTpvYWlfZGM=</resumptionToken>";
+public class RequestParserTest {
+    static String XML = "<request verb=\"ListRecords\" metadataPrefix=\"oai_dc\">http://demo.dspace.org/oai/request</request>";
 
     @Test
-    public void testResumptionToken() throws XMLStreamException, ParseException {
+    public void testRequest() throws XMLStreamException, ParseException {
         XMLInputFactory factory = XMLInputFactory2.newFactory();
         XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
 
@@ -32,13 +32,15 @@ public class ResumptionTokenParserTest {
         reader.peek();
 
         OAIServiceConfiguration<MetadataParser, AboutItemParser, DescriptionParser, AboutSetParser> config = Mockito.mock(OAIServiceConfiguration.class);
-        ResumptionTokenParser parser = new ResumptionTokenParser(config);
+        RequestParser parser = new RequestParser(config);
 
         //System.out.println(parser.parse(reader));
-        ResumptionTokenType result = parser.parse(reader);
+        RequestType result = parser.parse(reader);
 
-        assertEquals((long) 16816, result.getCompleteListSize());
-        assertEquals((long) 0, result.getCursor());
+
+        assertEquals("ListRecords", result.getVerb().value());
+        assertEquals("oai_dc", result.getMetadataPrefix());
+        assertEquals("http://demo.dspace.org/oai/request", result.getValue());
     }
 
 }

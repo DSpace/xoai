@@ -1,26 +1,19 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.IdentifyParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
 import static org.junit.Assert.assertEquals;
 
 
-public class IdentifyParserTest extends AbstractParseTest {
+public class IdentifyParserTest extends AbstractParseTest<IdentifyType> {
     static String XML = "<Identify>\r\n" +
             "        <repositoryName>DSpace Demo Repository</repositoryName>\r\n" +
             "        <baseURL>http://demo.dspace.org/oai/request</baseURL>\r\n" +
@@ -36,19 +29,16 @@ public class IdentifyParserTest extends AbstractParseTest {
 
     @Test
     public void testIdentify() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        IdentifyParser parser = new IdentifyParser(theConfiguration());
-
-        //System.out.println(parser.parse(reader));
-        IdentifyType result = parser.parse(reader);
-
-
-        assertEquals("DSpace Demo Repository", result.getRepositoryName());
+        assertEquals("DSpace Demo Repository", theResult().getRepositoryName());
     }
 
+    @Override
+    protected IdentifyType parse(XMLEventReader reader) throws ParseException {
+        return new IdentifyParser(theConfiguration()).parse(reader);
+    }
 }

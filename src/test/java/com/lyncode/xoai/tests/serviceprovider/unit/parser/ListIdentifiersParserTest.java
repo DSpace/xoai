@@ -1,26 +1,19 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.ListIdentifiersParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListIdentifiersType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
 import static org.junit.Assert.assertEquals;
 
 
-public class ListIdentifiersParserTest extends AbstractParseTest {
+public class ListIdentifiersParserTest extends AbstractParseTest<ListIdentifiersType> {
     static String XML = "<ListIdentifiers>\r\n" +
             "        <header>\r\n" +
             "            <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
@@ -627,19 +620,17 @@ public class ListIdentifiersParserTest extends AbstractParseTest {
 
     @Test
     public void testListIdentifiers() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        ListIdentifiersParser parser = new ListIdentifiersParser(theConfiguration());
-
-        ListIdentifiersType result = parser.parse(reader);
-
-
-        assertEquals(100, result.getHeader().size());
-        assertEquals("MToxMDB8Mjp8Mzp8NDp8NTpvYWlfZGM=", result.getResumptionToken().getValue());
+        assertEquals(100, theResult().getHeader().size());
+        assertEquals("MToxMDB8Mjp8Mzp8NDp8NTpvYWlfZGM=", theResult().getResumptionToken().getValue());
     }
 
+    @Override
+    protected ListIdentifiersType parse(XMLEventReader reader) throws ParseException {
+        return new ListIdentifiersParser(theConfiguration()).parse(reader);
+    }
 }

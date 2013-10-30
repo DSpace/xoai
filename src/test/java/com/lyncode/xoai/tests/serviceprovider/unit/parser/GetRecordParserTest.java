@@ -1,30 +1,22 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.GetRecordParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.GetRecordType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
-public class GetRecordParserTest extends AbstractParseTest {
+public class GetRecordParserTest extends AbstractParseTest<GetRecordType> {
     static String XML = "<GetRecord>\r\n" +
             "        <record>\r\n" +
             "            <header>\r\n" +
@@ -54,19 +46,32 @@ public class GetRecordParserTest extends AbstractParseTest {
 
     @Test
     public void testHeaderParse() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        GetRecordParser parser = new GetRecordParser(theConfiguration());
-
-        GetRecordType result = parser.parse(reader);
-
-        assertEquals("oai:demo.dspace.org:10673/4", result.getRecord().getHeader().getIdentifier());
-        assertTrue(result.getRecord().getHeader().getSetSpec().contains("com_10673_1"));
-        assertTrue(result.getRecord().getHeader().getSetSpec().contains("col_10673_2"));
+        assertEquals("oai:demo.dspace.org:10673/4", theResult().getRecord().getHeader().getIdentifier());
+        assertTrue(theResult().getRecord().getHeader().getSetSpec().contains("com_10673_1"));
+        assertTrue(theResult().getRecord().getHeader().getSetSpec().contains("col_10673_2"));
     }
 
+    @Test
+    public void shouldPersistXsiXmlnsDefinition() throws XMLStreamException, ParseException {
+        given(aXmlEventReader(with(XML)));
+        inPosition();
+
+        afterParsingTheGivenContent();
+
+        assertThat(theMetadata(), containsString("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""));
+    }
+
+    private String theMetadata() {
+        return (String) theResult().getRecord().getMetadata().getAny();
+    }
+
+    @Override
+    protected GetRecordType parse(XMLEventReader reader) throws ParseException {
+        return new GetRecordParser(theConfiguration()).parse(reader);
+    }
 }

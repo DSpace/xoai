@@ -1,26 +1,19 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.ListRecordsParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListRecordsType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
 import static org.junit.Assert.assertEquals;
 
 
-public class ListRecordsParserTest extends AbstractParseTest {
+public class ListRecordsParserTest extends AbstractParseTest<ListRecordsType> {
     static String XML = "<ListRecords>\r\n" +
             "        <record>\r\n" +
             "            <header>\r\n" +
@@ -56,18 +49,17 @@ public class ListRecordsParserTest extends AbstractParseTest {
 
     @Test
     public void testListRecords() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        ListRecordsParser parser = new ListRecordsParser(theConfiguration());
+        assertEquals(1, theResult().getRecord().size());
+        assertEquals("MToxMDB8Mjp8Mzp8NDp8NTpvYWlfZGM=", theResult().getResumptionToken().getValue());
+    }
 
-        ListRecordsType result = parser.parse(reader);
-
-
-        assertEquals(1, result.getRecord().size());
-        assertEquals("MToxMDB8Mjp8Mzp8NDp8NTpvYWlfZGM=", result.getResumptionToken().getValue());
+    @Override
+    protected ListRecordsType parse(XMLEventReader reader) throws ParseException {
+        return new ListRecordsParser(theConfiguration()).parse(reader);
     }
 }

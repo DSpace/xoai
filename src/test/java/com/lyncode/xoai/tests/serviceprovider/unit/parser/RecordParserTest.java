@@ -1,27 +1,21 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.RecordParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.RecordType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 
-public class RecordParserTest extends AbstractParseTest {
+public class RecordParserTest extends AbstractParseTest<RecordType> {
     static String XML = "<record>\r\n" +
             "            <header>\r\n" +
             "                <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
@@ -46,22 +40,20 @@ public class RecordParserTest extends AbstractParseTest {
             "</metadata>\r\n" +
             "        </record>";
 
-
     @Test
-    public void testHeaderParse() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+    public void testRecordParser() throws XMLStreamException, ParseException {
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        RecordParser parser = new RecordParser(theConfiguration());
-
-        RecordType result = parser.parse(reader);
-
-        assertEquals("oai:demo.dspace.org:10673/4", result.getHeader().getIdentifier());
-        assertTrue(result.getHeader().getSetSpec().contains("com_10673_1"));
-        assertTrue(result.getHeader().getSetSpec().contains("col_10673_2"));
+        assertEquals("oai:demo.dspace.org:10673/4", theResult().getHeader().getIdentifier());
+        assertThat(theResult().getHeader().getSetSpec(), hasItem("com_10673_1"));
+        assertThat(theResult().getHeader().getSetSpec(), hasItem("col_10673_2"));
     }
 
+    @Override
+    protected RecordType parse(XMLEventReader reader) throws ParseException {
+        return new RecordParser(theConfiguration()).parse(reader);
+    }
 }

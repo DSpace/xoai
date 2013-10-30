@@ -1,26 +1,19 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.OAIPMHParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
 import static org.junit.Assert.assertEquals;
 
 
-public class OAIPMHParserTest extends AbstractParseTest {
+public class OAIPMHParserTest extends AbstractParseTest<OAIPMHtype> {
     static String XML = "<OAI-PMH xmlns=\"http://www.openarchives.org/OAI/2.0/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd\"><responseDate>2013-09-12T21:15:35Z</responseDate>\r\n" +
             "    <request verb=\"Identify\">http://demo.dspace.org/oai/request</request>\r\n" +
             "    <Identify>\r\n" +
@@ -39,18 +32,16 @@ public class OAIPMHParserTest extends AbstractParseTest {
 
     @Test
     public void test() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        OAIPMHParser parser = new OAIPMHParser(theConfiguration());
-
-        OAIPMHtype result = parser.parse(reader);
-
-
-        assertEquals("DSpace Demo Repository", result.getIdentify().getRepositoryName());
+        assertEquals("DSpace Demo Repository", theResult().getIdentify().getRepositoryName());
     }
 
+    @Override
+    protected OAIPMHtype parse(XMLEventReader reader) throws ParseException {
+        return new OAIPMHParser(theConfiguration()).parse(reader);
+    }
 }

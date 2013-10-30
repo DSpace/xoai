@@ -1,26 +1,19 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.ListMetadataFormatsParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.ListMetadataFormatsType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
 import static org.junit.Assert.assertEquals;
 
 
-public class ListMetadataFormatsParserTest extends AbstractParseTest {
+public class ListMetadataFormatsParserTest extends AbstractParseTest<ListMetadataFormatsType> {
     static String XML = "<ListMetadataFormats>\r\n" +
             "        <metadataFormat>\r\n" +
             "            <metadataPrefix>uketd_dc</metadataPrefix>\r\n" +
@@ -86,19 +79,16 @@ public class ListMetadataFormatsParserTest extends AbstractParseTest {
 
     @Test
     public void testParse() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
+        afterParsingTheGivenContent();
 
-        ListMetadataFormatsParser parser = new ListMetadataFormatsParser(theConfiguration());
-
-        //System.out.println(parser.parse(reader));
-        ListMetadataFormatsType result = parser.parse(reader);
-
-
-        assertEquals(12, result.getMetadataFormat().size());
+        assertEquals(12, theResult().getMetadataFormat().size());
     }
 
+    @Override
+    protected ListMetadataFormatsType parse(XMLEventReader reader) throws ParseException {
+        return new ListMetadataFormatsParser(theConfiguration()).parse(reader);
+    }
 }

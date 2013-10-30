@@ -1,24 +1,18 @@
-package com.lyncode.xoai.tests.serviceprovider.oaipmh;
+package com.lyncode.xoai.tests.serviceprovider.unit.parser;
 
-import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.MetadataTypeParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.MetadataType;
-import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
-import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
-import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
-import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.codehaus.stax2.XMLInputFactory2;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
+
+import static com.lyncode.xoai.tests.SyntacticSugar.given;
+import static com.lyncode.xoai.tests.SyntacticSugar.with;
 
 
-public class MetadataTypeParserTest extends AbstractParseTest {
+public class MetadataTypeParserTest extends AbstractParseTest<MetadataType> {
     static String XML = "<metadata><oai_dc:dc xmlns:oai_dc=\"http://www.openarchives.org/OAI/2.0/oai_dc/\" xmlns:doc=\"http://www.lyncode.com/xoai\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">\r\n" +
             "<dc:title>Test Webpage</dc:title>\r\n" +
             "<dc:subject>cat</dc:subject>\r\n" +
@@ -37,15 +31,14 @@ public class MetadataTypeParserTest extends AbstractParseTest {
 
     @Test
     public void testRequest() throws XMLStreamException, ParseException {
-        XMLInputFactory factory = XMLInputFactory2.newFactory();
-        XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(XML.getBytes()));
+        given(aXmlEventReader(with(XML)));
+        inPosition();
 
-        reader.nextEvent();
-        reader.peek();
-
-        MetadataTypeParser parser = new MetadataTypeParser(theConfiguration());
-
-        MetadataType result = parser.parse(reader);
+        afterParsingTheGivenContent();
     }
 
+    @Override
+    protected MetadataType parse(XMLEventReader reader) throws ParseException {
+        return new MetadataTypeParser(theConfiguration()).parse(reader);
+    }
 }
