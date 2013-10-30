@@ -8,166 +8,20 @@
 
 package com.lyncode.xoai.dataprovider.xml.xoaiconfig;
 
+import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * <p>Java class for anonymous complex type.
- * <p/>
- * <p>The following schema fragment specifies the expected content contained within this class.
- * <p/>
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="Contexts">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Context" maxOccurs="unbounded">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="Transformer" type="{http://www.lyncode.com/XOAIConfiguration}BundleReference" minOccurs="0"/>
- *                             &lt;element name="ScopedFilter" type="{http://www.lyncode.com/XOAIConfiguration}BundleReference" maxOccurs="unbounded" minOccurs="0"/>
- *                             &lt;element name="Set" type="{http://www.lyncode.com/XOAIConfiguration}BundleReference" maxOccurs="unbounded" minOccurs="0"/>
- *                             &lt;element name="Format" type="{http://www.lyncode.com/XOAIConfiguration}BundleReference" maxOccurs="unbounded"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="baseurl" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Formats">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Format" maxOccurs="unbounded">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="Prefix" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="XSLT" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="Namespace" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="SchemaLocation" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="ScopedFilter" type="{http://www.lyncode.com/XOAIConfiguration}BundleReference" maxOccurs="unbounded" minOccurs="0"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Transformers" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Transformer" maxOccurs="unbounded">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="XSLT" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Filters" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="CustomFilter" maxOccurs="unbounded" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="Class" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="Parameter" type="{http://www.lyncode.com/XOAIConfiguration}Parameter" maxOccurs="unbounded" minOccurs="0"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                   &lt;element name="ScopedFilter" maxOccurs="unbounded" minOccurs="0">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="definition" type="{http://www.lyncode.com/XOAIConfiguration}ConditionDefinitionType" minOccurs="0"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Sets" minOccurs="0">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence>
- *                   &lt;element name="Set" maxOccurs="unbounded">
- *                     &lt;complexType>
- *                       &lt;complexContent>
- *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                           &lt;sequence>
- *                             &lt;element name="Pattern" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="Name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *                             &lt;element name="ScopedFilter" type="{http://www.lyncode.com/XOAIConfiguration}BundleReference" maxOccurs="unbounded" minOccurs="0"/>
- *                             &lt;element name="Parameter" type="{http://www.lyncode.com/XOAIConfiguration}Parameter" maxOccurs="unbounded" minOccurs="0"/>
- *                           &lt;/sequence>
- *                           &lt;attribute name="id" type="{http://www.w3.org/2001/XMLSchema}string" />
- *                         &lt;/restriction>
- *                       &lt;/complexContent>
- *                     &lt;/complexType>
- *                   &lt;/element>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
- *       &lt;attribute name="maxListRecordsSize" type="{http://www.w3.org/2001/XMLSchema}int" default="100" />
- *       &lt;attribute name="maxListSetsSize" type="{http://www.w3.org/2001/XMLSchema}int" default="100" />
- *       &lt;attribute name="maxListIdentifiersSize" type="{http://www.w3.org/2001/XMLSchema}int" default="100" />
- *       &lt;attribute name="indentation" type="{http://www.w3.org/2001/XMLSchema}boolean" default="false" />
- *       &lt;attribute name="stylesheet" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="descriptionFile" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
         "contexts",
@@ -178,6 +32,24 @@ import java.util.List;
 })
 @XmlRootElement(name = "Configuration")
 public class Configuration {
+    public static Configuration readConfiguration(InputStream input) throws ConfigurationException {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Configuration.class
+                    .getPackage().getName());
+            Unmarshaller marshaller = context.createUnmarshaller();
+            Object obj = marshaller.unmarshal(input);
+            input.close();
+            if (obj instanceof Configuration) {
+                return (Configuration) obj;
+            } else
+                throw new ConfigurationException("Invalid configuration bundle");
+        } catch (IOException ex) {
+            throw new ConfigurationException(ex.getMessage(), ex);
+        } catch (JAXBException ex) {
+            throw new ConfigurationException(ex.getMessage(), ex);
+        }
+    }
+
 
     @XmlElement(name = "Contexts", required = true)
     protected Configuration.Contexts contexts;
@@ -201,6 +73,21 @@ public class Configuration {
     protected String stylesheet;
     @XmlAttribute(name = "descriptionFile")
     protected String descriptionFile;
+
+    public void write(OutputStream output) throws ConfigurationException {
+        try {
+            JAXBContext context = JAXBContext.newInstance(Configuration.class
+                    .getPackage().getName());
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(this, output);
+            output.close();
+        } catch (IOException ex) {
+            throw new ConfigurationException(ex.getMessage(), ex);
+        } catch (JAXBException ex) {
+            throw new ConfigurationException(ex.getMessage(), ex);
+        }
+    }
 
     /**
      * Gets the value of the contexts property.
