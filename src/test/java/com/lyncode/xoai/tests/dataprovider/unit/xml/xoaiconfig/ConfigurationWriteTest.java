@@ -1,9 +1,9 @@
 package com.lyncode.xoai.tests.dataprovider.unit.xml.xoaiconfig;
 
 import com.lyncode.xoai.builders.MapBuilder;
-import com.lyncode.xoai.builders.XOAIDataProviderConfigurationBuilder;
-import com.lyncode.xoai.builders.XOAIDataProviderContextBuilder;
-import com.lyncode.xoai.builders.XOAIDataProviderFormatBuilder;
+import com.lyncode.xoai.builders.dataprovider.ConfigurationBuilder;
+import com.lyncode.xoai.builders.dataprovider.ContextBuilder;
+import com.lyncode.xoai.builders.dataprovider.FormatBuilder;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 import com.lyncode.xoai.util.matchers.XPathMatchers;
@@ -44,9 +44,9 @@ public class ConfigurationWriteTest {
     }
 
     private Configuration sampleConfiguration() {
-        XOAIDataProviderConfigurationBuilder configuration = new XOAIDataProviderConfigurationBuilder().withDefaults().withIndentation(true);
+        ConfigurationBuilder configuration = new ConfigurationBuilder().withDefaults().withIndentation(true);
 
-        configuration.withFormats(new XOAIDataProviderFormatBuilder()
+        configuration.withFormats(new FormatBuilder()
                 .withId("xoai")
                 .withNamespace("xoainamespace")
                 .withPrefix("xoai")
@@ -54,7 +54,7 @@ public class ConfigurationWriteTest {
                 .withXslt("xsltLocation")
                 .build());
 
-        configuration.withContexts(new XOAIDataProviderContextBuilder()
+        configuration.withContexts(new ContextBuilder()
                 .withBaseUrl("xoai")
                 .withFormats("xoai")
                 .build());

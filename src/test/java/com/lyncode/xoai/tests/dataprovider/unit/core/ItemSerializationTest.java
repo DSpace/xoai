@@ -2,7 +2,7 @@ package com.lyncode.xoai.tests.dataprovider.unit.core;
 
 
 import com.lyncode.xoai.builders.MapBuilder;
-import com.lyncode.xoai.builders.MetadataElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.internal.Item;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
@@ -53,8 +53,8 @@ public class ItemSerializationTest {
         return abstractItem.build();
     }
 
-    private MetadataElementBuilder anElement() {
-        return new MetadataElementBuilder();
+    private ElementBuilder anElement() {
+        return new ElementBuilder();
     }
 
     protected Matcher<? super String> hasXPath(String s) {

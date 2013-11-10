@@ -16,13 +16,13 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
+import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
-import com.lyncode.xoai.dataprovider.sets.StaticSet;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.filter.Filter;
+import com.lyncode.xoai.dataprovider.sets.StaticSet;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -37,36 +37,40 @@ import java.util.Map;
  */
 public class XOAIContext extends ConfigurableBundle {
     private static Logger log = LogManager.getLogger(XOAIContext.class);
-    private String _baseurl;
-    private List<Filter> _filters;
-    private Map<String, StaticSet> _sets;
-    private MetadataTransformer _transformer;
-    private Map<String, MetadataFormat> _formats;
+    private String baseUrl;
+    private String name;
+    private String description;
+    private List<Filter> filters;
+    private Map<String, StaticSet> sets;
+    private MetadataTransformer transformer;
+    private Map<String, MetadataFormat> formats;
 
-    public XOAIContext(String baseurl, MetadataTransformer transformer,
+    public XOAIContext(String baseUrl, String name, String description, MetadataTransformer transformer,
                        List<Filter> filters, List<MetadataFormat> formats,
                        List<StaticSet> sets) {
-        _baseurl = baseurl;
-        _transformer = transformer;
-        _filters = filters;
-        _formats = new HashMap<String, MetadataFormat>();
+        this.baseUrl = baseUrl;
+        this.name = name;
+        this.description = description;
+        this.transformer = transformer;
+        this.filters = filters;
+        this.formats = new HashMap<String, MetadataFormat>();
         for (MetadataFormat mdf : formats)
-            _formats.put(mdf.getPrefix(), mdf);
-        _sets = new HashMap<String, StaticSet>();
+            this.formats.put(mdf.getPrefix(), mdf);
+        this.sets = new HashMap<String, StaticSet>();
         for (StaticSet s : sets)
-            _sets.put(s.getSetSpec(), s);
+            this.sets.put(s.getSetSpec(), s);
     }
 
     public String getBaseUrl() {
-        return this._baseurl;
+        return this.baseUrl;
     }
 
     public List<Filter> getFilters() {
-        return _filters;
+        return filters;
     }
 
     public MetadataTransformer getTransformer() {
-        return _transformer;
+        return transformer;
     }
 
     private List<StaticSet> cachedSets = null;
@@ -74,33 +78,33 @@ public class XOAIContext extends ConfigurableBundle {
     public List<StaticSet> getStaticSets() {
         if (cachedSets == null) {
             log.debug("{ XOAI } Static Sets for this Context: "
-                    + _sets.values().size());
-            cachedSets = new ArrayList<StaticSet>(_sets.values());
+                    + sets.values().size());
+            cachedSets = new ArrayList<StaticSet>(sets.values());
         }
         return cachedSets;
     }
 
     public List<Filter> getSetFilters(String setID) {
         log.debug("{ XOAI } Getting StaticSet filters");
-        return _sets.get(setID).getFilters();
+        return sets.get(setID).getFilters();
     }
 
     public MetadataFormat getFormatByPrefix(String prefix)
             throws CannotDisseminateFormatException {
-        for (MetadataFormat format : this._formats.values())
+        for (MetadataFormat format : this.formats.values())
             if (format.getPrefix().equals(prefix))
                 return format;
         throw new CannotDisseminateFormatException(prefix);
     }
 
     public List<MetadataFormat> getFormats() {
-        return new ArrayList<MetadataFormat>(_formats.values());
+        return new ArrayList<MetadataFormat>(formats.values());
     }
 
     public List<MetadataFormat> getFormats(AbstractItem item) {
         List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
         if (this.isItemShown(item)) {
-            for (MetadataFormat format : _formats.values())
+            for (MetadataFormat format : this.formats.values())
                 if (item.isDeleted() || format.isApplyable(item))
                     formats.add(format);
         }
@@ -120,5 +124,14 @@ public class XOAIContext extends ConfigurableBundle {
             if (s.getSetSpec().equals(setSpec))
                 return true;
         return false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        if (name == null) return this.baseUrl;
+        return name;
     }
 }

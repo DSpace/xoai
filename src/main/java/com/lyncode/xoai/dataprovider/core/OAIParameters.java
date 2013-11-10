@@ -19,15 +19,15 @@ package com.lyncode.xoai.dataprovider.core;
 import com.lyncode.xoai.dataprovider.OAIRequestParameters;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -35,6 +35,8 @@ import java.util.TimeZone;
  */
 public class OAIParameters {
     private static Logger log = LogManager.getLogger(OAIParameters.class);
+    private static DateProvider dateProvider = new BaseDateProvider();
+
     private VerbType verb;
     private ResumptionToken resumptionToken;
     private String identifier;
@@ -127,23 +129,12 @@ public class OAIParameters {
     }
 
     private Date getDate(String date, String param) throws BadArgumentException {
-        if (date == null)
-            return null;
-        SimpleDateFormat formatDate = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss'Z'");
+        if (date == null) return null;
         try {
-            formatDate.setTimeZone(TimeZone.getTimeZone("UTC")); // Z means ZULU = UTC
-            return formatDate.parse(date);
-        } catch (ParseException ex) {
-            formatDate = new SimpleDateFormat(
-                    "yyyy-MM-dd");
-            try {
-                formatDate.setTimeZone(TimeZone.getTimeZone("UTC")); // Z means ZULU = UTC
-                return formatDate.parse(date);
-            } catch (ParseException ex1) {
-                throw new BadArgumentException("The " + param
-                        + " parameter given is not valid");
-            }
+            return dateProvider.parse(date);
+        } catch (ParseException e) {
+            throw new BadArgumentException("The " + param
+                    + " parameter given is not valid");
         }
     }
 

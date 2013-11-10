@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ListBuilder<T> {
+public class ListBuilder<T> implements Builder<List<T>> {
     private List<T> list;
 
     public ListBuilder() {

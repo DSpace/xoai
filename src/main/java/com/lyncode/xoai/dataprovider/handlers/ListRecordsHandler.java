@@ -107,7 +107,8 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
 
         if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
             ResumptionTokenType resToken = new ResumptionTokenType();
-            resToken.setValue(resumptionFormat.format(newToken));
+            if (!newToken.isEmpty())
+                resToken.setValue(resumptionFormat.format(newToken));
             resToken.setCursor(token.getOffset() / maxListSize);
             if (result.hasTotalResults())
                 resToken.setCompleteListSize(result.getTotal());

@@ -1,7 +1,7 @@
 package com.lyncode.xoai.tests.dataprovider.unit.xml.xoai;
 
-import com.lyncode.xoai.builders.MetadataBuilder;
-import com.lyncode.xoai.builders.MetadataElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 import com.lyncode.xoai.tests.dataprovider.unit.XmlTest;
@@ -22,7 +22,7 @@ public class MetadataTest extends XmlTest {
         givenAnEmptyStreamWriter();
 
         Metadata metadata = new MetadataBuilder()
-                .withElement(new MetadataElementBuilder()
+                .withElement(new ElementBuilder()
                         .withName(ELEMENT_NAME).withField(FIELD_NAME, "value").build())
                 .build();
 

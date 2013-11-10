@@ -1,10 +1,10 @@
 package com.lyncode.xoai.tests.helpers;
 
 
-import com.lyncode.xoai.builders.ItemMetadataBuilder;
 import com.lyncode.xoai.builders.ListBuilder;
-import com.lyncode.xoai.builders.MetadataBuilder;
-import com.lyncode.xoai.builders.MetadataElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.ItemMetadataBuilder;
+import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;
 import com.lyncode.xoai.dataprovider.data.AbstractItem;
 import com.lyncode.xoai.dataprovider.xml.xoai.Element;
 
@@ -16,23 +16,24 @@ public class AbstractItemBuilder {
     private MetadataBuilder metadataBuilder = new MetadataBuilder();
     private ItemMetadataBuilder itemMetadataBuilder = new ItemMetadataBuilder();
 
-    public AbstractItem build () {
+    public AbstractItem build() {
         when(abstractItem.getMetadata()).thenReturn(itemMetadataBuilder.withMetadata(metadataBuilder).build());
         return abstractItem;
     }
 
-    public AbstractItemBuilder withMetadata(MetadataElementBuilder element) {
+    public AbstractItemBuilder withMetadata(ElementBuilder element) {
         metadataBuilder.withElement(element.build());
         return this;
     }
-    public AbstractItemBuilder withMetadata(MetadataElementBuilder... elements) {
-        metadataBuilder.withElement(new ListBuilder<MetadataElementBuilder>()
-                .add(elements).build(new ListBuilder.Transformer<MetadataElementBuilder, Element>() {
-            @Override
-            public Element transform(MetadataElementBuilder elem) {
-                return elem.build();
-            }
-        })
+
+    public AbstractItemBuilder withMetadata(ElementBuilder... elements) {
+        metadataBuilder.withElement(new ListBuilder<ElementBuilder>()
+                .add(elements).build(new ListBuilder.Transformer<ElementBuilder, Element>() {
+                    @Override
+                    public Element transform(ElementBuilder elem) {
+                        return elem.build();
+                    }
+                })
                 .toArray(new Element[elements.length]));
 
         return this;

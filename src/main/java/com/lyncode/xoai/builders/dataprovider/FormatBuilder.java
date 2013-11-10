@@ -1,35 +1,36 @@
-package com.lyncode.xoai.builders;
+package com.lyncode.xoai.builders.dataprovider;
 
+import com.lyncode.xoai.builders.Builder;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
-public class XOAIDataProviderFormatBuilder {
+public class FormatBuilder implements Builder<Configuration.Formats.Format> {
     private String id;
     private String prefix;
     private String namespace;
     private String schemaLocation;
     private String xslt;
 
-    public XOAIDataProviderFormatBuilder withId(String id) {
+    public FormatBuilder withId(String id) {
         this.id = id;
         return this;
     }
 
-    public XOAIDataProviderFormatBuilder withXslt(String xslt) {
+    public FormatBuilder withXslt(String xslt) {
         this.xslt = xslt;
         return this;
     }
 
-    public XOAIDataProviderFormatBuilder withPrefix(String prefix) {
+    public FormatBuilder withPrefix(String prefix) {
         this.prefix = prefix;
         return this;
     }
 
-    public XOAIDataProviderFormatBuilder withNamespace(String namespace) {
+    public FormatBuilder withNamespace(String namespace) {
         this.namespace = namespace;
         return this;
     }
 
-    public XOAIDataProviderFormatBuilder withSchemaLocation(String schemaLocation) {
+    public FormatBuilder withSchemaLocation(String schemaLocation) {
         this.schemaLocation = schemaLocation;
         return this;
     }

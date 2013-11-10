@@ -2,17 +2,17 @@ package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.*;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
+import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
+import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
 import com.lyncode.xoai.dataprovider.exceptions.NoMatchesException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.ListSetsType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.SetType;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
-import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.ListSetsType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -76,7 +76,6 @@ public class ListSetsHandler extends VerbHandler<ListSetsType> {
 
         if (params.hasResumptionToken() || !rtoken.isEmpty()) {
             ResumptionTokenType token = new ResumptionTokenType();
-            token.setValue(resumptionFormat.format(rtoken));
             token.setCursor(resumptionToken.getOffset() / maxListSize);
 
             if (res.hasTotalResults()) {
@@ -86,6 +85,8 @@ public class ListSetsHandler extends VerbHandler<ListSetsType> {
             } else {
                 log.debug("Has no total results shown");
             }
+            if (!rtoken.isEmpty())
+                token.setValue(resumptionFormat.format(rtoken));
             result.setResumptionToken(token);
         }
 

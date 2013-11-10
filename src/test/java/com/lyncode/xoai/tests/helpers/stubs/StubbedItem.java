@@ -1,8 +1,8 @@
 package com.lyncode.xoai.tests.helpers.stubs;
 
 import com.lyncode.xoai.builders.ListBuilder;
-import com.lyncode.xoai.builders.MetadataBuilder;
-import com.lyncode.xoai.builders.MetadataElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
+import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;
 import com.lyncode.xoai.dataprovider.core.ItemMetadata;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
 import com.lyncode.xoai.dataprovider.data.AbstractAbout;
@@ -52,19 +52,19 @@ public class StubbedItem extends AbstractItem {
     private Metadata toMetadata() {
         MetadataBuilder builder = new MetadataBuilder();
         for (String key : values.keySet()) {
-            MetadataElementBuilder metadataElementBuilder = new MetadataElementBuilder().withName(key);
+            ElementBuilder elementBuilder = new ElementBuilder().withName(key);
             Object value = values.get(key);
             if (value instanceof String)
-                metadataElementBuilder.withField("value", (String) value);
+                elementBuilder.withField("value", (String) value);
             else if (value instanceof Date)
-                metadataElementBuilder.withField("value", ((Date) value).toString());
+                elementBuilder.withField("value", ((Date) value).toString());
             else if (value instanceof List) {
                 List<String> obj = (List<String>) value;
                 int i = 1;
                 for (String e : obj)
-                    metadataElementBuilder.withField("value-" + (i++), e);
+                    elementBuilder.withField("value-" + (i++), e);
             }
-            builder.withElement(metadataElementBuilder.build());
+            builder.withElement(elementBuilder.build());
         }
         return builder.build();
     }

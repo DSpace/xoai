@@ -19,8 +19,11 @@
                                                      type="BundleReference"/>
                                         <xsd:element name="Format" minOccurs="1"
                                                      maxOccurs="unbounded" type="BundleReference"/>
+                                        <xsd:element name="Description" minOccurs="0"
+                                                     maxOccurs="1" type="xsd:string"/>
                                     </xsd:sequence>
-                                    <xsd:attribute name="baseurl" type="xsd:string"/>
+                                    <xsd:attribute name="baseurl" type="xsd:string" use="required"/>
+                                    <xsd:attribute name="name" type="xsd:string" use="optional"/>
                                 </xsd:complexType>
                             </xsd:element>
                         </xsd:sequence>
@@ -59,6 +62,8 @@
                                     <xsd:sequence minOccurs="1" maxOccurs="1">
                                         <xsd:element minOccurs="1" maxOccurs="1" name="XSLT"
                                                      type="xsd:string"/>
+                                        <xsd:element name="Description" minOccurs="0"
+                                                     maxOccurs="1" type="xsd:string"/>
                                     </xsd:sequence>
                                     <xsd:attribute name="id" type="xsd:string"/>
                                 </xsd:complexType>

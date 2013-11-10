@@ -59,9 +59,6 @@ public class DefaultResumptionTokenFormat extends AbstractResumptionTokenFormat 
 
     @Override
     public String format(ResumptionToken resumptionToken) {
-        if (resumptionToken.isEmpty())
-            return "";
-
         String s = "1:" + resumptionToken.getOffset();
         s += "|2:";
         if (resumptionToken.hasSet())

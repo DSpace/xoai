@@ -29,10 +29,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Contexts;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Contexts.Context;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
@@ -40,12 +37,12 @@ import java.util.Map;
  */
 public class ContextManager {
 
-    private Map<String, XOAIContext> _contexts;
+    private Map<String, XOAIContext> contexts;
 
     public ContextManager(Contexts contexts, FilterManager fm,
                           TransformManager tm, MetadataFormatManager mfm, StaticSetManager sm)
             throws ConfigurationException {
-        _contexts = new HashMap<String, XOAIContext>();
+        this.contexts = new HashMap<String, XOAIContext>();
 
         for (Context ct : contexts.getContext()) {
             List<Filter> filters = new ArrayList<Filter>();
@@ -79,17 +76,20 @@ public class ContextManager {
                 formats.add(mfm.getFormat(b.getRefid()));
             }
 
-            _contexts.put(ct.getBaseurl(), new XOAIContext(ct.getBaseurl(),
+            this.contexts.put(ct.getBaseUrl(), new XOAIContext(ct.getBaseUrl(), ct.getName(), ct.getDescription(),
                     transformer, filters, formats, sets));
         }
     }
 
-    public boolean contextExists(String baseurl) {
-        return this._contexts.containsKey(baseurl);
+    public boolean contextExists(String baseUrl) {
+        return this.contexts.containsKey(baseUrl);
     }
 
-    public XOAIContext getOAIContext(String baseurl) {
-        return _contexts.get(baseurl);
+    public XOAIContext getOAIContext(String baseUrl) {
+        return contexts.get(baseUrl);
     }
 
+    public Collection<XOAIContext> getContexts() {
+        return contexts.values();
+    }
 }

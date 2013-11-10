@@ -1,5 +1,6 @@
-package com.lyncode.xoai.builders;
+package com.lyncode.xoai.builders.dataprovider;
 
+import com.lyncode.xoai.builders.Builder;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Parameter;
@@ -9,7 +10,7 @@ import java.util.Collection;
 
 import static java.util.Arrays.asList;
 
-public class XOAIDataProviderSetBuilder {
+public class SetBuilder implements Builder<Configuration.Sets.Set> {
 
     private String id;
     private String name;
@@ -17,29 +18,29 @@ public class XOAIDataProviderSetBuilder {
     private Collection<Parameter> parameters = new ArrayList<Parameter>();
     private Collection<BundleReference> filters = new ArrayList<BundleReference>();
 
-    public XOAIDataProviderSetBuilder withId(String id) {
+    public SetBuilder withId(String id) {
         this.id = id;
         return this;
     }
 
-    public XOAIDataProviderSetBuilder withName(String name) {
+    public SetBuilder withName(String name) {
         this.name = name;
         return this;
     }
 
-    public XOAIDataProviderSetBuilder withSpec(String spec) {
+    public SetBuilder withSpec(String spec) {
         this.pattern = spec;
         return this;
     }
 
 
-    public XOAIDataProviderSetBuilder withParameter(Parameter... parameters) {
+    public SetBuilder withParameter(Parameter... parameters) {
         this.parameters.addAll(asList(parameters));
         return this;
     }
 
-    public XOAIDataProviderSetBuilder withFilters(String... ids) {
-        this.filters.addAll(XOAIDataProviderBundleReferenceBuilder.build(ids));
+    public SetBuilder withFilters(String... ids) {
+        this.filters.addAll(BundleReferenceBuilder.build(ids));
         return this;
     }
 

@@ -90,7 +90,7 @@ public class XPathMatchers {
                     if (this.namespaces != null)
                         xPath.setNamespaceURIs(this.namespaces.build());
                     String evaluatedValue = xPath.valueOf(document);
-                    return value.matches(evaluatedValue);
+                    return !xPath.selectNodes(document).isEmpty() && value.matches(evaluatedValue);
                 } catch (DocumentException e) {
                     throw new RuntimeException(e.getMessage(), e);
                 }

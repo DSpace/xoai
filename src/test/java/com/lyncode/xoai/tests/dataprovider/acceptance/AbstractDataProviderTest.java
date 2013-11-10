@@ -1,6 +1,8 @@
 package com.lyncode.xoai.tests.dataprovider.acceptance;
 
-import com.lyncode.xoai.builders.*;
+import com.lyncode.xoai.builders.ListBuilder;
+import com.lyncode.xoai.builders.MapBuilder;
+import com.lyncode.xoai.builders.dataprovider.*;
 import com.lyncode.xoai.dataprovider.OAIDataProvider;
 import com.lyncode.xoai.dataprovider.core.Granularity;
 import com.lyncode.xoai.dataprovider.core.XOAIManager;
@@ -55,7 +57,7 @@ public abstract class AbstractDataProviderTest {
     private StubbedSetRepository setRepository = new StubbedSetRepository();
     private StubbedItemRepository itemRepository = new StubbedItemRepository();
     private ResourceResolver resourceResolver = mock(ResourceResolver.class);
-    private XOAIDataProviderConfigurationBuilder configuration;
+    private ConfigurationBuilder configuration;
     private DateProvider formatter = new BaseDateProvider();
 
     private OAIPMH result;
@@ -64,9 +66,9 @@ public abstract class AbstractDataProviderTest {
     public void setUp() throws IOException, TransformerConfigurationException, ParseException {
         when(resourceResolver.getTransformer(XOAI_XSLT_LOCATION)).thenReturn(tFactory.newTransformer());
 
-        configuration = new XOAIDataProviderConfigurationBuilder().withDefaults().withIndentation(true);
+        configuration = new ConfigurationBuilder().withDefaults().withIndentation(true);
 
-        configuration.withFormats(new XOAIDataProviderFormatBuilder()
+        configuration.withFormats(new FormatBuilder()
                 .withId(XOAI_FORMAT)
                 .withNamespace(XOAI_NAMESPACE)
                 .withPrefix(XOAI_PREFIX)
@@ -74,7 +76,7 @@ public abstract class AbstractDataProviderTest {
                 .withXslt(XOAI_XSLT_LOCATION)
                 .build());
 
-        configuration.withContexts(new XOAIDataProviderContextBuilder()
+        configuration.withContexts(new ContextBuilder()
                 .withBaseUrl(CONTEXT)
                 .withFormats(XOAI_FORMAT)
                 .build());
@@ -94,7 +96,7 @@ public abstract class AbstractDataProviderTest {
         return output.toString();
     }
 
-    protected XOAIDataProviderConfigurationBuilder theConfiguration() {
+    protected ConfigurationBuilder theConfiguration() {
         return this.configuration;
     }
 
@@ -107,8 +109,8 @@ public abstract class AbstractDataProviderTest {
         return date;
     }
 
-    protected XOAIDataProviderFilterBuilder aFilter() {
-        return new XOAIDataProviderFilterBuilder();
+    protected FilterBuilder aFilter() {
+        return new FilterBuilder();
     }
 
     protected XOAIManager theManager() throws ConfigurationException {

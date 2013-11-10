@@ -1,16 +1,19 @@
 package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.*;
+import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
 import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.data.MetadataFormat;
 import com.lyncode.xoai.dataprovider.data.internal.ItemIdentify;
 import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
-import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
 import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.HeaderType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.ListIdentifiersType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.StatusType;
 
 import java.util.List;
 
@@ -104,7 +107,8 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiersType> {
 
         if (parameters.hasResumptionToken() || !newToken.isEmpty()) {
             ResumptionTokenType resToken = new ResumptionTokenType();
-            resToken.setValue(resumptionFormat.format(newToken));
+            if (!newToken.isEmpty())
+                resToken.setValue(resumptionFormat.format(newToken));
             resToken.setCursor(token.getOffset() / maxListSize);
             if (result.hasTotalResults())
                 resToken.setCompleteListSize(result.getTotal());

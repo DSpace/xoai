@@ -12,6 +12,7 @@ public class BaseDateProvider implements DateProvider {
     @Override
     public String format(Date date) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
         return format.format(date);
     }
 

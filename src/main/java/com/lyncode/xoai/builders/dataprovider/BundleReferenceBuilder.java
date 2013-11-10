@@ -1,11 +1,12 @@
-package com.lyncode.xoai.builders;
+package com.lyncode.xoai.builders.dataprovider;
 
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Referable;
+import com.lyncode.xoai.builders.ListBuilder;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Referable;
 
 import java.util.List;
 
-public class XOAIDataProviderBundleReferenceBuilder {
+public class BundleReferenceBuilder {
     public static List<BundleReference> build(String... ids) {
         return new ListBuilder<String>().add(ids).build(new ListBuilder.Transformer<String, BundleReference>() {
             @Override
