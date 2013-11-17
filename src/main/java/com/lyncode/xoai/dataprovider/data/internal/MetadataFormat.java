@@ -57,15 +57,15 @@ public class MetadataFormat {
 
     public boolean isApplicable(ItemIdentifier item) {
         if (item.isDeleted()) return true;
-        if (hasFilter()) return getFilter().isItemShown(item);
+        if (hasCondition()) return getCondition().getFilter().isItemShown(item);
         return true;
     }
 
-    public Condition getFilter() {
+    public Condition getCondition() {
         return filter;
     }
 
-    public boolean hasFilter() {
+    public boolean hasCondition() {
         return filter != null;
     }
 

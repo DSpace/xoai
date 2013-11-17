@@ -17,7 +17,7 @@ public class ItemIdentifyHelper {
     public List<ReferenceSet> getSets(XOAIContext context) {
         List<ReferenceSet> list = this.item.getSets();
         for (StaticSet staticSet : context.getStaticSets()) {
-            if (staticSet.hasFilter() && staticSet.getFilter().isItemShown(item))
+            if (staticSet.hasCondition() && staticSet.getCondition().getFilter().isItemShown(item))
                 list.add(staticSet);
             else
                 list.add(staticSet);

@@ -16,12 +16,12 @@
 
 package com.lyncode.xoai.dataprovider.filter.conditions;
 
-import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
+import com.lyncode.xoai.dataprovider.data.Filter;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public interface Condition {
-    public abstract boolean isItemShown(ItemIdentifier item);
+    Filter getFilter();
 }

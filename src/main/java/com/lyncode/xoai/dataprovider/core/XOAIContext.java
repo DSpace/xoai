@@ -40,7 +40,7 @@ public class XOAIContext {
     private String baseUrl;
     private String name;
     private String description;
-    private Condition filter;
+    private Condition condition;
     private Map<String, StaticSet> sets;
     private MetadataTransformer transformer;
     private Map<String, MetadataFormat> formats;
@@ -80,7 +80,7 @@ public class XOAIContext {
 
     public Condition getSetFilter(String setID) {
         log.debug("{ XOAI } Getting StaticSet filters");
-        return sets.get(setID).getFilter();
+        return sets.get(setID).getCondition();
     }
 
     public MetadataFormat getFormatByPrefix(String prefix)
@@ -106,8 +106,8 @@ public class XOAIContext {
     }
 
     public boolean isItemShown(ItemIdentifier item) {
-        if (hasFilter())
-            return this.filter.isItemShown(item);
+        if (hasCondition())
+            return this.condition.getFilter().isItemShown(item);
         else
             return true;
     }
@@ -128,15 +128,15 @@ public class XOAIContext {
         return name;
     }
 
-    public Condition getFilter() {
-        return filter;
+    public Condition getCondition() {
+        return condition;
     }
 
-    public boolean hasFilter() {
-        return filter != null;
+    public boolean hasCondition() {
+        return condition != null;
     }
 
-    public void setFilter(Condition filter) {
-        this.filter = filter;
+    public void setCondition(Condition condition) {
+        this.condition = condition;
     }
 }

@@ -35,11 +35,11 @@ public class StaticSet extends Set {
         this.condition = condition;
     }
 
-    public Condition getFilter() {
+    public Condition getCondition() {
         return condition;
     }
 
-    public boolean hasFilter() {
+    public boolean hasCondition() {
         return condition != null;
     }
 }

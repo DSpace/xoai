@@ -70,7 +70,7 @@ public class ContextManager {
                     contextConfiguration.getName(), contextConfiguration.getDescription(),
                     transformer, formats, sets);
             if (contextConfiguration.hasFilter())
-                xoaiContext.setFilter(filterManager.getFilter(contextConfiguration.getFilters().getReference()));
+                xoaiContext.setCondition(filterManager.getFilter(contextConfiguration.getFilters().getReference()));
             this.contexts.put(contextConfiguration.getBaseUrl(), xoaiContext);
         }
     }

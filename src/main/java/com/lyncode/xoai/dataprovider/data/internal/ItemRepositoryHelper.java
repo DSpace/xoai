@@ -64,12 +64,12 @@ public class ItemRepositoryHelper {
 
     private List<ScopedFilter> getScopedFilters(XOAIContext context, String metadataPrefix) throws CannotDisseminateFormatException {
         List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
-        if (context.hasFilter())
-            filters.add(new ScopedFilter(context.getFilter(), Context));
+        if (context.hasCondition())
+            filters.add(new ScopedFilter(context.getCondition(), Context));
 
         MetadataFormat metadataFormat = context.getFormatByPrefix(metadataPrefix);
-        if (metadataFormat.hasFilter())
-            filters.add(new ScopedFilter(metadataFormat.getFilter(), MetadataFormat));
+        if (metadataFormat.hasCondition())
+            filters.add(new ScopedFilter(metadataFormat.getCondition(), MetadataFormat));
         return filters;
     }
 

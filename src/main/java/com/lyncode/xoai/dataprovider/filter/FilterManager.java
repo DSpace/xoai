@@ -53,21 +53,23 @@ public class FilterManager {
 
         combinedFilters = new HashMap<String, Condition>();
         for (FilterConfiguration combinedFilter : filters) {
-            combinedFilters.put(combinedFilter.getId(), this.getDefinition(combinedFilter.getDefinition()));
+            combinedFilters.put(combinedFilter.getId(), this.getDefinition(resolver, combinedFilter.getDefinition()));
         }
     }
 
-    private Condition getDefinition(FilterConditionConfiguration filterCondition) {
+    private Condition getDefinition(FilterResolver resolver, FilterConditionConfiguration filterCondition) {
         if (filterCondition.is(AndConditionConfiguration.class))
             return new AndCondition(
-                    this.getDefinition(((AndConditionConfiguration) filterCondition).getLeft()),
-                    this.getDefinition(((AndConditionConfiguration) filterCondition).getRight()));
+                    resolver,
+                    this.getDefinition(resolver, ((AndConditionConfiguration) filterCondition).getLeft()),
+                    this.getDefinition(resolver, ((AndConditionConfiguration) filterCondition).getRight()));
         else if (filterCondition.is(OrConditionConfiguration.class))
             return new OrCondition(
-                    this.getDefinition(((OrConditionConfiguration) filterCondition).getLeft()),
-                    this.getDefinition(((OrConditionConfiguration) filterCondition).getRight()));
+                    resolver,
+                    this.getDefinition(resolver, ((OrConditionConfiguration) filterCondition).getLeft()),
+                    this.getDefinition(resolver, ((OrConditionConfiguration) filterCondition).getRight()));
         else if (filterCondition.is(NotConditionConfiguration.class))
-            return new NotCondition(this.getDefinition(((NotConditionConfiguration) filterCondition).getCondition()));
+            return new NotCondition(resolver, this.getDefinition(resolver, ((NotConditionConfiguration) filterCondition).getCondition()));
         else return customConditions.get(((CustomConditionConfiguration) filterCondition).getFilter().getReference());
     }
 
