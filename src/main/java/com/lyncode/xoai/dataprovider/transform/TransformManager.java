@@ -16,17 +16,15 @@
 
 package com.lyncode.xoai.dataprovider.transform;
 
-import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
-import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Transformers;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Transformers.Transformer;
+import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.TransformerConfiguration;
 
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,15 +35,15 @@ public class TransformManager {
     // private static Logger log = LogManager.getLogger(TransformManager.class);
     private Map<String, MetadataTransformer> _contexts;
 
-    public TransformManager(ResourceResolver resolver, Transformers config)
+    public TransformManager(ResourceResolver resolver, List<TransformerConfiguration> transformerConfigurations)
             throws ConfigurationException {
         _contexts = new HashMap<String, MetadataTransformer>();
-        if (config != null) {
-            for (Transformer t : config.getTransformer()) {
+        if (transformerConfigurations != null) {
+            for (TransformerConfiguration t : transformerConfigurations) {
                 try {
                     _contexts.put(t.getId(),
                             new MetadataTransformer(new XSLTransformer(
-                                    resolver.getTransformer(t.getXSLT())
+                                    resolver.getTransformer(t.getXslt())
                             ))
                     );
                 } catch (TransformerConfigurationException e) {

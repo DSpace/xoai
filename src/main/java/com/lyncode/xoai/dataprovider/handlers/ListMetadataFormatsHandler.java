@@ -2,26 +2,26 @@ package com.lyncode.xoai.dataprovider.handlers;
 
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.data.MetadataFormat;
-import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
+import com.lyncode.xoai.dataprovider.data.Item;
+import com.lyncode.xoai.dataprovider.data.internal.ItemRepositoryHelper;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
+import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ListMetadataFormatsType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.MetadataFormatType;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
-import com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 
 import java.util.List;
 
 
 public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormatsType> {
-    private ItemRepository itemRepository;
+    private ItemRepositoryHelper itemRepositoryHelper;
     private XOAIContext context;
 
-    public ListMetadataFormatsHandler(DateProvider formatter, ItemRepository itemRepository, XOAIContext context) {
+    public ListMetadataFormatsHandler(DateProvider formatter, ItemRepositoryHelper itemRepositoryHelper, XOAIContext context) {
         super(formatter);
-        this.itemRepository = itemRepository;
+        this.itemRepositoryHelper = itemRepositoryHelper;
         this.context = context;
     }
 
@@ -31,7 +31,7 @@ public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormatsT
         ListMetadataFormatsType result = new ListMetadataFormatsType();
 
         if (params.hasIdentifier()) {
-            AbstractItem item = itemRepository.getItem(params.getIdentifier());
+            Item item = itemRepositoryHelper.getItem(params.getIdentifier());
             List<MetadataFormat> forms = context.getFormats(item);
             if (forms.isEmpty())
                 throw new NoMetadataFormatsException();

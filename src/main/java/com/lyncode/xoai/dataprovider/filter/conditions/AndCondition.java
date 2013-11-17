@@ -1,18 +1,18 @@
 package com.lyncode.xoai.dataprovider.filter.conditions;
 
-import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
+import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
 
-public class AndCondition extends AbstractCondition {
-    private AbstractCondition left = null;
-    private AbstractCondition right = null;
+public class AndCondition implements Condition {
+    private Condition left = null;
+    private Condition right = null;
 
-    public AndCondition(AbstractCondition left, AbstractCondition right) {
+    public AndCondition(Condition left, Condition right) {
         this.left = left;
         this.right = right;
     }
 
     @Override
-    public boolean isItemShown(AbstractItemIdentifier item) {
+    public boolean isItemShown(ItemIdentifier item) {
         return this.left.isItemShown(item) && this.right.isItemShown(item);
     }
 
@@ -20,8 +20,7 @@ public class AndCondition extends AbstractCondition {
     /**
      * @return the left
      */
-    public AbstractCondition getLeft() {
-
+    public Condition getLeft() {
         return left;
     }
 
@@ -29,8 +28,7 @@ public class AndCondition extends AbstractCondition {
     /**
      * @return the right
      */
-    public AbstractCondition getRight() {
-
+    public Condition getRight() {
         return right;
     }
 

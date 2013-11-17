@@ -17,23 +17,29 @@
 package com.lyncode.xoai.dataprovider.sets;
 
 import com.lyncode.xoai.dataprovider.core.Set;
-import com.lyncode.xoai.dataprovider.filter.Filter;
-
-import java.util.List;
+import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 
 /**
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class StaticSet extends Set {
-    private List<Filter> _filters;
+    private Condition condition;
 
-    public StaticSet(List<Filter> filters, String spec, String name) {
+    public StaticSet(String spec, String name) {
         super(spec, name);
-        _filters = filters;
     }
 
-    public List<Filter> getFilters() {
-        return _filters;
+    public StaticSet(Condition condition, String spec, String name) {
+        super(spec, name);
+        this.condition = condition;
+    }
+
+    public Condition getFilter() {
+        return condition;
+    }
+
+    public boolean hasFilter() {
+        return condition != null;
     }
 }

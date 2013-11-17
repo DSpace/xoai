@@ -2,12 +2,12 @@ package com.lyncode.xoai.tests.helpers.stubs;
 
 import com.lyncode.xoai.dataprovider.core.ListItemIdentifiersResult;
 import com.lyncode.xoai.dataprovider.core.ListItemsResults;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
-import com.lyncode.xoai.dataprovider.data.AbstractItemRepository;
+import com.lyncode.xoai.dataprovider.data.Item;
+import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.filter.ScopedFilter;
+import com.lyncode.xoai.dataprovider.services.api.ItemRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +16,7 @@ import java.util.List;
 import static java.lang.Math.min;
 import static java.util.Arrays.asList;
 
-public class StubbedItemRepository extends AbstractItemRepository {
+public class StubbedItemRepository implements ItemRepository {
     private List<StubbedItem> list = new ArrayList<StubbedItem>();
 
     public StubbedItemRepository withNoItems() {
@@ -40,7 +40,7 @@ public class StubbedItemRepository extends AbstractItemRepository {
     }
 
     @Override
-    public AbstractItem getItem(String identifier) throws IdDoesNotExistException, OAIException {
+    public Item getItem(String identifier) throws IdDoesNotExistException, OAIException {
         for (StubbedItem item : this.list) {
             if (item.getIdentifier().equals(identifier))
                 return item;
@@ -50,7 +50,7 @@ public class StubbedItemRepository extends AbstractItemRepository {
 
     @Override
     public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length) throws OAIException {
-        return new ListItemIdentifiersResult(offset + length < list.size(), new ArrayList<AbstractItemIdentifier>(list.subList(offset, min(offset + length, list.size()))));
+        return new ListItemIdentifiersResult(offset + length < list.size(), new ArrayList<ItemIdentifier>(list.subList(offset, min(offset + length, list.size()))));
     }
 
     @Override
@@ -90,7 +90,7 @@ public class StubbedItemRepository extends AbstractItemRepository {
 
     @Override
     public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length) throws OAIException {
-        return new ListItemsResults(offset + length < list.size(), new ArrayList<AbstractItem>(list.subList(offset, min(offset + length, list.size()))));
+        return new ListItemsResults(offset + length < list.size(), new ArrayList<Item>(list.subList(offset, min(offset + length, list.size()))));
     }
 
     @Override

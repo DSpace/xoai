@@ -16,12 +16,14 @@
 
 package com.lyncode.xoai.dataprovider.filter;
 
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ConditionDefinitionType;
+import com.lyncode.xoai.dataprovider.data.Filter;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.conditions.*;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters;
+import com.lyncode.xoai.dataprovider.services.api.FilterResolver;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ConditionConfiguration;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FilterConfiguration;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.conditions.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,67 +34,51 @@ import java.util.Map;
  */
 public class FilterManager {
     // private static Logger log = LogManager.getLogger(FilterManager.class);
-    private Map<String, Filter> _filters;
-    private Map<String, CustomCondition> _conditions;
+    private Map<String, Condition> combinedFilters;
+    private Map<String, CustomCondition> customConditions;
 
+    public FilterManager(FilterResolver resolver, List<FilterConfiguration> filters, List<ConditionConfiguration> conditions) throws ConfigurationException {
+        this.customConditions = new HashMap<String, CustomCondition>();
+        for (ConditionConfiguration conditionConfiguration : conditions) {
+            try {
+                Class<?> filterClass = Class.forName(conditionConfiguration.getClazz());
+                if (!filterClass.isAssignableFrom(Filter.class))
+                    throw new ConfigurationException("Class " + conditionConfiguration.getClazz() + " does not implements Filter");
 
-    public FilterManager(Filters filters) throws ConfigurationException {
-        _conditions = new HashMap<String, CustomCondition>();
-        if (filters != null && filters.getFilter() != null) {
-            for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.CustomFilter f : filters
-                    .getCustomFilter()) {
-                try {
-                    Class<?> c = Class.forName(f.getClazz());
-                    Object obj = c.newInstance();
-                    if (obj instanceof AbstractCondition) {
-                        ((AbstractCondition) obj).load(f.getParameter());
-                        _conditions.put(f.getId(), (CustomCondition) obj);
-                    }
-                } catch (InstantiationException ex) {
-                    throw new ConfigurationException(ex.getMessage(), ex);
-                } catch (IllegalAccessException ex) {
-                    throw new ConfigurationException(ex.getMessage(), ex);
-                } catch (ClassNotFoundException ex) {
-                    throw new ConfigurationException(ex.getMessage(), ex);
-                }
+                customConditions.put(conditionConfiguration.getId(), new CustomCondition(resolver, (Class<? extends Filter>) filterClass, conditionConfiguration.getConfiguration()));
+            } catch (ClassNotFoundException ex) {
+                throw new ConfigurationException(ex.getMessage(), ex);
             }
         }
 
-        _filters = new HashMap<String, Filter>();
-        if (filters != null) {
-            for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Filters.Filter f : filters.getFilter()) {
-                _filters.put(f.getId(), new Filter(this.getDefinition(f.getDefinition())));
-            }
+        combinedFilters = new HashMap<String, Condition>();
+        for (FilterConfiguration combinedFilter : filters) {
+            combinedFilters.put(combinedFilter.getId(), this.getDefinition(combinedFilter.getDefinition()));
         }
     }
 
-    private AbstractCondition getDefinition(ConditionDefinitionType definition) {
-        if (definition.getAnd() != null)
+    private Condition getDefinition(FilterConditionConfiguration filterCondition) {
+        if (filterCondition.is(AndConditionConfiguration.class))
             return new AndCondition(
-                    this.getDefinition(definition.getAnd().getLeftCondition()),
-                    this.getDefinition(definition.getAnd().getLeftCondition()));
-        else if (definition.getOr() != null)
+                    this.getDefinition(((AndConditionConfiguration) filterCondition).getLeft()),
+                    this.getDefinition(((AndConditionConfiguration) filterCondition).getRight()));
+        else if (filterCondition.is(OrConditionConfiguration.class))
             return new OrCondition(
-                    this.getDefinition(definition.getOr().getLeftCondition()),
-                    this.getDefinition(definition.getOr().getLeftCondition()));
-        else if (definition.getNot() != null)
-            return new NotCondition(this.getDefinition(definition.getNot().getCondition()));
-        else return _conditions.get(definition.getCustom().getRefid());
-    }
-
-    public List<AbstractCondition> getConditions() {
-        return new ArrayList<AbstractCondition>(_conditions.values());
+                    this.getDefinition(((OrConditionConfiguration) filterCondition).getLeft()),
+                    this.getDefinition(((OrConditionConfiguration) filterCondition).getRight()));
+        else if (filterCondition.is(NotConditionConfiguration.class))
+            return new NotCondition(this.getDefinition(((NotConditionConfiguration) filterCondition).getCondition()));
+        else return customConditions.get(((CustomConditionConfiguration) filterCondition).getFilter().getReference());
     }
 
     public boolean filterExists(String id) {
-        return this._filters.containsKey(id);
+        return this.combinedFilters.containsKey(id) || this.customConditions.containsKey(id);
     }
 
-    public Filter getFilter(String id) {
-        return _filters.get(id);
-    }
 
-    public List<Filter> getFilters() {
-        return new ArrayList<Filter>(_filters.values());
+    public Condition getFilter(String id) {
+        if (combinedFilters.containsKey(id))
+            return combinedFilters.get(id);
+        return customConditions.get(id);
     }
 }

@@ -13,12 +13,11 @@ import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A header has a unique identifier, a datestamp, and setSpec(s) in case the
+ * A header has a unique identifier, a datestamp, and withSpec(s) in case the
  * item from which the record is disseminated belongs to set(s). the header can
  * carry a deleted status indicating that the record is deleted.
  * <p/>
@@ -36,7 +35,7 @@ import java.util.List;
  *       &lt;sequence>
  *         &lt;element name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType"/>
  *         &lt;element name="datestamp" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType"/>
- *         &lt;element name="setSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="withSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="status" type="{http://www.openarchives.org/OAI/2.0/}statusType" />
  *     &lt;/restriction>
@@ -46,7 +45,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "headerType", propOrder = {"identifier", "datestamp",
-        "setSpec"})
+        "withSpec"})
 public class HeaderType implements XMLWritable {
 
     @XmlElement(required = true)
@@ -94,13 +93,13 @@ public class HeaderType implements XMLWritable {
     }
 
     /**
-     * Gets the value of the setSpec property.
+     * Gets the value of the withSpec property.
      * <p/>
      * <p/>
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the setSpec property.
+     * <CODE>set</CODE> method for the withSpec property.
      * <p/>
      * <p/>
      * For example, to add a new item, do as follows:
@@ -157,7 +156,7 @@ public class HeaderType implements XMLWritable {
             }
 
             for (String setSpec : this.getSetSpec()) {
-                context.getWriter().writeStartElement("setSpec");
+                context.getWriter().writeStartElement("withSpec");
                 context.getWriter().writeCharacters(setSpec);
                 context.getWriter().writeEndElement();
             }

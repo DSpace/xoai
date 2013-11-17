@@ -2,14 +2,14 @@ package com.lyncode.xoai.tests.helpers.stubs;
 
 import com.lyncode.xoai.dataprovider.core.ListSetsResult;
 import com.lyncode.xoai.dataprovider.core.Set;
-import com.lyncode.xoai.dataprovider.data.AbstractSetRepository;
+import com.lyncode.xoai.dataprovider.services.api.SetRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
-public class StubbedSetRepository extends AbstractSetRepository {
+public class StubbedSetRepository implements SetRepository {
     private boolean supportSets = true;
     private List<Set> sets = new ArrayList<Set>();
 

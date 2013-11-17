@@ -22,8 +22,8 @@ public class GetRecordParserTest extends AbstractParseTest<GetRecordType> {
             "            <header>\r\n" +
             "                <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
             "                <datestamp>2013-09-10T20:40:03Z</datestamp>\r\n" +
-            "                <setSpec>com_10673_1</setSpec>\r\n" +
-            "                <setSpec>col_10673_2</setSpec>\r\n" +
+            "                <withSpec>com_10673_1</withSpec>\r\n" +
+            "                <withSpec>col_10673_2</withSpec>\r\n" +
             "            </header>\r\n" +
             "            <metadata><oai_dc:dc xmlns:oai_dc=\"http://www.openarchives.org/OAI/2.0/oai_dc/\" xmlns:doc=\"http://www.lyncode.com/xoai\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">\r\n" +
             "<dc:title>Test Webpage</dc:title>\r\n" +

@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="setSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType"/>
+ *         &lt;element name="withSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType"/>
  *         &lt;element name="setName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="setDescription" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -46,7 +45,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setType", propOrder = {"setSpec", "setName", "setDescription"})
+@XmlType(name = "setType", propOrder = {"withSpec", "setName", "setDescription"})
 public class SetType implements XMLWritable {
 
     @XmlElement(required = true)
@@ -56,7 +55,7 @@ public class SetType implements XMLWritable {
     protected List<DescriptionType> setDescription;
 
     /**
-     * Gets the value of the setSpec property.
+     * Gets the value of the withSpec property.
      *
      * @return possible object is {@link String }
      */
@@ -65,7 +64,7 @@ public class SetType implements XMLWritable {
     }
 
     /**
-     * Sets the value of the setSpec property.
+     * Sets the value of the withSpec property.
      *
      * @param value allowed object is {@link String }
      */
@@ -121,7 +120,7 @@ public class SetType implements XMLWritable {
 
 	/*
      *
- *         &lt;element name="setSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType"/>
+ *         &lt;element name="withSpec" type="{http://www.openarchives.org/OAI/2.0/}setSpecType"/>
  *         &lt;element name="setName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="setDescription" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
 	 */
@@ -129,7 +128,7 @@ public class SetType implements XMLWritable {
     @Override
     public void write(XmlOutputContext context) throws WritingXmlException {
         try {
-            writeValue(context.getWriter(), "setSpec", setSpec);
+            writeValue(context.getWriter(), "withSpec", setSpec);
             writeValue(context.getWriter(), "setName", setName);
             if (this.setDescription != null && !this.setDescription.isEmpty()) {
                 for (DescriptionType desc : this.setDescription)

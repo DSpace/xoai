@@ -16,12 +16,12 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
-import com.lyncode.xoai.dataprovider.data.MetadataFormat;
-import com.lyncode.xoai.dataprovider.data.MetadataTransformer;
+import com.lyncode.xoai.dataprovider.data.Item;
+import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
-import com.lyncode.xoai.dataprovider.filter.Filter;
+import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -35,24 +35,22 @@ import java.util.Map;
  * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
-public class XOAIContext extends ConfigurableBundle {
+public class XOAIContext {
     private static Logger log = LogManager.getLogger(XOAIContext.class);
     private String baseUrl;
     private String name;
     private String description;
-    private List<Filter> filters;
+    private Condition filter;
     private Map<String, StaticSet> sets;
     private MetadataTransformer transformer;
     private Map<String, MetadataFormat> formats;
 
     public XOAIContext(String baseUrl, String name, String description, MetadataTransformer transformer,
-                       List<Filter> filters, List<MetadataFormat> formats,
-                       List<StaticSet> sets) {
+                       List<MetadataFormat> formats, List<StaticSet> sets) {
         this.baseUrl = baseUrl;
         this.name = name;
         this.description = description;
         this.transformer = transformer;
-        this.filters = filters;
         this.formats = new HashMap<String, MetadataFormat>();
         for (MetadataFormat mdf : formats)
             this.formats.put(mdf.getPrefix(), mdf);
@@ -65,10 +63,6 @@ public class XOAIContext extends ConfigurableBundle {
         return this.baseUrl;
     }
 
-    public List<Filter> getFilters() {
-        return filters;
-    }
-
     public MetadataTransformer getTransformer() {
         return transformer;
     }
@@ -77,16 +71,16 @@ public class XOAIContext extends ConfigurableBundle {
 
     public List<StaticSet> getStaticSets() {
         if (cachedSets == null) {
-            log.debug("{ XOAI } Static Sets for this Context: "
+            log.debug("{ XOAI } Static Sets for this ContextConfiguration: "
                     + sets.values().size());
             cachedSets = new ArrayList<StaticSet>(sets.values());
         }
         return cachedSets;
     }
 
-    public List<Filter> getSetFilters(String setID) {
+    public Condition getSetFilter(String setID) {
         log.debug("{ XOAI } Getting StaticSet filters");
-        return sets.get(setID).getFilters();
+        return sets.get(setID).getFilter();
     }
 
     public MetadataFormat getFormatByPrefix(String prefix)
@@ -101,22 +95,21 @@ public class XOAIContext extends ConfigurableBundle {
         return new ArrayList<MetadataFormat>(formats.values());
     }
 
-    public List<MetadataFormat> getFormats(AbstractItem item) {
+    public List<MetadataFormat> getFormats(Item item) {
         List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
         if (this.isItemShown(item)) {
             for (MetadataFormat format : this.formats.values())
-                if (item.isDeleted() || format.isApplyable(item))
+                if (item.isDeleted() || format.isApplicable(item))
                     formats.add(format);
         }
         return formats;
     }
 
-    public boolean isItemShown(AbstractItemIdentifier item) {
-        boolean shown = true;
-        for (Filter f : this.getFilters())
-            if (!f.isItemShown(item))
-                shown = false;
-        return shown;
+    public boolean isItemShown(ItemIdentifier item) {
+        if (hasFilter())
+            return this.filter.isItemShown(item);
+        else
+            return true;
     }
 
     public boolean isStaticSet(String setSpec) {
@@ -133,5 +126,17 @@ public class XOAIContext extends ConfigurableBundle {
     public String getName() {
         if (name == null) return this.baseUrl;
         return name;
+    }
+
+    public Condition getFilter() {
+        return filter;
+    }
+
+    public boolean hasFilter() {
+        return filter != null;
+    }
+
+    public void setFilter(Condition filter) {
+        this.filter = filter;
     }
 }

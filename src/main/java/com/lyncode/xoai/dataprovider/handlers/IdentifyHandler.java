@@ -5,12 +5,12 @@ import com.lyncode.xoai.dataprovider.exceptions.HandlerException;
 import com.lyncode.xoai.dataprovider.exceptions.MarshallingException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.api.RepositoryConfiguration;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.DeletedRecordType;
+import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.IdentifyType;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 import com.lyncode.xoai.util.MarshallingUtils;
-import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.DeletedRecordType;
-import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -24,10 +24,10 @@ public class IdentifyHandler extends VerbHandler<IdentifyType> {
     private static final String PROTOCOL_VERSION = "2.0";
     private static final String XOAI_DESC = "XOAI: OAI-PMH Java Toolkit";
 
-    private AbstractIdentify identify;
+    private RepositoryConfiguration identify;
     private List<String> compressions;
 
-    public IdentifyHandler(DateProvider formatter, AbstractIdentify identify, List<String> compressions) {
+    public IdentifyHandler(DateProvider formatter, RepositoryConfiguration identify, List<String> compressions) {
         super(formatter);
         this.identify = identify;
         this.compressions = compressions;

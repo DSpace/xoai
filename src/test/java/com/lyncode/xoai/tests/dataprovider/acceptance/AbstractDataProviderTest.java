@@ -2,7 +2,7 @@ package com.lyncode.xoai.tests.dataprovider.acceptance;
 
 import com.lyncode.xoai.builders.ListBuilder;
 import com.lyncode.xoai.builders.MapBuilder;
-import com.lyncode.xoai.builders.dataprovider.*;
+import com.lyncode.xoai.builders.dataprovider.OAIRequestParametersBuilder;
 import com.lyncode.xoai.dataprovider.OAIDataProvider;
 import com.lyncode.xoai.dataprovider.core.Granularity;
 import com.lyncode.xoai.dataprovider.core.XOAIManager;
@@ -11,10 +11,15 @@ import com.lyncode.xoai.dataprovider.exceptions.InvalidContextException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.api.FilterResolver;
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ContextConfiguration;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FilterConfiguration;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
 import com.lyncode.xoai.tests.helpers.AbstractIdentifyBuilder;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedItemRepository;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedSetRepository;
@@ -53,11 +58,12 @@ public abstract class AbstractDataProviderTest {
 
     private OAIDataProvider dataProvider;
     private XOAIManager manager;
+    private FilterResolver filterResolver = mock(FilterResolver.class);
     private AbstractIdentifyBuilder identify = new AbstractIdentifyBuilder();
     private StubbedSetRepository setRepository = new StubbedSetRepository();
     private StubbedItemRepository itemRepository = new StubbedItemRepository();
     private ResourceResolver resourceResolver = mock(ResourceResolver.class);
-    private ConfigurationBuilder configuration;
+    private Configuration configuration;
     private DateProvider formatter = new BaseDateProvider();
 
     private OAIPMH result;
@@ -66,20 +72,16 @@ public abstract class AbstractDataProviderTest {
     public void setUp() throws IOException, TransformerConfigurationException, ParseException {
         when(resourceResolver.getTransformer(XOAI_XSLT_LOCATION)).thenReturn(tFactory.newTransformer());
 
-        configuration = new ConfigurationBuilder().withDefaults().withIndentation(true);
+        configuration = new Configuration().withIndented(true);
 
-        configuration.withFormats(new FormatBuilder()
-                .withId(XOAI_FORMAT)
+        configuration.withFormatConfigurations(new FormatConfiguration(XOAI_FORMAT)
                 .withNamespace(XOAI_NAMESPACE)
                 .withPrefix(XOAI_PREFIX)
                 .withSchemaLocation(XOAI_SCHEMA_LOCATION)
-                .withXslt(XOAI_XSLT_LOCATION)
-                .build());
+                .withXslt(XOAI_XSLT_LOCATION));
 
-        configuration.withContexts(new ContextBuilder()
-                .withBaseUrl(CONTEXT)
-                .withFormats(XOAI_FORMAT)
-                .build());
+        configuration.withContextConfigurations(new ContextConfiguration(CONTEXT)
+                .withFormats(XOAI_FORMAT));
     }
 
     protected void afterHandling(OAIRequestParametersBuilder params) throws InvalidContextException, ConfigurationException, OAIException, XMLStreamException, WritingXmlException, IOException {
@@ -96,7 +98,7 @@ public abstract class AbstractDataProviderTest {
         return output.toString();
     }
 
-    protected ConfigurationBuilder theConfiguration() {
+    protected Configuration theConfiguration() {
         return this.configuration;
     }
 
@@ -109,13 +111,13 @@ public abstract class AbstractDataProviderTest {
         return date;
     }
 
-    protected FilterBuilder aFilter() {
-        return new FilterBuilder();
+    protected FilterConfiguration aFilter(String id) {
+        return new FilterConfiguration(id);
     }
 
     protected XOAIManager theManager() throws ConfigurationException {
         if (manager == null)
-            manager = new XOAIManager(resourceResolver, configuration.build());
+            manager = new XOAIManager(filterResolver, resourceResolver, configuration);
         return manager;
     }
 

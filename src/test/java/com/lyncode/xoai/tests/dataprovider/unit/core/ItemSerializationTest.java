@@ -3,8 +3,8 @@ package com.lyncode.xoai.tests.dataprovider.unit.core;
 
 import com.lyncode.xoai.builders.MapBuilder;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.data.internal.Item;
+import com.lyncode.xoai.dataprovider.data.Item;
+import com.lyncode.xoai.dataprovider.data.internal.ItemHelper;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.tests.helpers.AbstractItemBuilder;
 import com.lyncode.xoai.util.matchers.XPathMatchers;
@@ -34,22 +34,22 @@ public class ItemSerializationTest {
                         anElement().withName("test2").withField(FIELD_2, TEST_2)
                 );
 
-        Item item = new Item(theItem());
+        ItemHelper itemHelper = new ItemHelper(theItem());
 
-        assertThat(serializing(item), hasXPath("/o:metadata"));
-        assertThat(serializing(item), xPath("//o:field[@name='" + FIELD_1 + "']", is(TEST_1)));
-        assertThat(serializing(item), xPath("//o:field[@name='" + FIELD_2 + "']", is(TEST_2)));
+        assertThat(serializing(itemHelper), hasXPath("/o:metadata"));
+        assertThat(serializing(itemHelper), xPath("//o:field[@name='" + FIELD_1 + "']", is(TEST_1)));
+        assertThat(serializing(itemHelper), xPath("//o:field[@name='" + FIELD_2 + "']", is(TEST_2)));
     }
 
-    private String serializing(Item item) throws IOException, WritingXmlException, XMLStreamException {
-        return IOUtils.toString(item.toPipeline(true).getTransformed());
+    private String serializing(ItemHelper itemHelper) throws IOException, WritingXmlException, XMLStreamException {
+        return IOUtils.toString(itemHelper.toPipeline(true).getTransformed());
     }
 
     private AbstractItemBuilder theSourceItem() {
         return abstractItem;
     }
 
-    private AbstractItem theItem() {
+    private Item theItem() {
         return abstractItem.build();
     }
 

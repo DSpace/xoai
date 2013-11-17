@@ -16,7 +16,7 @@
 
 package com.lyncode.xoai.dataprovider.core;
 
-import com.lyncode.xoai.dataprovider.data.AbstractItemIdentifier;
+import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
 
 import java.util.List;
 
@@ -26,17 +26,15 @@ import java.util.List;
  */
 public class ListItemIdentifiersResult {
     private boolean hasMore;
-    private List<AbstractItemIdentifier> results;
+    private List<ItemIdentifier> results;
     private int totalResults = -1;
 
-    public ListItemIdentifiersResult(boolean hasMoreResults,
-                                     List<AbstractItemIdentifier> results) {
+    public ListItemIdentifiersResult(boolean hasMoreResults, List<ItemIdentifier> results) {
         this.hasMore = hasMoreResults;
         this.results = results;
     }
 
-    public ListItemIdentifiersResult(boolean hasMoreResults,
-                                     List<AbstractItemIdentifier> results, int totalResults) {
+    public ListItemIdentifiersResult(boolean hasMoreResults, List<ItemIdentifier> results, int totalResults) {
         this.hasMore = hasMoreResults;
         this.results = results;
         this.totalResults = totalResults;
@@ -46,7 +44,7 @@ public class ListItemIdentifiersResult {
         return hasMore;
     }
 
-    public List<AbstractItemIdentifier> getResults() {
+    public List<ItemIdentifier> getResults() {
         return results;
     }
 

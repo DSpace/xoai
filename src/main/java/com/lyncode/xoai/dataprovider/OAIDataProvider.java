@@ -22,13 +22,13 @@ package com.lyncode.xoai.dataprovider;
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.core.XOAIManager;
-import com.lyncode.xoai.dataprovider.data.*;
-import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
-import com.lyncode.xoai.dataprovider.data.internal.SetRepository;
+import com.lyncode.xoai.dataprovider.data.internal.ItemRepositoryHelper;
+import com.lyncode.xoai.dataprovider.data.internal.SetRepositoryHelper;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.handlers.*;
-import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.api.*;
 import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
+import com.lyncode.xoai.dataprovider.services.impl.DefaultResumptionTokenFormatter;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHtype;
@@ -50,18 +50,18 @@ public class OAIDataProvider {
     private static Logger log = LogManager.getLogger(OAIDataProvider.class);
     private static DateProvider formatter = new BaseDateProvider();
 
-    public static void setDateFormatter (DateProvider newFormat) {
+    public static void setDateFormatter(DateProvider newFormat) {
         formatter = newFormat;
     }
 
-    private XOAIManager _manager;
+    private XOAIManager manager;
 
-    private AbstractIdentify _identify;
-    private SetRepository _listSets;
-    private ItemRepository _itemRepo;
-    private List<String> _compressions;
-    private XOAIContext _context;
-    private AbstractResumptionTokenFormat _format;
+    private RepositoryConfiguration repositoryConfiguration;
+    private SetRepositoryHelper setRepository;
+    private ItemRepositoryHelper itemRepository;
+    private List<String> compressions;
+    private XOAIContext xoaiContext;
+    private ResumptionTokenFormatter resumptionTokenFormatter;
 
     private GetRecordHandler getRecordHandler;
     private IdentifyHandler identifyHandler;
@@ -72,93 +72,93 @@ public class OAIDataProvider {
     private ErrorHandler errorHandler;
 
 
-    public OAIDataProvider(XOAIManager manager, String contextUrl, AbstractIdentify identify,
-                           AbstractSetRepository listSets,
-                           AbstractItemRepository itemRepository)
+    public OAIDataProvider(XOAIManager manager, String contextUrl, RepositoryConfiguration identify,
+                           SetRepository setRepository,
+                           ItemRepository itemRepository)
             throws InvalidContextException {
-        log.debug("Context chosen: " + contextUrl);
+        log.debug("ContextConfiguration chosen: " + contextUrl);
 
-        _manager = manager;
+        this.manager = manager;
 
-        _context = _manager.getContextManager().getOAIContext(contextUrl);
+        xoaiContext = this.manager.getContextManager().getOAIContext(contextUrl);
 
-        if (_context == null)
-            throw new InvalidContextException("Context \"" + contextUrl
+        if (xoaiContext == null)
+            throw new InvalidContextException("ContextConfiguration \"" + contextUrl
                     + "\" does not exist");
 
-        _identify = identify;
-        _listSets = new SetRepository(listSets);
-        _itemRepo = new ItemRepository(itemRepository);
-        _compressions = new ArrayList<String>();
-        _format = new DefaultResumptionTokenFormat();
+        repositoryConfiguration = identify;
+        this.setRepository = new SetRepositoryHelper(setRepository);
+        this.itemRepository = new ItemRepositoryHelper(itemRepository);
+        compressions = new ArrayList<String>();
+        resumptionTokenFormatter = new DefaultResumptionTokenFormatter();
 
-        getRecordHandler = new GetRecordHandler(formatter, _context, _itemRepo, _identify);
-        identifyHandler = new IdentifyHandler(formatter, _identify, _compressions);
-        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, _itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(formatter, _manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listIdentifiersHandler = new ListIdentifiersHandler(formatter, _manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listSetsHandler = new ListSetsHandler(formatter, _manager.getMaxListSetsSize(), _listSets, _context, _format);
+        getRecordHandler = new GetRecordHandler(formatter, xoaiContext, this.itemRepository, repositoryConfiguration);
+        identifyHandler = new IdentifyHandler(formatter, repositoryConfiguration, compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, this.itemRepository, xoaiContext);
+        listRecordsHandler = new ListRecordsHandler(formatter, this.manager.getMaxListRecordsSize(), this.setRepository, this.itemRepository, repositoryConfiguration, xoaiContext, resumptionTokenFormatter);
+        listIdentifiersHandler = new ListIdentifiersHandler(formatter, this.manager.getMaxListIdentifiersSize(), this.setRepository, this.itemRepository, repositoryConfiguration, xoaiContext, resumptionTokenFormatter);
+        listSetsHandler = new ListSetsHandler(formatter, this.manager.getMaxListSetsSize(), this.setRepository, xoaiContext, resumptionTokenFormatter);
         errorHandler = new ErrorHandler();
     }
 
-    public OAIDataProvider(XOAIManager manager, String contexturl, AbstractIdentify identify,
-                           AbstractSetRepository listsets,
-                           AbstractItemRepository itemRepository,
-                           AbstractResumptionTokenFormat format)
+    public OAIDataProvider(XOAIManager manager, String contexturl, RepositoryConfiguration identify,
+                           SetRepository setRepository,
+                           ItemRepository itemRepository,
+                           ResumptionTokenFormatter format)
             throws InvalidContextException {
-        log.debug("Context chosen: " + contexturl);
+        log.debug("ContextConfiguration chosen: " + contexturl);
 
-        _manager = manager;
+        this.manager = manager;
 
-        _context = _manager.getContextManager().getOAIContext(contexturl);
+        xoaiContext = this.manager.getContextManager().getOAIContext(contexturl);
 
-        if (_context == null)
-            throw new InvalidContextException("Context \"" + contexturl
+        if (xoaiContext == null)
+            throw new InvalidContextException("ContextConfiguration \"" + contexturl
                     + "\" does not exist");
-        _identify = identify;
-        _listSets = new SetRepository(listsets);
-        _itemRepo = new ItemRepository(itemRepository);
-        _compressions = new ArrayList<String>();
-        _format = format;
+        repositoryConfiguration = identify;
+        this.setRepository = new SetRepositoryHelper(setRepository);
+        this.itemRepository = new ItemRepositoryHelper(itemRepository);
+        compressions = new ArrayList<String>();
+        resumptionTokenFormatter = format;
 
-        getRecordHandler = new GetRecordHandler(formatter, _context, _itemRepo, _identify);
-        identifyHandler = new IdentifyHandler(formatter, _identify, _compressions);
-        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, _itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(formatter, _manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listIdentifiersHandler = new ListIdentifiersHandler(formatter, _manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listSetsHandler = new ListSetsHandler(formatter, _manager.getMaxListSetsSize(), _listSets, _context, _format);
+        getRecordHandler = new GetRecordHandler(formatter, xoaiContext, this.itemRepository, repositoryConfiguration);
+        identifyHandler = new IdentifyHandler(formatter, repositoryConfiguration, compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, this.itemRepository, xoaiContext);
+        listRecordsHandler = new ListRecordsHandler(formatter, this.manager.getMaxListRecordsSize(), this.setRepository, this.itemRepository, repositoryConfiguration, xoaiContext, resumptionTokenFormatter);
+        listIdentifiersHandler = new ListIdentifiersHandler(formatter, this.manager.getMaxListIdentifiersSize(), this.setRepository, this.itemRepository, repositoryConfiguration, xoaiContext, resumptionTokenFormatter);
+        listSetsHandler = new ListSetsHandler(formatter, this.manager.getMaxListSetsSize(), this.setRepository, xoaiContext, resumptionTokenFormatter);
         errorHandler = new ErrorHandler();
     }
 
-    public OAIDataProvider(XOAIManager manager, String contexturl, AbstractIdentify identify,
-                           AbstractSetRepository listsets,
-                           AbstractItemRepository itemRepository, List<String> compressions)
+    public OAIDataProvider(XOAIManager manager, String contexturl, RepositoryConfiguration identify,
+                           SetRepository setRepository,
+                           ItemRepository itemRepository, List<String> compressions)
             throws InvalidContextException {
-        _manager = manager;
+        this.manager = manager;
 
-        _context = _manager.getContextManager().getOAIContext(contexturl);
+        xoaiContext = this.manager.getContextManager().getOAIContext(contexturl);
 
-        if (_context == null)
+        if (xoaiContext == null)
             throw new InvalidContextException();
-        _identify = identify;
-        _listSets = new SetRepository(listsets);
-        _itemRepo = new ItemRepository(itemRepository);
-        _compressions = compressions;
-        _format = new DefaultResumptionTokenFormat();
+        repositoryConfiguration = identify;
+        this.setRepository = new SetRepositoryHelper(setRepository);
+        this.itemRepository = new ItemRepositoryHelper(itemRepository);
+        this.compressions = compressions;
+        resumptionTokenFormatter = new DefaultResumptionTokenFormatter();
 
-        getRecordHandler = new GetRecordHandler(formatter, _context, _itemRepo, _identify);
-        identifyHandler = new IdentifyHandler(formatter, _identify, _compressions);
-        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, _itemRepo, _context);
-        listRecordsHandler = new ListRecordsHandler(formatter, _manager.getMaxListRecordsSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listIdentifiersHandler = new ListIdentifiersHandler(formatter, _manager.getMaxListIdentifiersSize(), _listSets, _itemRepo, _identify, _context, _format);
-        listSetsHandler = new ListSetsHandler(formatter, _manager.getMaxListSetsSize(), _listSets, _context, _format);
+        getRecordHandler = new GetRecordHandler(formatter, xoaiContext, this.itemRepository, repositoryConfiguration);
+        identifyHandler = new IdentifyHandler(formatter, repositoryConfiguration, this.compressions);
+        listMetadataFormatsHandler = new ListMetadataFormatsHandler(formatter, this.itemRepository, xoaiContext);
+        listRecordsHandler = new ListRecordsHandler(formatter, this.manager.getMaxListRecordsSize(), this.setRepository, this.itemRepository, repositoryConfiguration, xoaiContext, resumptionTokenFormatter);
+        listIdentifiersHandler = new ListIdentifiersHandler(formatter, this.manager.getMaxListIdentifiersSize(), this.setRepository, this.itemRepository, repositoryConfiguration, xoaiContext, resumptionTokenFormatter);
+        listSetsHandler = new ListSetsHandler(formatter, this.manager.getMaxListSetsSize(), this.setRepository, xoaiContext, resumptionTokenFormatter);
         errorHandler = new ErrorHandler();
     }
 
     public OAIPMH handle(OAIRequestParameters params) throws OAIException {
         log.debug("Starting handling OAI request");
 
-        OAIPMH response = new OAIPMH(_manager);
+        OAIPMH response = new OAIPMH(manager);
         OAIPMHtype info = new OAIPMHtype();
         response.setInfo(info);
 
@@ -166,9 +166,9 @@ public class OAIDataProvider {
         info.setRequest(request);
         info.setResponseDate(formatter.now());
 
-        request.setValue(this._identify.getBaseUrl());
+        request.setValue(this.repositoryConfiguration.getBaseUrl());
         try {
-            OAIParameters parameters = new OAIParameters(params, _format);
+            OAIParameters parameters = new OAIParameters(params, resumptionTokenFormatter);
             VerbType verb = parameters.getVerb();
             request.setVerb(verb);
 
@@ -178,7 +178,7 @@ public class OAIDataProvider {
                 request.setIdentifier(parameters.getIdentifier());
             if (params.getFrom() != null)
                 try {
-                    request.setFrom(formatter.parse(params.getFrom(), _identify.getGranularity()));
+                    request.setFrom(formatter.parse(params.getFrom(), repositoryConfiguration.getGranularity()));
                 } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
@@ -188,7 +188,7 @@ public class OAIDataProvider {
                 request.setSet(params.getSet());
             if (params.getUntil() != null)
                 try {
-                    request.setUntil(formatter.parse(params.getUntil(), _identify.getGranularity()));
+                    request.setUntil(formatter.parse(params.getUntil(), repositoryConfiguration.getGranularity()));
                 } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }

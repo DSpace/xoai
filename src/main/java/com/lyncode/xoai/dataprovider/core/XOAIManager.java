@@ -19,6 +19,7 @@ package com.lyncode.xoai.dataprovider.core;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.format.MetadataFormatManager;
+import com.lyncode.xoai.dataprovider.services.api.FilterResolver;
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.sets.StaticSetManager;
 import com.lyncode.xoai.dataprovider.transform.TransformManager;
@@ -29,30 +30,32 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
  * @version 3.1.0
  */
 public class XOAIManager {
-    private FilterManager _filter;
-    private ContextManager _context;
-    private TransformManager _transformer;
-    private MetadataFormatManager _format;
-    private StaticSetManager _set;
-    private int _listSetsSize;
-    private int _listRecordsSize;
-    private int _listIdentifiersSize;
-    private boolean _identation;
+    private FilterManager filter;
+    private ContextManager context;
+    private TransformManager transformer;
+    private MetadataFormatManager format;
+    private StaticSetManager set;
+    private int listSetsSize;
+    private int listRecordsSize;
+    private int listIdentifiersSize;
+    private boolean identation;
     private String styleSheet;
+    private FilterResolver filterResolver;
 
-    public XOAIManager(ResourceResolver resolver, Configuration config)
+    public XOAIManager(FilterResolver filterResolver, ResourceResolver resolver, Configuration config)
             throws ConfigurationException {
-        _filter = new FilterManager(config.getFilters());
-        _transformer = new TransformManager(resolver, config.getTransformers());
-        _format = new MetadataFormatManager(resolver, config.getFormats(), _filter);
-        _set = new StaticSetManager(config.getSets(), _filter);
-        _listSetsSize = config.getMaxListSetsSize();
-        _listIdentifiersSize = config.getMaxListRecordsSize();
-        _listRecordsSize = config.getMaxListRecordsSize();
-        _identation = config.isIndentation();
+        this.filterResolver = filterResolver;
+        filter = new FilterManager(filterResolver, config.getFilters(), config.getConditions());
+        transformer = new TransformManager(resolver, config.getTransformers());
+        format = new MetadataFormatManager(resolver, config.getFormats(), filter);
+        set = new StaticSetManager(config.getSets(), filter);
+        listSetsSize = config.getMaxListSetsSize();
+        listIdentifiersSize = config.getMaxListRecordsSize();
+        listRecordsSize = config.getMaxListRecordsSize();
+        identation = config.getIndented();
         styleSheet = config.getStylesheet();
-        _context = new ContextManager(config.getContexts(), _filter,
-                _transformer, _format, _set);
+        context = new ContextManager(config.getContexts(), filter,
+                transformer, format, set);
     }
 
     public boolean hasStyleSheet() {
@@ -64,39 +67,39 @@ public class XOAIManager {
     }
 
     public ContextManager getContextManager() {
-        return _context;
+        return context;
     }
 
     public FilterManager getFilterManager() {
-        return _filter;
+        return filter;
     }
 
     public MetadataFormatManager getFormatManager() {
-        return _format;
+        return format;
     }
 
     public StaticSetManager getSetManager() {
-        return _set;
+        return set;
     }
 
     public TransformManager getTransformerManager() {
-        return _transformer;
+        return transformer;
     }
 
     public int getMaxListIdentifiersSize() {
-        return _listIdentifiersSize;
+        return listIdentifiersSize;
     }
 
     public int getMaxListRecordsSize() {
-        return _listRecordsSize;
+        return listRecordsSize;
     }
 
     public int getMaxListSetsSize() {
-        return _listSetsSize;
+        return listSetsSize;
     }
 
     public boolean isIndentated() {
-        return _identation;
+        return identation;
     }
 
 }

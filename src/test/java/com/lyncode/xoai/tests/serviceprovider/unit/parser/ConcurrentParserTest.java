@@ -25,8 +25,8 @@ public class ConcurrentParserTest {
             "            <header>\r\n" +
             "                <identifier>oai:demo.dspace.org:10673/4</identifier>\r\n" +
             "                <datestamp>2013-09-10T20:40:03Z</datestamp>\r\n" +
-            "                <setSpec>com_10673_1</setSpec>\r\n" +
-            "                <setSpec>col_10673_2</setSpec>\r\n" +
+            "                <withSpec>com_10673_1</withSpec>\r\n" +
+            "                <withSpec>col_10673_2</withSpec>\r\n" +
             "            </header>\r\n" +
             "            <metadata></metadata>\r\n" +
             "        </record>\r\n" +

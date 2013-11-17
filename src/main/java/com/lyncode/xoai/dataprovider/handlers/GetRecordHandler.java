@@ -3,13 +3,13 @@ package com.lyncode.xoai.dataprovider.handlers;
 import com.lyncode.xoai.dataprovider.core.OAIParameters;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
-import com.lyncode.xoai.dataprovider.data.MetadataFormat;
-import com.lyncode.xoai.dataprovider.data.internal.Item;
-import com.lyncode.xoai.dataprovider.data.internal.ItemRepository;
-import com.lyncode.xoai.dataprovider.data.AbstractAbout;
-import com.lyncode.xoai.dataprovider.data.AbstractIdentify;
+import com.lyncode.xoai.dataprovider.data.About;
+import com.lyncode.xoai.dataprovider.data.internal.ItemHelper;
+import com.lyncode.xoai.dataprovider.data.internal.ItemRepositoryHelper;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.api.RepositoryConfiguration;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
 
 import javax.xml.stream.XMLStreamException;
@@ -20,13 +20,13 @@ import java.io.IOException;
 public class GetRecordHandler extends VerbHandler<GetRecordType> {
 
     private XOAIContext context;
-    private ItemRepository itemRepository;
-    private AbstractIdentify identify;
+    private ItemRepositoryHelper itemRepositoryHelper;
+    private RepositoryConfiguration identify;
 
-    public GetRecordHandler(DateProvider formatter, XOAIContext context, ItemRepository itemRepository, AbstractIdentify identify) {
+    public GetRecordHandler(DateProvider formatter, XOAIContext context, ItemRepositoryHelper itemRepositoryHelper, RepositoryConfiguration identify) {
         super(formatter);
         this.context = context;
-        this.itemRepository = itemRepository;
+        this.itemRepositoryHelper = itemRepositoryHelper;
         this.identify = identify;
     }
 
@@ -37,30 +37,30 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
         RecordType record = new RecordType();
         HeaderType header = new HeaderType();
         MetadataFormat format = context.getFormatByPrefix(parameters.getMetadataPrefix());
-        Item item = new Item(itemRepository.getItem(parameters.getIdentifier()));
-        if (!context.isItemShown(item.getItem()))
-            throw new IdDoesNotExistException("Context ignores this item");
-        if (!format.isApplyable(item.getItem()))
-            throw new CannotDisseminateRecordException("Format not appliable to this item");
-        header.setIdentifier(item.getItem().getIdentifier());
-        header.setDatestamp(getFormatter().format(item.getItem().getDatestamp(),
+        ItemHelper itemHelper = new ItemHelper(itemRepositoryHelper.getItem(parameters.getIdentifier()));
+        if (!context.isItemShown(itemHelper.getItem()))
+            throw new IdDoesNotExistException("ContextConfiguration ignores this itemHelper");
+        if (!format.isApplicable(itemHelper.getItem()))
+            throw new CannotDisseminateRecordException("FormatConfiguration not appliable to this itemHelper");
+        header.setIdentifier(itemHelper.getItem().getIdentifier());
+        header.setDatestamp(getFormatter().format(itemHelper.getItem().getDatestamp(),
                 identify.getGranularity()));
-        for (ReferenceSet s : item.getSets(context))
+        for (ReferenceSet s : itemHelper.getSets(context))
             header.getSetSpec().add(s.getSetSpec());
-        if (item.getItem().isDeleted())
+        if (itemHelper.getItem().isDeleted())
             header.setStatus(StatusType.DELETED);
         record.setHeader(header);
 
-        if (!item.getItem().isDeleted()) {
+        if (!itemHelper.getItem().isDeleted()) {
             MetadataType metadata = null;
             try {
                 if (context.getTransformer().hasTransformer()) {
-                    metadata = new MetadataType(item.toPipeline(true)
+                    metadata = new MetadataType(itemHelper.toPipeline(true)
                             .apply(context.getTransformer().getXslTransformer().getValue())
                             .apply(format.getTransformer())
                             .getTransformed());
                 } else {
-                    metadata = new MetadataType(item.toPipeline(true)
+                    metadata = new MetadataType(itemHelper.toPipeline(true)
                             .apply(format.getTransformer())
                             .getTransformed());
                 }
@@ -76,8 +76,8 @@ public class GetRecordHandler extends VerbHandler<GetRecordType> {
 
             record.setMetadata(metadata);
 
-            if (item.getItem().hasAbout()) {
-                for (AbstractAbout abj : item.getItem().getAbout()) {
+            if (itemHelper.getItem().getAbout() != null) {
+                for (About abj : itemHelper.getItem().getAbout()) {
                     AboutType about = new AboutType();
                     about.setAny(abj.getXML());
                     record.getAbout().add(about);

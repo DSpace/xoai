@@ -18,10 +18,8 @@ package com.lyncode.xoai.dataprovider.sets;
 
 import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.SetConfiguration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,36 +32,31 @@ import java.util.Map;
  */
 public class StaticSetManager {
     // private static Logger log = LogManager.getLogger(StaticSetManager.class);
-    private Map<String, StaticSet> _contexts;
+    private Map<String, StaticSet> sets;
 
-    public StaticSetManager(Sets config, FilterManager fm)
+    public StaticSetManager(List<SetConfiguration> setConfigurations, FilterManager filterManager)
             throws ConfigurationException {
-        _contexts = new HashMap<String, StaticSet>();
-        if (config != null && config.getSet() != null) {
-            for (com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Sets.Set s : config
-                    .getSet()) {
-                List<Filter> filters = new ArrayList<Filter>();
-                for (BundleReference r : s.getFilter()) {
-                    if (!fm.filterExists(r.getRefid()))
-                        throw new ConfigurationException("ScopedFilter referred as "
-                                + r.getRefid() + " does not exist");
-                    filters.add(fm.getFilter(r.getRefid()));
-                }
-                StaticSet set = new StaticSet(filters, s.getPattern(), s.getName());
-                _contexts.put(s.getId(), set);
-            }
+        sets = new HashMap<String, StaticSet>();
+        for (SetConfiguration configuredSet : setConfigurations) {
+            StaticSet set = null;
+            if (configuredSet.hasFilter())
+                set = new StaticSet(filterManager.getFilter(configuredSet.getFilter().getReference()),
+                        configuredSet.getSpec(), configuredSet.getName());
+            else
+                set = new StaticSet(configuredSet.getSpec(), configuredSet.getName());
+            sets.put(configuredSet.getId(), set);
         }
     }
 
     public boolean setExists(String id) {
-        return this._contexts.containsKey(id);
+        return this.sets.containsKey(id);
     }
 
     public StaticSet getSet(String id) {
-        return _contexts.get(id);
+        return sets.get(id);
     }
 
     public List<Set> getSets() {
-        return new ArrayList<Set>(_contexts.values());
+        return new ArrayList<Set>(sets.values());
     }
 }

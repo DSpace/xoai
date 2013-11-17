@@ -5,8 +5,8 @@ import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;
 import com.lyncode.xoai.dataprovider.core.ItemMetadata;
 import com.lyncode.xoai.dataprovider.core.ReferenceSet;
-import com.lyncode.xoai.dataprovider.data.AbstractAbout;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.dataprovider.data.About;
+import com.lyncode.xoai.dataprovider.data.Item;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 
 import java.util.*;
@@ -14,7 +14,7 @@ import java.util.*;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
 
-public class StubbedItem extends AbstractItem {
+public class StubbedItem implements Item {
     private Map<String, Object> values = new HashMap<String, Object>();
 
     public StubbedItem() {
@@ -40,8 +40,8 @@ public class StubbedItem extends AbstractItem {
     }
 
     @Override
-    public List<AbstractAbout> getAbout() {
-        return new ArrayList<AbstractAbout>();
+    public List<About> getAbout() {
+        return new ArrayList<About>();
     }
 
     @Override

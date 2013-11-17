@@ -17,9 +17,9 @@
 package com.lyncode.xoai.dataprovider.core;
 
 import com.lyncode.xoai.dataprovider.OAIRequestParameters;
-import com.lyncode.xoai.dataprovider.data.AbstractResumptionTokenFormat;
 import com.lyncode.xoai.dataprovider.exceptions.*;
 import com.lyncode.xoai.dataprovider.services.api.DateProvider;
+import com.lyncode.xoai.dataprovider.services.api.ResumptionTokenFormatter;
 import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
 import org.apache.log4j.LogManager;
@@ -45,7 +45,7 @@ public class OAIParameters {
     private Date until;
     private Date from;
 
-    public OAIParameters(OAIRequestParameters request, AbstractResumptionTokenFormat resumptionTokenFormat)
+    public OAIParameters(OAIRequestParameters request, ResumptionTokenFormatter resumptionTokenFormat)
             throws IllegalVerbException, BadArgumentException,
             BadResumptionToken, UnknownParameterException, DuplicateDefinitionException {
 

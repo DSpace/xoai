@@ -16,23 +16,18 @@
 
 package com.lyncode.xoai.dataprovider.format;
 
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
-import com.lyncode.xoai.dataprovider.data.MetadataFormat;
+import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
+import com.lyncode.xoai.dataprovider.data.internal.MetadataFormat;
+import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
-import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.BundleReference;
-import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats;
-import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration.Formats.Format;
+import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,54 +42,48 @@ public class MetadataFormatManager {
 
     private static Logger log = LogManager.getLogger(MetadataFormatManager.class);
 
-    private Map<String, MetadataFormat> _contexts;
+    private Map<String, MetadataFormat> contexts;
 
-    public MetadataFormatManager(ResourceResolver resolver, Formats config,
-                                 FilterManager fm) throws ConfigurationException {
-        _contexts = new HashMap<String, MetadataFormat>();
-        for (Format f : config.getFormat()) {
+    public MetadataFormatManager(ResourceResolver resolver, List<FormatConfiguration> config,
+                                 FilterManager filterManager) throws ConfigurationException {
+        contexts = new HashMap<String, MetadataFormat>();
+        for (FormatConfiguration format : config) {
             Transformer transformer = null;
 
             try {
-                transformer = resolver.getTransformer(f.getXSLT());
+                transformer = resolver.getTransformer(format.getXslt());
             } catch (TransformerConfigurationException e) {
                 throw new ConfigurationException(e.getMessage(), e);
             } catch (IOException e) {
                 throw new ConfigurationException(e.getMessage(), e);
             }
 
-            MetadataFormat mdf = new MetadataFormat(f.getPrefix(), transformer, f.getNamespace(), f.getSchemaLocation());
-            List<Filter> list = new ArrayList<Filter>();
-            for (BundleReference refid : f.getFilter()) {
-                if (!fm.filterExists(refid.getRefid()))
-                    throw new ConfigurationException("ScopedFilter referred as "
-                            + refid.getRefid() + " does not exist");
-                list.add(fm.getFilter(refid.getRefid()));
-            }
-            mdf.loadFilters(list);
-            _contexts.put(f.getId(), mdf);
+            MetadataFormat metadataFormat = new MetadataFormat(format.getPrefix(), transformer, format.getNamespace(), format.getSchemaLocation());
+            if (format.hasFilter())
+                metadataFormat.setFilter(filterManager.getFilter(format.getFilter().getReference()));
+            contexts.put(format.getId(), metadataFormat);
         }
     }
 
     public boolean formatExists(String id) {
-        return this._contexts.containsKey(id);
+        return this.contexts.containsKey(id);
     }
 
     public MetadataFormat getFormat(String id) {
-        return _contexts.get(id);
+        return contexts.get(id);
     }
 
-    public List<MetadataFormat> getFormats(AbstractItem item) {
+    public List<MetadataFormat> getFormats(ItemIdentifier item) {
         List<MetadataFormat> formats = new ArrayList<MetadataFormat>();
-        for (MetadataFormat format : _contexts.values())
-            if (format.isApplyable(item))
+        for (MetadataFormat format : contexts.values())
+            if (format.isApplicable(item))
                 formats.add(format);
         return formats;
     }
 
     public MetadataFormat getFormatByPrefix(String prefix)
             throws BadArgumentException {
-        for (MetadataFormat f : _contexts.values())
+        for (MetadataFormat f : contexts.values())
             if (f.getPrefix().equals(prefix))
                 return f;
         throw new BadArgumentException(

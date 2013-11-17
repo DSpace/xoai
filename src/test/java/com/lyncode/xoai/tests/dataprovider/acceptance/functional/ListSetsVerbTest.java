@@ -35,7 +35,7 @@ public class ListSetsVerbTest extends AbstractDataProviderTest {
 
     @Test
     public void shouldReturnResumptionTokenIfExceedsTheMaximumSetsPerPage() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException, DocumentException {
-        given(theConfiguration().withMaxListSets(5));
+        given(theConfiguration().withMaxListSetsSize(5));
         and(given(theSetRepository()))
                 .withRandomSets(9);
 

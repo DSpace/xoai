@@ -5,18 +5,18 @@ import com.lyncode.xoai.builders.ListBuilder;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.builders.dataprovider.ItemMetadataBuilder;
 import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;
-import com.lyncode.xoai.dataprovider.data.AbstractItem;
+import com.lyncode.xoai.dataprovider.data.Item;
 import com.lyncode.xoai.dataprovider.xml.xoai.Element;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class AbstractItemBuilder {
-    private AbstractItem abstractItem = mock(AbstractItem.class);
+    private Item abstractItem = mock(Item.class);
     private MetadataBuilder metadataBuilder = new MetadataBuilder();
     private ItemMetadataBuilder itemMetadataBuilder = new ItemMetadataBuilder();
 
-    public AbstractItem build() {
+    public Item build() {
         when(abstractItem.getMetadata()).thenReturn(itemMetadataBuilder.withMetadata(metadataBuilder).build());
         return abstractItem;
     }

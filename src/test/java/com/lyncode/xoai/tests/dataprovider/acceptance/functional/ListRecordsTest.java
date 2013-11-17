@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ListRecordsTest extends AbstractDataProviderTest {
     @Test
     public void shouldReturnGivenItems() throws WritingXmlException, OAIException, InvalidContextException, IOException, XMLStreamException, ConfigurationException {
-        given(theConfiguration().withMaxListRecords(10));
+        given(theConfiguration().withMaxListRecordsSize(10));
         and(given(theItemRepository()
                 .withRandomItems(11)));
 

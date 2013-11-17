@@ -78,12 +78,12 @@ public class OAIRequestParameters {
         }
         List<String> params = this.map.get(parameter);
         if (params == null || params.size() == 0) {
-            log.debug("Parameter '" + parameter + "' undefined");
+            log.debug("RootParameterMap '" + parameter + "' undefined");
             return null;
         } else if (params.size() > 1) {
             throw new DuplicateDefinitionException("Duplicate definition of parameter '" + parameter + "'");
         } else {
-            log.debug("Parameter '" + parameter + "' = '" + params.get(0) + "'");
+            log.debug("RootParameterMap '" + parameter + "' = '" + params.get(0) + "'");
             return params.get(0);
         }
     }
@@ -91,12 +91,12 @@ public class OAIRequestParameters {
     private String getParameterID(String parameter) {
         List<String> params = this.map.get(parameter);
         if (params == null || params.size() == 0) {
-            log.debug("Parameter '" + parameter + "' undefined");
+            log.debug("RootParameterMap '" + parameter + "' undefined");
             return null;
         } else if (params.size() > 1) {
             return params.get(0) + "#" + params.size();
         } else {
-            log.debug("Parameter '" + parameter + "' = '" + params.get(0) + "'");
+            log.debug("RootParameterMap '" + parameter + "' = '" + params.get(0) + "'");
             return params.get(0);
         }
     }
