@@ -19,8 +19,8 @@ public class ListRecordsParserTest extends AbstractParseTest<ListRecordsType> {
             "            <header>\r\n" +
             "                <identifier>oai:demo.dspace.org:10459.3/67</identifier>\r\n" +
             "                <datestamp>2013-07-29T11:25:13Z</datestamp>\r\n" +
-            "                <withSpec>com_10673_10</withSpec>\r\n" +
-            "                <withSpec>col_10673_13</withSpec>\r\n" +
+            "                <setSpec>com_10673_10</setSpec>\r\n" +
+            "                <setSpec>col_10673_13</setSpec>\r\n" +
             "            </header>\r\n" +
             "            <metadata><oai_dc:dc xmlns:oai_dc=\"http://www.openarchives.org/OAI/2.0/oai_dc/\" xmlns:doc=\"http://www.lyncode.com/xoai\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xsi:schemaLocation=\"http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd\">\r\n" +
             "<dc:title>Lexicon hebraicum et chalcaicum in libros veteris testamenti ordine etymologico : compositum in usum scholarum</dc:title>\r\n" +
