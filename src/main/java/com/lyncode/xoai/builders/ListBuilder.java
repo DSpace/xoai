@@ -12,7 +12,7 @@ public class ListBuilder<T> implements Builder<List<T>> {
     }
 
     public ListBuilder<T> add(Collection<T> list) {
-        list.addAll(list);
+        this.list.addAll(list);
         return this;
     }
 
