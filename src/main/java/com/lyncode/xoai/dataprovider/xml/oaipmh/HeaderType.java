@@ -45,7 +45,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "headerType", propOrder = {"identifier", "datestamp",
-        "withSpec"})
+        "setSpec"})
 public class HeaderType implements XMLWritable {
 
     @XmlElement(required = true)
@@ -156,7 +156,7 @@ public class HeaderType implements XMLWritable {
             }
 
             for (String setSpec : this.getSetSpec()) {
-                context.getWriter().writeStartElement("withSpec");
+                context.getWriter().writeStartElement("setSpec");
                 context.getWriter().writeCharacters(setSpec);
                 context.getWriter().writeEndElement();
             }

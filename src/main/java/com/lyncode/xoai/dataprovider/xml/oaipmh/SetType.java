@@ -45,7 +45,7 @@ import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
  * </pre>
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "setType", propOrder = {"withSpec", "setName", "setDescription"})
+@XmlType(name = "setType", propOrder = {"setSpec", "setName", "setDescription"})
 public class SetType implements XMLWritable {
 
     @XmlElement(required = true)
@@ -128,7 +128,7 @@ public class SetType implements XMLWritable {
     @Override
     public void write(XmlOutputContext context) throws WritingXmlException {
         try {
-            writeValue(context.getWriter(), "withSpec", setSpec);
+            writeValue(context.getWriter(), "setSpec", setSpec);
             writeValue(context.getWriter(), "setName", setName);
             if (this.setDescription != null && !this.setDescription.isEmpty()) {
                 for (DescriptionType desc : this.setDescription)
