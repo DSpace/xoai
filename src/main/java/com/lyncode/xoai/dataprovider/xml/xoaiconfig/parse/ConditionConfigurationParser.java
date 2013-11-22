@@ -36,7 +36,7 @@ public class ConditionConfigurationParser extends Parser<ConditionConfiguration>
             if (reader.isStart()) {
                 conditionConfiguration.withConfiguration(rootParameterMapParser.parse(reader));
                 reader.proceedToNextElement();
-            }
+            } else reader.proceedToNextElement();
 
             return conditionConfiguration;
         } catch (XmlReaderException e) {

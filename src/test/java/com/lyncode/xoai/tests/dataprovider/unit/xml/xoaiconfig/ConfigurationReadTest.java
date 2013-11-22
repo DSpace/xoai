@@ -51,11 +51,11 @@ public class ConfigurationReadTest {
         afterReadConfiguration(aSampleConfiguration());
 
         assertThat(theConfiguration().getContexts().size(), is(3));
-        assertThat(theConfiguration().getConditions().size(), is(1));
-        assertThat(theConfiguration().getFilters().size(), is(1));
+        assertThat(theConfiguration().getConditions().size(), is(7));
+        assertThat(theConfiguration().getFilters().size(), is(3));
         assertThat(theConfiguration().getSets().size(), is(2));
         assertThat(theConfiguration().getTransformers().size(), is(2));
-        assertThat(theConfiguration().getFormats().size(), is(12));
+        assertThat(theConfiguration().getFormats().size(), is(13));
     }
 
     private Configuration theConfiguration() {

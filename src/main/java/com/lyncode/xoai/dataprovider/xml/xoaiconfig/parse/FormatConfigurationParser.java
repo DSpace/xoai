@@ -18,6 +18,7 @@ public class FormatConfigurationParser extends Parser<FormatConfiguration> {
             if (reader.isStart() && reader.getName().equals("Filter")) {
                 formatConfiguration.withFilter(reader.getAttribute("ref"));
                 reader.proceedToNextElement();
+                reader.proceedToNextElement();
             }
 
             reader.proceedToNextElement();

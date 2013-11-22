@@ -16,15 +16,16 @@ public abstract class BinaryConditionParser extends ConditionParser {
             if (reader.elementNameIs("LeftCondition")) {
                 reader.proceedToNextElement();
                 left = super.parse(reader);
+                reader.proceedToNextElement();
             } else throw new ParseException("Expecting LeftCondition element");
 
-            reader.proceedToNextElement();
             if (reader.elementNameIs("RightCondition")) {
                 reader.proceedToNextElement();
                 right = super.parse(reader);
                 reader.proceedToNextElement();
             } else throw new ParseException("Expecting RightCondition element");
 
+            reader.proceedToNextElement();
             return build(left, right);
         } catch (XmlReaderException e) {
             throw new ParseException(e);
