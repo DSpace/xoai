@@ -42,7 +42,7 @@ public class FilterManager {
         for (ConditionConfiguration conditionConfiguration : conditions) {
             try {
                 Class<?> filterClass = Class.forName(conditionConfiguration.getClazz());
-                if (!filterClass.isAssignableFrom(Filter.class))
+                if (!Filter.class.isAssignableFrom(filterClass))
                     throw new ConfigurationException("Class " + conditionConfiguration.getClazz() + " does not implements Filter");
 
                 customConditions.put(conditionConfiguration.getId(), new CustomCondition(resolver, (Class<? extends Filter>) filterClass, conditionConfiguration.getConfiguration()));
