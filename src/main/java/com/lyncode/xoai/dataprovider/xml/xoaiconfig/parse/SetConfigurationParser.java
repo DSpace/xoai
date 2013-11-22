@@ -19,6 +19,7 @@ public class SetConfigurationParser extends Parser<SetConfiguration> {
             if (reader.isStart()) {
                 set.withFilter(reader.getAttribute("ref"));
                 reader.proceedToNextElement();
+                reader.proceedToNextElement();
             }
 
             reader.proceedToNextElement();

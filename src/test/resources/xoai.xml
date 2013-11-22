@@ -332,5 +332,10 @@
             <!-- Just an alias -->
             <Filter ref="a"/>
         </Set>
+        <Set id="openaireSeta">
+            <Spec>ec_fundedresources</Spec>
+            <Name>EC_fundedresources set</Name>
+            <!-- Just an alias -->
+        </Set>
     </Sets>
 </Configuration>

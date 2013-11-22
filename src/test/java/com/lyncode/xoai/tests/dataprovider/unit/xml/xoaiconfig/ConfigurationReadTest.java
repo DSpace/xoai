@@ -53,7 +53,7 @@ public class ConfigurationReadTest {
         assertThat(theConfiguration().getContexts().size(), is(3));
         assertThat(theConfiguration().getConditions().size(), is(7));
         assertThat(theConfiguration().getFilters().size(), is(3));
-        assertThat(theConfiguration().getSets().size(), is(2));
+        assertThat(theConfiguration().getSets().size(), is(3));
         assertThat(theConfiguration().getTransformers().size(), is(2));
         assertThat(theConfiguration().getFormats().size(), is(13));
     }
