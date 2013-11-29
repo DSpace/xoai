@@ -1,7 +1,7 @@
 package com.lyncode.xoai.tests.helpers;
 
 
-import com.lyncode.xoai.builders.ListBuilder;
+import com.lyncode.builder.ListBuilder;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.builders.dataprovider.ItemMetadataBuilder;
 import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;

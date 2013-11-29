@@ -139,13 +139,21 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.lyncode</groupId>
+            <artifactId>builder-commons</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lyncode</groupId>
+            <artifactId>test-support</artifactId>
+            <version>1.0.1</version>
+        </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>
         </dependency>
-        <!-- Needed for XPath creation (dom4j) -->
         <dependency>
             <groupId>jaxen</groupId>
             <artifactId>jaxen</artifactId>

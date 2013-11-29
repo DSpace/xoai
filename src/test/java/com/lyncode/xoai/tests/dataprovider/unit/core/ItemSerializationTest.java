@@ -1,13 +1,13 @@
 package com.lyncode.xoai.tests.dataprovider.unit.core;
 
 
-import com.lyncode.xoai.builders.MapBuilder;
+import com.lyncode.builder.MapBuilder;
+import com.lyncode.test.support.matchers.XPathMatchers;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.dataprovider.data.Item;
 import com.lyncode.xoai.dataprovider.data.internal.ItemHelper;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.tests.helpers.AbstractItemBuilder;
-import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.apache.commons.io.IOUtils;
 import org.hamcrest.Matcher;
 import org.junit.Test;

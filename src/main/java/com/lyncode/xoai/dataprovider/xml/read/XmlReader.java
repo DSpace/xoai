@@ -22,15 +22,6 @@ public class XmlReader {
         return getPeek().isStartElement();
     }
 
-    public boolean nextIsStart() throws XmlReaderException {
-        try {
-            xmlEventParser.nextEvent();
-            return isStart();
-        } catch (XMLStreamException e) {
-            throw new XmlReaderException(e);
-        }
-    }
-
     public void proceedToTheNextStartElement() throws XmlReaderException {
         try {
             xmlEventParser.nextEvent();

@@ -1,6 +1,6 @@
 package com.lyncode.xoai.builders.dataprovider;
 
-import com.lyncode.xoai.builders.Builder;
+import com.lyncode.builder.Builder;
 import com.lyncode.xoai.dataprovider.core.ItemMetadata;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 

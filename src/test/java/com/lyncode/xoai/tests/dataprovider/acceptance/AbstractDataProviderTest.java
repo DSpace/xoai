@@ -1,7 +1,8 @@
 package com.lyncode.xoai.tests.dataprovider.acceptance;
 
-import com.lyncode.xoai.builders.ListBuilder;
-import com.lyncode.xoai.builders.MapBuilder;
+import com.lyncode.builder.ListBuilder;
+import com.lyncode.builder.MapBuilder;
+import com.lyncode.test.support.matchers.XPathMatchers;
 import com.lyncode.xoai.builders.dataprovider.OAIRequestParametersBuilder;
 import com.lyncode.xoai.dataprovider.OAIDataProvider;
 import com.lyncode.xoai.dataprovider.core.Granularity;
@@ -23,7 +24,6 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
 import com.lyncode.xoai.tests.helpers.AbstractIdentifyBuilder;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedItemRepository;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedSetRepository;
-import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

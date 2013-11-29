@@ -1,6 +1,6 @@
 package com.lyncode.xoai.dataprovider.xml.xoaiconfig;
 
-import com.lyncode.xoai.builders.ListBuilder;
+import com.lyncode.builder.ListBuilder;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;

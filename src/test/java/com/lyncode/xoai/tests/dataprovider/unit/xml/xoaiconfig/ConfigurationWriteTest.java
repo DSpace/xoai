@@ -1,12 +1,11 @@
 package com.lyncode.xoai.tests.dataprovider.unit.xml.xoaiconfig;
 
-import com.lyncode.xoai.builders.MapBuilder;
+import com.lyncode.test.support.matchers.XPathMatchers;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ContextConfiguration;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
-import com.lyncode.xoai.util.matchers.XPathMatchers;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
@@ -29,8 +28,7 @@ public class ConfigurationWriteTest {
     }
 
     private Matcher<String> hasXPath(String s) {
-        return XPathMatchers.hasXPath(s, new MapBuilder<String, String>()
-                .withPair("c", "http://www.lyncode.com/XOAIConfiguration"));
+        return XPathMatchers.hasXPath(s, "http://www.lyncode.com/XOAIConfiguration");
     }
 
     private String theResult() {
