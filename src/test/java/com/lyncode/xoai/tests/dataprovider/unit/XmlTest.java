@@ -1,7 +1,7 @@
 package com.lyncode.xoai.tests.dataprovider.unit;
 
 import com.lyncode.builder.MapBuilder;
-import com.lyncode.test.support.matchers.XPathMatchers;
+import com.lyncode.test.matchers.xml.XPathMatchers;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 import org.hamcrest.Matcher;
 

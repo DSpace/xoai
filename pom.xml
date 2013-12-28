@@ -147,7 +147,7 @@
         <dependency>
             <groupId>com.lyncode</groupId>
             <artifactId>test-support</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>

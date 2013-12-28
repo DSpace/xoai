@@ -1,6 +1,6 @@
 package com.lyncode.xoai.tests.dataprovider.unit.xml.xoaiconfig;
 
-import com.lyncode.test.support.matchers.XPathMatchers;
+import com.lyncode.test.matchers.xml.XPathMatchers;
 import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
@@ -23,8 +23,8 @@ public class ConfigurationWriteTest {
     public void shouldWriteTheCorrectXML() throws IOException, ConfigurationException, WritingXmlException, XMLStreamException {
         afterWritingA(sampleConfiguration());
 
-        assertThat(theResult(), hasXPath("/c:Configuration/c:Contexts/c:Context"));
-        assertThat(theResult(), hasXPath("/c:Configuration/c:Formats/c:Format"));
+        assertThat(theResult(), hasXPath("/Configuration/Contexts/Context"));
+        assertThat(theResult(), hasXPath("/Configuration/Formats/Format"));
     }
 
     private Matcher<String> hasXPath(String s) {

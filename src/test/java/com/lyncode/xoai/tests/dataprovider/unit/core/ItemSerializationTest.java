@@ -2,7 +2,7 @@ package com.lyncode.xoai.tests.dataprovider.unit.core;
 
 
 import com.lyncode.builder.MapBuilder;
-import com.lyncode.test.support.matchers.XPathMatchers;
+import com.lyncode.test.matchers.xml.XPathMatchers;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.dataprovider.data.Item;
 import com.lyncode.xoai.dataprovider.data.internal.ItemHelper;

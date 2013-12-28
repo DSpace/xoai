@@ -2,7 +2,7 @@ package com.lyncode.xoai.tests.dataprovider.acceptance;
 
 import com.lyncode.builder.ListBuilder;
 import com.lyncode.builder.MapBuilder;
-import com.lyncode.test.support.matchers.XPathMatchers;
+import com.lyncode.test.matchers.xml.XPathMatchers;
 import com.lyncode.xoai.builders.dataprovider.OAIRequestParametersBuilder;
 import com.lyncode.xoai.dataprovider.OAIDataProvider;
 import com.lyncode.xoai.dataprovider.core.Granularity;
