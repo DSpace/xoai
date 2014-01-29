@@ -1,5 +1,6 @@
 package com.lyncode.xoai.tests.helpers.stubs;
 
+import com.google.common.base.Function;
 import com.lyncode.builder.ListBuilder;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.builders.dataprovider.MetadataBuilder;
@@ -82,9 +83,9 @@ public class StubbedItem implements Item {
     @Override
     public List<ReferenceSet> getSets() {
         List<String> list = ((List<String>) values.get("sets"));
-        return new ListBuilder<String>().add(list.toArray(new String[list.size()])).build(new ListBuilder.Transformer<String, ReferenceSet>() {
+        return new ListBuilder<String>().add(list.toArray(new String[list.size()])).build(new Function<String, ReferenceSet>() {
             @Override
-            public ReferenceSet transform(String elem) {
+            public ReferenceSet apply(String elem) {
                 return new ReferenceSet(elem);
             }
         });

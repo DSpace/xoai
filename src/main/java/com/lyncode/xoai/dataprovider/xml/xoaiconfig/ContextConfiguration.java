@@ -1,5 +1,6 @@
 package com.lyncode.xoai.dataprovider.xml.xoaiconfig;
 
+import com.google.common.base.Function;
 import com.lyncode.builder.ListBuilder;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.XMLWritable;
@@ -62,9 +63,9 @@ public class ContextConfiguration implements XMLWritable {
     }
 
     public ContextConfiguration withSets(Collection<String> setsIds) {
-        this.sets.addAll(new ListBuilder<String>().add(setsIds).build(new ListBuilder.Transformer<String, BundleReference>() {
+        this.sets.addAll(new ListBuilder<String>().add(setsIds).build(new Function<String, BundleReference>() {
             @Override
-            public BundleReference transform(String elem) {
+            public BundleReference apply(String elem) {
                 return new BundleReference(elem);
             }
         }));
@@ -72,9 +73,9 @@ public class ContextConfiguration implements XMLWritable {
     }
 
     public ContextConfiguration withSets(String... setsIds) {
-        this.sets.addAll(new ListBuilder<String>().add(setsIds).build(new ListBuilder.Transformer<String, BundleReference>() {
+        this.sets.addAll(new ListBuilder<String>().add(setsIds).build(new Function<String, BundleReference>() {
             @Override
-            public BundleReference transform(String elem) {
+            public BundleReference apply(String elem) {
                 return new BundleReference(elem);
             }
         }));
@@ -87,9 +88,9 @@ public class ContextConfiguration implements XMLWritable {
     }
 
     public ContextConfiguration withFormats(Collection<String> formats) {
-        this.formats.addAll(new ListBuilder<String>().add(formats).build(new ListBuilder.Transformer<String, BundleReference>() {
+        this.formats.addAll(new ListBuilder<String>().add(formats).build(new Function<String, BundleReference>() {
             @Override
-            public BundleReference transform(String elem) {
+            public BundleReference apply(String elem) {
                 return new BundleReference(elem);
             }
         }));
@@ -97,9 +98,9 @@ public class ContextConfiguration implements XMLWritable {
     }
 
     public ContextConfiguration withFormats(String... formats) {
-        this.formats.addAll(new ListBuilder<String>().add(formats).build(new ListBuilder.Transformer<String, BundleReference>() {
+        this.formats.addAll(new ListBuilder<String>().add(formats).build(new Function<String, BundleReference>() {
             @Override
-            public BundleReference transform(String elem) {
+            public BundleReference apply(String elem) {
                 return new BundleReference(elem);
             }
         }));

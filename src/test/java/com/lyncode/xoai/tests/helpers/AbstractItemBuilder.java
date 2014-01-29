@@ -1,6 +1,7 @@
 package com.lyncode.xoai.tests.helpers;
 
 
+import com.google.common.base.Function;
 import com.lyncode.builder.ListBuilder;
 import com.lyncode.xoai.builders.dataprovider.ElementBuilder;
 import com.lyncode.xoai.builders.dataprovider.ItemMetadataBuilder;
@@ -28,9 +29,9 @@ public class AbstractItemBuilder {
 
     public AbstractItemBuilder withMetadata(ElementBuilder... elements) {
         metadataBuilder.withElement(new ListBuilder<ElementBuilder>()
-                .add(elements).build(new ListBuilder.Transformer<ElementBuilder, Element>() {
+                .add(elements).build(new Function<ElementBuilder, Element>() {
                     @Override
-                    public Element transform(ElementBuilder elem) {
+                    public Element apply(ElementBuilder elem) {
                         return elem.build();
                     }
                 })
