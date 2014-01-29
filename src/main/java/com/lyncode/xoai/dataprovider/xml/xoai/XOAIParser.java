@@ -49,6 +49,7 @@ public class XOAIParser {
 
             if (event.isStartElement() && event.asStartElement().getName().getLocalPart().toLowerCase().equals(ELEMENT)) {
                 stack.push(new Element());
+                stack.peek().setName(this.getName(event.asStartElement()));
                 parseElement();
                 metadata.getElement().add(stack.pop());
             }
