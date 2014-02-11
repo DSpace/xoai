@@ -20,19 +20,25 @@ XOAI could be integrated with maven support.
 	<dependency>
 	    <groupId>com.lyncode</groupId>
 	    <artifactId>xoai</artifactId>
-	    <version>3.2.3</version>
+	    <version>4.0.0</version>
 	</dependency>
 	
-Improvements
+Changes
 -------
 
-- Faster service provider (with multi-threading)
+**3.2.7 to 4.0.0**
+
+- Centralized OAI-PMH model (for data and service provider)
+- Data provider configuration simplified
+- Service provider made lazy
+- Service provider with pipeline processing (centralized xoai schema)
+
 
 
 License
 -------
 
-Copyright 2012 Lyncode
+Copyright 2014 Lyncode
 
 Licensed under the Apache License, Version 2.0 (the "License") you may not use this file except in compliance with the License.
 You may obtain a copy of the License at 
