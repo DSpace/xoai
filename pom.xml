@@ -16,7 +16,7 @@
 
     <groupId>com.lyncode</groupId>
     <artifactId>xoai</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
 
     <name>XOAI : OAI-PMH Java Toolkit</name>
     <url>http://www.lyncode.com</url>
