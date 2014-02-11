@@ -94,7 +94,7 @@
     </restriction>
   </simpleType>
 
-  <!-- define OAI-PMH verb containers -->
+  <!-- define OAI-PMH verbType containers -->
   <!-- ============================== -->
 
   <complexType name="IdentifyType">
@@ -249,7 +249,7 @@
     </restriction>
   </simpleType>
 
-  <!-- define types used for Identify verb only -->
+  <!-- define types used for Identify verbType only -->
   <!-- ======================================== -->
 
   <simpleType name="protocolVersionType">
@@ -279,7 +279,7 @@
     </restriction>
   </simpleType>
 
-  <!-- define types used for ListMetadataFormats verb only -->
+  <!-- define types used for ListMetadataFormats verbType only -->
   <!-- =================================================== -->
 
   <complexType name="metadataFormatType">
@@ -296,7 +296,7 @@
     </restriction>
   </simpleType>
 
-  <!-- define types used for ListSets verb -->
+  <!-- define types used for ListSets verbType -->
   <!-- =================================== -->
 
   <complexType name="setType">

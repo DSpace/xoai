@@ -5,7 +5,7 @@
     detailed in the LICENSE and NOTICE files at the root of the source
     tree and available online at
 
-    http://www.dspace.org/license/
+    client://www.dspace.org/license/
 
 	Developed by DSpace @ Lyncode <dspace@lyncode.com>
  -->
@@ -35,12 +35,12 @@
         <!--
             Driver Guidelines:
 
-            - http://www.driver-support.eu/documents/DRIVER_Guidelines_v2_Final_2008-11-13.pdf
+            - client://www.driver-support.eu/documents/DRIVER_Guidelines_v2_Final_2008-11-13.pdf
 
             Page 57 - 58
          -->
         <Context baseurl="driver" name="Driver Context">
-            <!-- Date format, field prefixes, etc are ensured by the transformer -->
+            <!-- Date format, field prefixes, etc are ensured by the metadataTransformer -->
             <Transformer ref="driverTransformer"/>
             <!-- Title : Mandatory -->
             <Filter ref="titleexistsFilter"/>
@@ -52,7 +52,7 @@
             <Filter ref="driveraccessFilter"/>
             <!-- Open Access (Downloadable) -->
             <Filter ref="bitstreamaccessFilter"/>
-            <!-- Just an alias, if fact it returns all items within the driver context -->
+            <!-- Just an alias, if fact it returns all items within the driver writerContext -->
             <Set ref="driverSet"/>
             <!-- Metadata Formats -->
             <Format ref="oaidc"/>
@@ -66,14 +66,14 @@
         <!--
             OpenAIRE Guidelines 1.1:
 
-            - http://www.openaire.eu/en/component/attachments/download/79%E2%8C%A9=en
+            - client://www.openaire.eu/en/component/attachments/download/79%E2%8C%A9=en
 
             There is a limitation over the embargoedEndDate parameter:
 
             - Predefined DSpace fields don't allow to set this up with a default.
          -->
         <Context baseurl="openaire" name="OpenAIRE Context">
-            <!-- Date format, field prefixes, etc are ensured by the transformer -->
+            <!-- Date format, field prefixes, etc are ensured by the metadataTransformer -->
             <Transformer ref="openaireTransformer"/>
             <!-- Title : Mandatory -->
             <Filter ref="titleexistsFilter"/>
@@ -83,7 +83,7 @@
             <Filter ref="driverdocumenttypeFilter"/>
             <!-- dc.relation must has the specified prefix -->
             <Filter ref="openairerelationFilter"/>
-            <!-- Just an alias, if fact it returns all items within the driver context -->
+            <!-- Just an alias, if fact it returns all items within the driver writerContext -->
             <Set ref="openaireSet"/>
             <!-- Metadata Formats -->
             <Format ref="oaidc"/>
