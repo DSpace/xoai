@@ -9,6 +9,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.Namespace;
 import javax.xml.stream.events.XMLEvent;
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
@@ -32,6 +33,12 @@ public class EchoElement implements XMLWritable {
                 if (event.isStartElement()) {
                     QName name = event.asStartElement().getName();
                     context.getWriter().writeStartElement(name.getPrefix(), name.getLocalPart(), name.getNamespaceURI());
+
+                    Iterator<Namespace> it_ns = event.asStartElement().getNamespaces();
+                    while (it_ns.hasNext()) {
+                        Namespace ns = it_ns.next();
+                        context.getWriter().writeNamespace(ns.getPrefix(), ns.getNamespaceURI());
+                    }
 
                     @SuppressWarnings("unchecked")
                     Iterator<Attribute> it = event.asStartElement().getAttributes();
