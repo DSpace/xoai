@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import static com.lyncode.test.matchers.string.PatternMatcher.pattern;
 import static org.hamcrest.CoreMatchers.is;
@@ -36,6 +37,7 @@ public class UTCDateProviderTest {
 
     @Test
     public void shouldUseUTCDateFormat() throws Exception {
+        TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         String result = underTest.format(DATE);
 
         assertThat(result, pattern(SECOND_FORMAT, 1, toInt(is(getCalendar(DATE).get(Calendar.YEAR)))));
