@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                exclude-result-prefixes="dc oai_dc"
+        >
+
+    <xsl:output method="xml" omit-xml-declaration="yes" />
+
+    <xsl:template match="/">
+        <metadata xmlns="http://www.lyncode.com/xoai">
+            <element name="dc">
+                <xsl:for-each select="/oai_dc:dc/dc:*">
+                    <element>
+                        <xsl:attribute name="name">
+                            <xsl:value-of select="local-name(.)" />
+                        </xsl:attribute>
+                        <field name="value">
+                            <xsl:value-of select="text()" />
+                        </field>
+                    </element>
+                </xsl:for-each>
+            </element>
+        </metadata>
+    </xsl:template>
+</xsl:stylesheet>

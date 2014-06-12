@@ -32,14 +32,12 @@ public class ServiceProvider {
     private Context context;
     private ListMetadataFormatsHandler listMetadataFormatsHandler;
     private IdentifyHandler identifyHandler;
-    private ListMetadataFormatsHandler listMetadataFormatsHandler1;
     private GetRecordHandler getRecordHandler;
 
     public ServiceProvider (Context context) {
         this.context = context;
         identifyHandler = new IdentifyHandler(context);
         listMetadataFormatsHandler = new ListMetadataFormatsHandler(context);
-        listMetadataFormatsHandler1 = new ListMetadataFormatsHandler(context);
         getRecordHandler = new GetRecordHandler(context);
     }
 
@@ -52,7 +50,7 @@ public class ServiceProvider {
     }
 
     public Iterator<MetadataFormat> listMetadataFormats (ListMetadataParameters parameters) {
-        return listMetadataFormatsHandler1.handle(parameters).iterator();
+        return listMetadataFormatsHandler.handle(parameters).iterator();
     }
 
     public Record getRecord (GetRecordParameters parameters) throws BadArgumentException, IdDoesNotExistException, CannotDisseminateFormatException {

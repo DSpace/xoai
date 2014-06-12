@@ -20,15 +20,28 @@ import com.lyncode.xoai.model.oaipmh.Granularity;
 import com.lyncode.xoai.serviceprovider.client.OAIClient;
 
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Context {
+    private static final TransformerFactory factory = TransformerFactory.newInstance();
+
     private Transformer transformer;
     private Map<String, Transformer> metadataTransformers = new HashMap<String, Transformer>();
     private String baseUrl;
     private Granularity granularity;
     private OAIClient client;
+
+    public Context() {
+        try {
+            this.withMetadataTransformer("xoai", factory.newTransformer());
+        } catch (TransformerConfigurationException e) {
+            throw new RuntimeException("Unable to initialize identity transformer");
+        }
+    }
 
     public Context withTransformer (Transformer transformer) {
         this.transformer = transformer;
@@ -50,6 +63,10 @@ public class Context {
     public Context withMetadataTransformer (String prefix, Transformer transformer) {
         metadataTransformers.put(prefix, transformer);
         return this;
+    }
+
+    public Context withMetadataTransformer (String prefix, KnownTransformer knownTransformer) {
+        return withMetadataTransformer(prefix, knownTransformer.transformer());
     }
 
     public Transformer getMetadataTransformer (String prefix) {
@@ -81,5 +98,23 @@ public class Context {
 
     public OAIClient getClient () {
         return client;
+    }
+
+    public enum KnownTransformer {
+        OAI_DC("to_xoai/oai_dc.xsl");
+
+        private String location;
+
+        KnownTransformer(String location) {
+            this.location = location;
+        }
+
+        public Transformer transformer () {
+            try {
+                return factory.newTransformer(new StreamSource(this.getClass().getClassLoader().getResourceAsStream(location)));
+            } catch (TransformerConfigurationException e) {
+                throw new RuntimeException("Unable to load resource file '"+location+"'", e);
+            }
+        }
     }
 }

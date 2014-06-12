@@ -56,6 +56,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>stax</groupId>
             <artifactId>stax-api</artifactId>
         </dependency>

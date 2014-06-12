@@ -12,12 +12,13 @@ import com.lyncode.xml.XmlWritable;
 import com.lyncode.xml.XmlWriter;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xml.exceptions.XmlWriteException;
+import com.lyncode.xoai.services.api.MetadataSearch;
+import com.lyncode.xoai.services.impl.MetadataSearchImpl;
 import com.lyncode.xoai.xml.XSISchema;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.AllOf.allOf;
 
 public class XOAIMetadata implements XmlWritable {
+
+    private static final String DEFAULT_FIELD = "value";
+
     public static XOAIMetadata parse (InputStream inputStream) throws XmlReaderException {
         XmlReader reader = new XmlReader(inputStream);
         XOAIMetadata XOAIMetadata = new XOAIMetadata();
@@ -49,7 +53,6 @@ public class XOAIMetadata implements XmlWritable {
 
     public static final String NAMESPACE_URI = "http://www.lyncode.com/xoai";
     public static final String SCHEMA_LOCATION = "http://www.lyncode.com/xsd/xoai.xsd";
-
 
     protected List<Element> elements = new ArrayList<Element>();
 
@@ -94,4 +97,9 @@ public class XOAIMetadata implements XmlWritable {
             throw new XmlWriteException(e);
         }
     }
+
+    public MetadataSearch searcher () {
+        return new MetadataSearchImpl(this);
+    }
+
 }

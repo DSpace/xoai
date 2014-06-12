@@ -38,7 +38,7 @@ public class MetadataParser {
         XmlReader reader = new XmlReader(input);
         reader.next(elementName(localPart(equalTo("metadata"))));
 
-        while (reader.next(endOfMetadata(), startElement()).current(startElement())) {
+        while (reader.next(theEndOfDocument(), anEndElement(), startElement()).current(startElement())) {
             metadata.withElement(parseElement(reader));
         }
 
@@ -47,20 +47,19 @@ public class MetadataParser {
 
     private Element parseElement(XmlReader reader) throws XmlReaderException {
         Element element = new Element(reader.getAttributeValue(name()));
-
-        while (reader.next(startElement(), endElement()).current(startElement())) {
+        while (reader.next(startElement(), startField(), endOfMetadata()).current(startElement())) {
             element.withElement(parseElement(reader));
-            reader.next(endElement());
         }
 
-        while (reader.next(startField(), endElement()).current(startField())) {
+        while (reader.current(startField())) {
             Field field = new Field()
                     .withName(reader.getAttributeValue(name()));
 
-            if (reader.next(endElement(), text()).current(text()))
+            if (reader.next(anEndElement(), text()).current(text()))
                 field.withValue(reader.getText());
 
             element.withField(field);
+            reader.next(startField(), anEndElement());
         }
 
         return element;

@@ -17,7 +17,6 @@
 package com.lyncode.xoai.serviceprovider.client;
 
 import com.lyncode.xoai.serviceprovider.exceptions.HttpException;
-import com.lyncode.xoai.serviceprovider.model.Context;
 import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -30,11 +29,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class HttpOAIClient implements OAIClient {
-    private Context context;
+    private String baseUrl;
     private HttpClient httpclient = new DefaultHttpClient();
 
-    public HttpOAIClient(Context context) {
-        this.context = context;
+    public HttpOAIClient(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     public InputStream execute (Parameters parameters) throws HttpException {
@@ -50,6 +49,6 @@ public class HttpOAIClient implements OAIClient {
     }
 
     private HttpUriRequest createGetRequest(Parameters parameters) {
-        return new HttpGet(parameters.toUrl(context));
+        return new HttpGet(parameters.toUrl(baseUrl));
     }
 }

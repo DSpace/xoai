@@ -1,7 +1,6 @@
 package com.lyncode.xoai.serviceprovider.parameters;
 
 import com.lyncode.xoai.model.oaipmh.Verb;
-import com.lyncode.xoai.serviceprovider.model.Context;
 import com.lyncode.xoai.services.api.DateProvider;
 import com.lyncode.xoai.services.impl.UTCDateProvider;
 import com.lyncode.xoai.util.URLEncoder;
@@ -74,7 +73,7 @@ public class Parameters {
         return this;
     }
 
-    public String toUrl(Context context) {
+    public String toUrl(String baseUrl) {
         List<String> string = new ArrayList<String>();
         string.add("verb=" + this.verb.name());
         if (set != null) string.add("set=" + encode(set));
@@ -83,7 +82,7 @@ public class Parameters {
         if (identifier != null) string.add("identifier=" + encode(identifier));
         if (metadataPrefix != null) string.add("metadataPrefix=" + encode(metadataPrefix));
         if (resumptionToken != null) string.add("resumptionToken=" + encode(resumptionToken));
-        return context.getBaseUrl() + "?" + StringUtils.join(string, URLEncoder.SEPARATOR);
+        return baseUrl + "?" + StringUtils.join(string, URLEncoder.SEPARATOR);
     }
 
     public Parameters include(ListMetadataParameters parameters) {

@@ -1,0 +1,26 @@
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+    <dc:title>Middleware: the layer in between</dc:title>
+    <dc:creator>Moreira, Rui S.</dc:creator>
+    <dc:creator>Rocha, Álvaro</dc:creator>
+    <dc:creator>Vasconcelos, José</dc:creator>
+    <dc:description>
+        Middleware is a widely used term in various areas of distributed systems. This paper focuses specifi cally on component-based middleware, i.e., the software layer that offers, to application developers, a platform, a programming model and a standard set of services (e.g., persistency, transactions, security, refl ection, etc.) capable of hiding the interaction details between components of a distributed system. This middle tier makes language and distribution heterogeneity transparent to developers and decreases the diffi culty of managing the creation, distribution, deployment and adaptation of software components.
+    </dc:description>
+    <dc:publisher>Universidade Fernando Pessoa</dc:publisher>
+    <dc:date>2006-05-16T14:25:52Z</dc:date>
+    <dc:date>2011-10-06T14:39:01Z</dc:date>
+    <dc:date>2006-05-16T14:25:52Z</dc:date>
+    <dc:date>2011-10-06T14:39:01Z</dc:date>
+    <dc:date>2005</dc:date>
+    <dc:type>info:eu-repo/semantics/article</dc:type>
+    <dc:format>105423 bytes</dc:format>
+    <dc:format>application/pdf</dc:format>
+    <dc:identifier>
+        Revista da Faculdade de Ciência e Tecnologia. 2 (2005), pp. 134-152
+    </dc:identifier>
+    <dc:identifier>http://hdl.handle.net/10284/210</dc:identifier>
+    <dc:language>eng</dc:language>
+    <dc:relation>Revista da Faculdade de Ciência e Tecnologia</dc:relation>
+    <dc:relation>2 (2005)</dc:relation>
+    <dc:rights>openAccess</dc:rights>
+</oai_dc:dc>
