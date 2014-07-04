@@ -16,6 +16,25 @@
 
 package com.lyncode.xoai.serviceprovider.handler;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
+import static com.lyncode.xoai.serviceprovider.parameters.Parameters.parameters;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.events.XMLEvent;
+
+import org.hamcrest.Matcher;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xoai.model.oaipmh.Header;
@@ -26,19 +45,6 @@ import com.lyncode.xoai.serviceprovider.lazy.Source;
 import com.lyncode.xoai.serviceprovider.model.Context;
 import com.lyncode.xoai.serviceprovider.parameters.ListIdentifiersParameters;
 import com.lyncode.xoai.serviceprovider.parsers.ListIdentifiersParser;
-import org.hamcrest.Matcher;
-
-import javax.xml.stream.events.XMLEvent;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static com.lyncode.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
-import static com.lyncode.xoai.serviceprovider.parameters.Parameters.parameters;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class ListIdentifierHandler implements Source<Header> {
     private Context context;
@@ -83,12 +89,16 @@ public class ListIdentifierHandler implements Source<Header> {
                         resumptionToken = text;
                 } else ended = true;
             } else ended = true;
+            stream.close();
             return headers;
         } catch (XmlReaderException e) {
             throw new InvalidOAIResponse(e);
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
         }
+        catch (IOException e) {
+        	throw new InvalidOAIResponse(e);
+		}
     }
 
     private Matcher<XMLEvent> resumptionToken() {
