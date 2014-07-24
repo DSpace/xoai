@@ -16,22 +16,27 @@
 
 package com.lyncode.xoai.serviceprovider.parsers;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xml.matchers.XmlEventMatchers.theEndOfDocument;
+import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_RECORDS_MATCH;
+import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_SET_HIERARCHY;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+import javax.xml.namespace.QName;
+import javax.xml.stream.events.XMLEvent;
+
+import org.hamcrest.Matcher;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xoai.model.oaipmh.Set;
 import com.lyncode.xoai.serviceprovider.exceptions.EncapsulatedKnownException;
 import com.lyncode.xoai.serviceprovider.exceptions.InvalidOAIResponse;
 import com.lyncode.xoai.serviceprovider.exceptions.NoSetHierarchyException;
-import org.hamcrest.Matcher;
-
-import javax.xml.stream.events.XMLEvent;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_RECORDS_MATCH;
-import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_SET_HIERARCHY;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ListSetsParser {
     private final XmlReader reader;
@@ -67,16 +72,26 @@ public class ListSetsParser {
         return parseSet();
     }
 
-    private Set parseSet() throws XmlReaderException {
+    @SuppressWarnings("unchecked")
+	private Set parseSet() throws XmlReaderException {
         Set set = new Set();
-        reader
-                .next(elementName(localPart(equalTo("setSpec"))))
-                .next(text());
-        set.withSpec(reader.getText());
-        reader
-                .next(elementName(localPart(equalTo("setName"))))
-                .next(text());
-        set.withName(reader.getText());
+        
+        String setName = null;
+        String setSpec = null;
+        
+        while(setName == null || setSpec == null) {
+        	reader.next(aStartElement());
+            QName elementName = reader.getName();
+            reader.next(text());
+            
+            if(elementName.getLocalPart().equals("setName")) {
+            	setName = reader.getText();
+            } else if(elementName.getLocalPart().equals("setSpec")) {
+            	setSpec = reader.getText();
+            }
+        }
+        set.withName(setName);
+        set.withSpec(setSpec);
         return set;
     }
 
