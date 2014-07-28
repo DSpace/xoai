@@ -20,6 +20,7 @@ import static com.lyncode.xml.matchers.QNameMatchers.localPart;
 import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
 import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
 import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xml.matchers.XmlEventMatchers.theEndOfDocument;
 import static com.lyncode.xoai.serviceprovider.xml.IslandParsers.dateParser;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -65,10 +66,18 @@ public class IdentifyParser {
             identify.withDeletedRecord(DeletedRecord.fromValue(reader.getText()));
             reader.next(elementName(localPart(equalTo("granularity")))).next(text());
             identify.withGranularity(Granularity.fromRepresentation(reader.getText()));
-            while (reader.next(aStartElement()).current(elementName(localPart(equalTo("compression")))))
+            
+            while (reader.next(aStartElement(), theEndOfDocument()).current(elementName(localPart(equalTo("compression")))))
                 identify.withCompression(reader.next(text()).getText());
-            while (reader.next(aStartElement()).current(elementName(localPart(equalTo("description")))))
-                identify.withDescription(reader.get(descriptionParser()));
+            if(reader.current(theEndOfDocument())) {
+            	return identify;
+            } else if (reader.current(elementName(localPart(equalTo("description"))))) {
+            	identify.withDescription(reader.get(descriptionParser()));
+			}
+            
+            while (reader.next(aStartElement(), theEndOfDocument()).current(elementName(localPart(equalTo("description")))))
+            	identify.withDescription(reader.get(descriptionParser()));
+            
             return identify;
         } catch (XmlReaderException e) {
             throw new InvalidOAIResponse(e);
