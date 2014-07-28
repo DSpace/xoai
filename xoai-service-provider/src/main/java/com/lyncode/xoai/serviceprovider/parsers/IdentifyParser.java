@@ -16,6 +16,16 @@
 
 package com.lyncode.xoai.serviceprovider.parsers;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xoai.serviceprovider.xml.IslandParsers.dateParser;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+import java.io.InputStream;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xoai.model.oaipmh.DeletedRecord;
@@ -23,14 +33,6 @@ import com.lyncode.xoai.model.oaipmh.Description;
 import com.lyncode.xoai.model.oaipmh.Granularity;
 import com.lyncode.xoai.model.oaipmh.Identify;
 import com.lyncode.xoai.serviceprovider.exceptions.InvalidOAIResponse;
-
-import java.io.InputStream;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static com.lyncode.xoai.serviceprovider.xml.IslandParsers.dateParser;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.equalTo;
 
 public class IdentifyParser {
     private final XmlReader reader;
@@ -43,8 +45,8 @@ public class IdentifyParser {
         }
     }
 
-
-    public Identify parse () {
+    @SuppressWarnings("unchecked")
+	public Identify parse () {
         try {
             Identify identify = new Identify();
             reader.next(allOf(aStartElement(), elementName(localPart(equalTo("Identify")))));
