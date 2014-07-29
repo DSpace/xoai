@@ -16,21 +16,27 @@
 
 package com.lyncode.xoai.serviceprovider.parsers;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xml.matchers.XmlEventMatchers.theEndOfDocument;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
+
+import java.io.InputStream;
+
+import javax.xml.namespace.QName;
+import javax.xml.stream.events.XMLEvent;
+
+import org.hamcrest.Matcher;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xoai.model.xoai.Element;
 import com.lyncode.xoai.model.xoai.Field;
 import com.lyncode.xoai.model.xoai.XOAIMetadata;
-import org.hamcrest.Matcher;
-
-import javax.xml.namespace.QName;
-import javax.xml.stream.events.XMLEvent;
-import java.io.InputStream;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class MetadataParser {
     public XOAIMetadata parse(InputStream input) throws XmlReaderException {
@@ -59,6 +65,7 @@ public class MetadataParser {
                 field.withValue(reader.getText());
 
             element.withField(field);
+            reader.next(endField());//moves to the end element of the first field
             reader.next(startField(), anEndElement());
         }
 
@@ -67,6 +74,9 @@ public class MetadataParser {
 
     private Matcher<XMLEvent> startField() {
         return allOf(aStartElement(), elementName(localPart(equalTo("field"))));
+    }
+    private Matcher<XMLEvent> endField() {
+        return allOf(anEndElement(), elementName(localPart(equalTo("field"))));
     }
 
     private Matcher<XMLEvent> endOfMetadata() {

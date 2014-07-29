@@ -29,5 +29,6 @@ public class MetadataParserTest {
         XOAIMetadata metadata = new MetadataParser().parse(input);
         MetadataSearch searcher = metadata.searcher();
         assertThat(searcher.findAll("dc.title").size(), equalTo(2));
+        assertThat(searcher.findAll("dc.title:xml:lang").size(), equalTo(2));
     }
 }

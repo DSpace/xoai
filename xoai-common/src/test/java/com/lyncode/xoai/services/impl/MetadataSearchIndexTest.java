@@ -20,7 +20,7 @@ public class MetadataSearchIndexTest {
 		MetadataSearch metadataSearch = new MetadataSearchImpl(xoaiMetadata );
 		Map<String,List<String>> index = metadataSearch.index();
 		
-		assertEquals(2,index.size());
+		assertEquals(1,index.size());
 		
 		assertEquals("john doe",index.get("dc.creator").get(0));
 		
