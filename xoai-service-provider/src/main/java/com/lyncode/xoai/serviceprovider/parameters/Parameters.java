@@ -1,16 +1,18 @@
 package com.lyncode.xoai.serviceprovider.parameters;
 
-import com.lyncode.xoai.model.oaipmh.Verb;
-import com.lyncode.xoai.services.api.DateProvider;
-import com.lyncode.xoai.services.impl.UTCDateProvider;
-import com.lyncode.xoai.util.URLEncoder;
-import org.apache.commons.lang3.StringUtils;
+import static com.lyncode.xoai.util.URLEncoder.encode;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.lyncode.xoai.util.URLEncoder.encode;
+import org.apache.commons.lang3.StringUtils;
+
+import com.lyncode.xoai.model.oaipmh.Granularity;
+import com.lyncode.xoai.model.oaipmh.Verb;
+import com.lyncode.xoai.services.api.DateProvider;
+import com.lyncode.xoai.services.impl.UTCDateProvider;
+import com.lyncode.xoai.util.URLEncoder;
 
 public class Parameters {
     private static DateProvider formatter = new UTCDateProvider();
@@ -26,6 +28,7 @@ public class Parameters {
     private Date until;
     private String identifier;
     private String resumptionToken;
+	private String granularity;
 
     public Parameters withVerb(Verb.Type verb) {
         this.verb = verb;
@@ -76,16 +79,36 @@ public class Parameters {
     public String toUrl(String baseUrl) {
         List<String> string = new ArrayList<String>();
         string.add("verb=" + this.verb.name());
+        Granularity granularity = granularity();
         if (set != null) string.add("set=" + encode(set));
-        if (from != null) string.add("from=" + encode(formatter.format(from)));
-        if (until != null) string.add("until=" + encode(formatter.format(until)));
+        if (from != null) string.add("from=" + encode(formatter.format(from,granularity)));
+        if (until != null) string.add("until=" + encode(formatter.format(until,granularity)));
         if (identifier != null) string.add("identifier=" + encode(identifier));
         if (metadataPrefix != null) string.add("metadataPrefix=" + encode(metadataPrefix));
         if (resumptionToken != null) string.add("resumptionToken=" + encode(resumptionToken));
         return baseUrl + "?" + StringUtils.join(string, URLEncoder.SEPARATOR);
     }
 
-    public Parameters include(ListMetadataParameters parameters) {
+    /**
+     * If a valid granularity field exists, return corresponding granularity.
+     * Defaults to: Second
+     * @return
+     */
+    private Granularity granularity() {
+		if(granularity != null){
+			for (int i = 0; i < Granularity.values().length; i++) {
+				Granularity possibleGranularity = Granularity.values()[i];
+				if(granularity.equals(possibleGranularity.toString())){
+					return possibleGranularity;
+				}
+				
+			}
+			
+		}
+		return Granularity.Second;
+	}
+
+	public Parameters include(ListMetadataParameters parameters) {
         this.identifier = parameters.getIdentifier();
         return this;
     }
@@ -101,6 +124,7 @@ public class Parameters {
         this.set = parameters.getSetSpec();
         this.until = parameters.getUntil();
         this.from = parameters.getFrom();
+        this.granularity = parameters.getGranularity();
 
         return this;
     }
@@ -110,6 +134,7 @@ public class Parameters {
         this.set = parameters.getSetSpec();
         this.until = parameters.getUntil();
         this.from = parameters.getFrom();
+        this.granularity = parameters.getGranularity();
 
         return this;
     }
@@ -141,4 +166,13 @@ public class Parameters {
     public String getResumptionToken() {
         return resumptionToken;
     }
+
+	public void withGranularity(String granularity) {
+		this.granularity = granularity;
+		
+	}
+
+	public Object getGranularity() {
+		return granularity;
+	}
 }
