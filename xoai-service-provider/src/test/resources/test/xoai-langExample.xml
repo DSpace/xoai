@@ -1,0 +1,12 @@
+<metadata xmlns="http://www.lyncode.com/xoai">
+    <element name="dc">
+        <element name="title">
+        	<field name="xml:lang">FR</field>
+            <field name="value">La dimension personelle dans la formation des enseignants de l'enseignement de base du 1er cycle à Madère</field>
+        </element>
+        <element name="title" >
+        	<field name="xml:lang">pt_PT</field>
+            <field name="value">Mesmo título em português</field>
+        </element>
+    </element>
+</metadata>

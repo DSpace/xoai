@@ -19,6 +19,14 @@
                         <field name="value">
                             <xsl:value-of select="text()" />
                         </field>
+                        <xsl:choose>
+							<xsl:when test="@xml:lang">
+								<field name="xml:lang">
+	                        		<xsl:value-of select="@xml:lang" />
+	                        	</field>
+	                        </xsl:when>
+                        </xsl:choose>
+                        
                     </element>
                 </xsl:for-each>
             </element>
