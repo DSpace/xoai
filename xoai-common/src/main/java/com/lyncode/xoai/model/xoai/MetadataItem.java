@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MetadataItem {
+	public static final String XMLLANG = "xml:lang";
 	String value;
 	Map<String,String> properties = new HashMap<String, String>();
 
