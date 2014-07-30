@@ -65,8 +65,7 @@ public class MetadataParser {
                 field.withValue(reader.getText());
 
             element.withField(field);
-            reader.next(endField());//moves to the end element of the first field
-            reader.next(startField(), anEndElement());
+            reader.next(startField(), endElement());
         }
 
         return element;
@@ -74,9 +73,6 @@ public class MetadataParser {
 
     private Matcher<XMLEvent> startField() {
         return allOf(aStartElement(), elementName(localPart(equalTo("field"))));
-    }
-    private Matcher<XMLEvent> endField() {
-        return allOf(anEndElement(), elementName(localPart(equalTo("field"))));
     }
 
     private Matcher<XMLEvent> endOfMetadata() {
