@@ -16,8 +16,9 @@
 
 package com.lyncode.xoai.serviceprovider.client;
 
-import com.lyncode.xoai.serviceprovider.exceptions.HttpException;
-import com.lyncode.xoai.serviceprovider.parameters.Parameters;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -25,8 +26,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import java.io.IOException;
-import java.io.InputStream;
+import com.lyncode.xoai.serviceprovider.exceptions.HttpException;
+import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 
 public class HttpOAIClient implements OAIClient {
     private String baseUrl;

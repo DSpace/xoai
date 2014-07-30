@@ -16,6 +16,25 @@
 
 package com.lyncode.xoai.serviceprovider.handler;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xoai.model.oaipmh.Verb.Type.ListRecords;
+import static com.lyncode.xoai.serviceprovider.parameters.Parameters.parameters;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.events.XMLEvent;
+
+import org.hamcrest.Matcher;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xoai.model.oaipmh.Record;
@@ -26,19 +45,6 @@ import com.lyncode.xoai.serviceprovider.lazy.Source;
 import com.lyncode.xoai.serviceprovider.model.Context;
 import com.lyncode.xoai.serviceprovider.parameters.ListRecordsParameters;
 import com.lyncode.xoai.serviceprovider.parsers.ListRecordsParser;
-import org.hamcrest.Matcher;
-
-import javax.xml.stream.events.XMLEvent;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static com.lyncode.xoai.model.oaipmh.Verb.Type.ListRecords;
-import static com.lyncode.xoai.serviceprovider.parameters.Parameters.parameters;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class ListRecordHandler implements Source<Record> {
     private Context context;
@@ -55,6 +61,7 @@ public class ListRecordHandler implements Source<Record> {
 
     @Override
     public List<Record> nextIteration() {
+    	//TODO - refactor - this and ListIdentifierHandler are pretty similar.
         List<Record> records = new ArrayList<Record>();
         try {
             InputStream stream = null;
@@ -84,12 +91,17 @@ public class ListRecordHandler implements Source<Record> {
                         resumptionToken = text;
                 } else ended = true;
             } else ended = true;
+			
+            stream.close();
             return records;
         } catch (XmlReaderException e) {
             throw new InvalidOAIResponse(e);
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
         }
+        catch (IOException e) {
+        	throw new InvalidOAIResponse(e);
+		}
     }
 
     private Matcher<XMLEvent> resumptionToken() {

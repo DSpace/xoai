@@ -15,8 +15,14 @@
 package com.lyncode.xoai.services.api;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MetadataSearch {
     String findOne (String xoaiPath);
     List<String> findAll (String xoaiPath);
+	/**
+	 * 
+	 * @return - the entire metadata map 
+	 */
+	Map<String, List<String>> index();
 }

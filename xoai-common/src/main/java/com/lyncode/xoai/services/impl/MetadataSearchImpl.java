@@ -14,17 +14,17 @@
 
 package com.lyncode.xoai.services.impl;
 
-import com.lyncode.xoai.model.xoai.Element;
-import com.lyncode.xoai.model.xoai.Field;
-import com.lyncode.xoai.model.xoai.XOAIMetadata;
-import com.lyncode.xoai.services.api.MetadataSearch;
+import static org.apache.commons.lang3.StringUtils.join;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.join;
+import com.lyncode.xoai.model.xoai.Element;
+import com.lyncode.xoai.model.xoai.Field;
+import com.lyncode.xoai.model.xoai.XOAIMetadata;
+import com.lyncode.xoai.services.api.MetadataSearch;
 
 public class MetadataSearchImpl implements MetadataSearch {
     private static final String DEFAULT_FIELD = "value";
@@ -86,4 +86,9 @@ public class MetadataSearchImpl implements MetadataSearch {
     public List<String> findAll(String xoaiPath) {
         return index.get(xoaiPath);
     }
+
+	@Override
+	public Map<String, List<String>> index() {
+		return index;
+	}
 }
