@@ -20,7 +20,7 @@ import com.lyncode.xoai.services.api.MetadataSearch;
 public class MetadataSearcherItems extends AbstractMetadataSearcher<MetadataItem> implements MetadataSearch<MetadataItem> {
 
 	public MetadataSearcherItems(XOAIMetadata metadata) {
-		init(metadata);
+		super(metadata);
 	}
 
 	@Override

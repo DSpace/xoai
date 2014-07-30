@@ -14,6 +14,12 @@ public abstract class AbstractMetadataSearcher<T> implements MetadataSearch<T> {
 	protected static final String DEFAULT_FIELD = "value";
 	protected Map<String, List<T>> index = new HashMap<String, List<T>>();
 	
+	
+    public AbstractMetadataSearcher (XOAIMetadata metadata) {
+        for (Element element : metadata.getElements()) {
+            consume(new ArrayList<String>(), element);
+        }
+    }
 	@Override
 	public abstract T findOne(String xoaiPath);
 	@Override

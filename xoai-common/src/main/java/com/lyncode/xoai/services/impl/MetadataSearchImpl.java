@@ -17,7 +17,6 @@ package com.lyncode.xoai.services.impl;
 import static org.apache.commons.lang3.StringUtils.join;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,17 +25,13 @@ import com.lyncode.xoai.model.xoai.Field;
 import com.lyncode.xoai.model.xoai.XOAIMetadata;
 import com.lyncode.xoai.services.api.MetadataSearch;
 
-public class MetadataSearchImpl implements MetadataSearch<String> {
-    private static final String DEFAULT_FIELD = "value";
-    private Map<String, List<String>> index = new HashMap<String, List<String>>();
+public class MetadataSearchImpl extends AbstractMetadataSearcher<String> implements MetadataSearch<String> {
 
     public MetadataSearchImpl (XOAIMetadata metadata) {
-        for (Element element : metadata.getElements()) {
-            consume(new ArrayList<String>(), element);
-        }
+    	super(metadata);
     }
 
-    private void consume(List<String> newNames, Element element) {
+    protected void consume(List<String> newNames, Element element) {
         List<String> names = new ArrayList<String>(newNames);
         names.add(element.getName());
 
