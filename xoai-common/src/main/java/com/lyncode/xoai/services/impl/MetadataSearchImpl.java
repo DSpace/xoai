@@ -41,22 +41,12 @@ public class MetadataSearchImpl implements MetadataSearch {
         names.add(element.getName());
 
         if (!element.getFields().isEmpty()) {
-            if (element.getFields().size() == 1) {
-                Field field = element.getFields().get(0);
-                if (field.getName() != null)
-                    add(join(names, ".")+":"+ field.getName(), field.getValue());
-                add(join(names, "."), field.getValue());
-            } else {
-                for (Field field : element.getFields()) {
-                    if (field.getName() != null) {
-                        if (field.getName().equals(DEFAULT_FIELD))
-                            add(join(names, "."), field.getValue());
-
-                        add(join(names, ".") + ":" + field.getName(), field.getValue());
-                    } else {
-                        add(join(names, "."), field.getValue());
-                    }
-                }
+            for (Field field : element.getFields()) {
+            	if (field.getName() != null && !field.getName().equals(DEFAULT_FIELD)) {
+        			add(join(names, ".")+":"+ field.getName(), field.getValue());
+        		} else {
+        			add(join(names, "."), field.getValue());	
+        		}
             }
         }
 
