@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://spmfrjournal.org/lib/pkp/xml/oai2.xsl" ?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+		http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+	<responseDate>2014-07-29T13:34:25Z</responseDate>
+	<request verb="GetRecord" metadataPrefix="oai_dc" identifier="oai:ojs.spmfrjournal.org:article/88">http://spmfrjournal.org/index.php/spmfr/oai</request>
+	<GetRecord>
+		<record>
+			<header>
+				<identifier>oai:ojs.spmfrjournal.org:article/88</identifier>
+				<datestamp>2013-10-14T06:01:49Z</datestamp>
+				<setSpec>spmfr:EDI</setSpec>
+				<setSpec>driver</setSpec>
+			</header>
+			<metadata>
+<oai_dc:dc
+	xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/
+	http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+	<dc:title xml:lang="pt-PT">Editorial</dc:title>
+	<dc:creator>Laíns, Jorge; Presidente da Direção da SPMFR;
+Diretor da Revista da SPMFR</dc:creator>
+	<dc:description xml:lang="pt-PT">.</dc:description>
+	<dc:publisher xml:lang="pt-PT">Sociedade Portuguesa de Medicina Física e de Reabilitação</dc:publisher>
+	<dc:contributor xml:lang="pt-PT"></dc:contributor>
+	<dc:date>2013-10-14</dc:date>
+	<dc:type>info:eu-repo/semantics/article</dc:type>
+	<dc:type>info:eu-repo/semantics/publishedVersion</dc:type>
+	<dc:type xml:lang="pt-PT">article</dc:type>
+	<dc:format>application/pdf</dc:format>
+	<dc:identifier>http://spmfrjournal.org/index.php/spmfr/article/view/88</dc:identifier>
+	<dc:source xml:lang="pt-PT">Revista da Sociedade Portuguesa de Medicina Física e de Reabilitação; v. 23, n. 1 (2013): Ano 21; 7</dc:source>
+	<dc:source>0872-9204</dc:source>
+	<dc:language>por</dc:language>
+	<dc:relation>http://spmfrjournal.org/index.php/spmfr/article/view/88/69</dc:relation>
+	<dc:rights xml:lang="pt-PT">Declaração CopyrightQuando o artigo é aceite para publicação é obrigatória a submissão de um documento digitalizado, assinado por todos os Autores, com a partilha dos direitos de  Autor entre  Autores e a Revista SPMFR, conforme minuta:Ao Editor-chefe da Revista da Sociedade Portuguesa de Medicina Física e ReabilitaçãoO(s) Autor(es) certifica(m) que o manuscrito intitulado:____________________________________________________________________ (ref.Revista da SPMFR_________) é original, que todas as afirmações apresentadas como factos são baseados na investigação do(s) Autor(es), que o manuscrito, quer em parte quer no todo, não infringe nenhum copyright e não viola nenhum direito da privacidade, que não foi publicado em parte ou no todo e que não foi submetido para publicação, no todo ou em parte, noutra revista, e que os Autores têm o direito ao copyright.Todos os Autores declaram ainda que participaram no trabalho, se responsabilizam por ele e que não existe, da parte de qualquer dos Autores conflito de interesses nas afirmações proferidas no trabalho.Os Autores, ao submeterem o trabalho para publicação, partilham com a Revista da SPMFR todos os direitos a interesses do copyright do artigo.Todos os Autores devem assinarData:Nome(maiúsculas)AssinaturaRelativamente à utilização por terceiros a Revista da SPMFR rege-se pelos termos da licença Creative Commons “Atribuição – uso Não-Comercial – Proibição de Realização de Obras derivadas (by-nc-nd)”.Após publicação na Revista SPMFR, os Autores ficam autorizados a disponibilizar os seus artigos em repositórios das suas instituições de origem, desde que mencionem sempre onde foram publicados. </dc:rights>
+	<dc:rights xml:lang="en-US">Copyright statementAuthors must also submit a copyright statement (as seen below) on article submission.To the Editor-in-chief of the SPMFR Journal:The below signed author(s) hereby state that the article________________________________________ (ref. MFR_________) isan original unpublished work and all facts stated are a product of the author(s) investigation. This article does not violate any copyright laws or privacy statements. The author(s) also hereby confirm that there is no conflict of interest's issues in this article.By submitting this article the author(s) agree that after publication all copyrights belong to the SPMFR Journal.Signed by all authorsDate:Names (capital letters):Signatures:The SPMFR Journal’s contents are follow a Creative Commons licence. After publication the authors can hand out the articles as long as the SPMFR Journal is credited. </dc:rights>
+</oai_dc:dc>
+			</metadata>
+		</record>
+	</GetRecord>
+</OAI-PMH>

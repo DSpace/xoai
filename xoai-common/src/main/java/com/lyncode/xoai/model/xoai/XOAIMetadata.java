@@ -7,6 +7,21 @@
 
 package com.lyncode.xoai.model.xoai;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.XMLStreamException;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.XmlWritable;
 import com.lyncode.xml.XmlWriter;
@@ -15,17 +30,6 @@ import com.lyncode.xml.exceptions.XmlWriteException;
 import com.lyncode.xoai.services.api.MetadataSearch;
 import com.lyncode.xoai.services.impl.MetadataSearchImpl;
 import com.lyncode.xoai.xml.XSISchema;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class XOAIMetadata implements XmlWritable {
 
@@ -98,7 +102,10 @@ public class XOAIMetadata implements XmlWritable {
         }
     }
 
-    public MetadataSearch searcher () {
+    /**
+     * @return a simple searcher that returns search results as String elements.
+     */
+    public MetadataSearch<String> searcher () {
         return new MetadataSearchImpl(this);
     }
 

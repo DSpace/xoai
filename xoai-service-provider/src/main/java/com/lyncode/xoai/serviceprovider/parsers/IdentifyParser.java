@@ -46,8 +46,8 @@ public class IdentifyParser {
         }
     }
 
-
-    public Identify parse () {
+    @SuppressWarnings("unchecked")
+	public Identify parse () {
         try {
             Identify identify = new Identify();
             reader.next(allOf(aStartElement(), elementName(localPart(equalTo("Identify")))));
