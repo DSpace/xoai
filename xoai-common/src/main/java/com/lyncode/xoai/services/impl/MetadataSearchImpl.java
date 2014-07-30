@@ -26,7 +26,7 @@ import com.lyncode.xoai.model.xoai.Field;
 import com.lyncode.xoai.model.xoai.XOAIMetadata;
 import com.lyncode.xoai.services.api.MetadataSearch;
 
-public class MetadataSearchImpl implements MetadataSearch {
+public class MetadataSearchImpl implements MetadataSearch<String> {
     private static final String DEFAULT_FIELD = "value";
     private Map<String, List<String>> index = new HashMap<String, List<String>>();
 
