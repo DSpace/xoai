@@ -16,7 +16,7 @@ public class MetadataParserTest {
         InputStream input = getClass().getClassLoader().getResourceAsStream("test/xoai.xml");
 
         XOAIMetadata metadata = new MetadataParser().parse(input);
-        MetadataSearch searcher = metadata.searcher();
+        MetadataSearch<String> searcher = metadata.searcher();
         assertThat(metadata.getElements().size(), equalTo(1));
         assertThat(searcher.findOne("dc.creator"), equalTo("Sousa, Jesus Maria Angélica Fernandes"));
         assertThat(searcher.findAll("dc.subject").size(), equalTo(5));
