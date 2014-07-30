@@ -124,6 +124,7 @@ public class Parameters {
         this.set = parameters.getSetSpec();
         this.until = parameters.getUntil();
         this.from = parameters.getFrom();
+        this.granularity = parameters.getGranularity();
 
         return this;
     }
@@ -133,6 +134,7 @@ public class Parameters {
         this.set = parameters.getSetSpec();
         this.until = parameters.getUntil();
         this.from = parameters.getFrom();
+        this.granularity = parameters.getGranularity();
 
         return this;
     }
@@ -168,5 +170,9 @@ public class Parameters {
 	public void withGranularity(String granularity) {
 		this.granularity = granularity;
 		
+	}
+
+	public Object getGranularity() {
+		return granularity;
 	}
 }

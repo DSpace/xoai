@@ -27,6 +27,7 @@ public class ListRecordsParameters {
     private String setSpec;
     private Date from;
     private Date until;
+	private String granularity;
 
     public String getMetadataPrefix() {
         return metadataPrefix;
@@ -67,4 +68,13 @@ public class ListRecordsParameters {
     public boolean areValid() {
         return metadataPrefix != null;
     }
+
+	public void withGranularity(String granularity) {
+		this.granularity = granularity;
+		
+	}
+
+	public String getGranularity() {
+		return granularity;
+	}
 }
