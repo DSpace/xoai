@@ -61,15 +61,12 @@ public class MetadataSearchImpl extends AbstractMetadataSearcher<String> impleme
 
     @Override
     public String findOne(String xoaiPath) {
-        List<String> strings = index.get(xoaiPath);
-        if (strings != null && !strings.isEmpty())
-            return strings.get(0);
-        return null;
+    	return super.findOne(xoaiPath);
     }
 
     @Override
     public List<String> findAll(String xoaiPath) {
-        return index.get(xoaiPath);
+        return super.findAll(xoaiPath);
     }
 
 	@Override

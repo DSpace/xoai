@@ -20,12 +20,14 @@ public class MetadataSearcherItemsTest {
 	private XOAIMetadata metadata;
 	private Element subjectElement;
 
+	private Element parentElement;
+
 	@Before
 	public void setUp() {
 
 		metadata = new XOAIMetadata();
 
-		Element parentElement = new Element("dc");
+		parentElement = new Element("dc");
 
 		subjectElement = new Element("subject");
 		subjectElement.withField(null, "Ciências da Educação");
@@ -65,5 +67,31 @@ public class MetadataSearcherItemsTest {
 		List<MetadataItem> items = searcher.index().get("dc.subject");
 		assertEquals(1,items.size());
 		assertEquals("Ciências da Educação",items.get(0).getValue());
+	}
+	
+	//FindOne Tests - should be tested in abstract
+	@Test
+	public void findOneFindsElement() {
+		
+		searcher = new MetadataSearcherItems(metadata);
+		
+		MetadataItem element = searcher.findOne("dc.subject");
+		assertEquals("Ciências da Educação",element.getValue());
+	}
+	
+	//FindAll Tests - should be tested in abstract
+	@Test
+	public void findAllFindsElements() {
+		
+		subjectElement = new Element("subject");
+		subjectElement.withField(null, "English subject");
+		subjectElement.withField("xml:lang", "en-GB");
+
+		parentElement.withElement(subjectElement);
+		
+		searcher = new MetadataSearcherItems(metadata);
+		
+		List<MetadataItem> elements = searcher.findAll("dc.subject");
+		assertEquals(2,elements.size());
 	}
 }

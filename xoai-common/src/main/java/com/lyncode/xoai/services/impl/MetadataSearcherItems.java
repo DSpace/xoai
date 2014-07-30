@@ -57,14 +57,12 @@ public class MetadataSearcherItems extends AbstractMetadataSearcher<MetadataItem
 
 	@Override
 	public MetadataItem findOne(String xoaiPath) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.findOne(xoaiPath);
 	}
 
 	@Override
 	public List<MetadataItem> findAll(String xoaiPath) {
-		// TODO Auto-generated method stub
-		return null;
+		return super.findAll(xoaiPath);
 	}
 
 

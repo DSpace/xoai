@@ -21,9 +21,16 @@ public abstract class AbstractMetadataSearcher<T> implements MetadataSearch<T> {
         }
     }
 	@Override
-	public abstract T findOne(String xoaiPath);
+	public T findOne(String xoaiPath){
+		 List<T> elements = index.get(xoaiPath);
+	        if (elements != null && !elements.isEmpty())
+	            return elements.get(0);
+	        return null;
+	};
 	@Override
-	public abstract List<T> findAll(String xoaiPath);
+	public List<T> findAll(String xoaiPath){
+		return index.get(xoaiPath);
+	};
 	
 	@Override
 	public Map<String, List<T>> index() {
