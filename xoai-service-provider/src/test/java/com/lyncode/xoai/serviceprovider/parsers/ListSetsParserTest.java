@@ -35,11 +35,20 @@ public class ListSetsParserTest {
 				OAI_DC_SETS_CDATA_XML);
 		
 		List<Set> sets = parseXML(inputStream);
-		assertEquals("setOne",sets.get(0).getSpec());
+		assertEquals("cdataSPEC",sets.get(0).getSpec());
 		assertEquals("Set with CDATA",sets.get(0).getName());
+		
 	}
 	
-
+	@Test
+	public void multipleCDATAParsed(){
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(
+				OAI_DC_SETS_CDATA_XML);
+		
+		List<Set> sets = parseXML(inputStream);
+		assertEquals(2,sets.size());
+		assertEquals("First CDATA, Set 2 with CDATA",sets.get(1).getName());
+	}
 	
 	
 	private List<Set> parseXML(InputStream inputStream){

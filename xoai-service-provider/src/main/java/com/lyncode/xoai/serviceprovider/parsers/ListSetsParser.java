@@ -18,6 +18,7 @@ package com.lyncode.xoai.serviceprovider.parsers;
 
 import static com.lyncode.xml.matchers.QNameMatchers.localPart;
 import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
 import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
 import static com.lyncode.xml.matchers.XmlEventMatchers.text;
 import static com.lyncode.xml.matchers.XmlEventMatchers.theEndOfDocument;
@@ -86,11 +87,14 @@ public class ListSetsParser {
         	reader.next(aStartElement());
             QName elementName = reader.getName();
             reader.next(text());
-            
+            String extractedText = reader.getText();
+            while(reader.next(anEndElement(),text()).current(text())){
+            	extractedText += reader.getText();
+            }
             if(elementName.getLocalPart().equals("setName")) {
-            	setName = reader.getText();
+            	setName = extractedText;
             } else if(elementName.getLocalPart().equals("setSpec")) {
-            	setSpec = reader.getText();
+            	setSpec = extractedText;
             }
         }
         set.withName(setName);
@@ -105,6 +109,9 @@ public class ListSetsParser {
 
     private Matcher<XMLEvent> setElement() {
         return allOf(aStartElement(), elementName(localPart(equalTo("set"))));
+    }
+    private Matcher<XMLEvent> endSetElement() {
+        return allOf(anEndElement(), elementName(localPart(equalTo("set"))));
     }
 
 	/**

@@ -54,7 +54,7 @@ public class RecordParserTest {
 		XmlReader reader = new XmlReader(input);
 		Record record = parser.parse(reader);
 		assertEquals(1,record.getMetadata().getValue().searcher().findAll("dc.title").size());
-		assertEquals("Article Title",record.getMetadata().getValue().searcher().findOne("dc.title"));
+		assertEquals("Article Title-additional CDATA",record.getMetadata().getValue().searcher().findOne("dc.title"));
 	}
 
 }
