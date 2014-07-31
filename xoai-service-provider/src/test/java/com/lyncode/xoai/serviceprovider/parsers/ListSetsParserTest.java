@@ -14,43 +14,47 @@ import com.lyncode.xoai.model.oaipmh.Set;
 
 public class ListSetsParserTest {
 	
+	private static final String OAI_DC_SETS_CDATA_XML = "test/oai_dc/listsets/oai_dc-sets-CDATA.xml";
+
 	@Test
 	public void normalParsing(){
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(
 				"test/oai_dc/listsets/oai_dc-sets.xml");
-		XmlReader reader;
-		try {
-			reader = new XmlReader(inputStream);
-			ListSetsParser parser = new ListSetsParser(reader );
-			List<Set> sets = parser.parse();
-			assertEquals(2,sets.size());
-			assertEquals("setOne",sets.get(0).getSpec());
-			assertEquals("Set One",sets.get(0).getName());
-			assertEquals("setTwo",sets.get(1).getSpec());
-			assertEquals("Set Two",sets.get(1).getName());
-			
-		} catch (XmlReaderException e) {
-			fail("unexpected exception reading the xml: "+ e.getCause().toString());
-		}
+		
+		List<Set> sets = parseXML(inputStream);
+		assertEquals(2,sets.size());
+		assertEquals("setOne",sets.get(0).getSpec());
+		assertEquals("Set One",sets.get(0).getName());
+		assertEquals("setTwo",sets.get(1).getSpec());
+		assertEquals("Set Two",sets.get(1).getName());
 	}
 	
 	@Test
 	public void cdataIsParsed(){
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(
-				"test/oai_dc/listsets/oai_dc-sets-CDATA.xml");
+				OAI_DC_SETS_CDATA_XML);
+		
+		List<Set> sets = parseXML(inputStream);
+		assertEquals("setOne",sets.get(0).getSpec());
+		assertEquals("Set with CDATA",sets.get(0).getName());
+	}
+	
+
+	
+	
+	private List<Set> parseXML(InputStream inputStream){
 		XmlReader reader;
 		try {
 			reader = new XmlReader(inputStream);
 			ListSetsParser parser = new ListSetsParser(reader );
 			List<Set> sets = parser.parse();
-			assertEquals("setOne",sets.get(0).getSpec());
-			assertEquals("Set with CDATA",sets.get(0).getName());
+			return sets;
 			
 		} catch (XmlReaderException e) {
 			fail("unexpected exception reading the xml: "+ e.getCause().toString());
 		}
+		return null;
+		
 	}
-	
-	
 
 }

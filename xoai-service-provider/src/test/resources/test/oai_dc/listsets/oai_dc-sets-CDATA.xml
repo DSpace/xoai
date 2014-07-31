@@ -12,7 +12,7 @@
 		</set>
 		<set>
 			<setSpec>setTwo</setSpec>
-			<setName><![CDATA[]]><![CDATA[Set 2 with CDATA]]><![CDATA[]]></setName>
+			<setName><![CDATA[First CDATA, ]]><![CDATA[Set 2 with CDATA]]><![CDATA[]]></setName>
 		</set>
 	</ListSets>
 </OAI-PMH>
