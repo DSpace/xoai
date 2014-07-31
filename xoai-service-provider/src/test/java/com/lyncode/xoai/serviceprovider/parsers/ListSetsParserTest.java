@@ -33,5 +33,24 @@ public class ListSetsParserTest {
 			fail("unexpected exception reading the xml: "+ e.getCause().toString());
 		}
 	}
+	
+	@Test
+	public void cdataIsParsed(){
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(
+				"test/oai_dc/listsets/oai_dc-sets-CDATA.xml");
+		XmlReader reader;
+		try {
+			reader = new XmlReader(inputStream);
+			ListSetsParser parser = new ListSetsParser(reader );
+			List<Set> sets = parser.parse();
+			assertEquals("setOne",sets.get(0).getSpec());
+			assertEquals("Set with CDATA",sets.get(0).getName());
+			
+		} catch (XmlReaderException e) {
+			fail("unexpected exception reading the xml: "+ e.getCause().toString());
+		}
+	}
+	
+	
 
 }
