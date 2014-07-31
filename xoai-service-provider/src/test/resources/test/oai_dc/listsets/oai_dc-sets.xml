@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+          http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+	<responseDate>2014-07-31T09:25:24Z</responseDate>
+	<request verb="ListSets">http://www.scielo.br/oai/scielo-oai.php</request>
+	<ListSets>
+
+		<set>
+			<setSpec>setOne</setSpec>
+			<setName>Set One</setName>
+		</set>
+		<set>
+			<setSpec>setTwo</setSpec>
+			<setName>Set Two</setName>
+		</set>
+	</ListSets>
+</OAI-PMH>

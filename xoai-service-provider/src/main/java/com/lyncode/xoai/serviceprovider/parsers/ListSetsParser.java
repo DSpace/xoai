@@ -26,6 +26,9 @@ import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_SET_HIERARCHY;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.namespace.QName;
 import javax.xml.stream.events.XMLEvent;
 
@@ -103,4 +106,16 @@ public class ListSetsParser {
     private Matcher<XMLEvent> setElement() {
         return allOf(aStartElement(), elementName(localPart(equalTo("set"))));
     }
+
+	/**
+	 * Parses its xml completely
+	 * @return - All sets within the xml
+	 * @throws XmlReaderException
+	 */
+	public List<Set> parse() throws XmlReaderException {
+		List<Set> sets = new ArrayList<Set>();
+		while (hasNext())
+            sets.add(next());
+		return sets;
+	}
 }
