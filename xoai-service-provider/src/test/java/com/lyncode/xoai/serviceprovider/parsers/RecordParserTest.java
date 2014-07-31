@@ -44,5 +44,17 @@ public class RecordParserTest {
 		Record record = parser.parse(reader);
 		assertEquals(2,record.getMetadata().getValue().searcher().findAll("dc.rights:xml:lang").size());
 	}
+	
+	@Test
+	public void cdataParsing() throws Exception {
+		input = getClass().getClassLoader().getResourceAsStream(
+				"test/oai_dc-CDATA.xml");
+		
+		parser = new RecordParser(context, "oai_dc");
+		XmlReader reader = new XmlReader(input);
+		Record record = parser.parse(reader);
+		assertEquals(1,record.getMetadata().getValue().searcher().findAll("dc.title").size());
+		assertEquals("Article Title",record.getMetadata().getValue().searcher().findOne("dc.title"));
+	}
 
 }
