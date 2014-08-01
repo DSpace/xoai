@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Base class for identifying an OAI-PMH records.
  *
- * @author Lyncode <development@lyncode.com>
+ * @author Lyncode
  * @version 3.1.0
  */
 public interface ItemIdentifier {

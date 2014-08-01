@@ -9,7 +9,7 @@ import java.util.List;
  * This is a required class to extend when implementing a specific OAI Data Provider.
  * It works as a wrapper for all OAI Items.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public interface Item extends ItemIdentifier {

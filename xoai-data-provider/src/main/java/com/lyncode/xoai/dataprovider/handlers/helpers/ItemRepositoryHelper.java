@@ -1,13 +1,14 @@
 package com.lyncode.xoai.dataprovider.handlers.helpers;
 
-import com.lyncode.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
-import com.lyncode.xoai.dataprovider.handlers.results.ListItemsResults;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.filter.Scope;
 import com.lyncode.xoai.dataprovider.filter.ScopedFilter;
-import com.lyncode.xoai.dataprovider.model.*;
+import com.lyncode.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
+import com.lyncode.xoai.dataprovider.handlers.results.ListItemsResults;
+import com.lyncode.xoai.dataprovider.model.Context;
+import com.lyncode.xoai.dataprovider.model.Item;
 import com.lyncode.xoai.dataprovider.model.MetadataFormat;
 import com.lyncode.xoai.dataprovider.repository.ItemRepository;
 
@@ -23,35 +24,12 @@ public class ItemRepositoryHelper {
         this.itemRepository = itemRepository;
     }
 
-    /**
-     * Method used by XOAI internals.
-     *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
-     * @param offset         Start offset
-     * @param length         Max returned length
-     * @param metadataPrefix Metadata Prefix parameter
-     * @return List of Identifiers
-     * @throws CannotDisseminateFormatException,
-     *                      OAIException
-     * @throws OAIException
-     */
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
                                                         int offset, int length, String metadataPrefix)
             throws CannotDisseminateFormatException, OAIException {
         return itemRepository.getItemIdentifiers(getScopedFilters(context, metadataPrefix), offset, length);
     }
 
-    /**
-     * Method used by XOAI internals.
-     *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
-     * @param offset         Start offset
-     * @param length         Max returned length
-     * @param metadataPrefix Metadata Prefix parameter
-     * @param from           From parameter
-     * @return List of Identifiers
-     * @throws
-     */
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
                                                         int offset, int length, String metadataPrefix, Date from)
             throws CannotDisseminateFormatException, OAIException {
@@ -70,16 +48,6 @@ public class ItemRepositoryHelper {
         return filters;
     }
 
-    /**
-     * Method used by XOAI internals.
-     *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
-     * @param offset         Start offset
-     * @param length         Max returned length
-     * @param metadataPrefix Metadata Prefix parameter
-     * @param until          Date parameter
-     * @return List of Identifiers
-     */
     public ListItemIdentifiersResult getItemIdentifiersUntil(
             Context context, int offset, int length, String metadataPrefix,
             Date until) throws CannotDisseminateFormatException, OAIException {
@@ -87,37 +55,12 @@ public class ItemRepositoryHelper {
         return itemRepository.getItemIdentifiersUntil(filters, offset, length, until);
     }
 
-    /**
-     * Method used by XOAI internals.
-     *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
-     * @param offset         Start offset
-     * @param length         Max returned length
-     * @param metadataPrefix Metadata Prefix parameter
-     * @param from           Date parameter
-     * @param until          Date parameter
-     * @return List of Identifiers
-     * @throws com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException
-     *
-     */
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
                                                         int offset, int length, String metadataPrefix, Date from, Date until)
             throws CannotDisseminateFormatException, OAIException {
         return itemRepository.getItemIdentifiers(getScopedFilters(context, metadataPrefix), offset, length, from, until);
     }
 
-    /**
-     * Method used by XOAI internals.
-     *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
-     * @param offset         Start offset
-     * @param length         Max returned length
-     * @param metadataPrefix Metadata Prefix parameter
-     * @param setSpec        Set spec
-     * @return List of Identifiers
-     * @throws com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException
-     *
-     */
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
                                                         int offset, int length, String metadataPrefix, String setSpec)
             throws CannotDisseminateFormatException, OAIException {

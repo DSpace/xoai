@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.filter;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public enum Scope {

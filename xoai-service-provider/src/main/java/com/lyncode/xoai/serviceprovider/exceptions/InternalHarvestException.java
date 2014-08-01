@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 
@@ -21,7 +21,7 @@ package com.lyncode.xoai.serviceprovider.exceptions;
 
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class InternalHarvestException extends RuntimeException {

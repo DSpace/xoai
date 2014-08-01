@@ -16,37 +16,13 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author "João Melo <jmelo@lyncode.com>"
+ * @author João Melo
  */
 public class DuplicateDefinitionException extends HandlerException {
     private static final long serialVersionUID = -6874140130853606687L;
 
-    /**
-     *
-     */
-    public DuplicateDefinitionException() {
-    }
-
-    /**
-     * @param message
-     */
     public DuplicateDefinitionException(String message) {
         super(message);
-    }
-
-    /**
-     * @param cause
-     */
-    public DuplicateDefinitionException(Throwable cause) {
-        super(cause);
-    }
-
-    /**
-     * @param message
-     * @param cause
-     */
-    public DuplicateDefinitionException(String message, Throwable cause) {
-        super(message, cause);
     }
 
 }

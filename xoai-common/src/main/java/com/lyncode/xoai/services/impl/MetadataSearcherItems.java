@@ -1,18 +1,18 @@
 package com.lyncode.xoai.services.impl;
 
-import static org.apache.commons.lang3.StringUtils.join;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.lyncode.xoai.model.xoai.Element;
 import com.lyncode.xoai.model.xoai.Field;
 import com.lyncode.xoai.model.xoai.MetadataItem;
 import com.lyncode.xoai.model.xoai.XOAIMetadata;
 import com.lyncode.xoai.services.api.MetadataSearch;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.apache.commons.lang3.StringUtils.join;
+
 /**
- * An implementation whose searches return {@link MetadataItem} elements.<br/>
+ * An implementation whose searches return {@link MetadataItem} elements.
  * Useful for when more information for each OAI metadata item is available (e.g., xml attributes like xml:lang).
  * @author mmalmeida
  *

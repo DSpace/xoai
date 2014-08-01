@@ -20,7 +20,7 @@ import com.lyncode.xoai.dataprovider.filter.Filter;
 import com.lyncode.xoai.dataprovider.filter.FilterResolver;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public interface Condition {

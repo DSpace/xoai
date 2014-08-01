@@ -21,7 +21,7 @@ import com.lyncode.xoai.dataprovider.model.Set;
 import java.util.List;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class ListSetsResult {

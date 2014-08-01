@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class BadResumptionToken extends HandlerException {

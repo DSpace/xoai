@@ -15,12 +15,12 @@
  */
 package com.lyncode.xoai.dataprovider.repository;
 
-import com.lyncode.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
-import com.lyncode.xoai.dataprovider.handlers.results.ListItemsResults;
-import com.lyncode.xoai.dataprovider.model.Item;
 import com.lyncode.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import com.lyncode.xoai.dataprovider.exceptions.OAIException;
 import com.lyncode.xoai.dataprovider.filter.ScopedFilter;
+import com.lyncode.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
+import com.lyncode.xoai.dataprovider.handlers.results.ListItemsResults;
+import com.lyncode.xoai.dataprovider.model.Item;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * This class wraps the data source of items.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public interface ItemRepository {

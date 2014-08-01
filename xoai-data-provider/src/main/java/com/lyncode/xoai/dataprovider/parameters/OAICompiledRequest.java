@@ -17,7 +17,10 @@
 package com.lyncode.xoai.dataprovider.parameters;
 
 import com.lyncode.builder.Builder;
-import com.lyncode.xoai.dataprovider.exceptions.*;
+import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
+import com.lyncode.xoai.dataprovider.exceptions.DuplicateDefinitionException;
+import com.lyncode.xoai.dataprovider.exceptions.IllegalVerbException;
+import com.lyncode.xoai.dataprovider.exceptions.UnknownParameterException;
 import com.lyncode.xoai.exceptions.InvalidResumptionTokenException;
 import com.lyncode.xoai.model.oaipmh.ResumptionToken;
 import com.lyncode.xoai.services.api.DateProvider;
@@ -35,13 +38,12 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-import static com.lyncode.xoai.model.oaipmh.Verb.Type;
 import static com.lyncode.xoai.dataprovider.parameters.OAIRequest.Parameter.*;
+import static com.lyncode.xoai.model.oaipmh.Verb.Type;
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.core.AnyOf.anyOf;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+ * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class OAICompiledRequest {
