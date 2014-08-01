@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class TransformerDoesNotExistsException extends Exception {
@@ -28,14 +28,14 @@ public class TransformerDoesNotExistsException extends Exception {
     private static final long serialVersionUID = -8417020535730995337L;
 
     /**
-     * Creates a new instance of <code>TransformerDoesNotExistsException</code>
+
      * without detail message.
      */
     public TransformerDoesNotExistsException() {
     }
 
     /**
-     * Constructs an instance of <code>TransformerDoesNotExistsException</code>
+
      * with the specified detail message.
      *
      * @param msg the detail message.

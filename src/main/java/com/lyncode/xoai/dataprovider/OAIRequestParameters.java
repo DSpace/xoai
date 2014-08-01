@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class OAIRequestParameters {

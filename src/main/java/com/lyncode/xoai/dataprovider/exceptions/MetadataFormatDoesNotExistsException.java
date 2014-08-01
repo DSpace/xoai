@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class MetadataFormatDoesNotExistsException extends Exception {
@@ -29,14 +29,14 @@ public class MetadataFormatDoesNotExistsException extends Exception {
 
     /**
      * Creates a new instance of
-     * <code>MetadataFormatDoesNotExistsException</code> without detail message.
+      without detail message.
      */
     public MetadataFormatDoesNotExistsException() {
     }
 
     /**
      * Constructs an instance of
-     * <code>MetadataFormatDoesNotExistsException</code> with the specified
+      with the specified
      * detail message.
      *
      * @param msg the detail message.

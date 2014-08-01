@@ -29,14 +29,11 @@ public class ItemRepositoryHelper {
     /**
      * Method used by XOAI internals.
      *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
+
      * @param offset         Start offset
      * @param length         Max returned length
      * @param metadataPrefix Metadata Prefix parameter
      * @return List of Identifiers
-     * @throws CannotDisseminateFormatException,
-     *                      OAIException
-     * @throws OAIException
      */
     public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
                                                         int offset, int length, String metadataPrefix)
@@ -47,13 +44,12 @@ public class ItemRepositoryHelper {
     /**
      * Method used by XOAI internals.
      *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
+
      * @param offset         Start offset
      * @param length         Max returned length
      * @param metadataPrefix Metadata Prefix parameter
      * @param from           From parameter
      * @return List of Identifiers
-     * @throws
      */
     public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
                                                         int offset, int length, String metadataPrefix, Date from)
@@ -76,7 +72,7 @@ public class ItemRepositoryHelper {
     /**
      * Method used by XOAI internals.
      *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
+
      * @param offset         Start offset
      * @param length         Max returned length
      * @param metadataPrefix Metadata Prefix parameter
@@ -93,14 +89,13 @@ public class ItemRepositoryHelper {
     /**
      * Method used by XOAI internals.
      *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
+
      * @param offset         Start offset
      * @param length         Max returned length
      * @param metadataPrefix Metadata Prefix parameter
      * @param from           Date parameter
      * @param until          Date parameter
      * @return List of Identifiers
-     * @throws com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException
      *
      */
     public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,
@@ -112,13 +107,12 @@ public class ItemRepositoryHelper {
     /**
      * Method used by XOAI internals.
      *
-     * @param context        Requested ContextConfiguration <a href="https://github.com/lyncode/xoai/wiki/XOAI-Data-Provider-Architecture">More details</a>
+
      * @param offset         Start offset
      * @param length         Max returned length
      * @param metadataPrefix Metadata Prefix parameter
      * @param setSpec        Set spec
      * @return List of Identifiers
-     * @throws com.lyncode.xoai.dataprovider.exceptions.NoMetadataFormatsException
      *
      */
     public ListItemIdentifiersResult getItemIdentifiers(XOAIContext context,

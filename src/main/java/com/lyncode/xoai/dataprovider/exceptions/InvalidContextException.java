@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class InvalidContextException extends Exception {
@@ -28,14 +28,14 @@ public class InvalidContextException extends Exception {
     private static final long serialVersionUID = -2541049223278976241L;
 
     /**
-     * Creates a new instance of <code>InvalidContextException</code> without
+      without
      * detail message.
      */
     public InvalidContextException() {
     }
 
     /**
-     * Constructs an instance of <code>InvalidContextException</code> with the
+      with the
      * specified detail message.
      *
      * @param msg the detail message.

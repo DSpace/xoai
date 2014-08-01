@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 
@@ -23,7 +23,7 @@ import java.io.UnsupportedEncodingException;
 
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class URLEncoder {

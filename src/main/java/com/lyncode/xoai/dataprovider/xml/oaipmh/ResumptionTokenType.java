@@ -7,16 +7,12 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import com.lyncode.xoai.dataprovider.core.Granularity;
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-import java.math.BigInteger;
 import java.util.Date;
 
 import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
@@ -24,25 +20,25 @@ import static com.lyncode.xoai.dataprovider.core.Granularity.Second;
 /**
  * A resumptionToken may have 3 optional attributes and can be used in ListSets,
  * ListIdentifiers, ListRecords responses.
- * <p/>
- * <p/>
+ *
+ *
  * Java class for resumptionTokenType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="resumptionTokenType">
- *   &lt;simpleContent>
- *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *       &lt;attribute name="expirationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *       &lt;attribute name="completeListSize" type="{http://www.w3.org/2001/XMLSchema}positiveInteger" />
- *       &lt;attribute name="cursor" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" />
- *     &lt;/extension>
- *   &lt;/simpleContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "resumptionTokenType", propOrder = {"value"})
@@ -63,7 +59,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Gets the value of the value property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getValue() {
         return value;
@@ -72,7 +68,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Sets the value of the value property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setValue(String value) {
         this.value = value;
@@ -81,7 +77,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Gets the value of the expirationDate property.
      *
-     * @return possible object is {@link XMLGregorianCalendar }
+     * @return possible object is
      */
     public Date getExpirationDate() {
         return expirationDate;
@@ -90,7 +86,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Sets the value of the expirationDate property.
      *
-     * @param value allowed object is {@link XMLGregorianCalendar }
+     * @param value allowed object is
      */
     public void setExpirationDate(Date value) {
         this.expirationDate = value;
@@ -99,7 +95,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Gets the value of the completeListSize property.
      *
-     * @return possible object is {@link BigInteger }
+     * @return possible object is ;
      */
     public Long getCompleteListSize() {
         return completeListSize;
@@ -108,7 +104,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Sets the value of the completeListSize property.
      *
-     * @param value allowed object is {@link BigInteger }
+     * @param value allowed object is ;
      */
     public void setCompleteListSize(Number value) {
         this.completeListSize = value.longValue();
@@ -117,7 +113,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Gets the value of the cursor property.
      *
-     * @return possible object is {@link BigInteger }
+     * @return possible object is ;
      */
     public Long getCursor() {
         return cursor;
@@ -126,7 +122,7 @@ public class ResumptionTokenType implements XMLWritable {
     /**
      * Sets the value of the cursor property.
      *
-     * @param value allowed object is {@link BigInteger }
+     * @param value allowed object is ;
      */
     public void setCursor(Number value) {
         this.cursor = value.longValue();
@@ -134,9 +130,9 @@ public class ResumptionTokenType implements XMLWritable {
 
     /*
      *
- *       &lt;attribute name="expirationDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" />
- *       &lt;attribute name="completeListSize" type="{http://www.w3.org/2001/XMLSchema}positiveInteger" />
- *       &lt;attribute name="cursor" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger" />
+
+
+
      */
     @Override
     public void write(XmlOutputContext context) throws WritingXmlException {

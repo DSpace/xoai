@@ -20,32 +20,32 @@ import java.util.List;
 import static com.lyncode.xoai.util.XmlIOUtils.writeValue;
 
 /**
- * <p/>
+ *
  * Java class for IdentifyType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="IdentifyType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="repositoryName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="baseURL" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
- *         &lt;element name="protocolVersion" type="{http://www.openarchives.org/OAI/2.0/}protocolVersionType"/>
- *         &lt;element name="adminEmail" type="{http://www.openarchives.org/OAI/2.0/}emailType" maxOccurs="unbounded"/>
- *         &lt;element name="earliestDatestamp" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType"/>
- *         &lt;element name="deletedRecord" type="{http://www.openarchives.org/OAI/2.0/}deletedRecordType"/>
- *         &lt;element name="granularity" type="{http://www.openarchives.org/OAI/2.0/}granularityType"/>
- *         &lt;element name="compression" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="description" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "IdentifyType", propOrder = {"repositoryName", "baseURL",
@@ -74,7 +74,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Gets the value of the repositoryName property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getRepositoryName() {
         return repositoryName;
@@ -83,7 +83,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Sets the value of the repositoryName property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setRepositoryName(String value) {
         this.repositoryName = value;
@@ -92,7 +92,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Gets the value of the baseURL property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getBaseURL() {
         return baseURL;
@@ -101,7 +101,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Sets the value of the baseURL property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setBaseURL(String value) {
         this.baseURL = value;
@@ -110,7 +110,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Gets the value of the protocolVersion property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getProtocolVersion() {
         return protocolVersion;
@@ -119,7 +119,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Sets the value of the protocolVersion property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setProtocolVersion(String value) {
         this.protocolVersion = value;
@@ -127,23 +127,23 @@ public class IdentifyType implements XMLWritable {
 
     /**
      * Gets the value of the adminEmail property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the adminEmail property.
-     * <p/>
-     * <p/>
+      method for the adminEmail property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getAdminEmail().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
-     * Objects of the following type(s) are allowed in the list {@link String }
+
+     *
+     *
+     *
+     * Objects of the following type(s) are allowed in the list ;
      */
     public List<String> getAdminEmail() {
         if (adminEmail == null) {
@@ -155,7 +155,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Gets the value of the earliestDatestamp property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public Date getEarliestDatestamp() {
         return earliestDatestamp;
@@ -164,7 +164,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Sets the value of the earliestDatestamp property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setEarliestDatestamp(Date value) {
         this.earliestDatestamp = value;
@@ -173,7 +173,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Gets the value of the deletedRecord property.
      *
-     * @return possible object is {@link DeletedRecordType }
+     * @return possible object is ;
      */
     public DeletedRecordType getDeletedRecord() {
         return deletedRecord;
@@ -182,7 +182,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Sets the value of the deletedRecord property.
      *
-     * @param value allowed object is {@link DeletedRecordType }
+     * @param value allowed object is ;
      */
     public void setDeletedRecord(DeletedRecordType value) {
         this.deletedRecord = value;
@@ -191,7 +191,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Gets the value of the granularity property.
      *
-     * @return possible object is {@link GranularityType }
+     * @return possible object is ;
      */
     public GranularityType getGranularity() {
         return granularity;
@@ -200,7 +200,7 @@ public class IdentifyType implements XMLWritable {
     /**
      * Sets the value of the granularity property.
      *
-     * @param value allowed object is {@link GranularityType }
+     * @param value allowed object is ;
      */
     public void setGranularity(GranularityType value) {
         this.granularity = value;
@@ -208,23 +208,23 @@ public class IdentifyType implements XMLWritable {
 
     /**
      * Gets the value of the compression property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the compression property.
-     * <p/>
-     * <p/>
+      method for the compression property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getCompression().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
-     * Objects of the following type(s) are allowed in the list {@link String }
+
+     *
+     *
+     *
+     * Objects of the following type(s) are allowed in the list ;
      */
     public List<String> getCompression() {
         if (compression == null) {
@@ -235,24 +235,24 @@ public class IdentifyType implements XMLWritable {
 
     /**
      * Gets the value of the description property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the description property.
-     * <p/>
-     * <p/>
+      method for the description property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getDescription().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
+
+     *
+     *
+     *
      * Objects of the following type(s) are allowed in the list
-     * {@link DescriptionType }
+     * ;
      */
     public List<DescriptionType> getDescription() {
         if (description == null) {
@@ -262,15 +262,15 @@ public class IdentifyType implements XMLWritable {
     }
 
 	/*
- *         &lt;element name="repositoryName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="baseURL" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
- *         &lt;element name="protocolVersion" type="{http://www.openarchives.org/OAI/2.0/}protocolVersionType"/>
- *         &lt;element name="adminEmail" type="{http://www.openarchives.org/OAI/2.0/}emailType" maxOccurs="unbounded"/>
- *         &lt;element name="earliestDatestamp" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType"/>
- *         &lt;element name="deletedRecord" type="{http://www.openarchives.org/OAI/2.0/}deletedRecordType"/>
- *         &lt;element name="granularity" type="{http://www.openarchives.org/OAI/2.0/}granularityType"/>
- *         &lt;element name="compression" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="description" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
+
+
+
+
+
+
+
+
+
 	 */
 
     @Override

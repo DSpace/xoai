@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class ConfigurationException extends Exception {
@@ -28,14 +28,14 @@ public class ConfigurationException extends Exception {
     private static final long serialVersionUID = -8207824896000568979L;
 
     /**
-     * Creates a new instance of <code>ConfigurationException</code> without
+      without
      * detail message.
      */
     public ConfigurationException() {
     }
 
     /**
-     * Constructs an instance of <code>ConfigurationException</code> with the
+      with the
      * specified detail message.
      *
      * @param msg the detail message.

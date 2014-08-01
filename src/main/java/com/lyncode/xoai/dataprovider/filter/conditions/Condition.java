@@ -19,7 +19,7 @@ package com.lyncode.xoai.dataprovider.filter.conditions;
 import com.lyncode.xoai.dataprovider.data.Filter;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public interface Condition {

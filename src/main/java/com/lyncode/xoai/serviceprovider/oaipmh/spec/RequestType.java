@@ -7,42 +7,36 @@
 
 package com.lyncode.xoai.serviceprovider.oaipmh.spec;
 
+import javax.xml.bind.annotation.*;
 import java.util.Date;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Define requestType, indicating the protocol request that led to the response.
  * Element content is BASE-URL, attributes are arguments of protocol request,
  * attribute-values are values of arguments of protocol request
  * 
- * <p>
+ *
  * Java class for requestType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="requestType">
- *   &lt;simpleContent>
- *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>anyURI">
- *       &lt;attribute name="verb" type="{http://www.openarchives.org/OAI/2.0/}verbType" />
- *       &lt;attribute name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType" />
- *       &lt;attribute name="metadataPrefix" type="{http://www.openarchives.org/OAI/2.0/}metadataPrefixType" />
- *       &lt;attribute name="from" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
- *       &lt;attribute name="until" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
- *       &lt;attribute name="set" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" />
- *       &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/extension>
- *   &lt;/simpleContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -71,7 +65,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the value property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getValue() {
@@ -82,7 +76,7 @@ public class RequestType {
 	 * Sets the value of the value property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setValue(String value) {
@@ -92,7 +86,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the verb property.
 	 * 
-	 * @return possible object is {@link VerbType }
+	 * @return possible object is ;
 	 * 
 	 */
 	public VerbType getVerb() {
@@ -103,7 +97,7 @@ public class RequestType {
 	 * Sets the value of the verb property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link VerbType }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setVerb(VerbType value) {
@@ -113,7 +107,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the identifier property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getIdentifier() {
@@ -124,7 +118,7 @@ public class RequestType {
 	 * Sets the value of the identifier property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setIdentifier(String value) {
@@ -134,7 +128,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the metadataPrefix property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getMetadataPrefix() {
@@ -145,7 +139,7 @@ public class RequestType {
 	 * Sets the value of the metadataPrefix property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setMetadataPrefix(String value) {
@@ -155,7 +149,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the from property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public Date getFrom() {
@@ -166,7 +160,7 @@ public class RequestType {
 	 * Sets the value of the from property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setFrom(Date value) {
@@ -176,7 +170,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the until property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public Date getUntil() {
@@ -187,7 +181,7 @@ public class RequestType {
 	 * Sets the value of the until property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setUntil(Date value) {
@@ -197,7 +191,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the set property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getSet() {
@@ -208,7 +202,7 @@ public class RequestType {
 	 * Sets the value of the set property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setSet(String value) {
@@ -218,7 +212,7 @@ public class RequestType {
 	/**
 	 * Gets the value of the resumptionToken property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getResumptionToken() {
@@ -229,7 +223,7 @@ public class RequestType {
 	 * Sets the value of the resumptionToken property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setResumptionToken(String value) {

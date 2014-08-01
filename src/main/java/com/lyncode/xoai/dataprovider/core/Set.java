@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class Set extends ReferenceSet {
@@ -38,7 +38,6 @@ public class Set extends ReferenceSet {
     /**
      * @param setSpec
      * @param setName
-     * @param xmldescription Marshable object
      */
     public Set(String setSpec, String setName, List<Metadata> descriptions) {
         this(setSpec, setName);

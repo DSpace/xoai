@@ -17,24 +17,24 @@ import javax.xml.bind.annotation.XmlValue;
  * setDescription element in ListSets. Content must be compliant with an XML
  * Schema defined by a community.
  * 
- * <p>
+ *
  * Java class for descriptionType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="descriptionType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;any namespace='##other'/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -48,7 +48,7 @@ public class DescriptionType {
 	/**
 	 * Gets the value of the any property.
 	 * 
-	 * @return possible object is {@link Object }
+	 * @return possible object is ;
 	 * 
 	 */
 	public Object getAny() {
@@ -59,7 +59,7 @@ public class DescriptionType {
 	 * Sets the value of the any property.
 	 * 
 	 * @param object
-	 *            allowed object is {@link Object }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setAny(Object object) {

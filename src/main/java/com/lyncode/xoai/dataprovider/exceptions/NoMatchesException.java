@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class NoMatchesException extends HandlerException {
@@ -28,14 +28,14 @@ public class NoMatchesException extends HandlerException {
     private static final long serialVersionUID = 7051492953854730413L;
 
     /**
-     * Creates a new instance of <code>NoMatchesException</code> without detail
+      without detail
      * message.
      */
     public NoMatchesException() {
     }
 
     /**
-     * Constructs an instance of <code>NoMatchesException</code> with the
+      with the
      * specified detail message.
      *
      * @param msg the detail message.

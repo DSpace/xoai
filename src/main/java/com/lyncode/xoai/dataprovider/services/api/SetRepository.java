@@ -48,7 +48,7 @@ public interface SetRepository {
      *
      * @param setSpec Set spec
      * @return Set exists
-     * @see <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html#Set">Set definition</a>
+
      */
     public boolean exists(String setSpec);
 }

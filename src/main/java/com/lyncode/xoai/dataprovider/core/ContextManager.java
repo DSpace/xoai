@@ -30,7 +30,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.ContextConfiguration;
 import java.util.*;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class ContextManager {

@@ -19,7 +19,7 @@ package com.lyncode.xoai.dataprovider.core;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.GranularityType;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public enum Granularity {

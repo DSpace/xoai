@@ -19,7 +19,7 @@ package com.lyncode.xoai.dataprovider.data.internal;
 import com.lyncode.xoai.dataprovider.transform.XSLTransformer;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class MetadataTransformer {

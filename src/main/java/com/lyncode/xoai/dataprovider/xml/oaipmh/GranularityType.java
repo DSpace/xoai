@@ -14,22 +14,22 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>
+ *
  * Java class for granularityType.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p>
+ *
  * 
- * <pre>
- * &lt;simpleType name="granularityType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="YYYY-MM-DD"/>
- *     &lt;enumeration value="YYYY-MM-DDThh:mm:ssZ"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
- * </pre>
+
+
+
+
+
+
+
+
  * 
  */
 @XmlType(name = "granularityType")

@@ -21,7 +21,7 @@ import com.lyncode.xoai.dataprovider.exceptions.BadArgumentException;
 import java.util.Date;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class ResumptionToken {

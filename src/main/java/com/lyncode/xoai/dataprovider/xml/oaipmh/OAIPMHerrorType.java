@@ -7,31 +7,30 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
- * <p/>
+ *
  * Java class for OAI-PMHerrorType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="OAI-PMHerrorType">
- *   &lt;simpleContent>
- *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *       &lt;attribute name="code" use="required" type="{http://www.openarchives.org/OAI/2.0/}OAI-PMHerrorcodeType" />
- *     &lt;/extension>
- *   &lt;/simpleContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OAI-PMHerrorType", propOrder = {"value"})
@@ -45,7 +44,7 @@ public class OAIPMHerrorType implements XMLWritable {
     /**
      * Gets the value of the value property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getValue() {
         return value;
@@ -54,7 +53,7 @@ public class OAIPMHerrorType implements XMLWritable {
     /**
      * Sets the value of the value property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setValue(String value) {
         this.value = value;
@@ -63,7 +62,7 @@ public class OAIPMHerrorType implements XMLWritable {
     /**
      * Gets the value of the code property.
      *
-     * @return possible object is {@link OAIPMHerrorcodeType }
+     * @return possible object is ;
      */
     public OAIPMHerrorcodeType getCode() {
         return code;
@@ -72,7 +71,7 @@ public class OAIPMHerrorType implements XMLWritable {
     /**
      * Sets the value of the code property.
      *
-     * @param value allowed object is {@link OAIPMHerrorcodeType }
+     * @param value allowed object is ;
      */
     public void setCode(OAIPMHerrorcodeType value) {
         this.code = value;

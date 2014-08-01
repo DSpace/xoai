@@ -7,8 +7,8 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,33 +16,32 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * A record has a header, a metadata part, and an optional about container
- * <p/>
- * <p/>
+ *
+ *
  * Java class for recordType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="recordType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="header" type="{http://www.openarchives.org/OAI/2.0/}headerType"/>
- *         &lt;element name="metadata" type="{http://www.openarchives.org/OAI/2.0/}metadataType" minOccurs="0"/>
- *         &lt;element name="about" type="{http://www.openarchives.org/OAI/2.0/}aboutType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "recordType", propOrder = {"header", "metadata", "about"})
@@ -56,7 +55,7 @@ public class RecordType implements XMLWritable {
     /**
      * Gets the value of the header property.
      *
-     * @return possible object is {@link HeaderType }
+     * @return possible object is ;
      */
     public HeaderType getHeader() {
         return header;
@@ -65,7 +64,7 @@ public class RecordType implements XMLWritable {
     /**
      * Sets the value of the header property.
      *
-     * @param value allowed object is {@link HeaderType }
+     * @param value allowed object is ;
      */
     public void setHeader(HeaderType value) {
         this.header = value;
@@ -74,7 +73,7 @@ public class RecordType implements XMLWritable {
     /**
      * Gets the value of the metadata property.
      *
-     * @return possible object is {@link MetadataType }
+     * @return possible object is ;
      */
     public MetadataType getMetadata() {
         return metadata;
@@ -83,7 +82,7 @@ public class RecordType implements XMLWritable {
     /**
      * Sets the value of the metadata property.
      *
-     * @param value allowed object is {@link MetadataType }
+     * @param value allowed object is ;
      */
     public void setMetadata(MetadataType value) {
         this.metadata = value;
@@ -91,24 +90,24 @@ public class RecordType implements XMLWritable {
 
     /**
      * Gets the value of the about property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the about property.
-     * <p/>
-     * <p/>
+      method for the about property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getAbout().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
+
+     *
+     *
+     *
      * Objects of the following type(s) are allowed in the list
-     * {@link AboutType }
+     * ;
      */
     public List<AboutType> getAbout() {
         if (about == null) {

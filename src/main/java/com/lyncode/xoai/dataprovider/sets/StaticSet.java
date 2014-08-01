@@ -20,7 +20,7 @@ import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class StaticSet extends Set {

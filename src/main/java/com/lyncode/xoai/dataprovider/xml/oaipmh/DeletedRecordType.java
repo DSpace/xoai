@@ -12,23 +12,23 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>
+ *
  * Java class for deletedRecordType.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p>
+ *
  * 
- * <pre>
- * &lt;simpleType name="deletedRecordType">
- *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *     &lt;enumeration value="no"/>
- *     &lt;enumeration value="persistent"/>
- *     &lt;enumeration value="transient"/>
- *   &lt;/restriction>
- * &lt;/simpleType>
- * </pre>
+
+
+
+
+
+
+
+
+
  * 
  */
 @XmlType(name = "deletedRecordType")

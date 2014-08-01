@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class (required extension) to identify the OAI interface.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public interface RepositoryConfiguration {

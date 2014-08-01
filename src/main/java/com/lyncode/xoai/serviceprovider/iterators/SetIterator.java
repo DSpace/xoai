@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 
 package com.lyncode.xoai.serviceprovider.iterators;
 
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.SetType;
-import com.lyncode.xoai.util.ProcessingQueue;
 import com.lyncode.xoai.serviceprovider.verbs.ListSets;
 import com.lyncode.xoai.serviceprovider.verbs.runners.RetrieveListSets;
+import com.lyncode.xoai.util.ProcessingQueue;
 
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class SetIterator {

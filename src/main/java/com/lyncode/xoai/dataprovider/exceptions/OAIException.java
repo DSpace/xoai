@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class OAIException extends Exception {
@@ -28,14 +28,14 @@ public class OAIException extends Exception {
     private static final long serialVersionUID = -3229816947775660398L;
 
     /**
-     * Creates a new instance of <code>OAIException</code> without detail
+      without detail
      * message.
      */
     public OAIException() {
     }
 
     /**
-     * Constructs an instance of <code>OAIException</code> with the specified
+      with the specified
      * detail message.
      *
      * @param msg the detail message.

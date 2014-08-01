@@ -13,24 +13,24 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * <p>
+ *
  * Java class for GetRecordType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="GetRecordType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="record" type="{http://www.openarchives.org/OAI/2.0/}recordType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -44,7 +44,7 @@ public class GetRecordType {
 	/**
 	 * Gets the value of the record property.
 	 * 
-	 * @return possible object is {@link RecordType }
+	 * @return possible object is ;
 	 * 
 	 */
 	public RecordType getRecord() {
@@ -55,7 +55,7 @@ public class GetRecordType {
 	 * Sets the value of the record property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link RecordType }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setRecord(RecordType value) {

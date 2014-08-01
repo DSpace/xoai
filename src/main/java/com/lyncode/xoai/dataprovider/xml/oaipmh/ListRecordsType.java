@@ -7,8 +7,8 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,30 +16,29 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p/>
+ *
  * Java class for ListRecordsType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="ListRecordsType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="record" type="{http://www.openarchives.org/OAI/2.0/}recordType" maxOccurs="unbounded"/>
- *         &lt;element name="resumptionToken" type="{http://www.openarchives.org/OAI/2.0/}resumptionTokenType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListRecordsType", propOrder = {"record", "resumptionToken"})
@@ -51,24 +50,24 @@ public class ListRecordsType implements XMLWritable {
 
     /**
      * Gets the value of the record property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the record property.
-     * <p/>
-     * <p/>
+      method for the record property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getRecord().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
+
+     *
+     *
+     *
      * Objects of the following type(s) are allowed in the list
-     * {@link RecordType }
+     * ;
      */
     public List<RecordType> getRecord() {
         if (record == null) {
@@ -80,7 +79,7 @@ public class ListRecordsType implements XMLWritable {
     /**
      * Gets the value of the resumptionToken property.
      *
-     * @return possible object is {@link ResumptionTokenType }
+     * @return possible object is ;
      */
     public ResumptionTokenType getResumptionToken() {
         return resumptionToken;
@@ -89,7 +88,7 @@ public class ListRecordsType implements XMLWritable {
     /**
      * Sets the value of the resumptionToken property.
      *
-     * @param value allowed object is {@link ResumptionTokenType }
+     * @param value allowed object is ;
      */
     public void setResumptionToken(ResumptionTokenType value) {
         this.resumptionToken = value;
@@ -97,8 +96,8 @@ public class ListRecordsType implements XMLWritable {
 
 	/*
      *
- *         &lt;element name="record" type="{http://www.openarchives.org/OAI/2.0/}recordType" maxOccurs="unbounded"/>
- *         &lt;element name="resumptionToken" type="{http://www.openarchives.org/OAI/2.0/}resumptionTokenType" minOccurs="0"/>
+
+
  *         
 	 */
 

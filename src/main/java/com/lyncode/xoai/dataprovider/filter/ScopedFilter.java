@@ -19,7 +19,7 @@ package com.lyncode.xoai.dataprovider.filter;
 import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public final class ScopedFilter {

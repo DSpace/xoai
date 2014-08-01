@@ -16,34 +16,34 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p/>
+ *
  * Java class for OAI-PMHtype complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="OAI-PMHtype">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="responseDate" type="{http://www.w3.org/2001/XMLSchema}dateTime"/>
- *         &lt;element name="request" type="{http://www.openarchives.org/OAI/2.0/}requestType"/>
- *         &lt;choice>
- *           &lt;element name="error" type="{http://www.openarchives.org/OAI/2.0/}OAI-PMHerrorType" maxOccurs="unbounded"/>
- *           &lt;element name="Identify" type="{http://www.openarchives.org/OAI/2.0/}IdentifyType"/>
- *           &lt;element name="ListMetadataFormats" type="{http://www.openarchives.org/OAI/2.0/}ListMetadataFormatsType"/>
- *           &lt;element name="ListSets" type="{http://www.openarchives.org/OAI/2.0/}ListSetsType"/>
- *           &lt;element name="GetRecord" type="{http://www.openarchives.org/OAI/2.0/}GetRecordType"/>
- *           &lt;element name="ListIdentifiers" type="{http://www.openarchives.org/OAI/2.0/}ListIdentifiersType"/>
- *           &lt;element name="ListRecords" type="{http://www.openarchives.org/OAI/2.0/}ListRecordsType"/>
- *         &lt;/choice>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "OAI-PMHtype", propOrder = {"responseDate", "request",
@@ -72,7 +72,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the responseDate property.
      *
-     * @return possible object is {@link XMLGregorianCalendar }
+     * @return possible object is
      */
     public Date getResponseDate() {
         return responseDate;
@@ -81,7 +81,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the responseDate property.
      *
-     * @param value allowed object is {@link XMLGregorianCalendar }
+     * @param value allowed object is
      */
     public void setResponseDate(Date value) {
         this.responseDate = value;
@@ -90,7 +90,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the request property.
      *
-     * @return possible object is {@link RequestType }
+     * @return possible object is ;
      */
     public RequestType getRequest() {
         return request;
@@ -99,7 +99,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the request property.
      *
-     * @param value allowed object is {@link RequestType }
+     * @param value allowed object is ;
      */
     public void setRequest(RequestType value) {
         this.request = value;
@@ -107,24 +107,24 @@ public class OAIPMHtype {
 
     /**
      * Gets the value of the error property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the error property.
-     * <p/>
-     * <p/>
+      method for the error property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getError().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
+
+     *
+     *
+     *
      * Objects of the following type(s) are allowed in the list
-     * {@link OAIPMHerrorType }
+     * ;
      */
     public List<OAIPMHerrorType> getError() {
         if (error == null) {
@@ -136,7 +136,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the identify property.
      *
-     * @return possible object is {@link IdentifyType }
+     * @return possible object is ;
      */
     public IdentifyType getIdentify() {
         return identify;
@@ -145,7 +145,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the identify property.
      *
-     * @param value allowed object is {@link IdentifyType }
+     * @param value allowed object is ;
      */
     public void setIdentify(IdentifyType value) {
         this.identify = value;
@@ -154,7 +154,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the listMetadataFormats property.
      *
-     * @return possible object is {@link ListMetadataFormatsType }
+     * @return possible object is ;
      */
     public ListMetadataFormatsType getListMetadataFormats() {
         return listMetadataFormats;
@@ -163,7 +163,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the listMetadataFormats property.
      *
-     * @param value allowed object is {@link ListMetadataFormatsType }
+     * @param value allowed object is ;
      */
     public void setListMetadataFormats(ListMetadataFormatsType value) {
         this.listMetadataFormats = value;
@@ -172,7 +172,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the listSets property.
      *
-     * @return possible object is {@link ListSetsType }
+     * @return possible object is ;
      */
     public ListSetsType getListSets() {
         return listSets;
@@ -181,7 +181,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the listSets property.
      *
-     * @param value allowed object is {@link ListSetsType }
+     * @param value allowed object is ;
      */
     public void setListSets(ListSetsType value) {
         this.listSets = value;
@@ -190,7 +190,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the getRecord property.
      *
-     * @return possible object is {@link GetRecordType }
+     * @return possible object is ;
      */
     public GetRecordType getGetRecord() {
         return getRecord;
@@ -199,7 +199,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the getRecord property.
      *
-     * @param value allowed object is {@link GetRecordType }
+     * @param value allowed object is ;
      */
     public void setGetRecord(GetRecordType value) {
         this.getRecord = value;
@@ -208,7 +208,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the listIdentifiers property.
      *
-     * @return possible object is {@link ListIdentifiersType }
+     * @return possible object is ;
      */
     public ListIdentifiersType getListIdentifiers() {
         return listIdentifiers;
@@ -217,7 +217,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the listIdentifiers property.
      *
-     * @param value allowed object is {@link ListIdentifiersType }
+     * @param value allowed object is ;
      */
     public void setListIdentifiers(ListIdentifiersType value) {
         this.listIdentifiers = value;
@@ -226,7 +226,7 @@ public class OAIPMHtype {
     /**
      * Gets the value of the listRecords property.
      *
-     * @return possible object is {@link ListRecordsType }
+     * @return possible object is ;
      */
     public ListRecordsType getListRecords() {
         return listRecords;
@@ -235,7 +235,7 @@ public class OAIPMHtype {
     /**
      * Sets the value of the listRecords property.
      *
-     * @param value allowed object is {@link ListRecordsType }
+     * @param value allowed object is ;
      */
     public void setListRecords(ListRecordsType value) {
         this.listRecords = value;

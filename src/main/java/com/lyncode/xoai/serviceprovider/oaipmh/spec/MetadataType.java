@@ -16,24 +16,24 @@ import javax.xml.bind.annotation.XmlValue;
  * Metadata must be expressed in XML that complies with another XML Schema
  * (namespace=#other). Metadata must be explicitly qualified in the response.
  * 
- * <p>
+ *
  * Java class for metadataType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="metadataType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;any namespace='##other'/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -47,7 +47,7 @@ public class MetadataType {
 	/**
 	 * Gets the value of the any property.
 	 * 
-	 * @return possible object is {@link Object }
+	 * @return possible object is ;
 	 * 
 	 */
 	public Object getAny() {
@@ -58,7 +58,7 @@ public class MetadataType {
 	 * Sets the value of the any property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link Object }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setAny(Object value) {

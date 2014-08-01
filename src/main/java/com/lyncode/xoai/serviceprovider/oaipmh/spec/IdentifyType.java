@@ -7,43 +7,38 @@
 
 package com.lyncode.xoai.serviceprovider.oaipmh.spec;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-
 /**
- * <p>
+ *
  * Java class for IdentifyType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="IdentifyType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="repositoryName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="baseURL" type="{http://www.w3.org/2001/XMLSchema}anyURI"/>
- *         &lt;element name="protocolVersion" type="{http://www.openarchives.org/OAI/2.0/}protocolVersionType"/>
- *         &lt;element name="adminEmail" type="{http://www.openarchives.org/OAI/2.0/}emailType" maxOccurs="unbounded"/>
- *         &lt;element name="earliestDatestamp" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType"/>
- *         &lt;element name="deletedRecord" type="{http://www.openarchives.org/OAI/2.0/}deletedRecordType"/>
- *         &lt;element name="granularity" type="{http://www.openarchives.org/OAI/2.0/}granularityType"/>
- *         &lt;element name="compression" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
- *         &lt;element name="description" type="{http://www.openarchives.org/OAI/2.0/}descriptionType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -74,7 +69,7 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the repositoryName property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getRepositoryName() {
@@ -85,7 +80,7 @@ public class IdentifyType {
 	 * Sets the value of the repositoryName property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setRepositoryName(String value) {
@@ -95,7 +90,7 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the baseURL property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getBaseURL() {
@@ -106,7 +101,7 @@ public class IdentifyType {
 	 * Sets the value of the baseURL property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setBaseURL(String value) {
@@ -116,7 +111,7 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the protocolVersion property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getProtocolVersion() {
@@ -127,7 +122,7 @@ public class IdentifyType {
 	 * Sets the value of the protocolVersion property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setProtocolVersion(String value) {
@@ -137,22 +132,22 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the adminEmail property.
 	 * 
-	 * <p>
+	 *
 	 * This accessor method returns a reference to the live list, not a
 	 * snapshot. Therefore any modification you make to the returned list will
 	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the adminEmail property.
+	  method for the adminEmail property.
 	 * 
-	 * <p>
+	 *
 	 * For example, to add a new item, do as follows:
 	 * 
-	 * <pre>
+
 	 * getAdminEmail().add(newItem);
-	 * </pre>
+
 	 * 
 	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link String }
+	 *
+	 * Objects of the following type(s) are allowed in the list ;
 	 * 
 	 * 
 	 */
@@ -166,7 +161,7 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the earliestDatestamp property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public Date getEarliestDatestamp() {
@@ -177,7 +172,7 @@ public class IdentifyType {
 	 * Sets the value of the earliestDatestamp property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setEarliestDatestamp(Date value) {
@@ -187,7 +182,7 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the deletedRecord property.
 	 * 
-	 * @return possible object is {@link DeletedRecordType }
+	 * @return possible object is ;
 	 * 
 	 */
 	public DeletedRecordType getDeletedRecord() {
@@ -198,7 +193,7 @@ public class IdentifyType {
 	 * Sets the value of the deletedRecord property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link DeletedRecordType }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setDeletedRecord(DeletedRecordType value) {
@@ -208,7 +203,7 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the granularity property.
 	 * 
-	 * @return possible object is {@link GranularityType }
+	 * @return possible object is ;
 	 * 
 	 */
 	public GranularityType getGranularity() {
@@ -219,7 +214,7 @@ public class IdentifyType {
 	 * Sets the value of the granularity property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link GranularityType }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setGranularity(GranularityType value) {
@@ -229,22 +224,22 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the compression property.
 	 * 
-	 * <p>
+	 *
 	 * This accessor method returns a reference to the live list, not a
 	 * snapshot. Therefore any modification you make to the returned list will
 	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the compression property.
+	  method for the compression property.
 	 * 
-	 * <p>
+	 *
 	 * For example, to add a new item, do as follows:
 	 * 
-	 * <pre>
+
 	 * getCompression().add(newItem);
-	 * </pre>
+
 	 * 
 	 * 
-	 * <p>
-	 * Objects of the following type(s) are allowed in the list {@link String }
+	 *
+	 * Objects of the following type(s) are allowed in the list ;
 	 * 
 	 * 
 	 */
@@ -258,23 +253,23 @@ public class IdentifyType {
 	/**
 	 * Gets the value of the description property.
 	 * 
-	 * <p>
+	 *
 	 * This accessor method returns a reference to the live list, not a
 	 * snapshot. Therefore any modification you make to the returned list will
 	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the description property.
+	  method for the description property.
 	 * 
-	 * <p>
+	 *
 	 * For example, to add a new item, do as follows:
 	 * 
-	 * <pre>
+
 	 * getDescription().add(newItem);
-	 * </pre>
+
 	 * 
 	 * 
-	 * <p>
+	 *
 	 * Objects of the following type(s) are allowed in the list
-	 * {@link DescriptionType }
+	 * ;
 	 * 
 	 * 
 	 */

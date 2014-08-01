@@ -26,7 +26,7 @@ import com.lyncode.xoai.dataprovider.transform.TransformManager;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.Configuration;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class XOAIManager {

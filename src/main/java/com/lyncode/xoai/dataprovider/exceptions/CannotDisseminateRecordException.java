@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class CannotDisseminateRecordException extends HandlerException {
@@ -28,14 +28,14 @@ public class CannotDisseminateRecordException extends HandlerException {
     private static final long serialVersionUID = -7121029109566433474L;
 
     /**
-     * Creates a new instance of <code>CannotDisseminateRecordException</code>
+
      * without detail message.
      */
     public CannotDisseminateRecordException() {
     }
 
     /**
-     * Constructs an instance of <code>CannotDisseminateRecordException</code>
+
      * with the specified detail message.
      *
      * @param msg the detail message.

@@ -16,7 +16,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author "João Melo <jmelo@lyncode.com>"
+ "
  */
 public class UnknownParameterException extends HandlerException {
     private static final long serialVersionUID = -813886035789840394L;

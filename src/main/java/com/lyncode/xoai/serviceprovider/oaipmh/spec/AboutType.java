@@ -16,24 +16,24 @@ import javax.xml.bind.annotation.XmlValue;
  * Data "about" the record must be expressed in XML that is compliant with an
  * XML Schema defined by a community.
  * 
- * <p>
+ *
  * Java class for aboutType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="aboutType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;any namespace='##other'/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -47,7 +47,7 @@ public class AboutType {
 	/**
 	 * Gets the value of the any property.
 	 * 
-	 * @return possible object is {@link Object }
+	 * @return possible object is ;
 	 * 
 	 */
 	public Object getAny() {
@@ -58,7 +58,7 @@ public class AboutType {
 	 * Sets the value of the any property.
 	 * 
 	 * @param object
-	 *            allowed object is {@link Object }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setAny(Object object) {

@@ -22,7 +22,7 @@ import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 import javax.xml.transform.Transformer;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class MetadataFormat {

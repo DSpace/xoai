@@ -7,37 +7,36 @@
 
 package com.lyncode.xoai.serviceprovider.oaipmh.spec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A record has a header, a metadata part, and an optional about container
  * 
- * <p>
+ *
  * Java class for recordType complex type.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;complexType name="recordType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="header" type="{http://www.openarchives.org/OAI/2.0/}headerType"/>
- *         &lt;element name="metadata" type="{http://www.openarchives.org/OAI/2.0/}metadataType" minOccurs="0"/>
- *         &lt;element name="about" type="{http://www.openarchives.org/OAI/2.0/}aboutType" maxOccurs="unbounded" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -53,7 +52,7 @@ public class RecordType {
 	/**
 	 * Gets the value of the header property.
 	 * 
-	 * @return possible object is {@link HeaderType }
+	 * @return possible object is ;
 	 * 
 	 */
 	public HeaderType getHeader() {
@@ -64,7 +63,7 @@ public class RecordType {
 	 * Sets the value of the header property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link HeaderType }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setHeader(HeaderType value) {
@@ -74,7 +73,7 @@ public class RecordType {
 	/**
 	 * Gets the value of the metadata property.
 	 * 
-	 * @return possible object is {@link MetadataType }
+	 * @return possible object is ;
 	 * 
 	 */
 	public MetadataType getMetadata() {
@@ -85,7 +84,7 @@ public class RecordType {
 	 * Sets the value of the metadata property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link MetadataType }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setMetadata(MetadataType value) {
@@ -95,23 +94,23 @@ public class RecordType {
 	/**
 	 * Gets the value of the about property.
 	 * 
-	 * <p>
+	 *
 	 * This accessor method returns a reference to the live list, not a
 	 * snapshot. Therefore any modification you make to the returned list will
 	 * be present inside the JAXB object. This is why there is not a
-	 * <CODE>set</CODE> method for the about property.
+	  method for the about property.
 	 * 
-	 * <p>
+	 *
 	 * For example, to add a new item, do as follows:
 	 * 
-	 * <pre>
+
 	 * getAbout().add(newItem);
-	 * </pre>
+
 	 * 
 	 * 
-	 * <p>
+	 *
 	 * Objects of the following type(s) are allowed in the list
-	 * {@link AboutType }
+	 * ;
 	 * 
 	 * 
 	 */

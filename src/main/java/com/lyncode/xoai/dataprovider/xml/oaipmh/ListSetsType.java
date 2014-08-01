@@ -20,25 +20,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p/>
+ *
  * Java class for ListSetsType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="ListSetsType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="set" type="{http://www.openarchives.org/OAI/2.0/}setType" maxOccurs="unbounded"/>
- *         &lt;element name="resumptionToken" type="{http://www.openarchives.org/OAI/2.0/}resumptionTokenType" minOccurs="0"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ListSetsType", propOrder = {"set", "resumptionToken"})
@@ -50,23 +50,23 @@ public class ListSetsType implements XMLWritable {
 
     /**
      * Gets the value of the set property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the set property.
-     * <p/>
-     * <p/>
+      method for the set property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getSets().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
-     * Objects of the following type(s) are allowed in the list {@link SetType }
+
+     *
+     *
+     *
+     * Objects of the following type(s) are allowed in the list ;
      */
     public List<SetType> getSet() {
         if (set == null) {
@@ -78,7 +78,7 @@ public class ListSetsType implements XMLWritable {
     /**
      * Gets the value of the resumptionToken property.
      *
-     * @return possible object is {@link ResumptionTokenType }
+     * @return possible object is ;
      */
     public ResumptionTokenType getResumptionToken() {
         return resumptionToken;
@@ -87,7 +87,7 @@ public class ListSetsType implements XMLWritable {
     /**
      * Sets the value of the resumptionToken property.
      *
-     * @param value allowed object is {@link ResumptionTokenType }
+     * @param value allowed object is ;
      */
     public void setResumptionToken(ResumptionTokenType value) {
         this.resumptionToken = value;

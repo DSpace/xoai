@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class DoesNotSupportSetsException extends HandlerException {
@@ -28,14 +28,14 @@ public class DoesNotSupportSetsException extends HandlerException {
     private static final long serialVersionUID = -7008970964208110045L;
 
     /**
-     * Creates a new instance of <code>DoesNotSupportSetsException</code>
+
      * without detail message.
      */
     public DoesNotSupportSetsException() {
     }
 
     /**
-     * Constructs an instance of <code>DoesNotSupportSetsException</code> with
+      with
      * the specified detail message.
      *
      * @param msg the detail message.

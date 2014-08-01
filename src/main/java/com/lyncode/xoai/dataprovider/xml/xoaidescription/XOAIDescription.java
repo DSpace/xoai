@@ -7,32 +7,27 @@
 
 package com.lyncode.xoai.dataprovider.xml.xoaidescription;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.*;
 
 /**
- * <p>
+ *
  * Java class for XOAIDescription element declaration.
  * 
- * <p>
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
  * 
- * <pre>
- * &lt;element name="XOAIDescription">
- *   &lt;complexType>
- *     &lt;simpleContent>
- *       &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
- *         &lt;attribute name="type" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;/extension>
- *     &lt;/simpleContent>
- *   &lt;/complexType>
- * &lt;/element>
- * </pre>
+
+
+
+
+
+
+
+
+
+
+
  * 
  * 
  */
@@ -49,7 +44,7 @@ public class XOAIDescription {
 	/**
 	 * Gets the value of the value property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getValue() {
@@ -60,7 +55,7 @@ public class XOAIDescription {
 	 * Sets the value of the value property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setValue(String value) {
@@ -70,7 +65,7 @@ public class XOAIDescription {
 	/**
 	 * Gets the value of the type property.
 	 * 
-	 * @return possible object is {@link String }
+	 * @return possible object is ;
 	 * 
 	 */
 	public String getType() {
@@ -81,7 +76,7 @@ public class XOAIDescription {
 	 * Sets the value of the type property.
 	 * 
 	 * @param value
-	 *            allowed object is {@link String }
+	 *            allowed object is ;
 	 * 
 	 */
 	public void setType(String value) {

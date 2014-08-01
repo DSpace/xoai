@@ -24,24 +24,24 @@ import java.util.List;
 import static com.lyncode.xoai.util.XmlIOUtils.writeElement;
 
 /**
- * <p/>
+ *
  * Java class for anonymous complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element name="element" type="{http://www.lyncode.com/xoai}Element" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {"element"})
@@ -56,23 +56,23 @@ public class Metadata implements XMLWritable {
 
     /**
      * Gets the value of the element property.
-     * <p/>
-     * <p/>
+     *
+     *
      * This accessor method returns a reference to the live list, not a
      * snapshot. Therefore any modification you make to the returned list will
      * be present inside the JAXB object. This is why there is not a
-     * <CODE>set</CODE> method for the element property.
-     * <p/>
-     * <p/>
+      method for the element property.
+     *
+     *
      * For example, to add a new item, do as follows:
-     * <p/>
-     * <pre>
+     *
+
      * getElement().add(newItem);
-     * </pre>
-     * <p/>
-     * <p/>
-     * <p/>
-     * Objects of the following type(s) are allowed in the list {@link Element }
+
+     *
+     *
+     *
+     * Objects of the following type(s) are allowed in the list ;
      */
     public List<Element> getElement() {
         if (element == null) {

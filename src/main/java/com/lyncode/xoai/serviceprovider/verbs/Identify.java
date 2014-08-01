@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 
@@ -22,11 +22,11 @@ package com.lyncode.xoai.serviceprovider.verbs;
 import com.lyncode.xoai.serviceprovider.OAIServiceConfiguration;
 import com.lyncode.xoai.serviceprovider.core.Parameters;
 import com.lyncode.xoai.serviceprovider.exceptions.BadArgumentException;
-import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 import com.lyncode.xoai.serviceprovider.exceptions.InternalHarvestException;
 import com.lyncode.xoai.serviceprovider.exceptions.ParseException;
 import com.lyncode.xoai.serviceprovider.oaipmh.OAIPMHParser;
 import com.lyncode.xoai.serviceprovider.oaipmh.spec.IdentifyType;
+import com.lyncode.xoai.serviceprovider.oaipmh.spec.OAIPMHtype;
 import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
@@ -43,7 +43,7 @@ import java.io.InputStream;
 
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class Identify extends AbstractVerb {

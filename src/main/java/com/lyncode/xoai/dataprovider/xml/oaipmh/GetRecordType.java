@@ -7,8 +7,8 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -16,27 +16,26 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
- * <p/>
+ *
  * Java class for GetRecordType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="GetRecordType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="record" type="{http://www.openarchives.org/OAI/2.0/}recordType"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GetRecordType", propOrder = {"record"})
@@ -48,7 +47,7 @@ public class GetRecordType implements XMLWritable {
     /**
      * Gets the value of the record property.
      *
-     * @return possible object is {@link RecordType }
+     * @return possible object is ;
      */
     public RecordType getRecord() {
         return record;
@@ -57,7 +56,7 @@ public class GetRecordType implements XMLWritable {
     /**
      * Sets the value of the record property.
      *
-     * @param value allowed object is {@link RecordType }
+     * @param value allowed object is ;
      */
     public void setRecord(RecordType value) {
         this.record = value;

@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class BadResumptionToken extends HandlerException {
@@ -28,14 +28,14 @@ public class BadResumptionToken extends HandlerException {
     private static final long serialVersionUID = -3155813328644172294L;
 
     /**
-     * Creates a new instance of <code>BadResumptionToken</code> without detail
+      without detail
      * message.
      */
     public BadResumptionToken() {
     }
 
     /**
-     * Constructs an instance of <code>BadResumptionToken</code> with the
+      with the
      * specified detail message.
      *
      * @param msg the detail message.

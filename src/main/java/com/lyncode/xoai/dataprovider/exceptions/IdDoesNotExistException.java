@@ -17,7 +17,7 @@
 package com.lyncode.xoai.dataprovider.exceptions;
 
 /**
- * @author Development @ Lyncode <development@lyncode.com>
+
  * @version 3.1.0
  */
 public class IdDoesNotExistException extends HandlerException {
@@ -28,14 +28,14 @@ public class IdDoesNotExistException extends HandlerException {
     private static final long serialVersionUID = -657866486396669641L;
 
     /**
-     * Creates a new instance of <code>IdDoesNotExistException</code> without
+      without
      * detail message.
      */
     public IdDoesNotExistException() {
     }
 
     /**
-     * Constructs an instance of <code>IdDoesNotExistException</code> with the
+      with the
      * specified detail message.
      *
      * @param msg the detail message.

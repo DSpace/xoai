@@ -7,39 +7,38 @@
 
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
 import com.lyncode.xoai.dataprovider.xml.EchoElement;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
  * Data "about" the record must be expressed in XML that is compliant with an
  * XML Schema defined by a community.
- * <p/>
- * <p/>
+ *
+ *
  * Java class for aboutType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="aboutType">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;any namespace='##other'/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "aboutType")
@@ -51,7 +50,7 @@ public class AboutType implements XMLWritable {
     /**
      * Gets the value of the any property.
      *
-     * @return possible object is {@link Object }
+     * @return possible object is ;
      */
     public String getAny() {
         return value;
@@ -60,7 +59,7 @@ public class AboutType implements XMLWritable {
     /**
      * Sets the value of the any property.
      *
-     * @param value allowed object is {@link Object }
+     * @param value allowed object is ;
      */
     public void setAny(String value) {
         this.value = value;

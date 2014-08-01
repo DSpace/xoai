@@ -8,42 +8,41 @@
 package com.lyncode.xoai.dataprovider.xml.oaipmh;
 
 
-import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.exceptions.WritingXmlException;
+import com.lyncode.xoai.dataprovider.xml.XMLWritable;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 import java.util.Date;
 
 /**
  * Define requestType, indicating the protocol request that led to the response.
  * Element content is BASE-URL, attributes are arguments of protocol request,
  * attribute-values are values of arguments of protocol request
- * <p/>
- * <p/>
+ *
+ *
  * Java class for requestType complex type.
- * <p/>
- * <p/>
+ *
+ *
  * The following schema fragment specifies the expected content contained within
  * this class.
- * <p/>
- * <pre>
- * &lt;complexType name="requestType">
- *   &lt;simpleContent>
- *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>anyURI">
- *       &lt;attribute name="verb" type="{http://www.openarchives.org/OAI/2.0/}verbType" />
- *       &lt;attribute name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType" />
- *       &lt;attribute name="metadataPrefix" type="{http://www.openarchives.org/OAI/2.0/}metadataPrefixType" />
- *       &lt;attribute name="from" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
- *       &lt;attribute name="until" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
- *       &lt;attribute name="set" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" />
- *       &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/extension>
- *   &lt;/simpleContent>
- * &lt;/complexType>
- * </pre>
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "requestType", propOrder = {"value"})
@@ -70,7 +69,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the value property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getValue() {
         return value;
@@ -79,7 +78,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the value property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setValue(String value) {
         this.value = value;
@@ -88,7 +87,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the verb property.
      *
-     * @return possible object is {@link VerbType }
+     * @return possible object is ;
      */
     public VerbType getVerb() {
         return verb;
@@ -97,7 +96,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the verb property.
      *
-     * @param value allowed object is {@link VerbType }
+     * @param value allowed object is ;
      */
     public void setVerb(VerbType value) {
         this.verb = value;
@@ -106,7 +105,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the identifier property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getIdentifier() {
         return identifier;
@@ -115,7 +114,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the identifier property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setIdentifier(String value) {
         this.identifier = value;
@@ -124,7 +123,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the metadataPrefix property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getMetadataPrefix() {
         return metadataPrefix;
@@ -133,7 +132,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the metadataPrefix property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setMetadataPrefix(String value) {
         this.metadataPrefix = value;
@@ -142,7 +141,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the from property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public Date getFrom() {
         return from;
@@ -151,7 +150,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the from property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setFrom(Date value) {
         this.from = value;
@@ -160,7 +159,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the until property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public Date getUntil() {
         return until;
@@ -169,7 +168,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the until property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setUntil(Date value) {
         this.until = value;
@@ -178,7 +177,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the set property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getSet() {
         return set;
@@ -187,7 +186,7 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the set property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setSet(String value) {
         this.set = value;
@@ -196,7 +195,7 @@ public class RequestType implements XMLWritable {
     /**
      * Gets the value of the resumptionToken property.
      *
-     * @return possible object is {@link String }
+     * @return possible object is ;
      */
     public String getResumptionToken() {
         return resumptionToken;
@@ -205,20 +204,20 @@ public class RequestType implements XMLWritable {
     /**
      * Sets the value of the resumptionToken property.
      *
-     * @param value allowed object is {@link String }
+     * @param value allowed object is ;
      */
     public void setResumptionToken(String value) {
         this.resumptionToken = value;
     }
 
     /**
-     * &lt;attribute name="verb" type="{http://www.openarchives.org/OAI/2.0/}verbType" />
-     * &lt;attribute name="identifier" type="{http://www.openarchives.org/OAI/2.0/}identifierType" />
-     * &lt;attribute name="metadataPrefix" type="{http://www.openarchives.org/OAI/2.0/}metadataPrefixType" />
-     * &lt;attribute name="from" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
-     * &lt;attribute name="until" type="{http://www.openarchives.org/OAI/2.0/}UTCdatetimeType" />
-     * &lt;attribute name="set" type="{http://www.openarchives.org/OAI/2.0/}setSpecType" />
-     * &lt;attribute name="resumptionToken" type="{http://www.w3.org/2001/XMLSchema}string" />
+
+
+
+
+
+
+
      */
     @Override
     public void write(XmlOutputContext context) throws WritingXmlException {
