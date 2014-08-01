@@ -16,6 +16,24 @@
 
 package com.lyncode.xoai.serviceprovider.handler;
 
+import static com.lyncode.xml.matchers.QNameMatchers.localPart;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
+import static com.lyncode.xoai.model.oaipmh.Verb.Type.ListSets;
+import static com.lyncode.xoai.serviceprovider.parameters.Parameters.parameters;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.AllOf.allOf;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.events.XMLEvent;
+
+import org.hamcrest.Matcher;
+
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import com.lyncode.xoai.model.oaipmh.Set;
@@ -25,19 +43,6 @@ import com.lyncode.xoai.serviceprovider.exceptions.OAIRequestException;
 import com.lyncode.xoai.serviceprovider.lazy.Source;
 import com.lyncode.xoai.serviceprovider.model.Context;
 import com.lyncode.xoai.serviceprovider.parsers.ListSetsParser;
-import org.hamcrest.Matcher;
-
-import javax.xml.stream.events.XMLEvent;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static com.lyncode.xoai.model.oaipmh.Verb.Type.ListSets;
-import static com.lyncode.xoai.serviceprovider.parameters.Parameters.parameters;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class ListSetsHandler implements Source<Set> {
     private Context context;
@@ -66,8 +71,7 @@ public class ListSetsHandler implements Source<Set> {
 
             XmlReader reader = new XmlReader(stream);
             ListSetsParser parser = new ListSetsParser(reader);
-            while (parser.hasNext())
-                sets.add(parser.next());
+            sets = parser.parse();
 
             if (reader.current(resumptionToken())) {
                 if (reader.next(text(), anEndElement()).current(text())) {

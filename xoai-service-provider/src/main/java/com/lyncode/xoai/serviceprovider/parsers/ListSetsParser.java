@@ -18,6 +18,7 @@ package com.lyncode.xoai.serviceprovider.parsers;
 
 import static com.lyncode.xml.matchers.QNameMatchers.localPart;
 import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
 import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
 import static com.lyncode.xml.matchers.XmlEventMatchers.text;
 import static com.lyncode.xml.matchers.XmlEventMatchers.theEndOfDocument;
@@ -25,6 +26,9 @@ import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_RECORDS_MATCH;
 import static com.lyncode.xoai.model.oaipmh.Error.Code.NO_SET_HIERARCHY;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.events.XMLEvent;
@@ -83,11 +87,14 @@ public class ListSetsParser {
         	reader.next(aStartElement());
             QName elementName = reader.getName();
             reader.next(text());
-            
+            String extractedText = reader.getText();
+            while(reader.next(anEndElement(),text()).current(text())){
+            	extractedText += reader.getText();
+            }
             if(elementName.getLocalPart().equals("setName")) {
-            	setName = reader.getText();
+            	setName = extractedText;
             } else if(elementName.getLocalPart().equals("setSpec")) {
-            	setSpec = reader.getText();
+            	setSpec = extractedText;
             }
         }
         set.withName(setName);
@@ -103,4 +110,19 @@ public class ListSetsParser {
     private Matcher<XMLEvent> setElement() {
         return allOf(aStartElement(), elementName(localPart(equalTo("set"))));
     }
+    private Matcher<XMLEvent> endSetElement() {
+        return allOf(anEndElement(), elementName(localPart(equalTo("set"))));
+    }
+
+	/**
+	 * Parses its xml completely
+	 * @return - All sets within the xml
+	 * @throws XmlReaderException
+	 */
+	public List<Set> parse() throws XmlReaderException {
+		List<Set> sets = new ArrayList<Set>();
+		while (hasNext())
+            sets.add(next());
+		return sets;
+	}
 }
