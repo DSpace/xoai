@@ -22,7 +22,7 @@ public class ContextConfigurationParser extends Parser<ContextConfiguration> {
             }
 
             if (reader.elementNameIs("Filter")) {
-                configuration.withFilter(reader.getAttribute("red"));
+                configuration.withFilter(reader.getAttribute("ref"));
                 reader.proceedToTheNextStartElement();
             }
 
