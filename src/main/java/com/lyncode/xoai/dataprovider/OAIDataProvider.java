@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
-
+ * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 
@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-
+ * @author Development @ Lyncode <development@lyncode.com>
  * @version 3.1.0
  */
 public class OAIDataProvider {
@@ -178,9 +178,9 @@ public class OAIDataProvider {
                 request.setIdentifier(parameters.getIdentifier());
             if (params.getFrom() != null)
                 try {
-                    request.setFrom(formatter.parse(params.getFrom(), repositoryConfiguration.getGranularity()));
+                    request.setFrom(formatter.parse(params.getFrom()));
                 } catch (java.text.ParseException e) {
-                    throw new BadArgumentException("Invalid date given in until parameter");
+                    throw new BadArgumentException("Invalid date given in from parameter");
                 }
             if (params.getMetadataPrefix() != null)
                 request.setMetadataPrefix(params.getMetadataPrefix());
@@ -188,7 +188,7 @@ public class OAIDataProvider {
                 request.setSet(params.getSet());
             if (params.getUntil() != null)
                 try {
-                    request.setUntil(formatter.parse(params.getUntil(), repositoryConfiguration.getGranularity()));
+                    request.setUntil(formatter.parse(params.getUntil()));
                 } catch (java.text.ParseException e) {
                     throw new BadArgumentException("Invalid date given in until parameter");
                 }
