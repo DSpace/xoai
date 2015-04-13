@@ -180,7 +180,7 @@ public class OAIDataProvider {
                 try {
                     request.setFrom(formatter.parse(params.getFrom(), repositoryConfiguration.getGranularity()));
                 } catch (java.text.ParseException e) {
-                    throw new BadArgumentException("Invalid date given in until parameter");
+                    throw new BadArgumentException("Invalid date given in from parameter");
                 }
             if (params.getMetadataPrefix() != null)
                 request.setMetadataPrefix(params.getMetadataPrefix());

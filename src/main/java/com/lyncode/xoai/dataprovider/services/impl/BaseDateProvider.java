@@ -32,9 +32,17 @@ public class BaseDateProvider implements DateProvider {
 
     @Override
     public Date parse(String date, Granularity granularity) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        if (granularity == Granularity.Day)
-            format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = null;
+        if (granularity == Granularity.Second) {
+            format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+            try {
+                return format.parse(date);
+            } catch (ParseException e) {
+                // NO-OP
+            }
+        }
+        format = new SimpleDateFormat("yyyy-MM-dd");
         format.setTimeZone(TimeZone.getTimeZone("UTC"));
         return format.parse(date);
     }
