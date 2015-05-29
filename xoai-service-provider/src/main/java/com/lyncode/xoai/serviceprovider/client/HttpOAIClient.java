@@ -52,6 +52,13 @@ public class HttpOAIClient implements OAIClient {
 		this.baseUrl = baseUrl;
 	}
 	
+	/**
+	 * Creates a HttpOAIClient 
+	 * 
+	 * @param baseUrl - the base URL for the OAI repository 
+	 * @param baseUrlsHttpsExclusion - the base URL for the OAI repositories to exclude from the HTTPS certificate verification
+	 * @throws HttpException
+	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion) throws HttpException {
 		this.baseUrl = baseUrl;
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
@@ -77,6 +84,12 @@ public class HttpOAIClient implements OAIClient {
 		return new HttpGet(parameters.toUrl(baseUrl));
 	}
 
+	/**
+	 * Initializes the HTTP client and if the base URL is in the
+	 * baseUrlsHttpsExclusion then the certificate verification will not happen
+	 * 
+	 * @throws HttpException
+	 */
 	private void initHttpClient() throws HttpException {
 		try {
 			if (baseUrlsHttpsExclusion != null && baseUrlsHttpsExclusion.contains(baseUrl)) {
