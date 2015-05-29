@@ -24,6 +24,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -45,9 +46,15 @@ import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
 	private HttpClient httpclient = new DefaultHttpClient();
-
-	public HttpOAIClient(String baseUrl) throws HttpException {
+	private List<String> baseUrlsHttpsExclusion;
+	
+	public HttpOAIClient(String baseUrl) {
 		this.baseUrl = baseUrl;
+	}
+	
+	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion) throws HttpException {
+		this.baseUrl = baseUrl;
+		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
 		initHttpClient();
 	}
 
@@ -72,7 +79,7 @@ public class HttpOAIClient implements OAIClient {
 
 	private void initHttpClient() throws HttpException {
 		try {
-			if (baseUrl.startsWith("https://doaj.org")) {
+			if (baseUrlsHttpsExclusion != null && baseUrlsHttpsExclusion.contains(baseUrl)) {
 				SSLSocketFactory sslsf = new SSLSocketFactory(
 						new TrustStrategy() {
 							@Override
