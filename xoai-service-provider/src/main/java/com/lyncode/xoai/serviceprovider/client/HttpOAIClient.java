@@ -82,7 +82,9 @@ public class HttpOAIClient implements OAIClient {
 	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion, int timeout) throws HttpException {
 		this.timeout = timeout;
-		this(baseurl,baseUrlsHttpsExclusion);
+		this.baseUrl = baseUrl;
+		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
+		initHttpClient();
 	}
 
 	public InputStream execute(Parameters parameters) throws HttpException {
