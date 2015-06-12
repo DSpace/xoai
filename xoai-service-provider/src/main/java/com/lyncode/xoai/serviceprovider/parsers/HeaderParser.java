@@ -16,20 +16,24 @@
 
 package com.lyncode.xoai.serviceprovider.parsers;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
-import com.lyncode.xoai.model.oaipmh.Header;
-import org.hamcrest.Matcher;
-
-import javax.xml.stream.events.XMLEvent;
-
 import static com.lyncode.xml.matchers.AttributeMatchers.attributeName;
 import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
+import static com.lyncode.xml.matchers.XmlEventMatchers.aStartElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.anEndElement;
+import static com.lyncode.xml.matchers.XmlEventMatchers.elementName;
+import static com.lyncode.xml.matchers.XmlEventMatchers.text;
 import static com.lyncode.xoai.model.oaipmh.Header.Status.DELETED;
 import static com.lyncode.xoai.serviceprovider.xml.IslandParsers.dateParser;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.AllOf.allOf;
+
+import javax.xml.stream.events.XMLEvent;
+
+import org.hamcrest.Matcher;
+
+import com.lyncode.xml.XmlReader;
+import com.lyncode.xml.exceptions.XmlReaderException;
+import com.lyncode.xoai.model.oaipmh.Header;
 
 public class HeaderParser {
     public Header parse (XmlReader reader) throws XmlReaderException {
@@ -40,8 +44,6 @@ public class HeaderParser {
         header.withIdentifier(reader.getText());
         reader.next(elementName(localPart(equalTo("datestamp")))).next(text());
         header.withDatestamp(reader.get(dateParser()));
-        reader.next(setSpecElement()).next(text());
-        header.withSetSpec(reader.getText());
         while (reader.next(endOfHeader(), setSpecElement()).current(setSpecElement()))
             header.withSetSpec(reader.next(text()).getText());
         return header;
