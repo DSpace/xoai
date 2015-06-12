@@ -39,30 +39,50 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.BasicClientConnectionManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import com.lyncode.xoai.serviceprovider.exceptions.HttpException;
 import com.lyncode.xoai.serviceprovider.parameters.Parameters;
 
 public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
-	private HttpClient httpclient = new DefaultHttpClient();
+	private HttpClient httpclient;
+	private int timeout = 60000;
 	private List<String> baseUrlsHttpsExclusion;
 	
 	public HttpOAIClient(String baseUrl) {
 		this.baseUrl = baseUrl;
+		httpclient = new DefaultHttpClient(createHttpParams());
 	}
-	
+
+
 	/**
 	 * Creates a HttpOAIClient 
 	 * 
 	 * @param baseUrl - the base URL for the OAI repository 
-	 * @param baseUrlsHttpsExclusion - the base URL for the OAI repositories to exclude from the HTTPS certificate verification
+	 * @param baseUrlsHttpsExclusion - if provided, the base URLs for the OAI repositories will ignore problems related with HTTPS certificate verification
 	 * @throws HttpException
 	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion) throws HttpException {
 		this.baseUrl = baseUrl;
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
 		initHttpClient();
+	}
+
+	
+	/**
+	 * Creates a HttpOAIClient 
+	 * 
+	 * @param baseUrl - the base URL for the OAI repository 
+	 * @param baseUrlsHttpsExclusion - if provided, the base URLs for the OAI repositories will ignore problems related with HTTPS certificate verification
+	 * @par
+	 * @throws HttpException
+	 */
+	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion, int timeout) throws HttpException {
+		this.timeout = timeout;
+		this(baseurl,baseUrlsHttpsExclusion);
 	}
 
 	public InputStream execute(Parameters parameters) throws HttpException {
@@ -110,7 +130,11 @@ public class HttpOAIClient implements OAIClient {
 
 				ClientConnectionManager cm = new BasicClientConnectionManager(
 						schemeRegistry);
-				httpclient = new DefaultHttpClient(cm);
+
+				httpclient = new DefaultHttpClient(cm, createHttpParams());
+			} else {
+				httpclient = new DefaultHttpClient(createHttpParams());
+
 			}
 		} catch (KeyManagementException e) {
 			throw new HttpException(e);
@@ -121,5 +145,18 @@ public class HttpOAIClient implements OAIClient {
 		} catch (KeyStoreException e) {
 			throw new HttpException(e);
 		}
+	}
+
+	/**
+	 * Creates a HttpParams with the options connection and socket timeout (default timeont if none is defined: 1
+	 * minute)
+	 * 
+	 * @return
+	 */
+	private HttpParams createHttpParams() {
+		final HttpParams httpParams = new BasicHttpParams();
+	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
+	    HttpConnectionParams.setSoTimeout(httpParams, timeout);
+		return httpParams;
 	}
 }
