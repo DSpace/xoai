@@ -11,12 +11,7 @@ Maven
 -----
 
 XOAI could be integrated with maven support.
-
-	<dependency>
-	    <groupId>com.lyncode</groupId>
-	    <artifactId>xoai</artifactId>
-	    <version>4.1.0</version>
-	</dependency>
+**Moving**: XOAI is now being moved to the DSpace umbrella
 	
 Changes
 -------
