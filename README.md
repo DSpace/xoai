@@ -11,6 +11,7 @@ Maven
 -----
 
 XOAI could be integrated with maven support.
+
 **Moving**: XOAI is now being moved to the DSpace umbrella
 	
 Changes
