@@ -2,15 +2,10 @@
 
 What is XOAI?
 
-XOAI is the most powerful and flexible OAI-PMH Java Toolkit (developed by [Lyncode](http://www.lyncode.com "Lyncode Web and Mobile development")). XOAI contains common Java classes allowing to easily 
+XOAI is the most powerful and flexible OAI-PMH Java Toolkit (initially developed by Lyncode). XOAI contains common Java classes allowing to easily 
 implement OAI-PMH data and service providers.
 
 - - - 
-
-Documentation
--------------
-
-- [Wiki](https://github.com/lyncode/xoai/wiki  "XOAI Wiki")
 
 Maven
 -----
