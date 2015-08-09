@@ -41,4 +41,4 @@ Changes
 License
 -------         
 
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[BSD License](http://www.linfo.org/bsdlicense.html)
