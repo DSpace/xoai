@@ -1,3 +1,11 @@
+<!--
+  ~ The contents of this file are subject to the license and copyright
+  ~ detailed in the LICENSE and NOTICE files at the root of the source
+  ~ tree and available online at
+  ~
+  ~ http://www.dspace.org/license/
+  -->
+
 <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
     <dc:title>Middleware: the layer in between</dc:title>
     <dc:creator>Moreira, Rui S.</dc:creator>
