@@ -41,4 +41,4 @@ Changes
 License
 -------         
 
-[BSD License](http://www.linfo.org/bsdlicense.html)
+[DSpace BSD License](https://raw.github.com/DSpace/DSpace/master/LICENSE)
