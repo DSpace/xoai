@@ -5,7 +5,6 @@
  *
  * http://www.dspace.org/license/
  */
-
 package org.dspace.xoai.dataprovider.model;
 
 import org.dspace.xoai.dataprovider.exceptions.InternalOAIException;
@@ -17,7 +16,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Context {
-    public static Context context () {
+
+    public Context() {
+    }
+
+    public Context(String prefix, Transformer transformer) {
+        MetadataFormat metadataFormat = new MetadataFormat().withNamespace(prefix).withPrefix(prefix).withSchemaLocation(prefix).withTransformer(transformer);
+
+        int remove = -1;
+        for (int i = 0; i < metadataFormats.size(); i++) {
+            if (metadataFormats.get(i).getPrefix().equals(metadataFormat.getPrefix())) {
+                remove = i;
+            }
+        }
+        if (remove >= 0) {
+            this.metadataFormats.remove(remove);
+        }
+        this.metadataFormats.add(metadataFormat);
+    }
+
+    public static Context context() {
         return new Context();
     }
 
@@ -31,8 +49,9 @@ public class Context {
     }
 
     public Context withSet(Set set) {
-        if (!set.hasCondition())
+        if (!set.hasCondition()) {
             throw new InternalOAIException("Context sets must have a condition");
+        }
         this.sets.add(set);
         return this;
     }
@@ -52,11 +71,14 @@ public class Context {
 
     public Context withMetadataFormat(MetadataFormat metadataFormat) {
         int remove = -1;
-        for (int i = 0;i<metadataFormats.size();i++)
-            if (metadataFormats.get(i).getPrefix().equals(metadataFormat.getPrefix()))
+        for (int i = 0; i < metadataFormats.size(); i++) {
+            if (metadataFormats.get(i).getPrefix().equals(metadataFormat.getPrefix())) {
                 remove = i;
-        if (remove >= 0)
+            }
+        }
+        if (remove >= 0) {
             this.metadataFormats.remove(remove);
+        }
         this.metadataFormats.add(metadataFormat);
         return this;
     }
@@ -71,9 +93,11 @@ public class Context {
     }
 
     public MetadataFormat formatForPrefix(String metadataPrefix) {
-        for (MetadataFormat format : this.metadataFormats)
-            if (format.getPrefix().equals(metadataPrefix))
+        for (MetadataFormat format : this.metadataFormats) {
+            if (format.getPrefix().equals(metadataPrefix)) {
                 return format;
+            }
+        }
 
         return null;
     }
@@ -87,17 +111,21 @@ public class Context {
     }
 
     public boolean isStaticSet(String setSpec) {
-        for (Set set : this.sets)
-            if (set.getSpec().equals(setSpec))
+        for (Set set : this.sets) {
+            if (set.getSpec().equals(setSpec)) {
                 return true;
+            }
+        }
 
         return false;
     }
 
     public Set getSet(String setSpec) {
-        for (Set set : this.sets)
-            if (set.getSpec().equals(setSpec))
+        for (Set set : this.sets) {
+            if (set.getSpec().equals(setSpec)) {
                 return set;
+            }
+        }
 
         return null;
     }
@@ -114,11 +142,11 @@ public class Context {
     public Context withMetadataFormat(String prefix, Transformer transformer, Condition condition) {
         withMetadataFormat(
                 new MetadataFormat()
-                        .withNamespace(prefix)
-                        .withPrefix(prefix)
-                        .withSchemaLocation(prefix)
-                        .withTransformer(transformer)
-                        .withCondition(condition)
+                .withNamespace(prefix)
+                .withPrefix(prefix)
+                .withSchemaLocation(prefix)
+                .withTransformer(transformer)
+                .withCondition(condition)
         );
         return this;
     }
@@ -130,9 +158,11 @@ public class Context {
 
     public List<MetadataFormat> formatFor(FilterResolver resolver, ItemIdentifier item) {
         List<MetadataFormat> result = new ArrayList<MetadataFormat>();
-        for (MetadataFormat format : this.metadataFormats)
-            if (!format.hasCondition() || format.getCondition().getFilter(resolver).isItemShown(item))
+        for (MetadataFormat format : this.metadataFormats) {
+            if (!format.hasCondition() || format.getCondition().getFilter(resolver).isItemShown(item)) {
                 result.add(format);
+            }
+        }
         return result;
     }
 }

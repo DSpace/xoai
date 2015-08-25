@@ -23,6 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.xml.stream.events.Namespace;
 
 
 public class EchoElement implements XmlWritable {
@@ -44,7 +45,7 @@ public class EchoElement implements XmlWritable {
                 if (event.isStartElement()) {
                     QName name = event.asStartElement().getName();
                     writer.writeStartElement(name.getPrefix(), name.getLocalPart(), name.getNamespaceURI());
-                    addNamespaceIfRequired(writer, name);
+                    addNamespaceIfRequired(writer, event.asStartElement().getNamespaces());
 
                     @SuppressWarnings("unchecked")
                     Iterator<Attribute> it = event.asStartElement().getAttributes();
@@ -52,7 +53,7 @@ public class EchoElement implements XmlWritable {
                     while (it.hasNext()) {
                         Attribute attr = it.next();
                         QName attrName = attr.getName();
-                        addNamespaceIfRequired(writer, attrName);
+                        //addNamespaceIfRequired(writer, attrName);
                         writer.writeAttribute(attrName.getPrefix(), attrName.getNamespaceURI(), attrName.getLocalPart(), attr.getValue());
                     }
                 } else if (event.isEndElement()) {
@@ -66,10 +67,13 @@ public class EchoElement implements XmlWritable {
         }
     }
 
-    private void addNamespaceIfRequired(XmlWriter writer, QName name) throws XMLStreamException {
-        if (!declaredPrefixes.contains(name.getPrefix())) {
-            writer.writeNamespace(name.getPrefix(), name.getNamespaceURI());
-            declaredPrefixes.add(name.getPrefix());
+    private void addNamespaceIfRequired(XmlWriter writer, Iterator<Namespace> it) throws XMLStreamException {
+        while (it.hasNext()) {
+            Namespace ns = it.next();
+            if (!declaredPrefixes.contains(ns.getPrefix())) {
+                writer.writeNamespace(ns.getPrefix(), ns.getNamespaceURI());
+                declaredPrefixes.add(ns.getPrefix());
+            }
         }
     }
 }

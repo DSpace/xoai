@@ -30,6 +30,18 @@ public class RepositoryConfiguration {
     private List<String> descriptions;
     private List<String> compressions;
 
+    public RepositoryConfiguration() {
+        this.repositoryName = "Repository";
+        this.earliestDate = new Date();
+        this.adminEmails.add("sample@test.com");
+        this.baseUrl = "http://localhost";
+        this.maxListIdentifiers = 100;
+        this.maxListRecords = 100;
+        this.maxListSets = 100;
+        this.granularity = Granularity.Second;
+        this.deleteMethod = DeletedRecord.NO;
+    }
+
     public String getRepositoryName() {
         return repositoryName;
     }

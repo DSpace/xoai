@@ -5,16 +5,16 @@
  *
  * http://www.dspace.org/license/
  */
-
 package org.dspace.xoai.dataprovider.repository;
 
 import org.dspace.xoai.dataprovider.filter.FilterResolver;
 import org.dspace.xoai.services.api.ResumptionTokenFormat;
 
 public class Repository {
+
     private FilterResolver filterResolver;
 
-    public static Repository repository () {
+    public static Repository repository() {
         return new Repository();
     }
 
@@ -61,5 +61,21 @@ public class Repository {
 
     public FilterResolver getFilterResolver() {
         return filterResolver;
+    }
+
+    public void setConfiguration(RepositoryConfiguration configuration) {
+        this.configuration = configuration;
+    }
+
+    public void setItemRepository(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+
+    public void setSetRepository(SetRepository setRepository) {
+        this.setRepository = setRepository;
+    }
+
+    public void setResumptionTokenFormatter(ResumptionTokenFormat resumptionTokenFormatter) {
+        this.resumptionTokenFormatter = resumptionTokenFormatter;
     }
 }
