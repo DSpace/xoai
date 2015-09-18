@@ -8,8 +8,6 @@
 
 package org.dspace.xoai.xml;
 
-import com.lyncode.xml.XmlWritable;
-import com.lyncode.xml.XmlWriter;
 import com.lyncode.xml.exceptions.XmlWriteException;
 import org.codehaus.stax2.XMLInputFactory2;
 
