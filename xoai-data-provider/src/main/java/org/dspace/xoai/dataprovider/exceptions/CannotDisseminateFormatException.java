@@ -8,33 +8,27 @@
 
 package org.dspace.xoai.dataprovider.exceptions;
 
-
+/**
+ * @author Development @ Lyncode
+ */
 public class CannotDisseminateFormatException extends HandlerException {
 
+    private static final long serialVersionUID = -6654346398053844736L;
+
+    /**
+     * Creates a new instance of <code>CannotDisseminateFormatException</code>
+     * without detail message.
+     */
     public CannotDisseminateFormatException() {
-
-        // TODO Auto-generated constructor stub
     }
 
-
-    public CannotDisseminateFormatException(String message, Throwable cause) {
-
-        super(message, cause);
-        // TODO Auto-generated constructor stub
+    /**
+     * Constructs an instance of <code>CannotDisseminateFormatException</code>
+     * with the specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public CannotDisseminateFormatException(String msg) {
+        super(msg);
     }
-
-
-    public CannotDisseminateFormatException(String message) {
-
-        super(message);
-        // TODO Auto-generated constructor stub
-    }
-
-
-    public CannotDisseminateFormatException(Throwable cause) {
-
-        super(cause);
-        // TODO Auto-generated constructor stub
-    }
-
 }
