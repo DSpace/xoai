@@ -68,7 +68,7 @@ public class HttpOAIClient implements OAIClient {
 	 * 
 	 * @param baseUrl - the base URL for the OAI repository 
 	 * @param baseUrlsHttpsExclusion - if provided, the base URLs for the OAI repositories will ignore problems related with HTTPS certificate verification
-	 * @par
+	 * @param timeout - timeout for HTTP connections
 	 * @throws HttpException
 	 */
 	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion, int timeout) throws HttpException {
@@ -141,7 +141,7 @@ public class HttpOAIClient implements OAIClient {
 	}
 
 	/**
-	 * Creates a HttpParams with the options connection and socket timeout (default timeont if none is defined: 1
+	 * Creates a HttpParams with the options connection and socket timeout (default timeout if none is defined: 1
 	 * minute)
 	 * 
 	 * @return
