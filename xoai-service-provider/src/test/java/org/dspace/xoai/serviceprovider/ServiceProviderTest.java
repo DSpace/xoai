@@ -19,6 +19,7 @@ import org.dspace.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import org.dspace.xoai.serviceprovider.exceptions.NoSetHierarchyException;
 import org.dspace.xoai.serviceprovider.parameters.GetRecordParameters;
 import org.dspace.xoai.serviceprovider.parameters.ListIdentifiersParameters;
+import org.dspace.xoai.serviceprovider.parameters.ListMetadataParameters;
 import org.dspace.xoai.serviceprovider.parameters.ListRecordsParameters;
 import org.junit.Test;
 
@@ -51,6 +52,11 @@ public class ServiceProviderTest extends AbstractServiceProviderTest {
         assertThat(metadataFormatIterator.hasNext(), is(true));
         MetadataFormat metadataFormat = metadataFormatIterator.next();
         assertThat(metadataFormat.getMetadataPrefix(), equalTo(FORMAT));
+    }
+
+    @Test(expected = IdDoesNotExistException.class)
+    public void recordNotFoundForListMetadataFormats () throws Exception {
+        underTest.listMetadataFormats(ListMetadataParameters.request().withIdentifier("asd"));
     }
 
     @Test(expected = IdDoesNotExistException.class)

@@ -11,6 +11,7 @@ package org.dspace.xoai.serviceprovider.parsers;
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import org.dspace.xoai.model.oaipmh.MetadataFormat;
+import org.dspace.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import org.dspace.xoai.serviceprovider.exceptions.InvalidOAIResponse;
 import org.hamcrest.Matcher;
 
@@ -19,6 +20,7 @@ import java.io.InputStream;
 
 import static com.lyncode.xml.matchers.QNameMatchers.localPart;
 import static com.lyncode.xml.matchers.XmlEventMatchers.*;
+import static org.dspace.xoai.model.oaipmh.Error.Code.ID_DOES_NOT_EXIST;
 import static org.dspace.xoai.model.oaipmh.Error.Code.NO_METADATA_FORMATS;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -35,7 +37,7 @@ public class MetadataFormatParser {
         }
     }
 
-    public boolean hasNext () throws XmlReaderException {
+    public boolean hasNext () throws XmlReaderException, IdDoesNotExistException {
         if (!awaitingNextInvocation) {
             reader.next(metadataElement(), errorElement(), theEndOfDocument());
             awaitingNextInvocation = true;
@@ -44,6 +46,8 @@ public class MetadataFormatParser {
             String code = reader.getAttributeValue(localPart(equalTo("code")));
             if (equalTo(NO_METADATA_FORMATS.code()).matches(code))
                 return false;
+            else if (ID_DOES_NOT_EXIST.code().equals(code))
+                throw new IdDoesNotExistException();
             else
                 throw new InvalidOAIResponse("OAI responded with code: "+
                         code);
@@ -59,7 +63,7 @@ public class MetadataFormatParser {
         return allOf(aStartElement(), elementName(localPart(equalTo("metadataFormat"))));
     }
 
-    public MetadataFormat next () throws XmlReaderException {
+    public MetadataFormat next () throws XmlReaderException, IdDoesNotExistException {
         if (!hasNext()) throw new XmlReaderException("No more metadata elements available");
         awaitingNextInvocation = false;
         return new MetadataFormat()
