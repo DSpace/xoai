@@ -10,6 +10,7 @@ package org.dspace.xoai.serviceprovider.handler;
 
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
+import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Set;
 import org.dspace.xoai.serviceprovider.client.OAIClient;
 import org.dspace.xoai.serviceprovider.exceptions.InvalidOAIResponse;
@@ -20,6 +21,7 @@ import org.dspace.xoai.serviceprovider.parsers.ListSetsParser;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.events.XMLEvent;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +47,8 @@ public class ListSetsHandler implements Source<Set> {
     @Override
     public List<Set> nextIteration() {
         List<Set> sets = new ArrayList<Set>();
+        InputStream stream = null;
         try {
-            InputStream stream = null;
             if (resumptionToken == null) { // First call
                 stream = client.execute(parameters()
                         .withVerb(ListSets));
@@ -74,6 +76,16 @@ public class ListSetsHandler implements Source<Set> {
             throw new InvalidOAIResponse(e);
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
+        }
+        finally {
+            if(stream != null){
+                try {
+                    stream.close();
+                }
+                catch (IOException e){
+                    throw new InvalidOAIResponse(e);
+                }
+            }
         }
     }
 
