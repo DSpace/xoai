@@ -71,21 +71,17 @@ public class ListSetsHandler implements Source<Set> {
                         resumptionToken = text;
                 } else ended = true;
             } else ended = true;
+            stream.close();
             return sets;
         } catch (XmlReaderException e) {
             throw new InvalidOAIResponse(e);
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
+        } catch (IOException e){
+            throw new InvalidOAIResponse(e);
         }
         finally {
-            if(stream != null){
-                try {
-                    stream.close();
-                }
-                catch (IOException e){
-                    throw new InvalidOAIResponse(e);
-                }
-            }
+            IOUtils.closeQuietly(stream);
         }
     }
 
