@@ -9,6 +9,7 @@
 package org.dspace.xoai.serviceprovider.handler;
 
 import com.lyncode.xml.exceptions.XmlReaderException;
+import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.MetadataFormat;
 import org.dspace.xoai.serviceprovider.client.OAIClient;
 import org.dspace.xoai.serviceprovider.exceptions.InvalidOAIResponse;
@@ -17,6 +18,8 @@ import org.dspace.xoai.serviceprovider.model.Context;
 import org.dspace.xoai.serviceprovider.parameters.ListMetadataParameters;
 import org.dspace.xoai.serviceprovider.parsers.MetadataFormatParser;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +36,24 @@ public class ListMetadataFormatsHandler {
 
     public List<MetadataFormat> handle(ListMetadataParameters parameters) {
         List<MetadataFormat> result = new ArrayList<MetadataFormat>();
+        InputStream stream = null;
         try {
-            MetadataFormatParser parser = new MetadataFormatParser(client.execute(parameters()
+            stream = client.execute(parameters()
                     .withVerb(ListMetadataFormats)
-                    .include(parameters)));
+                    .include(parameters));
+            MetadataFormatParser parser = new MetadataFormatParser(stream);
             while (parser.hasNext())
                 result.add(parser.next());
+            stream.close();
             return result;
         } catch (XmlReaderException e) {
             throw new InvalidOAIResponse(e);
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
+        } catch (IOException e) {
+            throw new InvalidOAIResponse(e);
+        } finally {
+            IOUtils.closeQuietly(stream);
         }
     }
 }

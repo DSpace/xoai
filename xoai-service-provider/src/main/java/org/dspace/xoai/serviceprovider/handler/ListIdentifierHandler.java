@@ -10,6 +10,7 @@ package org.dspace.xoai.serviceprovider.handler;
 
 import com.lyncode.xml.XmlReader;
 import com.lyncode.xml.exceptions.XmlReaderException;
+import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Header;
 import org.dspace.xoai.serviceprovider.client.OAIClient;
 import org.dspace.xoai.serviceprovider.exceptions.InvalidOAIResponse;
@@ -49,8 +50,8 @@ public class ListIdentifierHandler implements Source<Header> {
     @Override
     public List<Header> nextIteration() {
         List<Header> headers = new ArrayList<Header>();
+        InputStream stream = null;
         try {
-            InputStream stream = null;
             if (resumptionToken == null) { // First call
                 stream = client.execute(parameters()
                         .withVerb(ListIdentifiers)
@@ -82,10 +83,11 @@ public class ListIdentifierHandler implements Source<Header> {
             throw new InvalidOAIResponse(e);
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
+        } catch (IOException e) {
+            throw new InvalidOAIResponse(e);
+        } finally {
+            IOUtils.closeQuietly(stream);
         }
-        catch (IOException e) {
-        	throw new InvalidOAIResponse(e);
-		}
     }
 
     private Matcher<XMLEvent> resumptionToken() {

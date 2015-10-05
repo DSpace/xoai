@@ -8,6 +8,10 @@
 
 package org.dspace.xoai.serviceprovider.handler;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Identify;
 import org.dspace.xoai.serviceprovider.client.OAIClient;
 import org.dspace.xoai.serviceprovider.exceptions.InvalidOAIResponse;
@@ -26,12 +30,19 @@ public class IdentifyHandler {
     }
 
     public Identify handle () {
+        InputStream stream = null;
         try {
-            return new IdentifyParser(client.execute(parameters()
-                    .withVerb(Identify)))
-                    .parse();
+            stream = client.execute(parameters()
+                    .withVerb(Identify));
+            Identify identify = new IdentifyParser(stream).parse();
+            stream.close();
+            return identify;
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
+        } catch (IOException e) {
+            throw new InvalidOAIResponse(e);
+        } finally {
+            IOUtils.closeQuietly(stream);
         }
     }
 }
