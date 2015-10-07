@@ -9,11 +9,15 @@
 package org.dspace.xoai.dataprovider.handlers;
 
 import org.dspace.xoai.dataprovider.exceptions.BadArgumentException;
+import org.dspace.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import org.dspace.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
 import org.dspace.xoai.dataprovider.exceptions.NoMatchesException;
 import org.junit.Test;
 
 import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
+import static org.dspace.xoai.dataprovider.model.InMemoryItem.item;
+import static org.dspace.xoai.dataprovider.model.MetadataFormat.identity;
+import static org.dspace.xoai.model.oaipmh.Verb.Type.GetRecord;
 import static org.dspace.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,6 +29,14 @@ public class ListIdentifiersHandlerTest extends AbstractHandlerTest {
     public void metadataPrefixIsMandatory () throws Exception {
         underTest.handle(a(request()
                 .withVerb(ListIdentifiers)));
+    }
+
+    @Test(expected = CannotDisseminateFormatException.class)
+    public void cannotDisseminateFormat() throws Exception {
+        theItemRepository().withItem(item().withDefaults().withIdentifier("1"));
+        aContext().withMetadataFormat(EXISTING_METADATA_FORMAT, identity());
+        underTest.handle(a(request().withVerb(ListIdentifiers)
+              .withMetadataPrefix("abcd")));
     }
 
     @Test(expected = DoesNotSupportSetsException.class)

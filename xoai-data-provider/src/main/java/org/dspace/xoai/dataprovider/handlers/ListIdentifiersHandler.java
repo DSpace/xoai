@@ -41,6 +41,11 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiers> {
         if (parameters.hasSet() && !getRepository().getSetRepository().supportSets())
             throw new DoesNotSupportSetsException();
 
+        MetadataFormat format = getContext().formatForPrefix(parameters.getMetadataPrefix());
+        if (format == null) {
+            throw new CannotDisseminateFormatException("Format "+parameters.getMetadataPrefix()+" unknown");
+        }
+
         int length = getRepository().getConfiguration().getMaxListIdentifiers();
         int offset = getOffset(parameters);
         ListItemIdentifiersResult listItemIdentifiersResult;
