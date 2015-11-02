@@ -15,13 +15,15 @@ Documentation
 Maven
 -----
 
-XOAI could be integrated with maven support.
+XOAI can be integrated with Maven support.
 
 	<dependency>
-	    <groupId>com.lyncode</groupId>
+	    <groupId>org.dspace</groupId>
 	    <artifactId>xoai</artifactId>
-	    <version>3.2.3</version>
+	    <version>3.2.10</version>
 	</dependency>
+
+_NOTE: As of version 3.2.10, the `groupId` has changed to `org.dspace`. Prior 3.x releases (<=3.2.9) of XOAI were available under `com.lyncode`._
 	
 Improvements
 -------
@@ -32,11 +34,6 @@ Improvements
 License
 -------
 
-Copyright 2012 Lyncode
+As of August 2015, the XOAI codebase is now released under the [DSpace BSD License](https://raw.github.com/DSpace/DSpace/master/LICENSE), which is a BSD 3-Clause License.
 
-Licensed under the Apache License, Version 2.0 (the "License") you may not use this file except in compliance with the License.
-You may obtain a copy of the License at 
-	
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+Prior 3.x releases of XOAI (<=3.2.9) were released under an [Apache 2 License](http://www.apache.org/licenses/LICENSE-2.0).

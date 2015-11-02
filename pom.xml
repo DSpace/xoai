@@ -1,45 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>org.dspace</groupId>
+    <artifactId>xoai</artifactId>
+    <name>XOAI : OAI-PMH Java Toolkit</name>
+    <version>3.2.10-SNAPSHOT</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>7</version>
+        <version>9</version>
     </parent>
 
-    <groupId>com.lyncode</groupId>
-    <artifactId>xoai</artifactId>
-    <version>3.2.10-SNAPSHOT</version>
-
-    <name>XOAI : OAI-PMH Java Toolkit</name>
-    <url>http://www.lyncode.com</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <scm>
-        <connection>scm:git:git@github.com:lyncode/xoai.git</connection>
-        <developerConnection>scm:git:git@github.com:lyncode/xoai.git</developerConnection>
-        <url>git@github.com:lyncode/xoai.git</url>
-      <tag>HEAD</tag>
-  </scm>
-
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+        <java.version>1.6</java.version>
+    </properties>
 
     <build>
         <pluginManagement>
@@ -86,8 +62,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <showDeprecation>false</showDeprecation>
                     <showWarnings>false</showWarnings>
                     <fork>true</fork>
@@ -201,6 +177,31 @@
         </dependency>
     </dependencies>
 
+    <licenses>
+        <license>
+            <name>DuraSpace BSD License</name>
+            <url>https://raw.github.com/DSpace/DSpace/master/LICENSE</url>
+            <distribution>repo</distribution>
+            <comments>
+                A BSD 3-Clause license for the DSpace codebase.
+            </comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:DSpace/xoai.git</connection>
+        <developerConnection>scm:git:git@github.com:DSpace/xoai.git</developerConnection>
+        <url>git@github.com:DSpace/xoai.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <repositories>
+        <repository>
+            <id>sonatype-releases</id>
+            <name>Sonatype Releases Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/releases/</url>
+        </repository>
+    </repositories>
 
     <developers>
         <developer>
