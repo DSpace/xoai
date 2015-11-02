@@ -10,6 +10,7 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -32,9 +33,17 @@ public abstract class AbstractParseTest<T> {
     }
 
     protected XMLEventReader aXmlEventReader(String input) throws XMLStreamException {
-        if (reader == null)
-            reader = factory.createXMLEventReader(new ByteArrayInputStream(input.getBytes()));
-        return reader;
+        try
+        {
+            if (reader == null)
+                reader = factory.createXMLEventReader(new ByteArrayInputStream(input.getBytes("UTF-8")), "UTF-8");
+
+            return reader;
+        }
+        catch(UnsupportedEncodingException e)
+        {
+            throw new RuntimeException("Unable to convert input to UTF-8", e);
+        }
     }
 
     protected XMLEventReader theReader() {
