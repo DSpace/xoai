@@ -3,7 +3,7 @@
     <groupId>org.dspace</groupId>
     <artifactId>xoai</artifactId>
     <name>XOAI : OAI-PMH Java Toolkit</name>
-    <version>3.2.10-SNAPSHOT</version>
+    <version>3.2.10-rc1</version>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -192,7 +192,7 @@
         <connection>scm:git:git@github.com:DSpace/xoai.git</connection>
         <developerConnection>scm:git:git@github.com:DSpace/xoai.git</developerConnection>
         <url>git@github.com:DSpace/xoai.git</url>
-        <tag>HEAD</tag>
+        <tag>xoai-3.2.10-rc1</tag>
     </scm>
 
     <repositories>
