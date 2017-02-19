@@ -11,6 +11,7 @@ package org.dspace.xoai.serviceprovider.handler;
 import com.lyncode.xml.exceptions.XmlReaderException;
 import org.dspace.xoai.model.oaipmh.MetadataFormat;
 import org.dspace.xoai.serviceprovider.client.OAIClient;
+import org.dspace.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import org.dspace.xoai.serviceprovider.exceptions.InvalidOAIResponse;
 import org.dspace.xoai.serviceprovider.exceptions.OAIRequestException;
 import org.dspace.xoai.serviceprovider.model.Context;
@@ -31,7 +32,7 @@ public class ListMetadataFormatsHandler {
     }
 
 
-    public List<MetadataFormat> handle(ListMetadataParameters parameters) {
+    public List<MetadataFormat> handle(ListMetadataParameters parameters) throws IdDoesNotExistException {
         List<MetadataFormat> result = new ArrayList<MetadataFormat>();
         try {
             MetadataFormatParser parser = new MetadataFormatParser(client.execute(parameters()

@@ -37,11 +37,11 @@ public class ServiceProvider {
         return identifyHandler.handle();
     }
 
-    public Iterator<MetadataFormat> listMetadataFormats () {
+    public Iterator<MetadataFormat> listMetadataFormats () throws IdDoesNotExistException {
         return listMetadataFormatsHandler.handle(ListMetadataParameters.request()).iterator();
     }
 
-    public Iterator<MetadataFormat> listMetadataFormats (ListMetadataParameters parameters) {
+    public Iterator<MetadataFormat> listMetadataFormats (ListMetadataParameters parameters) throws IdDoesNotExistException {
         return listMetadataFormatsHandler.handle(parameters).iterator();
     }
 
