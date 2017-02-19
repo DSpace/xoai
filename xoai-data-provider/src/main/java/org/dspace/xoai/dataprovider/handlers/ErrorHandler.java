@@ -37,11 +37,8 @@ public class ErrorHandler {
         } else if (ex instanceof BadArgumentException) {
             return new Error(ex.getMessage())
                     .withCode(Error.Code.BAD_ARGUMENT);
-        } else if (ex instanceof CannotDisseminateRecordException) {
-            return new Error("Cannot disseminate item with the given format")
-                    .withCode(Error.Code.CANNOT_DISSEMINATE_FORMAT);
         } else if (ex instanceof CannotDisseminateFormatException) {
-            return new Error("Unknown metadata format")
+            return new Error("Cannot disseminate item with the given format")
                     .withCode(Error.Code.CANNOT_DISSEMINATE_FORMAT);
         } else if (ex instanceof DuplicateDefinitionException) {
             return new Error(ex.getMessage())

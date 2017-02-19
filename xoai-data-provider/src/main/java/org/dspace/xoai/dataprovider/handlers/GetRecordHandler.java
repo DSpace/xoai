@@ -9,7 +9,7 @@
 package org.dspace.xoai.dataprovider.handlers;
 
 import com.lyncode.xml.exceptions.XmlWriteException;
-import org.dspace.xoai.dataprovider.exceptions.CannotDisseminateRecordException;
+import org.dspace.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import org.dspace.xoai.dataprovider.exceptions.HandlerException;
 import org.dspace.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import org.dspace.xoai.dataprovider.exceptions.OAIException;
@@ -42,6 +42,10 @@ public class GetRecordHandler extends VerbHandler<GetRecord> {
         GetRecord result = new GetRecord(record);
 
         MetadataFormat format = getContext().formatForPrefix(parameters.getMetadataPrefix());
+        if (format == null) {
+            throw new CannotDisseminateFormatException("Format "+parameters.getMetadataPrefix()+" not applicable to this item");
+        }
+
         Item item = getRepository().getItemRepository().getItem(parameters.getIdentifier());
 
         if (getContext().hasCondition() &&
@@ -50,7 +54,7 @@ public class GetRecordHandler extends VerbHandler<GetRecord> {
 
         if (format.hasCondition() &&
                 !format.getCondition().getFilter(getRepository().getFilterResolver()).isItemShown(item))
-            throw new CannotDisseminateRecordException("Format not applicable to this item");
+            throw new CannotDisseminateFormatException("Format "+parameters.getMetadataPrefix()+" not applicable to this item");
 
 
         header.withIdentifier(item.getIdentifier());

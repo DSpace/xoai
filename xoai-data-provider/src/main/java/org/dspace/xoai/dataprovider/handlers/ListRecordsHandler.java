@@ -125,8 +125,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
     }
 
     private Record createRecord(OAICompiledRequest parameters, Item item)
-            throws BadArgumentException, CannotDisseminateRecordException,
-            OAIException, NoMetadataFormatsException, CannotDisseminateFormatException {
+            throws BadArgumentException, OAIException, NoMetadataFormatsException, CannotDisseminateFormatException {
         MetadataFormat format = getContext().formatForPrefix(parameters.getMetadataPrefix());
         Header header = new Header();
         Record record = new Record().withHeader(header);

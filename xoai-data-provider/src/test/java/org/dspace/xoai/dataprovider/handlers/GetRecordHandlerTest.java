@@ -9,6 +9,7 @@
 package org.dspace.xoai.dataprovider.handlers;
 
 import org.dspace.xoai.dataprovider.exceptions.BadArgumentException;
+import org.dspace.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import org.dspace.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import org.dspace.xoai.model.oaipmh.GetRecord;
 import org.junit.Before;
@@ -44,6 +45,15 @@ public class GetRecordHandlerTest extends AbstractHandlerTest {
     public void idDoesNotExists() throws Exception {
         underTest.handle(a(request().withVerb(GetRecord)
                 .withMetadataPrefix("xoai")
+                .withIdentifier("1")));
+    }
+
+    @Test(expected = CannotDisseminateFormatException.class)
+    public void cannotDisseminateFormat() throws Exception {
+        theItemRepository().withItem(item().withDefaults().withIdentifier("1"));
+        aContext().withMetadataFormat("xoai", identity());
+        underTest.handle(a(request().withVerb(GetRecord)
+                .withMetadataPrefix("abcd")
                 .withIdentifier("1")));
     }
 
