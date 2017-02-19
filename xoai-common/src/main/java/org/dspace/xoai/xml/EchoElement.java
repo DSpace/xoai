@@ -8,8 +8,6 @@
 
 package org.dspace.xoai.xml;
 
-import com.lyncode.xml.XmlWritable;
-import com.lyncode.xml.XmlWriter;
 import com.lyncode.xml.exceptions.XmlWriteException;
 import org.codehaus.stax2.XMLInputFactory2;
 
@@ -18,17 +16,18 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.Namespace;
 import javax.xml.stream.events.XMLEvent;
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-
+import java.util.Set;
+import java.util.Stack;
 
 public class EchoElement implements XmlWritable {
     private static XMLInputFactory factory = XMLInputFactory2.newFactory();
     private String xmlString = null;
-    private List<String> declaredPrefixes = new ArrayList<String>();
+    private Stack<Set<String>> declaredPrefixes = new Stack<Set<String>>();
 
     public EchoElement(String xmlString) {
         this.xmlString = xmlString;
@@ -42,10 +41,20 @@ public class EchoElement implements XmlWritable {
                 XMLEvent event = reader.nextEvent();
 
                 if (event.isStartElement()) {
+                    declaredPrefixes.push(new HashSet<String>());
+
                     QName name = event.asStartElement().getName();
                     writer.writeStartElement(name.getPrefix(), name.getLocalPart(), name.getNamespaceURI());
                     addNamespaceIfRequired(writer, name);
 
+                    // Copy any other namespace declarations
+                    Iterator<Namespace> itNamespaces = event.asStartElement().getNamespaces();
+                    while (itNamespaces.hasNext()) {
+                        Namespace namespace = itNamespaces.next();
+                        addNamespaceIfRequired(writer, new QName(namespace.getNamespaceURI(), "", namespace.getPrefix()));
+                    }
+
+                    // Copy attributes
                     @SuppressWarnings("unchecked")
                     Iterator<Attribute> it = event.asStartElement().getAttributes();
 
@@ -56,6 +65,7 @@ public class EchoElement implements XmlWritable {
                         writer.writeAttribute(attrName.getPrefix(), attrName.getNamespaceURI(), attrName.getLocalPart(), attr.getValue());
                     }
                 } else if (event.isEndElement()) {
+                    declaredPrefixes.pop();
                     writer.writeEndElement();
                 } else if (event.isCharacters()) {
                     writer.writeCharacters(event.asCharacters().getData());
@@ -67,9 +77,14 @@ public class EchoElement implements XmlWritable {
     }
 
     private void addNamespaceIfRequired(XmlWriter writer, QName name) throws XMLStreamException {
-        if (!declaredPrefixes.contains(name.getPrefix())) {
-            writer.writeNamespace(name.getPrefix(), name.getNamespaceURI());
-            declaredPrefixes.add(name.getPrefix());
+        // Search for namespace in scope, starting from the root.
+        for (Set<String> ancestorNamespaces : declaredPrefixes) {
+            if (ancestorNamespaces.contains(name.getPrefix() + name.getNamespaceURI())) { // Prefixes might be reused.
+                return;
+            }
         }
+
+        writer.writeNamespace(name.getPrefix(), name.getNamespaceURI());
+        declaredPrefixes.peek().add(name.getPrefix() + name.getNamespaceURI());
     }
 }
