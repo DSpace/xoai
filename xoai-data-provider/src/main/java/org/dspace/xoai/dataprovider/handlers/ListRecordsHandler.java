@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.dspace.xoai.dataprovider.exceptions.*;
 import org.dspace.xoai.dataprovider.handlers.helpers.ItemHelper;
 import org.dspace.xoai.dataprovider.handlers.helpers.ItemRepositoryHelper;
+import org.dspace.xoai.dataprovider.handlers.helpers.PreconditionHelper;
 import org.dspace.xoai.dataprovider.handlers.helpers.ResumptionTokenHelper;
 import org.dspace.xoai.dataprovider.handlers.helpers.SetRepositoryHelper;
 import org.dspace.xoai.dataprovider.handlers.results.ListItemsResults;
@@ -46,11 +47,14 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
     }
 
     @Override
-    public ListRecords handle(OAICompiledRequest parameters) throws OAIException, HandlerException {ListRecords res = new ListRecords();
+    public ListRecords handle(OAICompiledRequest parameters) throws OAIException, HandlerException {
+        ListRecords res = new ListRecords();
         int length = getRepository().getConfiguration().getMaxListRecords();
 
         if (parameters.hasSet() && !getRepository().getSetRepository().supportSets())
             throw new DoesNotSupportSetsException();
+
+        PreconditionHelper.checkMetadataFormat(getContext(), parameters.getMetadataPrefix());
 
         log.debug("Getting items from data source");
         int offset = getOffset(parameters);

@@ -10,6 +10,7 @@ package org.dspace.xoai.dataprovider.handlers;
 
 import org.dspace.xoai.dataprovider.exceptions.*;
 import org.dspace.xoai.dataprovider.handlers.helpers.ItemRepositoryHelper;
+import org.dspace.xoai.dataprovider.handlers.helpers.PreconditionHelper;
 import org.dspace.xoai.dataprovider.handlers.helpers.ResumptionTokenHelper;
 import org.dspace.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
 import org.dspace.xoai.dataprovider.model.Context;
@@ -40,6 +41,8 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiers> {
 
         if (parameters.hasSet() && !getRepository().getSetRepository().supportSets())
             throw new DoesNotSupportSetsException();
+
+        PreconditionHelper.checkMetadataFormat(getContext(), parameters.getMetadataPrefix());
 
         int length = getRepository().getConfiguration().getMaxListIdentifiers();
         int offset = getOffset(parameters);
