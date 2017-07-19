@@ -8,6 +8,10 @@
 
 package org.dspace.xoai.serviceprovider.handler;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.dspace.xoai.model.oaipmh.Record;
 import org.dspace.xoai.serviceprovider.client.OAIClient;
 import org.dspace.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
@@ -31,16 +35,24 @@ public class GetRecordHandler {
         this.client = context.getClient();
     }
 
-
     public Record handle(GetRecordParameters parameters) throws IdDoesNotExistException, CannotDisseminateFormatException {
+        InputStream stream = null;
         try {
-            return new GetRecordParser(client.execute(parameters()
+            stream = client.execute(parameters()
                     .withVerb(GetRecord)
-                    .include(parameters)),
-                    context,
-                    parameters.getMetadataPrefix()).parse();
+                    .include(parameters));
+            Record record = new GetRecordParser(stream, context,
+                parameters.getMetadataPrefix()).parse();
+            stream.close();
+            return record;
         } catch (OAIRequestException e) {
             throw new InvalidOAIResponse(e);
+        }
+        catch (IOException e) {
+            throw new InvalidOAIResponse(e);
+        }
+        finally {
+            IOUtils.closeQuietly(stream);
         }
     }
 }
