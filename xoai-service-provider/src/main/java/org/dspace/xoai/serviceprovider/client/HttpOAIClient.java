@@ -22,6 +22,7 @@ import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.BasicClientConnectionManager;
 import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.dspace.xoai.serviceprovider.exceptions.HttpException;
@@ -41,6 +42,7 @@ public class HttpOAIClient implements OAIClient {
 	private String baseUrl;
 	private HttpClient httpclient;
 	private int timeout = 60000;
+	private String userAgent;
 	private List<String> baseUrlsHttpsExclusion;
 	
 	public HttpOAIClient(String baseUrl) {
@@ -75,6 +77,24 @@ public class HttpOAIClient implements OAIClient {
 		this.timeout = timeout;
 		this.baseUrl = baseUrl;
 		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
+		initHttpClient();
+	}
+
+	
+	/**
+	 * Creates a HttpOAIClient 
+	 * 
+	 * @param baseUrl - the base URL for the OAI repository 
+	 * @param baseUrlsHttpsExclusion - if provided, the base URLs for the OAI repositories will ignore problems related with HTTPS certificate verification
+	 * @param timeout - timeout for HTTP connections
+	 * @param userAgent - the user agent to be used when communicating with the repository 
+	 * @throws HttpException
+	 */
+	public HttpOAIClient(String baseUrl, List<String> baseUrlsHttpsExclusion, int timeout, String userAgent) throws HttpException {
+		this.timeout = timeout;
+		this.baseUrl = baseUrl;
+		this.baseUrlsHttpsExclusion = baseUrlsHttpsExclusion;
+		this.userAgent = userAgent;
 		initHttpClient();
 	}
 
@@ -151,6 +171,11 @@ public class HttpOAIClient implements OAIClient {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    HttpConnectionParams.setSoTimeout(httpParams, timeout);
+	    // We only set the user agent if it was initialized. Otherwise, since we will not set this parameter,
+	    // the apache default will be used.
+	    if(userAgent != null) {
+		    httpParams.setParameter(CoreProtocolPNames.USER_AGENT, userAgent);
+	    }
 		return httpParams;
 	}
 }
