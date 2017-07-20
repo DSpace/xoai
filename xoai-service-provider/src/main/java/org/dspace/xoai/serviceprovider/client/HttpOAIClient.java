@@ -171,7 +171,8 @@ public class HttpOAIClient implements OAIClient {
 		final HttpParams httpParams = new BasicHttpParams();
 	    HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 	    HttpConnectionParams.setSoTimeout(httpParams, timeout);
-	    // we only set the user agent if it was initialized. Otherwise, we use apache default.
+	    // We only set the user agent if it was initialized. Otherwise, since we will not set this parameter,
+	    // the apache default will be used.
 	    if(userAgent != null) {
 		    httpParams.setParameter(CoreProtocolPNames.USER_AGENT, userAgent);
 	    }
