@@ -24,7 +24,7 @@
 
     <groupId>org.dspace</groupId>
     <artifactId>xoai</artifactId>
-    <version>4.1.1-SNAPSHOT</version>
+    <version>4.2.0</version>
 
     <organization>
         <name>DuraSpace</name>
@@ -63,7 +63,7 @@
         <connection>scm:git:git@github.com:DSpace/xoai.git</connection>
         <developerConnection>scm:git:git@github.com:DSpace/xoai.git</developerConnection>
         <url>git@github.com:DSpace/xoai.git</url>
-        <tag>HEAD</tag>
+        <tag>xoai-4.2.0</tag>
     </scm>
 
     <!--
