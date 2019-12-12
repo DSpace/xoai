@@ -6,10 +6,6 @@
     <version>3.2.11-SNAPSHOT</version>
     <url>https://github.com/dspace/xoai</url>
 
-    <prerequisites>
-        <maven>3.0</maven>
-    </prerequisites>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
@@ -36,6 +32,9 @@
                                     <requireJavaVersion>
                                         <version>${java.version}</version>
                                     </requireJavaVersion>
+                                    <requireMavenVersion>
+                                        <version>[3.0.5,)</version>
+                                    </requireMavenVersion>
                                 </rules>
                             </configuration>
                         </execution>
@@ -140,9 +139,9 @@
     <profiles>
        <!--
          The 'release' profile is used by the 'maven-release-plugin' (see above)
-         to actually perform a DSpace lang packs release to Maven central.
+         to actually perform an XOAI release to Maven central.
          This profile contains settings which are ONLY enabled when performing
-         a DSpace release. See alse https://wiki.duraspace.org/display/DSPACE/Release+Procedure
+         a DSpace module release. See alse https://wiki.duraspace.org/display/DSPACE/Release+Procedure
         -->
         <profile>
             <id>release</id>
