@@ -3,7 +3,7 @@
     <groupId>org.dspace</groupId>
     <artifactId>xoai</artifactId>
     <name>XOAI : OAI-PMH Java Toolkit</name>
-    <version>3.2.11</version>
+    <version>3.2.12-SNAPSHOT</version>
     <description>XOAI - a powerful, flexible OAI-PMH Java Toolkit</description>
     <url>https://github.com/dspace/xoai</url>
 
@@ -294,7 +294,7 @@
         <connection>scm:git:git@github.com:DSpace/xoai.git</connection>
         <developerConnection>scm:git:git@github.com:DSpace/xoai.git</developerConnection>
         <url>git@github.com:DSpace/xoai.git</url>
-        <tag>xoai-3.2.11</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!-- Configure our release repositories to use Sonatype.
