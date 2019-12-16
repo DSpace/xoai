@@ -3,7 +3,7 @@
     <groupId>org.dspace</groupId>
     <artifactId>xoai</artifactId>
     <name>XOAI : OAI-PMH Java Toolkit</name>
-    <version>3.2.12-SNAPSHOT</version>
+    <version>3.2.11-SNAPSHOT</version>
     <url>https://github.com/dspace/xoai</url>
 
     <properties>
