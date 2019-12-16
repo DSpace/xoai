@@ -4,6 +4,7 @@
     <artifactId>xoai</artifactId>
     <name>XOAI : OAI-PMH Java Toolkit</name>
     <version>3.2.11-SNAPSHOT</version>
+    <description>XOAI - a powerful, flexible OAI-PMH Java Toolkit</description>
     <url>https://github.com/dspace/xoai</url>
 
     <properties>
@@ -315,6 +316,11 @@
             <email>dspace@lyncode.com</email>
             <organization>Lyncode</organization>
             <organizationUrl>http://www.lyncode.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>DSpace Committers</name>
+            <email>dspace-devel@googlegroups.com</email>
+            <url>https://wiki.duraspace.org/display/DSPACE/DSpace+Committers</url>
         </developer>
     </developers>
 
