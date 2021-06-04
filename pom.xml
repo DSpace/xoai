@@ -39,7 +39,7 @@
         <guava.version>15.0</guava.version>
         <commons.lang3.version>3.1</commons.lang3.version>
         <log4j.version>1.2.14</log4j.version>
-        <http-commons.version>4.5.3</http-commons.version>
+        <http-commons.version>4.5.13</http-commons.version>
         <woodstox.version>4.0.0</woodstox.version>
 
         <lyncode.builder-commons>1.0.2</lyncode.builder-commons>
