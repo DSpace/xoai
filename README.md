@@ -2,45 +2,26 @@
 
 What is XOAI?
 
-XOAI is the most powerful and flexible OAI-PMH Java Toolkit (initially developed by Lyncode). XOAI contains common Java classes allowing to easily 
-implement OAI-PMH data and service providers.
+XOAI is the most powerful and flexible OAI-PMH Java Toolkit (initially developed by [Lyncode](https://github.com/lyncode),
+updated by [DSpace](https://github.com/DSpace)). XOAI contains common Java classes allowing to easily implement
+[OAI-PMH](https://en.wikipedia.org/wiki/Open_Archives_Initiative_Protocol_for_Metadata_Harvesting) data and service providers.
 
-- - - 
+## Usage
 
-Maven
------
+**Moving** (again): as XOAI is [no longer actively maintained by DSpace since 2019](https://github.com/DSpace/xoai/issues/72#issuecomment-557292929),
+this fork by the [*Global Dataverse Community Consortium*](https://dataversecommunity.global) provides an updated 
+version for the needs of and usage with the open source repository [Dataverse Software](https://dataverse.org).
 
-XOAI could be integrated with maven support.
+This library is available from Maven Central, simply rely on the main POM:
 
-**Moving**: XOAI is now being moved to the DSpace umbrella
-	
-Changes
--------
+```
+<dependency>
+    <groupId>io.gdcc</groupId>
+    <artifactId>xoai</artifactId>
+    <version>5.0.0</version>
+</dependency>
+```
 
-**4.2.0**
+## License
 
-Bug Fixes:
-- Close stream in ListSetsHandler (see #52 and #53)
-- Updated dependency Apache httpclient to 4.5.3 (see #63)
-
-Enhancements:
-- Add user agent to HttpOAIClient (see #61)
-- Handle cases when unknown metadataPrefix is received (see #54)
-
-**4.0.0 to 4.1.0**
-
-- Several fixes on the Service provider
-- Supporting granularity on parameters (service provider) 
-
-**3.2.7 to 4.0.0**
-
-- Centralized OAI-PMH model (for data and service provider)
-- Data provider configuration simplified
-- Service provider made lazy
-- Service provider with pipeline processing (centralized xoai schema)
-
-
-License
--------         
-
-[DSpace BSD License](https://raw.github.com/DSpace/DSpace/master/LICENSE)
+See [LICENSE](LICENSE) or [DSpace BSD License](https://raw.github.com/DSpace/DSpace/master/LICENSE)
