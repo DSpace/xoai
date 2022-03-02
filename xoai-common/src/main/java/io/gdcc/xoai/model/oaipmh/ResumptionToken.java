@@ -14,8 +14,7 @@ import io.gdcc.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
 import java.util.Date;
-
-import static com.google.common.base.Predicates.isNull;
+import java.util.Objects;
 
 public class ResumptionToken implements XmlWritable {
 
@@ -86,11 +85,11 @@ public class ResumptionToken implements XmlWritable {
         private String metadataPrefix;
 
         public boolean isEmpty () {
-            return isNull().apply(offset) &&
-                    isNull().apply(set) &&
-                    isNull().apply(from) &&
-                    isNull().apply(until) &&
-                    isNull().apply(metadataPrefix);
+            return Objects.isNull(offset) &&
+                Objects.isNull(set) &&
+                Objects.isNull(from) &&
+                Objects.isNull(until) &&
+                Objects.isNull(metadataPrefix);
         }
 
         public Value withOffset (long integer) {
