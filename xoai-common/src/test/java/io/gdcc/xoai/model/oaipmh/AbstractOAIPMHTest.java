@@ -8,12 +8,13 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
-import com.lyncode.test.matchers.xml.XPathMatchers;
 import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
 import org.hamcrest.Matcher;
+import org.xmlunit.matchers.EvaluateXPathMatcher;
+import org.xmlunit.matchers.HasXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
@@ -34,12 +35,12 @@ public abstract class AbstractOAIPMHTest {
         return stream.toString();
     }
 
-    protected Matcher<String> hasXPath(String xpath) {
-        return XPathMatchers.hasXPath("/root" + xpath);
+    protected HasXPathMatcher hasXPath(String xpath) {
+        return HasXPathMatcher.hasXPath("/root" + xpath);
     }
 
     protected Matcher<? super String> xPath(String xpath, Matcher<String> stringMatcher) {
-        return XPathMatchers.xPath("/root" + xpath, stringMatcher);
+        return EvaluateXPathMatcher.hasXPath("/root" + xpath, stringMatcher);
     }
 
     protected String toDateTime(Date date) {

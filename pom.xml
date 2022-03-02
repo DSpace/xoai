@@ -45,17 +45,18 @@
         <jakarta.jaxb.version>2.3.3</jakarta.jaxb.version>
         <jakarta.jaxb-impl.version>2.3.6</jakarta.jaxb-impl.version>
         <hamcrest.version>2.2</hamcrest.version>
-        <lyncode.test-support>1.0.4</lyncode.test-support>
+        <xmlunit.version>2.9.0</xmlunit.version>
     
         <!-- OLD DEPS - TO BE REMOVED! -->
-        <lyncode.xml-io>1.0.3</lyncode.xml-io>
         <mockito.version>1.9.5</mockito.version>
         <guava.version>15.0</guava.version>
         <commons.lang3.version>3.1</commons.lang3.version>
         <log4j.version>1.2.14</log4j.version>
         <http-commons.version>4.5.3</http-commons.version>
         <woodstox.version>4.0.0</woodstox.version>
+        <lyncode.xml-io>1.0.3</lyncode.xml-io>
         <lyncode.builder-commons>1.0.2</lyncode.builder-commons>
+        <lyncode.test-support>1.0.4</lyncode.test-support>
     
         <!-- Testing dependencies -->
         <junit.version>4.13.2</junit.version>
@@ -276,7 +277,24 @@
                 <scope>runtime</scope>
                 <optional>true</optional>
             </dependency>
-    
+            
+            
+            
+            <!-- TESTING DEPENDENCIES -->
+            <dependency>
+                <groupId>org.xmlunit</groupId>
+                <artifactId>xmlunit-core</artifactId>
+                <version>${xmlunit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xmlunit</groupId>
+                <artifactId>xmlunit-matchers</artifactId>
+                <version>${xmlunit.version}</version>
+            </dependency>
+            
+            
+            
+            <!-- OLD DEPENDENCIES, TO BE REMOVED OR UPDATED -->
             <dependency>
                 <groupId>com.lyncode</groupId>
                 <artifactId>xml-io</artifactId>

@@ -17,11 +17,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
-import static com.lyncode.test.matchers.string.PatternMatcher.pattern;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.text.MatchesPattern.matchesPattern;
 
 public class UTCDateProviderTest {
     private static final Date DATE = new Date();
@@ -33,13 +35,21 @@ public class UTCDateProviderTest {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
         String result = underTest.format(DATE);
 
-        assertThat(result, pattern(SECOND_FORMAT, 1, toInt(is(getCalendar(DATE).get(Calendar.YEAR)))));
-        assertThat(result, pattern(SECOND_FORMAT, 2, toInt(is(getCalendar(DATE).get(Calendar.MONTH)+1))));
-        assertThat(result, pattern(SECOND_FORMAT, 3, toInt(is(getCalendar(DATE).get(Calendar.DAY_OF_MONTH)))));
-
-        assertThat(result, pattern(SECOND_FORMAT, 4, toInt(is(getCalendar(DATE).get(Calendar.HOUR_OF_DAY)))));
-        assertThat(result, pattern(SECOND_FORMAT, 5, toInt(is(getCalendar(DATE).get(Calendar.MINUTE)))));
-        assertThat(result, pattern(SECOND_FORMAT, 6, toInt(is(getCalendar(DATE).get(Calendar.SECOND)))));
+        assertThat(result, matchesPattern(SECOND_FORMAT));
+        
+        Map<Integer, Matcher<String>> groupMatchers = Map.of(
+            1, toInt(is(getCalendar(DATE).get(Calendar.YEAR))),
+            2, toInt(is(getCalendar(DATE).get(Calendar.MONTH)+1)),
+            3, toInt(is(getCalendar(DATE).get(Calendar.DAY_OF_MONTH))),
+            4, toInt(is(getCalendar(DATE).get(Calendar.HOUR_OF_DAY))),
+            5, toInt(is(getCalendar(DATE).get(Calendar.MINUTE))),
+            6, toInt(is(getCalendar(DATE).get(Calendar.SECOND)))
+        );
+        
+        java.util.regex.Matcher match = Pattern.compile(SECOND_FORMAT).matcher(result);
+        match.find();
+        
+        groupMatchers.forEach((key, value) -> assertThat(match.group(key), value));
     }
 
     private Matcher<String> toInt (final Matcher<Integer> integerMatcher) {
