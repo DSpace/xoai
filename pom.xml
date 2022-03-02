@@ -16,35 +16,73 @@
         <module>xoai-service-provider</module>
     </modules>
 
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-    </parent>
-
-    <groupId>org.dspace</groupId>
+    <groupId>io.gdcc</groupId>
     <artifactId>xoai</artifactId>
-    <version>4.2.1-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <organization>
-        <name>DuraSpace</name>
-        <url>http://www.dspace.org</url>
+        <name>Global Dataverse Community Consortium</name>
+        <url>https://dataversecommunity.global</url>
     </organization>
 
     <name>XOAI : OAI-PMH Java Toolkit</name>
-    <url>https://github.com/DSpace/xoai</url>
+    <url>https://github.com/gdcc/xoai</url>
 
     <properties>
+        <revision>5.0.0-SNAPSHOT</revision>
+        <jdk.version>11</jdk.version>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <javadoc.lint>none</javadoc.lint>
+        <!-- Needed to avoid IDEA IDE compilation failures. See commits in GH #5059 -->
+        <compilerArgument></compilerArgument>
+        <project.timezone>UTC</project.timezone>
+        <project.language>en</project.language>
+        <project.region>US</project.region>
+        <argLine>-Duser.timezone=${project.timezone} -Dfile.encoding=${project.build.sourceEncoding} -Duser.language=${project.language} -Duser.region=${project.region}</argLine>
+        
+        <!-- Dependencies -->
+        <jakarta.jaxb.version>2.3.2</jakarta.jaxb.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <lyncode.test-support>1.0.4</lyncode.test-support>
+    
+        <!-- OLD DEPS - TO BE REMOVED! -->
+        <lyncode.xml-io>1.0.3</lyncode.xml-io>
         <mockito.version>1.9.5</mockito.version>
         <guava.version>15.0</guava.version>
         <commons.lang3.version>3.1</commons.lang3.version>
         <log4j.version>1.2.14</log4j.version>
         <http-commons.version>4.5.3</http-commons.version>
         <woodstox.version>4.0.0</woodstox.version>
-
         <lyncode.builder-commons>1.0.2</lyncode.builder-commons>
-        <lyncode.xml-io>1.0.3</lyncode.xml-io>
-        <lyncode.test-support>1.0.4</lyncode.test-support>
+    
+        <!-- Testing dependencies -->
+        <junit.version>4.13.2</junit.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <junit.vintage.version>${junit.jupiter.version}</junit.vintage.version>
+        
+        <!-- Official Maven Plugins -->
+        <maven-plugin-api.version>3.8.2</maven-plugin-api.version>
+        <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+        <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
+        <maven-plugin-plugin.version>3.6.4</maven-plugin-plugin.version>
+        <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
+        <maven-flatten-plugin.version>1.2.7</maven-flatten-plugin.version>
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <maven-release-plugin.version>3.0.0-M5</maven-release-plugin.version>
+    
+        <pomchecker-maven-plugin.version>1.2.0</pomchecker-maven-plugin.version>
+        <nexus-staging-plugin.version>1.6.12</nexus-staging-plugin.version>
+        <checkstyle-maven-plugin.version>3.1.2</checkstyle-maven-plugin.version>
+        <checkstyle.version>9.3</checkstyle.version>
+        <spotbugs-maven-plugin.version>4.4.1</spotbugs-maven-plugin.version>
     </properties>
 
     <licenses>
@@ -57,116 +95,159 @@
             </comments>
         </license>
     </licenses>
-
-
+    
+    <issueManagement>
+        <url>https://github.com/gdcc/xoai/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+    
     <scm>
-        <connection>scm:git:git@github.com:DSpace/xoai.git</connection>
-        <developerConnection>scm:git:git@github.com:DSpace/xoai.git</developerConnection>
-        <url>git@github.com:DSpace/xoai.git</url>
+        <connection>scm:git:git@github.com:gdcc/xoai.git</connection>
+        <developerConnection>scm:git:git@github.com:gdcc/xoai.git</developerConnection>
+        <url>git@github.com:gdcc/xoai.git</url>
         <tag>HEAD</tag>
     </scm>
-
-    <!--
-        Distribution Management is currently used by the Continuum
-        server to update snapshots it generates. This will also be used
-        on release to deploy release versions to the repository by the
-        release manager.
-    -->
+    
+    <ciManagement>
+        <url>https://github.com/gdcc/xoai/actions</url>
+        <system>github</system>
+        <notifiers>
+            <notifier>
+                <address>dataversebot@gdcc.io</address>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    
     <distributionManagement>
-        <!-- further distribution management is found upstream in the sonatype parent -->
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>sonatype-releases</id>
-            <name>Sonatype Releases Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/releases/</url>
-        </repository>
-        <!--Nor sonatype nor maven central appear to still contain org.restlet.jee:org.restlet.ext.servlet:jar:2.1.1 any more. No problem if it is in your local repo. Build fail if it isn't-->
-        <repository>
-            <id>restlet</id>
-            <name>restlet</name>
-            <url>http://maven.restlet.org</url>
-        </repository>
-    </repositories>
 
     <build>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.5</version>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <release>${jdk.version}</release>
+                        <compilerArgument>${compilerArgument}</compilerArgument>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.8.1</version>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${maven-dependency-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-failsafe-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.2.1</version>
+                    <version>${maven-source-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>${maven-flatten-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.kordamp.maven</groupId>
+                    <artifactId>pomchecker-maven-plugin</artifactId>
+                    <version>${pomchecker-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>${nexus-staging-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>${maven-release-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${checkstyle-maven-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${checkstyle.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.kordamp.maven</groupId>
+                <artifactId>pomchecker-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
                     <useReleaseProfile>false</useReleaseProfile>
                     <releaseProfiles>release</releaseProfiles>
                     <goals>deploy</goals>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <showDeprecation>false</showDeprecation>
-                    <showWarnings>false</showWarnings>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <inherited>true</inherited>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
@@ -289,9 +370,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-
+    
     <developers>
+        <developer>
+            <name>Oliver Bertuch</name>
+            <url>https://github.com/poikilotherm</url>
+        </developer>
         <developer>
             <name>DSpace @ Lyncode</name>
             <email>dspace@lyncode.com</email>
@@ -299,5 +383,87 @@
             <organizationUrl>http://www.lyncode.com</organizationUrl>
         </developer>
     </developers>
-
+    
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <source>${jdk.version}</source>
+                            <detectJavaApiLink>false</detectJavaApiLink>
+                            <doclint>${javadoc.lint}</doclint>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <flattenMode>oss</flattenMode>
+                            <pomElements>
+                                <distributionManagement>remove</distributionManagement>
+                                <repositories>remove</repositories>
+                            </pomElements>
+                        </configuration>
+                        <executions>
+                            <!-- enable flattening -->
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                            </execution>
+                            <!-- ensure proper cleanup -->
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
 </project>
