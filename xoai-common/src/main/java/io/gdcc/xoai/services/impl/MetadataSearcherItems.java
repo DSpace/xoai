@@ -17,8 +17,6 @@ import io.gdcc.xoai.services.api.MetadataSearch;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.apache.commons.lang3.StringUtils.join;
-
 /**
  * An implementation whose searches return {@link MetadataItem} elements.
  * Useful for when more information for each OAI metadata item is available (e.g., xml attributes like xml:lang).
@@ -33,11 +31,11 @@ public class MetadataSearcherItems extends AbstractMetadataSearcher<MetadataItem
 
 	@Override
 	protected void consume(List<String> newNames, Element element) {
-		 List<String> names = new ArrayList<String>(newNames);
+		 List<String> names = new ArrayList<>(newNames);
 	        names.add(element.getName());
 
 	        if (!element.getFields().isEmpty()) {
-	        	add(join(names, "."), element.getFields());
+	        	add(String.join(".", names), element.getFields());
 	        }
 
 	        if (!element.getElements().isEmpty()) {
@@ -49,7 +47,7 @@ public class MetadataSearcherItems extends AbstractMetadataSearcher<MetadataItem
 
 	private void add(String name, List<Field> fields) {
 		 if (!index.containsKey(name))
-	            index.put(name, new ArrayList<MetadataItem>());
+	            index.put(name, new ArrayList<>());
 		 
 		 MetadataItem newElement = new MetadataItem();
 		 for (Field field : fields) {

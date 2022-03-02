@@ -9,7 +9,6 @@
 package io.gdcc.xoai.model.oaipmh;
 
 import com.lyncode.xml.exceptions.XmlWriteException;
-import org.apache.commons.io.IOUtils;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 import io.gdcc.xoai.xml.EchoElement;
 import io.gdcc.xoai.xml.XmlWritable;
@@ -18,6 +17,7 @@ import io.gdcc.xoai.xml.XmlWriter;
 import javax.xml.bind.annotation.XmlValue;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 public class Metadata implements XmlWritable {
     private String string;
@@ -34,7 +34,7 @@ public class Metadata implements XmlWritable {
     }
 
     public Metadata(InputStream value) throws IOException {
-        this.string = IOUtils.toString(value);
+        this.string = new String(value.readAllBytes(), StandardCharsets.UTF_8);
     }
 
     @Override

@@ -9,7 +9,6 @@
 package io.gdcc.xoai.tests.util;
 
 import io.gdcc.xoai.xml.XSLPipeline;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import javax.xml.transform.Transformer;
@@ -18,6 +17,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
@@ -33,21 +33,27 @@ public class XSLPipelineTest {
     @Test
     public void shouldGiveTheSameIfNoTransformationIsApplied() throws Exception {
         XSLPipeline underTest = new XSLPipeline(input, true);
-        assertEquals(TEST_XML, IOUtils.toString(underTest.process()));
+        
+        String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
+        assertEquals(TEST_XML, result);
     }
 
     @Test
     public void shouldTransformWithXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, false);
         underTest.apply(identityTransformer());
-        assertThat(IOUtils.toString(underTest.process()), containsString("<?xml"));
+        
+        String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
+        assertThat(result, containsString("<?xml"));
     }
 
     @Test
     public void shouldTransformWithoutXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, true);
         underTest.apply(identityTransformer());
-        assertThat(IOUtils.toString(underTest.process()), not(containsString("<?xml")));
+    
+        String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
+        assertThat(result, not(containsString("<?xml")));
     }
 
 

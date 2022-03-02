@@ -11,32 +11,39 @@ package io.gdcc.xoai.services.impl;
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
-import io.gdcc.xoai.util.Base64Utils;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.regex.Pattern;
 
 public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
+    
     public ResumptionToken.Value parse(String resumptionToken) throws InvalidResumptionTokenException {
-        if (resumptionToken == null) return new ResumptionToken.Value();
+        if (resumptionToken == null) {
+            return new ResumptionToken.Value();
+        }
+        
         int offset = 0;
         String set = null;
         Date from = null;
         Date until = null;
         String metadataPrefix = null;
-        if (resumptionToken == null || resumptionToken.trim().equals("")) {
+        
+        if (resumptionToken.trim().equals("")) {
             return new ResumptionToken.Value();
         } else {
-            String s = Base64Utils.decode(resumptionToken);
+            String s = base64Decode(resumptionToken);
             String[] pieces = s.split(Pattern.quote("|"));
             try {
                 if (pieces.length > 0) {
                     offset = Integer.parseInt(pieces[0].substring(2));
                     if (pieces.length > 1) {
                         set = pieces[1].substring(2);
-                        if (set != null && set.equals(""))
+                        if (set.equals(""))
                             set = null;
                     }
                     if (pieces.length > 2) {
@@ -47,8 +54,9 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
                     }
                     if (pieces.length > 4) {
                         metadataPrefix = pieces[4].substring(2);
-                        if (metadataPrefix != null && metadataPrefix.equals(""))
+                        if (metadataPrefix.equals("")) {
                             metadataPrefix = null;
+                        }
                     }
                 } else
                     throw new InvalidResumptionTokenException();
@@ -56,6 +64,7 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
                 throw new InvalidResumptionTokenException(ex);
             }
         }
+        
         return new ResumptionToken.Value()
                 .withUntil(until)
                 .withFrom(from)
@@ -80,7 +89,7 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
         if (resumptionToken.hasMetadataPrefix())
             s += resumptionToken.getMetadataPrefix();
 
-        return Base64Utils.encode(s);
+        return base64Encode(s);
     }
 
 
@@ -105,6 +114,27 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
             }
         }
     }
-
+    
+    /**
+     * Simple decoding of a Base64 encoded String assuming UTF-8 usage
+     * @param value The Base64 encoded string
+     * @return A decoded String (may be empty)
+     */
+    private static String base64Decode(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Value to be Base64-decoded may not be null.");
+        }
+        
+        byte[] decodedValue = Base64.getDecoder().decode(value);
+        return new String(decodedValue, StandardCharsets.UTF_8);
+    }
+    
+    private static String base64Encode(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Value to be Base64-encoded may not be null.");
+        }
+        
+        return Base64.getEncoder().encodeToString(value.getBytes(StandardCharsets.UTF_8));
+    }
 
 }
