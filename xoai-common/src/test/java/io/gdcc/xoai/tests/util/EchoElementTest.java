@@ -3,13 +3,14 @@ package io.gdcc.xoai.tests.util;
 import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.EchoElement;
 import io.gdcc.xoai.xml.XmlWriter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class EchoElementTest {
 
@@ -28,7 +29,7 @@ public class EchoElementTest {
 
         String result = echoXml(xml);
 
-        assertEquals("EchoElement handles nested namespaces", xml, result);
+        assertThat("EchoElement handles nested namespaces", xml, equalTo(result));
     }
 
     /*
@@ -46,7 +47,7 @@ public class EchoElementTest {
 
         String result = echoXml(xml);
 
-        assertEquals("EchoElement handles nested namespaces", xml, result);
+        assertThat("EchoElement handles nested namespaces", xml, equalTo(result));
     }
 
     private String echoXml(String xml) throws XmlWriteException, XMLStreamException {

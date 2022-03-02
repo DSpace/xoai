@@ -11,12 +11,11 @@ package io.gdcc.xoai.services.impl.metadataSearchImpl;
 import io.gdcc.xoai.model.xoai.Element;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 import io.gdcc.xoai.services.impl.MetadataSearchImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class MetadataSearchImplTest {
 
@@ -24,7 +23,7 @@ public class MetadataSearchImplTest {
 	private Element creatorElement;
 	private Element subjectElement;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		metadata = new XOAIMetadata();
 		
@@ -46,7 +45,7 @@ public class MetadataSearchImplTest {
 	public void metadataSearchImplConstructorTest() {
 		MetadataSearchImpl searcher = new MetadataSearchImpl(metadata);
 		
-		assertEquals(2, searcher.index().size());
+		assertThat(2, equalTo(searcher.index().size()));
 		assertThat(searcher.findOne("dc.creator"), equalTo("Sousa, Jesus Maria Angélica Fernandes"));
 		assertThat(searcher.findOne("dc.subject"), equalTo("Ciências da Educação"));
 	}
@@ -60,7 +59,7 @@ public class MetadataSearchImplTest {
 		subjectElement.withField("xml:lang", "pt-PT");
 		MetadataSearchImpl searcher = new MetadataSearchImpl(metadata);
 		
-		assertEquals(4, searcher.index().size());
+		assertThat(4, equalTo(searcher.index().size()));
 		assertThat(searcher.findOne("dc.creator:xml:lang"), equalTo("pt-PT"));
 		assertThat(searcher.findOne("dc.subject:xml:lang"), equalTo("pt-PT"));
 	}

@@ -13,7 +13,7 @@ import io.gdcc.xoai.services.impl.UTCDateProvider;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;

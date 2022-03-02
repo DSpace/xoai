@@ -9,7 +9,7 @@
 package io.gdcc.xoai.model.oaipmh;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 

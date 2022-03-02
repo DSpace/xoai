@@ -8,9 +8,9 @@
 
 package io.gdcc.xoai.model.xoai;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class MetadataItemTest {
 
@@ -20,7 +20,7 @@ public class MetadataItemTest {
 		item.addProperty("key", "value1");
 		item.addProperty("key", "value2");
 		
-		assertEquals("value2",item.getProperty("key"));
+		assertThat("value2", equalTo(item.getProperty("key")));
 	}
 	
 	@Test
@@ -28,7 +28,7 @@ public class MetadataItemTest {
 		MetadataItem item = new MetadataItem();
 		item.addProperty(MetadataItem.XMLLANG, "pt-PT");
 		
-		assertEquals("pt-PT",item.getProperty(MetadataItem.XMLLANG));
-		assertEquals("xml:lang",MetadataItem.XMLLANG);
+		assertThat("pt-PT", equalTo(item.getProperty(MetadataItem.XMLLANG)));
+		assertThat("xml:lang", equalTo(MetadataItem.XMLLANG));
 	}
 }

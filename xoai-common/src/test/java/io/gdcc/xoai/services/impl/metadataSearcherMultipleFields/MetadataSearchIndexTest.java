@@ -12,12 +12,13 @@ import io.gdcc.xoai.model.xoai.Element;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 import io.gdcc.xoai.services.api.MetadataSearch;
 import io.gdcc.xoai.services.impl.MetadataSearchImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class MetadataSearchIndexTest {
 	
@@ -28,10 +29,8 @@ public class MetadataSearchIndexTest {
 		MetadataSearch metadataSearch = new MetadataSearchImpl(xoaiMetadata );
 		Map<String,List<String>> index = metadataSearch.index();
 		
-		assertEquals(1,index.size());
-		
-		assertEquals("john doe",index.get("dc.creator").get(0));
-		
+		assertThat(1, equalTo(index.size()));
+		assertThat("john doe", equalTo(index.get("dc.creator").get(0)));
 	}
 
 	@Test
@@ -40,9 +39,7 @@ public class MetadataSearchIndexTest {
 		MetadataSearch metadataSearch = new MetadataSearchImpl(xoaiMetadata );
 		Map<String,List<String>> index = metadataSearch.index();
 		
-		assertEquals(0,index.size());
-		
-		
+		assertThat(0, equalTo(index.size()));
 	}
 
 }

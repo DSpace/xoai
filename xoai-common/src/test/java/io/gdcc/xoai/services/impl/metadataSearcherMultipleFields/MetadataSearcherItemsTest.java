@@ -13,12 +13,13 @@ import io.gdcc.xoai.model.xoai.MetadataItem;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 import io.gdcc.xoai.services.api.MetadataSearch;
 import io.gdcc.xoai.services.impl.MetadataSearcherItems;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class MetadataSearcherItemsTest {
 
@@ -29,7 +30,7 @@ public class MetadataSearcherItemsTest {
 
 	private Element parentElement;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 		metadata = new XOAIMetadata();
@@ -49,8 +50,8 @@ public class MetadataSearcherItemsTest {
 	public void indexHasOneKey() {
 		searcher = new MetadataSearcherItems(metadata);
 		
-		assertEquals(1,searcher.index().size());
-		assertEquals("dc.subject",searcher.index().keySet().iterator().next());
+		assertThat(1, equalTo(searcher.index().size()));
+		assertThat("dc.subject", equalTo(searcher.index().keySet().iterator().next()));
 	}
 	
 	@Test
@@ -58,9 +59,9 @@ public class MetadataSearcherItemsTest {
 		searcher = new MetadataSearcherItems(metadata);
 		
 		List<MetadataItem> items = searcher.index().get("dc.subject");
-		assertEquals(1,items.size());
-		assertEquals("Ciências da Educação",items.get(0).getValue());
-		assertEquals("pt-PT",items.get(0).getProperty("xml:lang"));
+		assertThat(1, equalTo(items.size()));
+		assertThat("Ciências da Educação", equalTo(items.get(0).getValue()));
+		assertThat("pt-PT", equalTo(items.get(0).getProperty("xml:lang")));
 	}
 	
 
@@ -72,8 +73,8 @@ public class MetadataSearcherItemsTest {
 		searcher = new MetadataSearcherItems(metadata);
 		
 		List<MetadataItem> items = searcher.index().get("dc.subject");
-		assertEquals(1,items.size());
-		assertEquals("Ciências da Educação",items.get(0).getValue());
+		assertThat(1, equalTo(items.size()));
+		assertThat("Ciências da Educação", equalTo(items.get(0).getValue()));
 	}
 	
 	//FindOne Tests - should be tested in abstract
@@ -83,7 +84,7 @@ public class MetadataSearcherItemsTest {
 		searcher = new MetadataSearcherItems(metadata);
 		
 		MetadataItem element = searcher.findOne("dc.subject");
-		assertEquals("Ciências da Educação",element.getValue());
+		assertThat("Ciências da Educação", equalTo(element.getValue()));
 	}
 	
 	//FindAll Tests - should be tested in abstract
@@ -99,6 +100,6 @@ public class MetadataSearcherItemsTest {
 		searcher = new MetadataSearcherItems(metadata);
 		
 		List<MetadataItem> elements = searcher.findAll("dc.subject");
-		assertEquals(2,elements.size());
+		assertThat(2, equalTo(elements.size()));
 	}
 }

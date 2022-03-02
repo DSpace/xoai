@@ -9,7 +9,7 @@
 package io.gdcc.xoai.tests.util;
 
 import io.gdcc.xoai.xml.XSLPipeline;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -21,8 +21,8 @@ import java.nio.charset.StandardCharsets;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class XSLPipelineTest {
     private static final TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -35,7 +35,7 @@ public class XSLPipelineTest {
         XSLPipeline underTest = new XSLPipeline(input, true);
         
         String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
-        assertEquals(TEST_XML, result);
+        assertThat(TEST_XML, equalTo(result));
     }
 
     @Test

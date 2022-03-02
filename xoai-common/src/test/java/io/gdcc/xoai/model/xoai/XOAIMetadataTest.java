@@ -9,7 +9,7 @@
 package io.gdcc.xoai.model.xoai;
 
 import com.lyncode.xml.XmlWriter;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -33,6 +33,6 @@ public class XOAIMetadataTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         XmlWriter writer = new XmlWriter(output);
         read.write(writer);
-        System.out.println(output.toString());
+        //System.out.println(output.toString());
     }
 }
