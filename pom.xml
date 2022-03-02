@@ -42,7 +42,8 @@
         <argLine>-Duser.timezone=${project.timezone} -Dfile.encoding=${project.build.sourceEncoding} -Duser.language=${project.language} -Duser.region=${project.region}</argLine>
         
         <!-- Dependencies -->
-        <jakarta.jaxb.version>2.3.2</jakarta.jaxb.version>
+        <jakarta.jaxb.version>2.3.3</jakarta.jaxb.version>
+        <jakarta.jaxb-impl.version>2.3.6</jakarta.jaxb-impl.version>
         <hamcrest.version>2.2</hamcrest.version>
         <lyncode.test-support>1.0.4</lyncode.test-support>
     
@@ -255,11 +256,32 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jakarta.jaxb.version}</version>
+            </dependency>
+    
+            <!--
+            This library is meant to be used with a Jakarta EE application server, so we do not include
+            the runtime dependency for JAXB. This is only necessary when using Java SE standalone. We mark this
+            as scope runtime (not necessary for compilation) and as optional (to exclude from packaging).
+            
+            (Usually you would not add the scope in <dependencyManagement>, but as we want to provide a sane default,
+            lets do this anyway.)
+            -->
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jakarta.jaxb-impl.version}</version>
+                <scope>runtime</scope>
+                <optional>true</optional>
+            </dependency>
+    
+            <dependency>
                 <groupId>com.lyncode</groupId>
                 <artifactId>xml-io</artifactId>
                 <version>${lyncode.xml-io}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.lyncode</groupId>
                 <artifactId>test-support</artifactId>
@@ -337,12 +359,6 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>xml-apis</groupId>
-                <artifactId>xml-apis</artifactId>
-                <version>1.0.b2</version>
             </dependency>
 
             <dependency>
