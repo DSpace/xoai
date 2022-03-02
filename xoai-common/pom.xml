@@ -23,6 +23,12 @@
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <!-- This library is not just used within tests, we also use it to match within real code! -->
+            <scope>compile</scope>
+        </dependency>
     
         <!-- TESTING DEPENDENCIES -->
         <dependency>
@@ -46,11 +52,6 @@
         <dependency>
             <groupId>com.lyncode</groupId>
             <artifactId>xml-io</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
         </dependency>
 
         <dependency>

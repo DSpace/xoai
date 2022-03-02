@@ -261,7 +261,6 @@
                 <artifactId>jakarta.xml.bind-api</artifactId>
                 <version>${jakarta.jaxb.version}</version>
             </dependency>
-    
             <!--
             This library is meant to be used with a Jakarta EE application server, so we do not include
             the runtime dependency for JAXB. This is only necessary when using Java SE standalone. We mark this
@@ -277,7 +276,13 @@
                 <scope>runtime</scope>
                 <optional>true</optional>
             </dependency>
-            
+    
+            <!-- This library is not just used within tests, we also use it to match within real code! -->
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>${hamcrest.version}</version>
+            </dependency>
             
             
             <!-- TESTING DEPENDENCIES -->
@@ -306,6 +311,17 @@
                 <groupId>org.xmlunit</groupId>
                 <artifactId>xmlunit-matchers</artifactId>
                 <version>${xmlunit.version}</version>
+                <!--
+                This library relies on the outdated hamcrest 1.3. As hamcrest changed the artifactId from hamcrest-core
+                to just hamcrest and the API is the very same, we simply exclude it here and let it pick up the newer
+                hamcrest library on the classpath.
+                 -->
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.hamcrest</groupId>
+                        <artifactId>hamcrest-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             
             
