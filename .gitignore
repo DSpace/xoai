@@ -5,6 +5,7 @@
 *.settings
 
 # Package Files #
+.flattened-pom.xml
 *.jar
 *.war
 *.ear
