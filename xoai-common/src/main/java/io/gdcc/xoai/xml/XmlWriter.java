@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.xml;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.DateProvider;
@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.Date;
 
-public class XmlWriter extends com.lyncode.xml.XmlWriter {
+public class XmlWriter extends io.gdcc.xoai.xmlio.XmlWriter {
     public static String toString (XmlWritable writable) throws XMLStreamException, XmlWriteException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         XmlWriter writer = new XmlWriter(outputStream, defaultContext());

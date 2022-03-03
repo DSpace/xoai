@@ -29,6 +29,10 @@
             <!-- This library is not just used within tests, we also use it to match within real code! -->
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-xmlio</artifactId>
+        </dependency>
     
         <!-- TESTING DEPENDENCIES -->
         <dependency>
@@ -49,10 +53,6 @@
         
         
         <!-- OLD DEPENDENCIES, TO BE REMOVED / UPDATED -->
-        <dependency>
-            <groupId>com.lyncode</groupId>
-            <artifactId>xml-io</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>

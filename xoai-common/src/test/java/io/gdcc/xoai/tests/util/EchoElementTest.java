@@ -1,6 +1,6 @@
 package io.gdcc.xoai.tests.util;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.EchoElement;
 import io.gdcc.xoai.xml.XmlWriter;
 import org.junit.jupiter.api.Test;

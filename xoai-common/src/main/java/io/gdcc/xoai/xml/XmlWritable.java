@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.xml;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 
 public interface XmlWritable {
     public void write (XmlWriter writer) throws XmlWriteException;

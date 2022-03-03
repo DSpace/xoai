@@ -15,11 +15,11 @@
 
 package io.gdcc.xoai.model.xoai;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.XmlWritable;
-import com.lyncode.xml.XmlWriter;
-import com.lyncode.xml.exceptions.XmlReaderException;
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.XmlWritable;
+import io.gdcc.xoai.xmlio.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.services.api.MetadataSearch;
 import io.gdcc.xoai.services.impl.MetadataSearchImpl;
 import io.gdcc.xoai.xml.XSISchema;
@@ -30,8 +30,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
+import static io.gdcc.xoai.xmlio.matchers.QNameMatchers.localPart;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.AllOf.allOf;
 

@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.xml;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.codehaus.stax2.XMLInputFactory2;
 
 import javax.xml.namespace.QName;

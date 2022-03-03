@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 import io.gdcc.xoai.xml.EchoElement;
 import io.gdcc.xoai.xml.XmlWritable;

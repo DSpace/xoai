@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.model.xoai;
 
-import com.lyncode.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.XmlWriter;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;

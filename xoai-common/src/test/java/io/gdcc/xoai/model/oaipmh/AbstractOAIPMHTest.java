@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.services.impl.UTCDateProvider;

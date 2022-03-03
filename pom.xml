@@ -14,6 +14,7 @@
         <module>xoai-common</module>
         <module>xoai-data-provider</module>
         <module>xoai-service-provider</module>
+        <module>xoai-xmlio</module>
     </modules>
 
     <groupId>io.gdcc</groupId>
@@ -312,6 +313,11 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest</artifactId>
                 <version>${hamcrest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.gdcc</groupId>
+                <artifactId>xoai-xmlio</artifactId>
+                <version>${revision}</version>
             </dependency>
             
             
