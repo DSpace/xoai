@@ -16,8 +16,8 @@
 
 package io.gdcc.xoai.xmlio.matchers;
 
-import com.lyncode.test.matchers.extractor.ExtractFunction;
-import com.lyncode.test.matchers.extractor.MatcherExtractor;
+import io.gdcc.xoai.xmlio.matchers.extractor.ExtractFunction;
+import io.gdcc.xoai.xmlio.matchers.extractor.MatcherExtractor;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;

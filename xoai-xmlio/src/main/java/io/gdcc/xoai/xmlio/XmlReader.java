@@ -16,7 +16,7 @@
 
 package io.gdcc.xoai.xmlio;
 
-import com.lyncode.test.matchers.extractor.ExtractFunction;
+import io.gdcc.xoai.xmlio.matchers.extractor.ExtractFunction;
 import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 import org.codehaus.stax2.XMLInputFactory2;
 import org.hamcrest.Description;

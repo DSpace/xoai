@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import java.io.InputStream;
 
-import static com.lyncode.test.matchers.xml.XPathMatchers.hasXPath;
+import static org.xmlunit.matchers.HasXPathMatcher.hasXPath;
 import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.aStartElement;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -32,7 +32,7 @@ public class XmlReaderTest {
         XmlReader reader = new XmlReader(inputStream);
         reader.next(aStartElement()).next(aStartElement());
         String string = reader.retrieveCurrentAsString();
-
+    
         assertThat(string, hasXPath("/one/two"));
     }
 }

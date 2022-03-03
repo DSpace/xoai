@@ -10,6 +10,17 @@ It has been altered
 
 has been drawn into this complete XOAI package as a submodule.
 
+### lyncode/test-support
+
+This library also includes a few classes from lyncode/test-support (namely the package `test.matchers.extractor`), 
+which is not available on GitHub anymore. The sources have been extracted from the source JAR at 
+https://search.maven.org/artifact/com.lyncode/test-support/1.1.0/jar. 
+
+This package is also licensed under Apache 2.0 and hasn't been released in a long time. 
+The classes have been adapted to not rely on Google Guava but use native JDK only.
+
+----
+
 Original content as follows:
 
 xml-io
