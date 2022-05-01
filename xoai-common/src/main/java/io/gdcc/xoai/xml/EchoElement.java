@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.Stack;
 
 public class EchoElement implements XmlWritable {
+    // Using the STaX2 API here, but hiding behind STaX1
     private static XMLInputFactory factory = XMLInputFactory2.newFactory();
     private String xmlString = null;
     private Stack<Set<String>> declaredPrefixes = new Stack<Set<String>>();
