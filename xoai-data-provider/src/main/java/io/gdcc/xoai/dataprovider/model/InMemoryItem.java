@@ -24,17 +24,18 @@ import static io.gdcc.xoai.util.Randoms.randomAlphabetic;
 import static io.gdcc.xoai.util.Randoms.randomNumeric;
 
 public class InMemoryItem implements Item {
+    
+    private final Map<String, Object> values = new HashMap<>();
+    
     public static InMemoryItem item () {
         return new InMemoryItem();
     }
-
-    private final Map<String, Object> values = new HashMap<>();
 
     public static InMemoryItem randomItem() {
         return new InMemoryItem()
                 .with("identifier", randomAlphabetic(10))
                 .with("datestamp", new Date())
-                .with("sets", List.of(randomAlphabetic(3)))
+                .withSet(randomAlphabetic(3))
                 .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
     }
 
@@ -42,22 +43,28 @@ public class InMemoryItem implements Item {
         values.put(name, value);
         return this;
     }
-
-    public InMemoryItem withSet(String name) {
-        ((List<String>) values.get("sets")).add(name);
+    
+    @SuppressWarnings("unchecked")
+    public InMemoryItem withSet(String spec) {
+        if (values.containsKey("sets")) {
+            ((List<String>) values.get("sets")).add(spec);
+        } else {
+            values.put("sets", new ArrayList<>(List.of(spec)));
+        }
         return this;
     }
 
     @Override
     public List<About> getAbout() {
-        return new ArrayList<About>();
+        return new ArrayList<>();
     }
 
     @Override
     public Metadata getMetadata() {
         return new Metadata(toMetadata());
     }
-
+    
+    @SuppressWarnings("unchecked")
     private XOAIMetadata toMetadata() {
         XOAIMetadata builder = new XOAIMetadata();
         for (String key : values.keySet()) {

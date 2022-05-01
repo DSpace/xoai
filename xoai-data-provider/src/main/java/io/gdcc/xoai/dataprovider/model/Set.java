@@ -13,19 +13,20 @@ import io.gdcc.xoai.model.xoai.XOAIMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class Set {
-    public static Set set (String spec) {
+    public static Set set(String spec) {
         return new Set(spec);
     }
 
     private final String spec;
+    private final List<XOAIMetadata> descriptions = new ArrayList<>();
     private String name;
-    private List<XOAIMetadata> descriptions = new ArrayList<XOAIMetadata>();
     private Condition condition;
 
     public Set(String spec) {
@@ -78,5 +79,18 @@ public class Set {
         for (XOAIMetadata description : descriptions)
             set.withDescription(description);
         return set;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Set)) return false;
+        Set set = (Set) o;
+        return Objects.equals(getSpec(), set.getSpec());
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
     }
 }
