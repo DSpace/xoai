@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider.builder;
 
-import com.lyncode.builder.Builder;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
@@ -18,6 +17,7 @@ import io.gdcc.xoai.dataprovider.parameters.OAIRequest;
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.model.oaipmh.Verb;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.types.Builder;
 
 import java.util.*;
 

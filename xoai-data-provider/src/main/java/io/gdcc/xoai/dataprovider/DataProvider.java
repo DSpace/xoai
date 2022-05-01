@@ -8,8 +8,6 @@
 
 package io.gdcc.xoai.dataprovider;
 
-import com.lyncode.builder.Builder;
-
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.BadResumptionToken;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
@@ -28,11 +26,13 @@ import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.parameters.OAIRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
+
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.model.oaipmh.OAIPMH;
 import io.gdcc.xoai.model.oaipmh.Request;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.types.Builder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

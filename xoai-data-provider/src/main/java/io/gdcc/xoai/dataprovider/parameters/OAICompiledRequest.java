@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider.parameters;
 
-import com.lyncode.builder.Builder;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
@@ -19,6 +18,7 @@ import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.types.Builder;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
