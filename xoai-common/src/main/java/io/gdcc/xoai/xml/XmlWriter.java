@@ -18,16 +18,21 @@ import io.gdcc.xoai.services.impl.UTCDateProvider;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
-public class XmlWriter extends io.gdcc.xoai.xmlio.XmlWriter {
-    public static String toString (XmlWritable writable) throws XMLStreamException, XmlWriteException {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        XmlWriter writer = new XmlWriter(outputStream, defaultContext());
-        writable.write(writer);
-        writer.close();
-        return outputStream.toString();
+public class XmlWriter extends io.gdcc.xoai.xmlio.XmlWriter implements AutoCloseable {
+    public static String toString(XmlWritable writable) throws XMLStreamException, XmlWriteException {
+        try (
+            OutputStream out = new ByteArrayOutputStream();
+            XmlWriter writer = new XmlWriter(out, defaultContext());
+        ) {
+            writable.write(writer);
+            return out.toString();
+        } catch (IOException e) {
+            throw new XmlWriteException(e);
+        }
     }
 
     public static WriterContext defaultContext () {
@@ -35,8 +40,8 @@ public class XmlWriter extends io.gdcc.xoai.xmlio.XmlWriter {
     }
 
     public static class WriterContext {
-        private Granularity granularity;
-        private ResumptionTokenFormat formatter;
+        private final Granularity granularity;
+        private final ResumptionTokenFormat formatter;
 
         public WriterContext(Granularity granularity, ResumptionTokenFormat formatter) {
             this.granularity = granularity;

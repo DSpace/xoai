@@ -24,7 +24,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.OutputStream;
 
-public class XmlWriter implements XMLStreamWriter {
+public class XmlWriter implements XMLStreamWriter, AutoCloseable {
     // Using the STaX2 API here, but hiding behind STaX1
     private static final XMLOutputFactory factory = XMLOutputFactory2.newFactory();
     private final XMLStreamWriter writer;
