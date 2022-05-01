@@ -10,7 +10,6 @@ package io.gdcc.xoai.dataprovider.handlers.helpers;
 
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 
-import static com.google.common.base.Predicates.isNull;
 import static java.lang.Math.round;
 
 public class ResumptionTokenHelper {
@@ -46,7 +45,7 @@ public class ResumptionTokenHelper {
     }
 
     private boolean isInitialOffset() {
-        return isNull().apply(current.getOffset()) || current.getOffset() == 0;
+        return current.getOffset() == null || current.getOffset() == 0;
     }
 
     private ResumptionToken populate(ResumptionToken resumptionToken) {
