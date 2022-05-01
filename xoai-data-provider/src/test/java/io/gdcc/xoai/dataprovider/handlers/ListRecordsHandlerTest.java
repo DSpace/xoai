@@ -16,8 +16,6 @@ import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
 import org.junit.Test;
 
-import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
-import static io.gdcc.xoai.model.oaipmh.Verb.Type.GetRecord;
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListRecords;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -25,7 +25,22 @@
             <artifactId>xoai-common</artifactId>
             <version>${revision}</version>
         </dependency>
-
+    
+        <!-- TESTING DEPENDENCIES -->
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        
+        <!-- OLD DEPENDENCIES - REFACTOR, UPDATE OR DELETE -->
+        
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

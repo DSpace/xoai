@@ -33,6 +33,7 @@ import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.xmlunit.matchers.EvaluateXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -48,7 +49,10 @@ public abstract class AbstractHandlerTest {
             .withItemRepository(itemRepository)
             .withResumptionTokenFormatter(new SimpleResumptionTokenFormat())
             .withConfiguration(repositoryConfiguration);
-
+    
+    protected static Matcher<? super String> xPath(String xpath, Matcher<String> stringMatcher) {
+        return EvaluateXPathMatcher.hasXPath(xpath, stringMatcher);
+    }
     protected String write(final XmlWritable handle) throws XMLStreamException, XmlWriteException {
         return XmlWriter.toString(new XmlWritable() {
             @Override

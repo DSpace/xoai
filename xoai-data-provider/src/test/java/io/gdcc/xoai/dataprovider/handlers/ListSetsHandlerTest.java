@@ -16,12 +16,13 @@ import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.lyncode.test.matchers.xml.XPathMatchers.hasXPath;
-import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
+import static org.xmlunit.matchers.HasXPathMatcher.hasXPath;
 import static io.gdcc.xoai.dataprovider.model.Set.set;
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListSets;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ListSetsHandlerTest extends AbstractHandlerTest {
     protected ListSetsHandler underTest;
