@@ -20,10 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XSLPipeline {
+    private final List<Transformer> transformers = new ArrayList<>();
+    private final boolean omitXMLDeclaration;
     private InputStream inputStream;
-    private ByteArrayOutputStream outputStream;
-    private List<Transformer> transformers = new ArrayList<Transformer>();
-    private boolean omitXMLDeclaration;
 
     public XSLPipeline(InputStream inputStream, boolean omitXMLDeclaration) {
         this.inputStream = inputStream;
@@ -37,7 +36,7 @@ public class XSLPipeline {
 
     public InputStream process() throws TransformerException {
         for (Transformer transformer : transformers) {
-            outputStream = new ByteArrayOutputStream();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, (omitXMLDeclaration) ? "yes" : "no");
             transformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));
             inputStream = new ByteArrayInputStream(outputStream.toByteArray());

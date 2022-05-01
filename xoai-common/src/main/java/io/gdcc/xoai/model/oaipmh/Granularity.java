@@ -24,7 +24,7 @@ public enum Granularity {
         throw new IllegalArgumentException(representation);
     }
 
-    private String representation;
+    private final String representation;
 
     Granularity (String representation) {
         this.representation = representation;

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListSets implements Verb {
-    protected List<Set> sets = new ArrayList<Set>();
+    protected final List<Set> sets = new ArrayList<>();
     protected ResumptionToken resumptionToken;
 
     public List<Set> getSets() {

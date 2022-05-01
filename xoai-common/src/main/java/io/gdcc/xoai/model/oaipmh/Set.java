@@ -27,7 +27,7 @@ public class Set implements XmlWritable {
 
     private String spec;
     private String name;
-    private List<Description> descriptions = new ArrayList<Description>();
+    private List<Description> descriptions = new ArrayList<>();
 
     public String getSpec() {
         return spec;

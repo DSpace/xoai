@@ -20,12 +20,12 @@ import java.util.Map;
 public abstract class AbstractMetadataSearcher<T> implements MetadataSearch<T> {
 	
 	protected static final String DEFAULT_FIELD = "value";
-	protected Map<String, List<T>> index = new HashMap<String, List<T>>();
+	protected Map<String, List<T>> index = new HashMap<>();
 	
 	
     public AbstractMetadataSearcher (XOAIMetadata metadata) {
         for (Element element : metadata.getElements()) {
-            consume(new ArrayList<String>(), element);
+            consume(new ArrayList<>(), element);
         }
     }
 	@Override
@@ -47,7 +47,7 @@ public abstract class AbstractMetadataSearcher<T> implements MetadataSearch<T> {
 
 	protected void init(XOAIMetadata metadata) {
 		for (Element element : metadata.getElements()) {
-            consume(new ArrayList<String>(), element);
+            consume(new ArrayList<>(), element);
         }
 		
 	}

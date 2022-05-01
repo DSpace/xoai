@@ -20,7 +20,7 @@ import java.util.List;
 public class Header implements XmlWritable {
     protected String identifier;
     protected Date datestamp;
-    protected List<String> setSpec = new ArrayList<String>();
+    protected List<String> setSpec = new ArrayList<>();
     protected Status status;
 
     public String getIdentifier() {

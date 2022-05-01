@@ -11,5 +11,5 @@ package io.gdcc.xoai.xml;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 
 public interface XmlWritable {
-    public void write (XmlWriter writer) throws XmlWriteException;
+    void write (XmlWriter writer) throws XmlWriteException;
 }

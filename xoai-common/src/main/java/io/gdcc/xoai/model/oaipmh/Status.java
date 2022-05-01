@@ -36,5 +36,4 @@ public enum Status {
 		}
 		throw new IllegalArgumentException(v);
 	}
-
 }

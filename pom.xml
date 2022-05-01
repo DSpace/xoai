@@ -59,7 +59,7 @@
         <lyncode.xml-io>1.0.3</lyncode.xml-io>
         <lyncode.builder-commons>1.0.2</lyncode.builder-commons>
         <lyncode.test-support>1.0.4</lyncode.test-support>
-    
+        
         <!-- Testing dependencies -->
         <junit.version>4.13.2</junit.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
@@ -354,7 +354,6 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
             </dependency>
-            
             <dependency>
                 <groupId>org.xmlunit</groupId>
                 <artifactId>xmlunit-core</artifactId>
@@ -382,34 +381,28 @@
             <!-- OLD DEPENDENCIES, TO BE REMOVED OR UPDATED -->
             <dependency>
                 <groupId>com.lyncode</groupId>
-                <artifactId>xml-io</artifactId>
-                <version>${lyncode.xml-io}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.lyncode</groupId>
                 <artifactId>test-support</artifactId>
                 <version>${lyncode.test-support}</version>
             </dependency>
-
-
+            
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-
+            
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons.lang3.version}</version>
             </dependency>
-
+            
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${http-commons.version}</version>
             </dependency>
-
+            
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -430,7 +423,6 @@
                 <artifactId>dom4j</artifactId>
                 <version>1.6.1</version>
             </dependency>
-
             <dependency>
                 <groupId>javax.xml.stream</groupId>
                 <artifactId>stax-api</artifactId>
