@@ -14,7 +14,7 @@ import io.gdcc.xoai.dataprovider.model.Set;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
+import static io.gdcc.xoai.util.Randoms.randomAlphabetic;
 
 public class InMemorySetRepository implements SetRepository {
     private boolean supportSets = true;

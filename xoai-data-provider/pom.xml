@@ -51,18 +51,8 @@
         <!-- OLD DEPENDENCIES - REFACTOR, UPDATE OR DELETE -->
 
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.lyncode</groupId>
             <artifactId>builder-commons</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <dependency>

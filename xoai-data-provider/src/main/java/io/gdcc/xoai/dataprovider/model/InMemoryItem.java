@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
+import static io.gdcc.xoai.util.Randoms.randomAlphabetic;
+import static io.gdcc.xoai.util.Randoms.randomNumeric;
 
 public class InMemoryItem implements Item {
     public static InMemoryItem item () {
