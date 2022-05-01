@@ -14,12 +14,11 @@ import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.hamcrest.Matcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xmlunit.matchers.EvaluateXPathMatcher;
 import org.xmlunit.matchers.HasXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
-
 import java.util.Map;
 
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListRecords;

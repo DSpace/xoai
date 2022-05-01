@@ -14,43 +14,45 @@ import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListIdentifiersHandlerTest extends AbstractHandlerTest {
     private ListIdentifiersHandler underTest = new ListIdentifiersHandler(aContext(), theRepository());
 
-    @Test(expected = BadArgumentException.class)
-    public void metadataPrefixIsMandatory () throws Exception {
-        underTest.handle(a(request()
-                .withVerb(ListIdentifiers)));
+    @Test
+    public void metadataPrefixIsMandatory () {
+        assertThrows(BadArgumentException.class, () -> underTest.handle(a(request().withVerb(ListIdentifiers))));
     }
 
-    @Test(expected = CannotDisseminateFormatException.class)
-    public void cannotDisseminateFormat() throws Exception {
+    @Test
+    public void cannotDisseminateFormat() {
         theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
         aContext().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
-        underTest.handle(a(request().withVerb(ListIdentifiers)
-              .withMetadataPrefix("abcd")));
+        assertThrows(CannotDisseminateFormatException.class,
+            () -> underTest.handle(a(request().withVerb(ListIdentifiers).withMetadataPrefix("abcd"))));
     }
 
-    @Test(expected = DoesNotSupportSetsException.class)
-    public void doesNotSupportSets () throws Exception {
+    @Test
+    public void doesNotSupportSets() {
         theSetRepository().doesNotSupportSets();
-        underTest.handle(a(request()
-                .withVerb(ListIdentifiers)
-                .withMetadataPrefix(EXISTING_METADATA_FORMAT)
-                .withSet("hello")));
+        assertThrows(DoesNotSupportSetsException.class,
+            () -> underTest.handle(a(request()
+                    .withVerb(ListIdentifiers)
+                    .withMetadataPrefix(EXISTING_METADATA_FORMAT)
+                    .withSet("hello"))));
     }
 
-    @Test(expected = NoMatchesException.class)
-    public void responseWithoutItems () throws Exception {
-        underTest.handle(a(request()
-                .withVerb(ListIdentifiers)
-                .withMetadataPrefix(EXISTING_METADATA_FORMAT)));
+    @Test
+    public void responseWithoutItems()  {
+        assertThrows(NoMatchesException.class,
+            () -> underTest.handle(a(request()
+                    .withVerb(ListIdentifiers)
+                    .withMetadataPrefix(EXISTING_METADATA_FORMAT))));
     }
 
     @Test

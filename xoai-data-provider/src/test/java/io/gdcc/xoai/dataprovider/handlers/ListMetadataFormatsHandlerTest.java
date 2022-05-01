@@ -13,21 +13,23 @@ import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import io.gdcc.xoai.dataprovider.exceptions.InternalOAIException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMetadataFormatsException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListMetadataFormats;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListMetadataFormatsHandlerTest extends AbstractHandlerTest {
-    @Test(expected = InternalOAIException.class)
-    public void initializationErrorIfInvalidConfiguration() throws Exception {
-        new ListMetadataFormatsHandler(aContext().withoutMetadataFormats(), theRepository());
+    @Test
+    public void initializationErrorIfInvalidConfiguration() {
+        assertThrows(InternalOAIException.class,
+            () -> new ListMetadataFormatsHandler(aContext().withoutMetadataFormats(), theRepository()));
     }
 
     @Test
-    public void validResponseForAllMetadataFormats () throws Exception{
+    public void validResponseForAllMetadataFormats() throws Exception{
         aContext().withMetadataFormat("xoai", MetadataFormat.identity());
         ListMetadataFormatsHandler underTest = new ListMetadataFormatsHandler(theContext(), theRepository());
         String result = write(underTest.handle(a(request().withVerb(ListMetadataFormats))));
@@ -36,24 +38,28 @@ public class ListMetadataFormatsHandlerTest extends AbstractHandlerTest {
     }
 
 
-    @Test(expected = IdDoesNotExistException.class)
-    public void itemNotExists () throws Exception{
+    @Test
+    public void itemNotExists() {
         aContext().withMetadataFormat("xoai", MetadataFormat.identity());
         ListMetadataFormatsHandler underTest = new ListMetadataFormatsHandler(theContext(), theRepository());
-        underTest.handle(a(request().withVerb(ListMetadataFormats).withIdentifier("1")));
+        
+        assertThrows(IdDoesNotExistException.class,
+            () -> underTest.handle(a(request().withVerb(ListMetadataFormats).withIdentifier("1"))));
     }
 
-    @Test(expected = NoMetadataFormatsException.class)
-    public void noFormatForItem () throws Exception{
+    @Test
+    public void noFormatForItem() {
         theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
         aContext().withMetadataFormat("xoai", MetadataFormat.identity(), alwaysFalseCondition());
         ListMetadataFormatsHandler underTest = new ListMetadataFormatsHandler(theContext(), theRepository());
-        underTest.handle(a(request().withVerb(ListMetadataFormats).withIdentifier("1")));
+        
+        assertThrows(NoMetadataFormatsException.class,
+            () -> underTest.handle(a(request().withVerb(ListMetadataFormats).withIdentifier("1"))));
     }
 
 
     @Test
-    public void validResponseForAnItem () throws Exception{
+    public void validResponseForAnItem() throws Exception{
         theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
         aContext().withMetadataFormat("xoai", MetadataFormat.identity());
         ListMetadataFormatsHandler underTest = new ListMetadataFormatsHandler(theContext(), theRepository());

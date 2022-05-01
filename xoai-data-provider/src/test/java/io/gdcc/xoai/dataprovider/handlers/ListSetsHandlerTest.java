@@ -13,8 +13,8 @@ import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
 import io.gdcc.xoai.model.oaipmh.ListSets;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.xmlunit.matchers.HasXPathMatcher.hasXPath;
 import static io.gdcc.xoai.dataprovider.model.Set.set;
@@ -23,29 +23,33 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListSetsHandlerTest extends AbstractHandlerTest {
     protected ListSetsHandler underTest;
 
-    @Before
+    @BeforeEach
     public void setup() {
         underTest = new ListSetsHandler(aContext(), theRepository());
     }
 
-    @Test(expected = IllegalVerbException.class)
+    @Test
     public void setVerbExpected() throws Exception {
-        underTest.handle(a(request()));
+        assertThrows(IllegalVerbException.class,
+            () -> underTest.handle(a(request())));
     }
 
-    @Test(expected = NoMatchesException.class)
+    @Test
     public void emptyRepositoryShouldGiveNoMatches() throws Exception {
-        underTest.handle(a(request().withVerb(ListSets)));
+        assertThrows(NoMatchesException.class,
+            () -> underTest.handle(a(request().withVerb(ListSets))));
     }
 
-    @Test(expected = DoesNotSupportSetsException.class)
+    @Test
     public void doesNotSupportSets() throws Exception {
         theSetRepository().doesNotSupportSets();
-        underTest.handle(a(request().withVerb(ListSets)));
+        assertThrows(DoesNotSupportSetsException.class,
+            () -> underTest.handle(a(request().withVerb(ListSets))));
     }
 
     @Test

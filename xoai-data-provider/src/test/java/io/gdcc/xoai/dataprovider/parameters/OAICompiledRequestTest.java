@@ -12,34 +12,38 @@ import io.gdcc.xoai.dataprovider.builder.OAIRequestParametersBuilder;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListSets;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class OAICompiledRequestTest {
 
-    @Test(expected = IllegalVerbException.class)
-    public void illegalVerbMustBeThrownIfUndefined() throws Exception {
-        aRequest().with("verb", "invalid").compile();
+    @Test
+    public void illegalVerbMustBeThrownIfUndefined() {
+        assertThrows(IllegalVerbException.class,
+            () -> aRequest().with("verb", "invalid").compile());
     }
 
-    @Test(expected = BadArgumentException.class)
-    public void fromAndUntilWithDifferentGranularity() throws Exception {
-        aRequest()
-                .withVerb(ListSets)
-                .with("from", "2000-05-30")
-                .with("until", "2001-01-20T15:00:00Z")
-                .compile();
+    @Test
+    public void fromAndUntilWithDifferentGranularity() {
+        assertThrows(BadArgumentException.class,
+            () -> aRequest()
+                    .withVerb(ListSets)
+                    .with("from", "2000-05-30")
+                    .with("until", "2001-01-20T15:00:00Z")
+                    .compile());
     }
 
-    @Test(expected = UnknownParameterException.class)
-    public void unknownParameter() throws Exception {
-        aRequest()
-                .withVerb(ListSets)
-                .with("a", "2000-05-30")
-                .compile();
+    @Test
+    public void unknownParameter() {
+        assertThrows(UnknownParameterException.class,
+            () -> aRequest()
+                    .withVerb(ListSets)
+                    .with("a", "2000-05-30")
+                    .compile());
     }
 
     @Test

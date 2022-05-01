@@ -9,7 +9,7 @@
 package io.gdcc.xoai.dataprovider.parameters;
 
 import io.gdcc.xoai.dataprovider.builder.OAIRequestParametersBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.From;
 import static org.hamcrest.CoreMatchers.is;
@@ -20,7 +20,7 @@ public class OAIRequestTest {
     private OAIRequestParametersBuilder builder = new OAIRequestParametersBuilder();
 
     @Test
-    public void emptyParameterValueShouldReturnNullValue() throws Exception {
+    public void emptyParameterValueShouldReturnNullValue() {
         OAIRequest parameters = builder.with("from", "").build();
         assertThat(parameters.get(From), is(nullValue(String.class)));
     }
