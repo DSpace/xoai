@@ -23,8 +23,8 @@ import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import java.net.MalformedURLException;
@@ -33,7 +33,7 @@ import java.util.List;
 
 
 public class IdentifyHandler extends VerbHandler<Identify> {
-    private static Logger log = LogManager.getLogger(IdentifyHandler.class);
+    private static Logger log = LoggerFactory.getLogger(IdentifyHandler.class);
 
     private static final String PROTOCOL_VERSION = "2.0";
     private static final String XOAI_DESC = "XOAI: OAI-PMH Java Toolkit";

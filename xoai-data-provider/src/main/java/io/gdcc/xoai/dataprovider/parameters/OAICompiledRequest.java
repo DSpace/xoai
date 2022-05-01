@@ -19,11 +19,12 @@ import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -48,7 +49,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
  * @version 3.1.0
  */
 public class OAICompiledRequest {
-    private static Logger log = LogManager.getLogger(OAICompiledRequest.class);
+    private static Logger log = LoggerFactory.getLogger(OAICompiledRequest.class);
     public static OAICompiledRequest compile (OAIRequest request) throws BadArgumentException, InvalidResumptionTokenException, UnknownParameterException, IllegalVerbException, DuplicateDefinitionException {
         return new OAICompiledRequest(request);
     }

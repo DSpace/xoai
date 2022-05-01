@@ -34,7 +34,8 @@ import io.gdcc.xoai.model.oaipmh.Request;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.From;
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Identifier;
@@ -45,7 +46,7 @@ import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Until;
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Verb;
 
 public class DataProvider {
-    private static Logger log = Logger.getLogger(DataProvider.class);
+    private static Logger log = LoggerFactory.getLogger(DataProvider.class);
 
     public static DataProvider dataProvider (Context context, Repository repository) {
         return new DataProvider(context, repository);

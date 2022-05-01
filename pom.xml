@@ -49,6 +49,7 @@
         <xmlunit.version>2.9.0</xmlunit.version>
         <stax2.api.version>4.2.1</stax2.api.version>
         <woodstox.version>6.2.8</woodstox.version>
+        <slf4j.version>1.7.36</slf4j.version>
     
         <!-- OLD DEPS - TO BE REMOVED! -->
         <mockito.version>1.9.5</mockito.version>
@@ -336,8 +337,19 @@
                 <artifactId>xoai-xmlio</artifactId>
                 <version>${revision}</version>
             </dependency>
-            
-            
+    
+            <!-- Logging facade -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+    
             <!-- TESTING DEPENDENCIES -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>

@@ -38,7 +38,9 @@ import io.gdcc.xoai.xml.XSLPipeline;
 import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;
@@ -49,7 +51,7 @@ import java.util.List;
 
 
 public class ListRecordsHandler extends VerbHandler<ListRecords> {
-    private static Logger log = Logger.getLogger(ListRecordsHandler.class);
+    private static Logger log = LoggerFactory.getLogger(ListRecordsHandler.class);
     private final ItemRepositoryHelper itemRepositoryHelper;
     private final SetRepositoryHelper setRepositoryHelper;
 

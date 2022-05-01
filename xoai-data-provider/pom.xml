@@ -25,6 +25,10 @@
             <artifactId>xoai-common</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
     
         <!-- TESTING DEPENDENCIES -->
         <dependency>
@@ -37,14 +41,14 @@
             <artifactId>xmlunit-matchers</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <scope>test</scope>
+        </dependency>
         
         
         <!-- OLD DEPENDENCIES - REFACTOR, UPDATE OR DELETE -->
-        
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>

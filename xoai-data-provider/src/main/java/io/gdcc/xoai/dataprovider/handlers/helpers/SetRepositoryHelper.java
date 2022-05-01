@@ -10,16 +10,16 @@ package io.gdcc.xoai.dataprovider.handlers.helpers;
 
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.repository.SetRepository;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import io.gdcc.xoai.dataprovider.handlers.results.ListSetsResult;
 import io.gdcc.xoai.dataprovider.model.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SetRepositoryHelper {
-    private static Logger log = LogManager.getLogger(SetRepositoryHelper.class);
+    private static Logger log = LoggerFactory.getLogger(SetRepositoryHelper.class);
     private SetRepository setRepository;
 
     public SetRepositoryHelper(SetRepository setRepository) {
