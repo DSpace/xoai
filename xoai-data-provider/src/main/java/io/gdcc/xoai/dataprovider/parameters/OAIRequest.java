@@ -39,7 +39,7 @@ public class OAIRequest {
         Set("set"),
         Verb("verb");
 
-        private String representation;
+        private final String representation;
 
         Parameter (String rep) {
             this.representation = rep;
