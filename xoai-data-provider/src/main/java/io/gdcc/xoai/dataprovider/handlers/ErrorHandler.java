@@ -20,8 +20,8 @@ import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
-import org.dspace.xoai.dataprovider.exceptions.*;
-import org.dspace.xoai.model.oaipmh.Error;
+
+import io.gdcc.xoai.model.oaipmh.Error;
 
 
 public class ErrorHandler {

@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.dataprovider.exceptions.HandlerException;
 import io.gdcc.xoai.dataprovider.exceptions.InternalOAIException;
 import io.gdcc.xoai.dataprovider.exceptions.OAIException;
@@ -16,13 +15,16 @@ import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
 import io.gdcc.xoai.dataprovider.repository.RepositoryConfiguration;
+
+import io.gdcc.xoai.model.oaipmh.DeletedRecord;
+import io.gdcc.xoai.model.oaipmh.Description;
+import io.gdcc.xoai.model.oaipmh.Identify;
+import io.gdcc.xoai.xml.XmlWritable;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.dspace.xoai.model.oaipmh.DeletedRecord;
-import org.dspace.xoai.model.oaipmh.Description;
-import org.dspace.xoai.model.oaipmh.Identify;
-import org.dspace.xoai.xml.XmlWritable;
-import org.dspace.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
 import java.net.MalformedURLException;

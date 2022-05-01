@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.dataprovider.handlers.helpers;
 
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 
 import static com.google.common.base.Predicates.isNull;
 import static java.lang.Math.round;

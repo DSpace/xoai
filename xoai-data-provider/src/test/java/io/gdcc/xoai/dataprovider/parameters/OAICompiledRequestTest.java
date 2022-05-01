@@ -14,7 +14,7 @@ import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
 import org.junit.Test;
 
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListSets;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListSets;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 

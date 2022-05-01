@@ -9,7 +9,7 @@
 package io.gdcc.xoai.dataprovider.repository;
 
 import io.gdcc.xoai.dataprovider.filter.FilterResolver;
-import org.dspace.xoai.services.api.ResumptionTokenFormat;
+import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 
 public class Repository {
     private FilterResolver filterResolver;

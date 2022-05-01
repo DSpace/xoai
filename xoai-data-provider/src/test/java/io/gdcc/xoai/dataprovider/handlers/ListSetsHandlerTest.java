@@ -11,17 +11,17 @@ package io.gdcc.xoai.dataprovider.handlers;
 import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
-import org.dspace.xoai.model.oaipmh.ListSets;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.model.oaipmh.ListSets;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.lyncode.test.matchers.xml.XPathMatchers.hasXPath;
 import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
 import static io.gdcc.xoai.dataprovider.model.Set.set;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListSets;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListSets;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 
 public class ListSetsHandlerTest extends AbstractHandlerTest {
     protected ListSetsHandler underTest;

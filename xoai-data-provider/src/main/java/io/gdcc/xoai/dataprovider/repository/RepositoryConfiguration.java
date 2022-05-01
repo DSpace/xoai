@@ -8,8 +8,8 @@
 
 package io.gdcc.xoai.dataprovider.repository;
 
-import org.dspace.xoai.model.oaipmh.DeletedRecord;
-import org.dspace.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.model.oaipmh.DeletedRecord;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 
 import java.util.ArrayList;
 import java.util.Date;

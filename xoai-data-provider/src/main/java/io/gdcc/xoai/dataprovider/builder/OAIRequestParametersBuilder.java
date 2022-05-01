@@ -15,9 +15,9 @@ import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.parameters.OAIRequest;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.model.oaipmh.Verb;
-import org.dspace.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.model.oaipmh.Verb;
+import io.gdcc.xoai.services.impl.UTCDateProvider;
 
 import java.util.*;
 

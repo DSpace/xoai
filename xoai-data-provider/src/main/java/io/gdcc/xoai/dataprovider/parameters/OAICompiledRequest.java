@@ -9,18 +9,18 @@
 package io.gdcc.xoai.dataprovider.parameters;
 
 import com.lyncode.builder.Builder;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
-import org.dspace.xoai.services.api.DateProvider;
-import org.dspace.xoai.services.api.ResumptionTokenFormat;
-import org.dspace.xoai.services.impl.SimpleResumptionTokenFormat;
-import org.dspace.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.services.api.DateProvider;
+import io.gdcc.xoai.services.api.ResumptionTokenFormat;
+import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
+import io.gdcc.xoai.services.impl.UTCDateProvider;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -30,9 +30,18 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
-import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.*;
-import static org.dspace.xoai.model.oaipmh.Verb.Type;
-import static org.hamcrest.CoreMatchers.*;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.From;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Identifier;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.MetadataPrefix;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.ResumptionToken;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Set;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Until;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 /**
  * @author Development @ Lyncode

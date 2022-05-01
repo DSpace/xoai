@@ -9,15 +9,17 @@
 package io.gdcc.xoai.dataprovider.handlers;
 
 import com.lyncode.builder.Builder;
+
+import io.gdcc.xoai.dataprovider.builder.OAIRequestParametersBuilder;
 import io.gdcc.xoai.dataprovider.exceptions.HandlerException;
 import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.parameters.OAIRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-import io.gdcc.xoai.dataprovider.builder.OAIRequestParametersBuilder;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.xml.XmlWritable;
+
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.xml.XmlWritable;
 
 
 public abstract class VerbHandler<T extends XmlWritable> {

@@ -8,20 +8,19 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import io.gdcc.xoai.dataprovider.model.InMemoryItem;
-import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.dataprovider.exceptions.IdDoesNotExistException;
-import org.dspace.xoai.model.oaipmh.GetRecord;
+import io.gdcc.xoai.dataprovider.model.InMemoryItem;
+import io.gdcc.xoai.dataprovider.model.MetadataFormat;
+import io.gdcc.xoai.model.oaipmh.GetRecord;
 import org.junit.Before;
 import org.junit.Test;
 
 import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.GetRecord;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.GetRecord;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GetRecordHandlerTest extends AbstractHandlerTest {
     private GetRecordHandler underTest;

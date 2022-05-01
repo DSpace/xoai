@@ -9,17 +9,17 @@
 package io.gdcc.xoai.dataprovider;
 
 import com.lyncode.test.matchers.xml.XPathMatchers;
-import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.dataprovider.handlers.AbstractHandlerTest;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
-import org.dspace.xoai.xml.XmlWritable;
-import org.dspace.xoai.xml.XmlWriter;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.xml.XmlWritable;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import javax.xml.stream.XMLStreamException;
 
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListRecords;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListRecords;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 

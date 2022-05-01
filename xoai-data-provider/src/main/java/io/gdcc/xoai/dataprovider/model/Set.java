@@ -9,7 +9,7 @@
 package io.gdcc.xoai.dataprovider.model;
 
 import io.gdcc.xoai.dataprovider.model.conditions.Condition;
-import org.dspace.xoai.model.xoai.XOAIMetadata;
+import io.gdcc.xoai.model.xoai.XOAIMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +71,8 @@ public class Set {
         return spec;
     }
 
-    public org.dspace.xoai.model.oaipmh.Set toOAIPMH () {
-        org.dspace.xoai.model.oaipmh.Set set = new org.dspace.xoai.model.oaipmh.Set();
+    public io.gdcc.xoai.model.oaipmh.Set toOAIPMH () {
+        io.gdcc.xoai.model.oaipmh.Set set = new io.gdcc.xoai.model.oaipmh.Set();
         set.withName(getName());
         set.withSpec(getSpec());
         for (XOAIMetadata description : descriptions)

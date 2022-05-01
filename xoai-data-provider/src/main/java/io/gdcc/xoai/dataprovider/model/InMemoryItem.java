@@ -10,12 +10,17 @@ package io.gdcc.xoai.dataprovider.model;
 
 import com.google.common.base.Function;
 import com.lyncode.builder.ListBuilder;
-import org.dspace.xoai.model.oaipmh.About;
-import org.dspace.xoai.model.oaipmh.Metadata;
-import org.dspace.xoai.model.xoai.Element;
-import org.dspace.xoai.model.xoai.XOAIMetadata;
 
-import java.util.*;
+import io.gdcc.xoai.model.oaipmh.About;
+import io.gdcc.xoai.model.oaipmh.Metadata;
+import io.gdcc.xoai.model.xoai.Element;
+import io.gdcc.xoai.model.xoai.XOAIMetadata;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;

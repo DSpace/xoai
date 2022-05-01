@@ -8,12 +8,13 @@
 
 package io.gdcc.xoai.dataprovider.handlers.helpers;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
+
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.model.Item;
 import io.gdcc.xoai.dataprovider.filter.FilterResolver;
 import io.gdcc.xoai.dataprovider.model.Set;
-import org.dspace.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;

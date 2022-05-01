@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
@@ -25,14 +24,21 @@ import io.gdcc.xoai.dataprovider.handlers.results.ListItemsResults;
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.model.Item;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
+import io.gdcc.xoai.dataprovider.model.Set;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
+
+import io.gdcc.xoai.model.oaipmh.About;
+import io.gdcc.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.model.oaipmh.ListRecords;
+import io.gdcc.xoai.model.oaipmh.Metadata;
+import io.gdcc.xoai.model.oaipmh.Record;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.xml.XSLPipeline;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
+
 import org.apache.log4j.Logger;
-import org.dspace.xoai.dataprovider.exceptions.*;
-import io.gdcc.xoai.dataprovider.model.Set;
-import org.dspace.xoai.model.oaipmh.*;
-import org.dspace.xoai.xml.XSLPipeline;
-import org.dspace.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;

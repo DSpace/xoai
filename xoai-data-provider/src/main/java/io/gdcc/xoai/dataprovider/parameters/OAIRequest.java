@@ -11,9 +11,9 @@ import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.services.api.DateProvider;
-import org.dspace.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.services.api.DateProvider;
+import io.gdcc.xoai.services.impl.UTCDateProvider;
 
 import java.text.ParseException;
 import java.util.Collection;
@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Verb;
-import static org.dspace.xoai.model.oaipmh.Verb.Type;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.fromValue;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.fromValue;
 
 /**
  * @author Development @ Lyncode

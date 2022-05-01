@@ -21,7 +21,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.dspace</groupId>
+            <groupId>io.gdcc</groupId>
             <artifactId>xoai-common</artifactId>
             <version>${revision}</version>
         </dependency>
