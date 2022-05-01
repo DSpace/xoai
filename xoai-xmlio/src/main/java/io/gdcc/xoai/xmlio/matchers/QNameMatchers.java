@@ -25,16 +25,16 @@ import javax.xml.namespace.QName;
 
 public class QNameMatchers {
     public static Matcher<QName> localPart(final Matcher<String> matcher) {
-        return new MatcherExtractor<QName, String>(matcher, extractLocalPart());
+        return new MatcherExtractor<>(matcher, extractLocalPart());
     }
 
     private static ExtractFunction<QName, String> extractLocalPart() {
-        return new ExtractFunction<QName, String>() {
+        return new ExtractFunction<>() {
             @Override
             public String apply(QName input) {
                 return input.getLocalPart();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("local part");

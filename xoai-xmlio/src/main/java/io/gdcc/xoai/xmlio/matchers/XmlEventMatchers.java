@@ -29,12 +29,12 @@ import static org.hamcrest.core.AnyOf.anyOf;
 
 public class XmlEventMatchers {
     public static Matcher<XMLEvent> text () {
-        return new TypeSafeMatcher<XMLEvent>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(XMLEvent item) {
                 return item.isCharacters();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("is text");
@@ -43,12 +43,12 @@ public class XmlEventMatchers {
     }
 
     public static Matcher<XMLEvent> aStartElement () {
-        return new TypeSafeMatcher<XMLEvent>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(XMLEvent item) {
                 return item.isStartElement();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("is start element");
@@ -57,12 +57,12 @@ public class XmlEventMatchers {
     }
 
     public static Matcher<XMLEvent> anEndElement () {
-        return new TypeSafeMatcher<XMLEvent>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(XMLEvent item) {
                 return item.isEndElement();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("is end element");
@@ -71,12 +71,12 @@ public class XmlEventMatchers {
     }
 
     public static Matcher<XMLEvent> theEndOfDocument () {
-        return new TypeSafeMatcher<XMLEvent>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(XMLEvent item) {
                 return item.isEndDocument();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("is the end of the document");
@@ -85,12 +85,12 @@ public class XmlEventMatchers {
     }
 
     public static Matcher<XMLEvent> theStartOfDocument () {
-        return new TypeSafeMatcher<XMLEvent>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(XMLEvent item) {
                 return item.isStartDocument();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("is the start of the document");
@@ -107,12 +107,12 @@ public class XmlEventMatchers {
     }
 
     public static Matcher<XMLEvent> hasAttributes () {
-        return new TypeSafeMatcher<XMLEvent>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(XMLEvent item) {
                 return aStartElement().matches(item) && item.asStartElement().getAttributes().hasNext();
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("has attributes");
@@ -121,18 +121,18 @@ public class XmlEventMatchers {
     }
 
     public static Matcher<XMLEvent> elementName (Matcher<QName> nameMatcher) {
-        return new MatcherExtractor<XMLEvent, QName>(nameMatcher, extractName());
+        return new MatcherExtractor<>(nameMatcher, extractName());
     }
 
     private static ExtractFunction<XMLEvent, QName> extractName() {
-        return new ExtractFunction<XMLEvent, QName>() {
+        return new ExtractFunction<>() {
             @Override
             public QName apply(XMLEvent input) {
                 if (input.isStartElement()) return input.asStartElement().getName();
                 else if (input.isEndElement()) return input.asEndElement().getName();
                 else return null;
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("name");
