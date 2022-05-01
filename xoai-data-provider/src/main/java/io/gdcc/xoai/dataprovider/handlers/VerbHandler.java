@@ -20,8 +20,8 @@ import io.gdcc.xoai.types.Builder;
 import io.gdcc.xoai.xml.XmlWritable;
 
 public abstract class VerbHandler<T extends XmlWritable> {
-    private Context context;
-    private Repository repository;
+    private final Context context;
+    private final Repository repository;
 
     public VerbHandler (Context context, Repository repository) {
         this.context = context;

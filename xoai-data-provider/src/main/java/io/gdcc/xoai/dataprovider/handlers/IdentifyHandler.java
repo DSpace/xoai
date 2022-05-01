@@ -33,7 +33,7 @@ import java.util.List;
 
 
 public class IdentifyHandler extends VerbHandler<Identify> {
-    private static Logger log = LoggerFactory.getLogger(IdentifyHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(IdentifyHandler.class);
 
     private static final String PROTOCOL_VERSION = "2.0";
     private static final String XOAI_DESC = "XOAI: OAI-PMH Java Toolkit";
@@ -91,9 +91,7 @@ public class IdentifyHandler extends VerbHandler<Identify> {
         if (descriptions == null) {
             try {
                 identify.withDescription(new Description(XmlWriter.toString(new XOAIDescription().withValue(XOAI_DESC))));
-            } catch (XmlWriteException e) {
-                log.warn("Description not added", e);
-            } catch (XMLStreamException e) {
+            } catch (XmlWriteException | XMLStreamException e) {
                 log.warn("Description not added", e);
             }
         } else {
@@ -105,7 +103,7 @@ public class IdentifyHandler extends VerbHandler<Identify> {
         return identify;
     }
 
-    public class XOAIDescription implements XmlWritable {
+    public static class XOAIDescription implements XmlWritable {
         protected String value;
         protected String type;
 

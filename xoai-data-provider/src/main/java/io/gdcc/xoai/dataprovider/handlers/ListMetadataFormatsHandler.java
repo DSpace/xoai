@@ -24,7 +24,7 @@ import java.util.List;
 
 
 public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormats> {
-    private ItemRepositoryHelper itemRepositoryHelper;
+    private final ItemRepositoryHelper itemRepositoryHelper;
 
     public ListMetadataFormatsHandler(Context context, Repository repository) {
         super(context, repository);

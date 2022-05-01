@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListRecordsHandlerTest extends AbstractHandlerTest {
-    private ListRecordsHandler underTest = new ListRecordsHandler(aContext(), theRepository());
+    private final ListRecordsHandler underTest = new ListRecordsHandler(aContext(), theRepository());
 
     @Test
     public void missingMetadataFormat() {

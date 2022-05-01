@@ -22,7 +22,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListIdentifiersHandlerTest extends AbstractHandlerTest {
-    private ListIdentifiersHandler underTest = new ListIdentifiersHandler(aContext(), theRepository());
+    private final ListIdentifiersHandler underTest = new ListIdentifiersHandler(aContext(), theRepository());
 
     @Test
     public void metadataPrefixIsMandatory () {

@@ -14,8 +14,8 @@ import static com.google.common.base.Predicates.isNull;
 import static java.lang.Math.round;
 
 public class ResumptionTokenHelper {
-    private ResumptionToken.Value current;
-    private long maxPerPage;
+    private final ResumptionToken.Value current;
+    private final long maxPerPage;
     private Long totalResults;
 
     public ResumptionTokenHelper(ResumptionToken.Value current, long maxPerPage) {

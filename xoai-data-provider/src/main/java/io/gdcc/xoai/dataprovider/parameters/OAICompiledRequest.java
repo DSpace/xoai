@@ -49,7 +49,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
  * @version 3.1.0
  */
 public class OAICompiledRequest {
-    private static Logger log = LoggerFactory.getLogger(OAICompiledRequest.class);
+    private static final Logger log = LoggerFactory.getLogger(OAICompiledRequest.class);
     public static OAICompiledRequest compile (OAIRequest request) throws BadArgumentException, InvalidResumptionTokenException, UnknownParameterException, IllegalVerbException, DuplicateDefinitionException {
         return new OAICompiledRequest(request);
     }
@@ -63,11 +63,11 @@ public class OAICompiledRequest {
         return new OAICompiledRequest(request.build(), formatter);
     }
 
-    private static DateProvider dateProvider = new UTCDateProvider();
+    private static final DateProvider dateProvider = new UTCDateProvider();
 
-    private Type verbType;
-    private ResumptionToken.Value resumptionToken = null;
-    private String identifier;
+    private final Type verbType;
+    private ResumptionToken.Value resumptionToken;
+    private final String identifier;
     private String metadataPrefix;
     private String set;
     private Date until;
@@ -117,16 +117,16 @@ public class OAICompiledRequest {
     }
 
     private Matcher<String> in(final String... possibilities) {
-        return new TypeSafeMatcher<String>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(String item) {
                 for (String possibility : possibilities)
                     if (possibility.equals(item))
                         return true;
-
+    
                 return false;
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendText("in");

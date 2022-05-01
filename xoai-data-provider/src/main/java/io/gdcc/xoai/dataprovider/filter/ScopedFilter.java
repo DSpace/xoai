@@ -15,8 +15,8 @@ import io.gdcc.xoai.dataprovider.model.conditions.Condition;
  * @version 3.1.0
  */
 public final class ScopedFilter {
-    private Condition condition;
-    private Scope scope;
+    private final Condition condition;
+    private final Scope scope;
 
     public ScopedFilter(Condition condition, Scope scope) {
         this.condition = condition;

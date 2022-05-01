@@ -51,7 +51,7 @@ import java.util.List;
 
 
 public class ListRecordsHandler extends VerbHandler<ListRecords> {
-    private static Logger log = LoggerFactory.getLogger(ListRecordsHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(ListRecordsHandler.class);
     private final ItemRepositoryHelper itemRepositoryHelper;
     private final SetRepositoryHelper setRepositoryHelper;
 
@@ -159,7 +159,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
             header.withStatus(Header.Status.DELETED);
 
         if (!item.isDeleted()) {
-            Metadata metadata = null;
+            Metadata metadata;
             try {
                 if (getContext().hasTransformer()) {
                     metadata = new Metadata(toPipeline(item)
@@ -171,16 +171,10 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
                             .apply(format.getTransformer())
                             .process());
                 }
-            } catch (XMLStreamException e) {
-                throw new OAIException(e);
-            } catch (TransformerException e) {
-                throw new OAIException(e);
-            } catch (IOException e) {
-                throw new OAIException(e);
-            } catch (XmlWriteException e) {
+            } catch (XMLStreamException | XmlWriteException | IOException | TransformerException e) {
                 throw new OAIException(e);
             }
-
+    
             record.withMetadata(metadata);
 
             log.debug("Outputting ItemAbout");

@@ -19,7 +19,7 @@ import static java.util.Arrays.asList;
 
 public class RepositoryConfiguration {
     private String repositoryName;
-    private List<String> adminEmails = new ArrayList<String>();
+    private final List<String> adminEmails = new ArrayList<>();
     private String baseUrl;
     private Date earliestDate;
     private int maxListIdentifiers;
@@ -109,7 +109,7 @@ public class RepositoryConfiguration {
 
     public RepositoryConfiguration withDescription(String description) {
         if (descriptions == null)
-            descriptions = new ArrayList<String>();
+            descriptions = new ArrayList<>();
         descriptions.add(description);
         return this;
     }
@@ -126,7 +126,7 @@ public class RepositoryConfiguration {
 
     public RepositoryConfiguration withCompression (String compression) {
         if (compressions == null)
-            compressions = new ArrayList<String>();
+            compressions = new ArrayList<>();
         compressions.add(compression);
         return this;
     }

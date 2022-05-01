@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemHelper extends ItemIdentifyHelper {
-    private Item item;
+    private final Item item;
 
     public ItemHelper(Item item) {
         super(item);
@@ -49,7 +49,7 @@ public class ItemHelper extends ItemIdentifyHelper {
     }
 
     public List<Set> getSets(Context context, FilterResolver resolver) {
-        List<Set> result = new ArrayList<Set>();
+        List<Set> result = new ArrayList<>();
         for (Set set : context.getSets())
             if (set.getCondition().getFilter(resolver).isItemShown(item))
                 result.add(set);

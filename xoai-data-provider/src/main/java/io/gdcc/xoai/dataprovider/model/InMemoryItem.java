@@ -73,7 +73,7 @@ public class InMemoryItem implements Item {
             if (value instanceof String)
                 elementBuilder.withField(key, (String) value);
             else if (value instanceof Date)
-                elementBuilder.withField(key, ((Date) value).toString());
+                elementBuilder.withField(key, value.toString());
             else if (value instanceof List) {
                 List<String> obj = (List<String>) value;
                 int i = 1;

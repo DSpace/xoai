@@ -19,19 +19,23 @@ import io.gdcc.xoai.model.oaipmh.Verb;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.types.Builder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.util.Arrays.asList;
 
 public class OAIRequestParametersBuilder implements Builder<OAIRequest> {
     private final UTCDateProvider utcDateProvider = new UTCDateProvider();
-    private Map<String, List<String>> params = new HashMap<String, List<String>>();
+    private final Map<String, List<String>> params = new HashMap<>();
 
     public OAIRequestParametersBuilder with(String name, String... values) {
         if (values == null || (values.length > 0 && values[0] == null))
             return without(name);
         if (!params.containsKey(name))
-            params.put(name, new ArrayList<String>());
+            params.put(name, new ArrayList<>());
 
         params.get(name).addAll(asList(values));
         return this;
@@ -80,7 +84,7 @@ public class OAIRequestParametersBuilder implements Builder<OAIRequest> {
         return with("resumptionToken", resumptionToken);
     }
 
-    public OAICompiledRequest compile () throws BadArgumentException, InvalidResumptionTokenException, UnknownParameterException, IllegalVerbException, DuplicateDefinitionException {
+    public OAICompiledRequest compile() throws BadArgumentException, InvalidResumptionTokenException, UnknownParameterException, IllegalVerbException, DuplicateDefinitionException {
         return this.build().compile();
     }
 

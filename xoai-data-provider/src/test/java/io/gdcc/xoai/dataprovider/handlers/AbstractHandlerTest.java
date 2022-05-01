@@ -14,9 +14,7 @@ import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
 import io.gdcc.xoai.dataprovider.filter.Filter;
-import io.gdcc.xoai.dataprovider.filter.FilterResolver;
 import io.gdcc.xoai.dataprovider.model.Context;
-import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.model.conditions.Condition;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
@@ -40,11 +38,11 @@ import javax.xml.stream.XMLStreamException;
 public abstract class AbstractHandlerTest {
 
     protected static final String EXISTING_METADATA_FORMAT = "xoai";
-    private Context context = new Context().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
-    private InMemorySetRepository setRepository = new InMemorySetRepository();
-    private InMemoryItemRepository itemRepository = new InMemoryItemRepository();
-    private RepositoryConfiguration repositoryConfiguration = new RepositoryConfiguration().withDefaults();
-    private Repository repository = new Repository()
+    private final Context context = new Context().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
+    private final InMemorySetRepository setRepository = new InMemorySetRepository();
+    private final InMemoryItemRepository itemRepository = new InMemoryItemRepository();
+    private final RepositoryConfiguration repositoryConfiguration = new RepositoryConfiguration().withDefaults();
+    private final Repository repository = new Repository()
             .withSetRepository(setRepository)
             .withItemRepository(itemRepository)
             .withResumptionTokenFormatter(new SimpleResumptionTokenFormat())
@@ -54,17 +52,14 @@ public abstract class AbstractHandlerTest {
         return EvaluateXPathMatcher.hasXPath(xpath, stringMatcher);
     }
     protected String write(final XmlWritable handle) throws XMLStreamException, XmlWriteException {
-        return XmlWriter.toString(new XmlWritable() {
-            @Override
-            public void write(XmlWriter writer) throws XmlWriteException {
-                try {
-                    writer.writeStartElement("root");
-                    writer.writeNamespace("xsi", "something");
-                    writer.write(handle);
-                    writer.writeEndElement();
-                } catch (XMLStreamException e) {
-                    throw new XmlWriteException(e);
-                }
+        return XmlWriter.toString(writer -> {
+            try {
+                writer.writeStartElement("root");
+                writer.writeNamespace("xsi", "something");
+                writer.write(handle);
+                writer.writeEndElement();
+            } catch (XMLStreamException e) {
+                throw new XmlWriteException(e);
             }
         });
     }
@@ -101,12 +96,12 @@ public abstract class AbstractHandlerTest {
     }
 
     protected Matcher<String> asInteger(final Matcher<Integer> matcher) {
-        return new TypeSafeMatcher<String>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(String item) {
                 return matcher.matches(Integer.valueOf(item));
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendDescriptionOf(matcher);
@@ -115,17 +110,7 @@ public abstract class AbstractHandlerTest {
     }
 
     protected Condition alwaysFalseCondition() {
-        return new Condition() {
-            @Override
-            public Filter getFilter(FilterResolver filterResolver) {
-                return new Filter() {
-                    @Override
-                    public boolean isItemShown(ItemIdentifier item) {
-                        return false;
-                    }
-                };
-            }
-        };
+        return filterResolver -> (Filter) item -> false;
     }
 
     protected String valueOf(ResumptionToken.Value resumptionToken) {

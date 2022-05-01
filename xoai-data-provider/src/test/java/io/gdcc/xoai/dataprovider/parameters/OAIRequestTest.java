@@ -17,7 +17,7 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class OAIRequestTest {
-    private OAIRequestParametersBuilder builder = new OAIRequestParametersBuilder();
+    private final OAIRequestParametersBuilder builder = new OAIRequestParametersBuilder();
 
     @Test
     public void emptyParameterValueShouldReturnNullValue() {

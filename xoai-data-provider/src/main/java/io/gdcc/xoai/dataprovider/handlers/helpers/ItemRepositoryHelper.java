@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ItemRepositoryHelper {
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
 
     public ItemRepositoryHelper(ItemRepository itemRepository) {
         super();
@@ -46,7 +46,7 @@ public class ItemRepositoryHelper {
     }
 
     private List<ScopedFilter> getScopedFilters(Context context, String metadataPrefix) throws CannotDisseminateFormatException {
-        List<ScopedFilter> filters = new ArrayList<ScopedFilter>();
+        List<ScopedFilter> filters = new ArrayList<>();
         if (context.hasCondition())
             filters.add(new ScopedFilter(context.getCondition(), Scope.Context));
 

@@ -18,7 +18,7 @@ import static io.gdcc.xoai.util.Randoms.randomAlphabetic;
 
 public class InMemorySetRepository implements SetRepository {
     private boolean supportSets = true;
-    private List<Set> sets = new ArrayList<Set>();
+    private final List<Set> sets = new ArrayList<>();
 
     public InMemorySetRepository doesNotSupportSets() {
         this.supportSets = false;

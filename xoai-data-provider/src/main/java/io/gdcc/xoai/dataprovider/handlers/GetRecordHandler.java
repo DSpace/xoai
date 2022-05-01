@@ -76,7 +76,7 @@ public class GetRecordHandler extends VerbHandler<GetRecord> {
             header.withStatus(Header.Status.DELETED);
 
         if (!item.isDeleted()) {
-            Metadata metadata = null;
+            Metadata metadata;
             try {
                 if (getContext().hasTransformer()) {
                     metadata = new Metadata(toPipeline(item)
@@ -88,16 +88,10 @@ public class GetRecordHandler extends VerbHandler<GetRecord> {
                             .apply(format.getTransformer())
                             .process());
                 }
-            } catch (XMLStreamException e) {
-                throw new OAIException(e);
-            } catch (TransformerException e) {
-                throw new OAIException(e);
-            } catch (IOException e) {
-                throw new OAIException(e);
-            } catch (XmlWriteException e) {
+            } catch (XMLStreamException | TransformerException | IOException | XmlWriteException e) {
                 throw new OAIException(e);
             }
-
+    
             record.withMetadata(metadata);
 
             if (item.getAbout() != null) {

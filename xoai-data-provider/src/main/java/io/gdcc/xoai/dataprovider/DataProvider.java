@@ -46,14 +46,14 @@ import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Until;
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Verb;
 
 public class DataProvider {
-    private static Logger log = LoggerFactory.getLogger(DataProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(DataProvider.class);
 
     public static DataProvider dataProvider (Context context, Repository repository) {
         return new DataProvider(context, repository);
     }
 
-    private Repository repository;
-    private DateProvider dateProvider;
+    private final Repository repository;
+    private final DateProvider dateProvider;
 
     private final IdentifyHandler identifyHandler;
     private final GetRecordHandler getRecordHandler;

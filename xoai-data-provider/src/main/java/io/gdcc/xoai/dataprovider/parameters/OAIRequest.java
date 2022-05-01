@@ -30,7 +30,7 @@ import static io.gdcc.xoai.model.oaipmh.Verb.Type.fromValue;
  * @version 3.1.0
  */
 public class OAIRequest {
-    public static enum Parameter {
+    public enum Parameter {
         From("from"),
         Until("until"),
         Identifier("identifier"),
@@ -58,8 +58,8 @@ public class OAIRequest {
         }
     }
 
-    private Map<String, List<String>> map;
-    private DateProvider dateProvider = new UTCDateProvider();
+    private final Map<String, List<String>> map;
+    private final DateProvider dateProvider = new UTCDateProvider();
 
     public OAIRequest(Map<String, List<String>> map) {
         this.map = map;
