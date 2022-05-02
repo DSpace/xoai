@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.dataprovider.exceptions.HandlerException;
 import io.gdcc.xoai.dataprovider.exceptions.InternalOAIException;
 import io.gdcc.xoai.dataprovider.exceptions.OAIException;
@@ -16,13 +15,16 @@ import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
 import io.gdcc.xoai.dataprovider.repository.RepositoryConfiguration;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.dspace.xoai.model.oaipmh.DeletedRecord;
-import org.dspace.xoai.model.oaipmh.Description;
-import org.dspace.xoai.model.oaipmh.Identify;
-import org.dspace.xoai.xml.XmlWritable;
-import org.dspace.xoai.xml.XmlWriter;
+
+import io.gdcc.xoai.model.oaipmh.DeletedRecord;
+import io.gdcc.xoai.model.oaipmh.Description;
+import io.gdcc.xoai.model.oaipmh.Identify;
+import io.gdcc.xoai.xml.XmlWritable;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.stream.XMLStreamException;
 import java.net.MalformedURLException;
@@ -31,7 +33,7 @@ import java.util.List;
 
 
 public class IdentifyHandler extends VerbHandler<Identify> {
-    private static Logger log = LogManager.getLogger(IdentifyHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(IdentifyHandler.class);
 
     private static final String PROTOCOL_VERSION = "2.0";
     private static final String XOAI_DESC = "XOAI: OAI-PMH Java Toolkit";
@@ -89,9 +91,7 @@ public class IdentifyHandler extends VerbHandler<Identify> {
         if (descriptions == null) {
             try {
                 identify.withDescription(new Description(XmlWriter.toString(new XOAIDescription().withValue(XOAI_DESC))));
-            } catch (XmlWriteException e) {
-                log.warn("Description not added", e);
-            } catch (XMLStreamException e) {
+            } catch (XmlWriteException | XMLStreamException e) {
                 log.warn("Description not added", e);
             }
         } else {
@@ -103,7 +103,7 @@ public class IdentifyHandler extends VerbHandler<Identify> {
         return identify;
     }
 
-    public class XOAIDescription implements XmlWritable {
+    public static class XOAIDescription implements XmlWritable {
         protected String value;
         protected String type;
 

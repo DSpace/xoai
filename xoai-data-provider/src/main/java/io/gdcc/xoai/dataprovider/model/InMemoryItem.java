@@ -8,30 +8,34 @@
 
 package io.gdcc.xoai.dataprovider.model;
 
-import com.google.common.base.Function;
-import com.lyncode.builder.ListBuilder;
-import org.dspace.xoai.model.oaipmh.About;
-import org.dspace.xoai.model.oaipmh.Metadata;
-import org.dspace.xoai.model.xoai.Element;
-import org.dspace.xoai.model.xoai.XOAIMetadata;
+import io.gdcc.xoai.model.oaipmh.About;
+import io.gdcc.xoai.model.oaipmh.Metadata;
+import io.gdcc.xoai.model.xoai.Element;
+import io.gdcc.xoai.model.xoai.XOAIMetadata;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
+import static io.gdcc.xoai.util.Randoms.randomAlphabetic;
+import static io.gdcc.xoai.util.Randoms.randomNumeric;
 
 public class InMemoryItem implements Item {
+    
+    private final Map<String, Object> values = new HashMap<>();
+    
     public static InMemoryItem item () {
         return new InMemoryItem();
     }
-
-    private Map<String, Object> values = new HashMap<String, Object>();
 
     public static InMemoryItem randomItem() {
         return new InMemoryItem()
                 .with("identifier", randomAlphabetic(10))
                 .with("datestamp", new Date())
-                .with("sets", new ListBuilder<String>().add(randomAlphabetic(3)).build())
+                .withSet(randomAlphabetic(3))
                 .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
     }
 
@@ -39,22 +43,28 @@ public class InMemoryItem implements Item {
         values.put(name, value);
         return this;
     }
-
-    public InMemoryItem withSet(String name) {
-        ((List<String>) values.get("sets")).add(name);
+    
+    @SuppressWarnings("unchecked")
+    public InMemoryItem withSet(String spec) {
+        if (values.containsKey("sets")) {
+            ((List<String>) values.get("sets")).add(spec);
+        } else {
+            values.put("sets", new ArrayList<>(List.of(spec)));
+        }
         return this;
     }
 
     @Override
     public List<About> getAbout() {
-        return new ArrayList<About>();
+        return new ArrayList<>();
     }
 
     @Override
     public Metadata getMetadata() {
         return new Metadata(toMetadata());
     }
-
+    
+    @SuppressWarnings("unchecked")
     private XOAIMetadata toMetadata() {
         XOAIMetadata builder = new XOAIMetadata();
         for (String key : values.keySet()) {
@@ -63,7 +73,7 @@ public class InMemoryItem implements Item {
             if (value instanceof String)
                 elementBuilder.withField(key, (String) value);
             else if (value instanceof Date)
-                elementBuilder.withField(key, ((Date) value).toString());
+                elementBuilder.withField(key, value.toString());
             else if (value instanceof List) {
                 List<String> obj = (List<String>) value;
                 int i = 1;
@@ -87,13 +97,11 @@ public class InMemoryItem implements Item {
 
     @Override
     public List<Set> getSets() {
-        List<String> list = ((List<String>) values.get("sets"));
-        return new ListBuilder<String>().add(list.toArray(new String[list.size()])).build(new Function<String, Set>() {
-            @Override
-            public Set apply(String elem) {
-                return new Set(elem);
-            }
-        });
+        return ((List<?>) values.get("sets")).stream()
+            .filter(obj -> obj instanceof String)
+            .map(String.class::cast)
+            .map(Set::new)
+            .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
@@ -105,7 +113,7 @@ public class InMemoryItem implements Item {
         this
                 .with("identifier", randomAlphabetic(10))
                 .with("datestamp", new Date())
-                .with("sets", new ListBuilder<String>().add(randomAlphabetic(3)).build())
+                .with("sets", List.of(randomAlphabetic(3)))
                 .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
         return this;
     }

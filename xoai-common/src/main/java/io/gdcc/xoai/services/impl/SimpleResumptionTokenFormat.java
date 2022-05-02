@@ -12,7 +12,6 @@ import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

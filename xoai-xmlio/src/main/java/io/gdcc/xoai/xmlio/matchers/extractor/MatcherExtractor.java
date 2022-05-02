@@ -25,8 +25,8 @@ public class MatcherExtractor<V, T> extends TypeSafeMatcher<V> {
         return new MatcherExtractor<V, T>(matcher, extractFunction);
     }
 
-    private Matcher<T> matcher;
-    private ExtractFunction<V, T> extractor;
+    private final Matcher<T> matcher;
+    private final ExtractFunction<V, T> extractor;
 
     public MatcherExtractor(Matcher<T> matcher, ExtractFunction<V, T> extractor) {
         this.matcher = matcher;

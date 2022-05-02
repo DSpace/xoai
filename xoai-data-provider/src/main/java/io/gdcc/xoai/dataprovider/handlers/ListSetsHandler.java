@@ -16,11 +16,12 @@ import io.gdcc.xoai.dataprovider.handlers.helpers.ResumptionTokenHelper;
 import io.gdcc.xoai.dataprovider.handlers.helpers.SetRepositoryHelper;
 import io.gdcc.xoai.dataprovider.handlers.results.ListSetsResult;
 import io.gdcc.xoai.dataprovider.model.Context;
+import io.gdcc.xoai.dataprovider.model.Set;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-import io.gdcc.xoai.dataprovider.model.Set;
-import org.dspace.xoai.model.oaipmh.ListSets;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
+
+import io.gdcc.xoai.model.oaipmh.ListSets;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 
 import java.util.List;
 

@@ -11,7 +11,7 @@ package io.gdcc.xoai.dataprovider.handlers.helpers;
 import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
 
 public class ItemIdentifyHelper {
-    private ItemIdentifier item;
+    private final ItemIdentifier item;
 
     public ItemIdentifyHelper(ItemIdentifier item) {
         this.item = item;

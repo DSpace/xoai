@@ -8,8 +8,8 @@
 
 package io.gdcc.xoai.dataprovider.repository;
 
-import org.dspace.xoai.model.oaipmh.DeletedRecord;
-import org.dspace.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.model.oaipmh.DeletedRecord;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +19,7 @@ import static java.util.Arrays.asList;
 
 public class RepositoryConfiguration {
     private String repositoryName;
-    private List<String> adminEmails = new ArrayList<String>();
+    private final List<String> adminEmails = new ArrayList<>();
     private String baseUrl;
     private Date earliestDate;
     private int maxListIdentifiers;
@@ -109,7 +109,7 @@ public class RepositoryConfiguration {
 
     public RepositoryConfiguration withDescription(String description) {
         if (descriptions == null)
-            descriptions = new ArrayList<String>();
+            descriptions = new ArrayList<>();
         descriptions.add(description);
         return this;
     }
@@ -126,7 +126,7 @@ public class RepositoryConfiguration {
 
     public RepositoryConfiguration withCompression (String compression) {
         if (compressions == null)
-            compressions = new ArrayList<String>();
+            compressions = new ArrayList<>();
         compressions.add(compression);
         return this;
     }

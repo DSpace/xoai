@@ -8,14 +8,14 @@
 
 package io.gdcc.xoai.dataprovider.handlers.helpers;
 
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
-import org.junit.Test;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertNotEquals;
 
 public class ResumptionTokenHelperTest {
     private static final long MAX_PER_PAGE = 100;

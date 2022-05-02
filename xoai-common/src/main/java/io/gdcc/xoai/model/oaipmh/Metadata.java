@@ -20,21 +20,24 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class Metadata implements XmlWritable {
-    private String string;
+    private final String string;
 
     @XmlValue
-    protected XOAIMetadata value;
+    protected final XOAIMetadata value;
 
     public Metadata(XOAIMetadata value) {
+        this.string = "";
         this.value = value;
     }
 
     public Metadata(String value) {
         this.string = value;
+        this.value = null;
     }
 
     public Metadata(InputStream value) throws IOException {
         this.string = new String(value.readAllBytes(), StandardCharsets.UTF_8);
+        this.value = null;
     }
 
     @Override

@@ -17,8 +17,8 @@ import java.util.List;
  * @version 3.1.0
  */
 public class ListItemsResults {
-    private boolean hasMore;
-    private List<Item> results;
+    private final boolean hasMore;
+    private final List<Item> results;
     private int totalResults = -1;
 
     public ListItemsResults(boolean hasMoreResults, List<Item> results) {

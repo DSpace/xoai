@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ListRecords implements Verb {
 
-    protected List<Record> records = new ArrayList<Record>();
+    protected final List<Record> records = new ArrayList<>();
     protected ResumptionToken resumptionToken;
 
     public List<Record> getRecords() {

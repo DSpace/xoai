@@ -9,14 +9,14 @@
 package io.gdcc.xoai.dataprovider.handlers;
 
 import io.gdcc.xoai.dataprovider.exceptions.InternalOAIException;
-import org.dspace.xoai.model.oaipmh.Identify;
-import org.junit.Test;
+import io.gdcc.xoai.model.oaipmh.Identify;
+import org.junit.jupiter.api.Test;
 
-import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.Identify;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.Identify;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class IdentifyHandlerTest extends AbstractHandlerTest {
     @Test
@@ -27,9 +27,9 @@ public class IdentifyHandlerTest extends AbstractHandlerTest {
         assertThat(result, xPath("//repositoryName", is(equalTo(theRepositoryConfiguration().getRepositoryName()))));
     }
 
-    @Test(expected = InternalOAIException.class)
+    @Test
     public void internalExceptionForInvalidConfiguration () {
         theRepositoryConfiguration().withMaxListSets(0);
-        new IdentifyHandler(aContext(), theRepository());
+        assertThrows(InternalOAIException.class, () -> new IdentifyHandler(aContext(), theRepository()));
     }
 }

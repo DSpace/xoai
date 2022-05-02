@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider;
 
-import com.lyncode.builder.Builder;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.BadResumptionToken;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
@@ -23,30 +22,38 @@ import io.gdcc.xoai.dataprovider.handlers.ListIdentifiersHandler;
 import io.gdcc.xoai.dataprovider.handlers.ListMetadataFormatsHandler;
 import io.gdcc.xoai.dataprovider.handlers.ListRecordsHandler;
 import io.gdcc.xoai.dataprovider.handlers.ListSetsHandler;
-import org.apache.log4j.Logger;
-import org.dspace.xoai.dataprovider.exceptions.*;
-import org.dspace.xoai.dataprovider.handlers.*;
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.parameters.OAIRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.model.oaipmh.OAIPMH;
-import org.dspace.xoai.model.oaipmh.Request;
-import org.dspace.xoai.services.api.DateProvider;
-import org.dspace.xoai.services.impl.UTCDateProvider;
 
-import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.*;
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.model.oaipmh.OAIPMH;
+import io.gdcc.xoai.model.oaipmh.Request;
+import io.gdcc.xoai.services.api.DateProvider;
+import io.gdcc.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.types.Builder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.From;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Identifier;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.MetadataPrefix;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.ResumptionToken;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Set;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Until;
+import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Verb;
 
 public class DataProvider {
-    private static Logger log = Logger.getLogger(DataProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(DataProvider.class);
 
     public static DataProvider dataProvider (Context context, Repository repository) {
         return new DataProvider(context, repository);
     }
 
-    private Repository repository;
-    private DateProvider dateProvider;
+    private final Repository repository;
+    private final DateProvider dateProvider;
 
     private final IdentifyHandler identifyHandler;
     private final GetRecordHandler getRecordHandler;

@@ -15,7 +15,6 @@ import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.filter.ScopedFilter;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemsResults;
-import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +24,7 @@ import static java.lang.Math.min;
 import static java.util.Arrays.asList;
 
 public class InMemoryItemRepository implements ItemRepository {
-    private List<InMemoryItem> list = new ArrayList<InMemoryItem>();
+    private final List<InMemoryItem> list = new ArrayList<>();
 
     public InMemoryItemRepository withNoItems() {
         return this;
@@ -58,7 +57,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length) throws OAIException {
-        return new ListItemIdentifiersResult(offset + length < list.size(), new ArrayList<ItemIdentifier>(list.subList(offset, min(offset + length, list.size()))));
+        return new ListItemIdentifiersResult(offset + length < list.size(), new ArrayList<>(list.subList(offset, min(offset + length, list.size()))));
     }
 
     @Override
@@ -98,7 +97,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     @Override
     public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length) throws OAIException {
-        return new ListItemsResults(offset + length < list.size(), new ArrayList<Item>(list.subList(offset, min(offset + length, list.size()))));
+        return new ListItemsResults(offset + length < list.size(), new ArrayList<>(list.subList(offset, min(offset + length, list.size()))));
     }
 
     @Override

@@ -25,9 +25,10 @@ import java.util.Set;
 import java.util.Stack;
 
 public class EchoElement implements XmlWritable {
-    private static XMLInputFactory factory = XMLInputFactory2.newFactory();
-    private String xmlString = null;
-    private Stack<Set<String>> declaredPrefixes = new Stack<Set<String>>();
+    // Using the STaX2 API here, but hiding behind STaX1
+    private static final XMLInputFactory factory = XMLInputFactory2.newFactory();
+    private final Stack<Set<String>> declaredPrefixes = new Stack<>();
+    private final String xmlString;
 
     public EchoElement(String xmlString) {
         this.xmlString = xmlString;
@@ -41,7 +42,7 @@ public class EchoElement implements XmlWritable {
                 XMLEvent event = reader.nextEvent();
 
                 if (event.isStartElement()) {
-                    declaredPrefixes.push(new HashSet<String>());
+                    declaredPrefixes.push(new HashSet<>());
 
                     QName name = event.asStartElement().getName();
                     writer.writeStartElement(name.getPrefix(), name.getLocalPart(), name.getNamespaceURI());

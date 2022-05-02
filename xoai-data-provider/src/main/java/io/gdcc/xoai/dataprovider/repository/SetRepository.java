@@ -23,7 +23,7 @@ public interface SetRepository {
      *
      * @return Supports sets?
      */
-    public boolean supportSets();
+    boolean supportSets();
 
     /**
      * Returns a paged list of sets.
@@ -33,7 +33,7 @@ public interface SetRepository {
      * @param length Max size of the returned list
      * @return List of Sets
      */
-    public ListSetsResult retrieveSets(int offset, int length);
+    ListSetsResult retrieveSets(int offset, int length);
 
     /**
      * Checks if a specific sets exists in the data source.
@@ -42,5 +42,5 @@ public interface SetRepository {
      * @return Set exists
      * @see <a href="client://www.openarchives.org/OAI/openarchivesprotocol.html#Set">Set definition</a>
      */
-    public boolean exists(String setSpec);
+    boolean exists(String setSpec);
 }

@@ -11,7 +11,7 @@ package io.gdcc.xoai.model.oaipmh;
 import io.gdcc.xoai.xml.XmlWritable;
 
 public interface Verb extends XmlWritable {
-    public static enum Type {
+    enum Type {
         Identify("Identify"),
         ListMetadataFormats("ListMetadataFormats"),
         ListSets("ListSets"),
@@ -37,9 +37,7 @@ public interface Verb extends XmlWritable {
             }
             throw new IllegalArgumentException(value);
         }
-
     }
 
     Type getType ();
-
 }

@@ -11,9 +11,9 @@ import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.services.api.DateProvider;
-import org.dspace.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.services.api.DateProvider;
+import io.gdcc.xoai.services.impl.UTCDateProvider;
 
 import java.text.ParseException;
 import java.util.Collection;
@@ -22,15 +22,16 @@ import java.util.List;
 import java.util.Map;
 
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Verb;
-import static org.dspace.xoai.model.oaipmh.Verb.Type;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.fromValue;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.fromValue;
 
 /**
  * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class OAIRequest {
-    public static enum Parameter {
+    
+    public enum Parameter {
         From("from"),
         Until("until"),
         Identifier("identifier"),
@@ -39,7 +40,7 @@ public class OAIRequest {
         Set("set"),
         Verb("verb");
 
-        private String representation;
+        private final String representation;
 
         Parameter (String rep) {
             this.representation = rep;
@@ -53,41 +54,40 @@ public class OAIRequest {
             for (Parameter param : Parameter.values())
                 if (param.representation.equals(representation))
                     return param;
-
-            throw new IllegalArgumentException("Given representation is not a valid value for Parameter");
+            throw new IllegalArgumentException("Given representation '" + representation + "' is not a valid parameter.");
         }
     }
 
-    private Map<String, List<String>> map;
-    private DateProvider dateProvider = new UTCDateProvider();
+    private final Map<String, List<String>> map;
+    private final DateProvider dateProvider = new UTCDateProvider();
 
     public OAIRequest(Map<String, List<String>> map) {
         this.map = map;
     }
 
-    public void validate (Parameter parameter) throws IllegalVerbException, DuplicateDefinitionException {
-        List<String> values = this.map.get(parameter);
-        if (values != null && !values.isEmpty()) {
-            if (parameter == Verb) {
-                if (values.size() > 1)
-                    throw new IllegalVerbException("Illegal verb");
+    private void validate(Parameter parameter) throws IllegalVerbException, DuplicateDefinitionException {
+        List<String> values = this.map.get(parameter.toString());
+        
+        if (values != null && values.size() > 1) {
+            if (parameter == Verb ) {
+                throw new IllegalVerbException("Illegal verb");
             } else {
-                if (values.size() > 1)
-                    throw new DuplicateDefinitionException("Duplicate definition of parameter '" + parameter + "'");
+                throw new DuplicateDefinitionException("Duplicate definition of parameter '" + parameter + "'");
             }
         }
     }
 
-    public boolean has (Parameter parameter) {
-        return get(parameter) != null;
+    public boolean has(Parameter parameter) {
+        return map.containsKey(parameter.toString());
     }
 
-    public String get (Parameter parameter) {
+    public String get(Parameter parameter) {
         List<String> values = this.map.get(parameter.toString());
-        if (values == null || values.isEmpty()) return null;
-        else {
-            String value = values.get(0);
-            return "".equals(value) ? null : value;
+        
+        if (values == null || values.isEmpty() || values.get(0) == null || values.get(0).isEmpty()) {
+            return null;
+        } else {
+            return values.get(0);
         }
     }
 
@@ -100,13 +100,13 @@ public class OAIRequest {
         }
     }
 
-    public String getString (Parameter parameter) throws DuplicateDefinitionException, IllegalVerbException {
+    public String getString(Parameter parameter) throws DuplicateDefinitionException, IllegalVerbException {
         if (!has(parameter)) return null;
         validate(parameter);
         return get(parameter);
     }
 
-    public Type getVerb () throws DuplicateDefinitionException, IllegalVerbException {
+    public Type getVerb() throws DuplicateDefinitionException, IllegalVerbException {
         validate(Verb);
         String verb = get(Verb);
         if (verb == null)

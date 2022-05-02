@@ -8,14 +8,13 @@
 
 package io.gdcc.xoai.dataprovider.handlers.helpers;
 
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 
-import static com.google.common.base.Predicates.isNull;
 import static java.lang.Math.round;
 
 public class ResumptionTokenHelper {
-    private ResumptionToken.Value current;
-    private long maxPerPage;
+    private final ResumptionToken.Value current;
+    private final long maxPerPage;
     private Long totalResults;
 
     public ResumptionTokenHelper(ResumptionToken.Value current, long maxPerPage) {
@@ -36,7 +35,8 @@ public class ResumptionTokenHelper {
                 return populate(new ResumptionToken(next));
             } else {
                 ResumptionToken resumptionToken = new ResumptionToken();
-                resumptionToken.withCursor(round((current.getOffset() + maxPerPage) / maxPerPage));
+                // add 0.0f to make it a floating operation instead of an integer division (Math.round() expects float!)
+                resumptionToken.withCursor(round((current.getOffset() + 0.0f + maxPerPage) / maxPerPage));
                 if (totalResults != null)
                     resumptionToken.withCompleteListSize(totalResults);
                 return resumptionToken;
@@ -45,13 +45,14 @@ public class ResumptionTokenHelper {
     }
 
     private boolean isInitialOffset() {
-        return isNull().apply(current.getOffset()) || current.getOffset() == 0;
+        return current.getOffset() == null || current.getOffset() == 0;
     }
 
     private ResumptionToken populate(ResumptionToken resumptionToken) {
         if (totalResults != null)
             resumptionToken.withCompleteListSize(totalResults);
-        resumptionToken.withCursor(round(resumptionToken.getValue().getOffset() / maxPerPage));
+        // add 0.0f to make it a floating operation instead of an integer division (Math.round() expects float!)
+        resumptionToken.withCursor(round((resumptionToken.getValue().getOffset() +0.0f) / maxPerPage));
         return resumptionToken;
     }
 }

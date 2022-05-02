@@ -8,29 +8,32 @@
 
 package io.gdcc.xoai.dataprovider;
 
-import com.lyncode.test.matchers.xml.XPathMatchers;
-import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.dataprovider.handlers.AbstractHandlerTest;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
-import org.dspace.xoai.xml.XmlWritable;
-import org.dspace.xoai.xml.XmlWriter;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.xml.XmlWritable;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.hamcrest.Matcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.xmlunit.matchers.EvaluateXPathMatcher;
+import org.xmlunit.matchers.HasXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
+import java.util.Map;
 
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListRecords;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListRecords;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DataProviderTest extends AbstractHandlerTest {
     private static final String OAI_NAMESPACE = "http://www.openarchives.org/OAI/2.0/";
-    private DataProvider dataProvider = new DataProvider(aContext(), theRepository());
+    private final DataProvider dataProvider = new DataProvider(aContext(), theRepository());
 
     @Test
     public void missingMetadataFormat() throws Exception {
         String result = write(dataProvider.handle(request().withVerb(ListRecords)));
-        assertThat(result, xPath("//error/@code", equalTo("badArgument")));
+        
+        assertThat(result, xPath("//oai:error/@code", equalTo("badArgument")));
     }
 
     @Test
@@ -38,7 +41,8 @@ public class DataProviderTest extends AbstractHandlerTest {
         String result = write(dataProvider.handle(request()
                 .withVerb(ListRecords)
                 .withMetadataPrefix(EXISTING_METADATA_FORMAT)));
-        assertThat(result, xPath("//error/@code", equalTo("noRecordsMatch")));
+        
+        assertThat(result, xPath("//oai:error/@code", equalTo("noRecordsMatch")));
     }
 
     @Test
@@ -47,7 +51,8 @@ public class DataProviderTest extends AbstractHandlerTest {
         String result = write(dataProvider.handle(request()
                 .withVerb(ListRecords)
                 .withMetadataPrefix(EXISTING_METADATA_FORMAT)));
-        assertThat(result, xPath("count(//record)", asInteger(equalTo(1))));
+        
+        assertThat(result, xPath("count(//oai:record)", asInteger(equalTo(1))));
     }
 
     @Test
@@ -57,9 +62,9 @@ public class DataProviderTest extends AbstractHandlerTest {
         String result = write(dataProvider.handle(request()
                 .withVerb(ListRecords)
                 .withMetadataPrefix(EXISTING_METADATA_FORMAT)));
-
-        assertThat(result, xPath("count(//record)", asInteger(equalTo(5))));
-        assertThat(result, hasXPath("//resumptionToken"));
+    
+        assertThat(result, xPath("count(//oai:record)", asInteger(equalTo(5))));
+        assertThat(result, hasXPath("//oai:resumptionToken"));
     }
 
     @Test
@@ -71,26 +76,21 @@ public class DataProviderTest extends AbstractHandlerTest {
                 .withResumptionToken(valueOf(new ResumptionToken.Value()
                         .withMetadataPrefix(EXISTING_METADATA_FORMAT)
                         .withOffset(5)))));
-
-        assertThat(result, xPath("count(//record)", asInteger(equalTo(5))));
-        assertThat(result, xPath("//resumptionToken", equalTo("")));
+        
+        assertThat(result, xPath("count(//oai:record)", equalTo("5")));
+        assertThat(result, xPath("//oai:resumptionToken", equalTo("")));
     }
-
-    private Matcher<String> hasXPath(String xpath) {
-        return XPathMatchers.hasXPath(xpath, OAI_NAMESPACE);
+    
+    protected static Matcher<? super String> xPath(String xPath, Matcher<String> valueMatcher) {
+        return EvaluateXPathMatcher.hasXPath(xPath, valueMatcher).withNamespaceContext(Map.of("oai", OAI_NAMESPACE));
     }
-
-    private Matcher<String> xPath (String xpath, Matcher<String> valueMatcher) {
-        return XPathMatchers.xPath(xpath, valueMatcher, OAI_NAMESPACE);
+    
+    protected static Matcher<? super String> hasXPath(String xPath) {
+        return HasXPathMatcher.hasXPath(xPath).withNamespaceContext(Map.of("oai", OAI_NAMESPACE));
     }
 
     @Override
     protected String write(final XmlWritable handle) throws XMLStreamException, XmlWriteException {
-        return XmlWriter.toString(new XmlWritable() {
-            @Override
-            public void write(XmlWriter writer) throws XmlWriteException {
-                writer.write(handle);
-            }
-        });
+        return XmlWriter.toString(writer -> writer.write(handle));
     }
 }

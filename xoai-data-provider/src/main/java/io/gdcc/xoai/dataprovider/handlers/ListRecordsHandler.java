@@ -8,7 +8,6 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
@@ -25,14 +24,23 @@ import io.gdcc.xoai.dataprovider.handlers.results.ListItemsResults;
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.model.Item;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
+import io.gdcc.xoai.dataprovider.model.Set;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-import org.apache.log4j.Logger;
-import org.dspace.xoai.dataprovider.exceptions.*;
-import io.gdcc.xoai.dataprovider.model.Set;
-import org.dspace.xoai.model.oaipmh.*;
-import org.dspace.xoai.xml.XSLPipeline;
-import org.dspace.xoai.xml.XmlWriter;
+
+import io.gdcc.xoai.model.oaipmh.About;
+import io.gdcc.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.model.oaipmh.ListRecords;
+import io.gdcc.xoai.model.oaipmh.Metadata;
+import io.gdcc.xoai.model.oaipmh.Record;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.xml.XSLPipeline;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;
@@ -43,7 +51,7 @@ import java.util.List;
 
 
 public class ListRecordsHandler extends VerbHandler<ListRecords> {
-    private static Logger log = Logger.getLogger(ListRecordsHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(ListRecordsHandler.class);
     private final ItemRepositoryHelper itemRepositoryHelper;
     private final SetRepositoryHelper setRepositoryHelper;
 
@@ -151,7 +159,7 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
             header.withStatus(Header.Status.DELETED);
 
         if (!item.isDeleted()) {
-            Metadata metadata = null;
+            Metadata metadata;
             try {
                 if (getContext().hasTransformer()) {
                     metadata = new Metadata(toPipeline(item)
@@ -163,16 +171,10 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
                             .apply(format.getTransformer())
                             .process());
                 }
-            } catch (XMLStreamException e) {
-                throw new OAIException(e);
-            } catch (TransformerException e) {
-                throw new OAIException(e);
-            } catch (IOException e) {
-                throw new OAIException(e);
-            } catch (XmlWriteException e) {
+            } catch (XMLStreamException | XmlWriteException | IOException | TransformerException e) {
                 throw new OAIException(e);
             }
-
+    
             record.withMetadata(metadata);
 
             log.debug("Outputting ItemAbout");

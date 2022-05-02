@@ -16,6 +16,8 @@ import java.io.InputStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.text.IsEmptyString.emptyOrNullString;
+import static org.hamcrest.core.IsNot.not;
 
 public class XOAIMetadataTest {
     @Test
@@ -33,6 +35,8 @@ public class XOAIMetadataTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         XmlWriter writer = new XmlWriter(output);
         read.write(writer);
-        //System.out.println(output.toString());
+        
+        String xml = output.toString();
+        assertThat(xml, not(emptyOrNullString()));
     }
 }

@@ -20,15 +20,15 @@ import io.gdcc.xoai.dataprovider.handlers.helpers.PreconditionHelper;
 import io.gdcc.xoai.dataprovider.handlers.helpers.ResumptionTokenHelper;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
 import io.gdcc.xoai.dataprovider.model.Context;
+import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
+import io.gdcc.xoai.dataprovider.model.Set;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-import org.dspace.xoai.dataprovider.exceptions.*;
-import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
-import io.gdcc.xoai.dataprovider.model.Set;
-import org.dspace.xoai.model.oaipmh.Header;
-import org.dspace.xoai.model.oaipmh.ListIdentifiers;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
+
+import io.gdcc.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.model.oaipmh.ListIdentifiers;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 
 import java.util.List;
 

@@ -18,13 +18,13 @@ import io.gdcc.xoai.dataprovider.model.Item;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-import org.dspace.xoai.model.oaipmh.ListMetadataFormats;
+import io.gdcc.xoai.model.oaipmh.ListMetadataFormats;
 
 import java.util.List;
 
 
 public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormats> {
-    private ItemRepositoryHelper itemRepositoryHelper;
+    private final ItemRepositoryHelper itemRepositoryHelper;
 
     public ListMetadataFormatsHandler(Context context, Repository repository) {
         super(context, repository);
@@ -47,7 +47,7 @@ public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormats>
             if (metadataFormats.isEmpty())
                 throw new NoMetadataFormatsException();
             for (MetadataFormat metadataFormat : metadataFormats) {
-                org.dspace.xoai.model.oaipmh.MetadataFormat format = new org.dspace.xoai.model.oaipmh.MetadataFormat()
+                io.gdcc.xoai.model.oaipmh.MetadataFormat format = new io.gdcc.xoai.model.oaipmh.MetadataFormat()
                     .withMetadataPrefix(metadataFormat.getPrefix())
                     .withMetadataNamespace(metadataFormat.getNamespace())
                     .withSchema(metadataFormat.getSchemaLocation());
@@ -55,7 +55,7 @@ public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormats>
             }
         } else {
             for (MetadataFormat metadataFormat : getContext().getMetadataFormats()) {
-                org.dspace.xoai.model.oaipmh.MetadataFormat format = new org.dspace.xoai.model.oaipmh.MetadataFormat()
+                io.gdcc.xoai.model.oaipmh.MetadataFormat format = new io.gdcc.xoai.model.oaipmh.MetadataFormat()
                         .withMetadataPrefix(metadataFormat.getPrefix())
                         .withMetadataNamespace(metadataFormat.getNamespace())
                         .withSchema(metadataFormat.getSchemaLocation());

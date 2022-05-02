@@ -22,8 +22,8 @@ public class Context {
     }
 
     private Transformer metadataTransformer;
-    private List<MetadataFormat> metadataFormats = new ArrayList<MetadataFormat>();
-    private List<Set> sets = new ArrayList<Set>();
+    private final List<MetadataFormat> metadataFormats = new ArrayList<>();
+    private final List<Set> sets = new ArrayList<>();
     private Condition condition;
 
     public List<Set> getSets() {
@@ -129,7 +129,7 @@ public class Context {
     }
 
     public List<MetadataFormat> formatFor(FilterResolver resolver, ItemIdentifier item) {
-        List<MetadataFormat> result = new ArrayList<MetadataFormat>();
+        List<MetadataFormat> result = new ArrayList<>();
         for (MetadataFormat format : this.metadataFormats)
             if (!format.hasCondition() || format.getCondition().getFilter(resolver).isItemShown(item))
                 result.add(format);

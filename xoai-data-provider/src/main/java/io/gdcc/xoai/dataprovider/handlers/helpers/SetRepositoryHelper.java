@@ -10,17 +10,17 @@ package io.gdcc.xoai.dataprovider.handlers.helpers;
 
 import io.gdcc.xoai.dataprovider.model.Context;
 import io.gdcc.xoai.dataprovider.repository.SetRepository;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import io.gdcc.xoai.dataprovider.handlers.results.ListSetsResult;
 import io.gdcc.xoai.dataprovider.model.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SetRepositoryHelper {
-    private static Logger log = LogManager.getLogger(SetRepositoryHelper.class);
-    private SetRepository setRepository;
+    private static final Logger log = LoggerFactory.getLogger(SetRepositoryHelper.class);
+    private final SetRepository setRepository;
 
     public SetRepositoryHelper(SetRepository setRepository) {
         super();
@@ -28,7 +28,7 @@ public class SetRepositoryHelper {
     }
 
     public ListSetsResult getSets(Context context, int offset, int length) {
-        List<Set> results = new ArrayList<Set>();
+        List<Set> results = new ArrayList<>();
         List<Set> statics = context.getSets();
         if (offset < statics.size()) {
             log.debug("Offset less than static sets size");
@@ -62,12 +62,12 @@ public class SetRepositoryHelper {
     }
 
     public boolean exists(Context context, String setSpec) {
-        List<Set> statics = context.getSets();
-        for (Set set : statics)
-            if (set.getSpec().equals(set))
-                return true;
-
-        return setRepository.exists(setSpec);
+        // As Set implements equals(), simply search via contains().
+        if (context.getSets().contains(new Set(setSpec))) {
+            return true;
+        } else {
+            return setRepository.exists(setSpec);
+        }
     }
 
 }

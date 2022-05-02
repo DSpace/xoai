@@ -43,6 +43,7 @@ import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.not;
 
 public class XmlReader {
+    // Using the STaX2 API here, but hiding behind STaX1
     private static final XMLInputFactory XML_INPUT_FACTORY = XMLInputFactory2.newFactory();
     private final XMLEventReader xmlEventParser;
 
@@ -83,9 +84,9 @@ public class XmlReader {
 
     public String getAttributeValue(Matcher<QName> nameMatcher) throws XmlReaderException {
         if (getPeek().isStartElement()) {
-            Iterator attributes = getPeek().asStartElement().getAttributes();
+            Iterator<Attribute> attributes = getPeek().asStartElement().getAttributes();
             while (attributes.hasNext()) {
-                Attribute attribute = (Attribute) attributes.next();
+                Attribute attribute = attributes.next();
                 if (nameMatcher.matches(attribute.getName()))
                     return attribute.getValue();
             }
@@ -97,9 +98,9 @@ public class XmlReader {
     public <T> Map<T, String> getAttributes(ExtractFunction<QName, T> extractFunction) throws XmlReaderException {
         HashMap<T, String> map = new HashMap<T, String>();
         if (getPeek().isStartElement()) {
-            Iterator attributes = getPeek().asStartElement().getAttributes();
+            Iterator<Attribute> attributes = getPeek().asStartElement().getAttributes();
             while (attributes.hasNext()) {
-                Attribute attribute = (Attribute) attributes.next();
+                Attribute attribute = attributes.next();
                 map.put(extractFunction.apply(attribute.getName()), attribute.getValue());
             }
         }
@@ -110,13 +111,13 @@ public class XmlReader {
         return hasAttributeMatcher(matcher).matches(getPeek().asStartElement().getAttributes());
     }
 
-    private TypeSafeMatcher<Iterator> hasAttributeMatcher(final Matcher<Attribute> matcher) {
-        return new TypeSafeMatcher<Iterator>() {
+    private TypeSafeMatcher<Iterator<Attribute>> hasAttributeMatcher(final Matcher<Attribute> matcher) {
+        return new TypeSafeMatcher<>() {
             @Override
             public void describeTo(Description description) {
                 description.appendText("has attribute");
             }
-
+    
             @Override
             protected boolean matchesSafely(Iterator item) {
                 while (item.hasNext())
@@ -127,7 +128,8 @@ public class XmlReader {
         };
     }
 
-    public XmlReader next(Matcher<XMLEvent>... possibleEvents) throws XmlReaderException {
+    @SafeVarargs
+    public final XmlReader next(Matcher<XMLEvent>... possibleEvents) throws XmlReaderException {
         try {
             xmlEventParser.nextEvent();
             while (!anyOf(possibleEvents).matches(getPeek()))
@@ -204,7 +206,7 @@ public class XmlReader {
         }
     }
 
-    public static interface IslandParser<T> {
+    public interface IslandParser<T> {
         T parse (XmlReader reader) throws XmlReaderException;
     }
 }

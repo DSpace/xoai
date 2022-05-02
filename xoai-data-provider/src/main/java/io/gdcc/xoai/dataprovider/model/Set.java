@@ -9,23 +9,24 @@
 package io.gdcc.xoai.dataprovider.model;
 
 import io.gdcc.xoai.dataprovider.model.conditions.Condition;
-import org.dspace.xoai.model.xoai.XOAIMetadata;
+import io.gdcc.xoai.model.xoai.XOAIMetadata;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Development @ Lyncode
  * @version 3.1.0
  */
 public class Set {
-    public static Set set (String spec) {
+    public static Set set(String spec) {
         return new Set(spec);
     }
 
     private final String spec;
+    private final List<XOAIMetadata> descriptions = new ArrayList<>();
     private String name;
-    private List<XOAIMetadata> descriptions = new ArrayList<XOAIMetadata>();
     private Condition condition;
 
     public Set(String spec) {
@@ -71,12 +72,25 @@ public class Set {
         return spec;
     }
 
-    public org.dspace.xoai.model.oaipmh.Set toOAIPMH () {
-        org.dspace.xoai.model.oaipmh.Set set = new org.dspace.xoai.model.oaipmh.Set();
+    public io.gdcc.xoai.model.oaipmh.Set toOAIPMH () {
+        io.gdcc.xoai.model.oaipmh.Set set = new io.gdcc.xoai.model.oaipmh.Set();
         set.withName(getName());
         set.withSpec(getSpec());
         for (XOAIMetadata description : descriptions)
             set.withDescription(description);
         return set;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Set)) return false;
+        Set set = (Set) o;
+        return Objects.equals(getSpec(), set.getSpec());
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName());
     }
 }

@@ -17,8 +17,8 @@ import java.util.List;
  * @version 3.1.0
  */
 public class ListItemIdentifiersResult {
-    private boolean hasMore;
-    private List<ItemIdentifier> results;
+    private final boolean hasMore;
+    private final List<ItemIdentifier> results;
     private int totalResults = -1;
 
     public ListItemIdentifiersResult(boolean hasMoreResults, List<ItemIdentifier> results) {

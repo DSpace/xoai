@@ -14,46 +14,47 @@ import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static com.lyncode.test.matchers.xml.XPathMatchers.xPath;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.GetRecord;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListRecords;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListRecords;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ListRecordsHandlerTest extends AbstractHandlerTest {
-    private ListRecordsHandler underTest = new ListRecordsHandler(aContext(), theRepository());
+    private final ListRecordsHandler underTest = new ListRecordsHandler(aContext(), theRepository());
 
-    @Test(expected = BadArgumentException.class)
-    public void missingMetadataFormat() throws Exception {
-        underTest.handle(request()
-                .withVerb(ListRecords));
+    @Test
+    public void missingMetadataFormat() {
+        assertThrows(BadArgumentException.class,
+            () -> underTest.handle(request().withVerb(ListRecords)));
     }
 
-    @Test(expected = CannotDisseminateFormatException.class)
-    public void cannotDisseminateFormat() throws Exception {
+    @Test
+    public void cannotDisseminateFormat() {
         theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
         aContext().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
-
-        underTest.handle(a(request().withVerb(ListRecords)
-                .withMetadataPrefix("abcd")));
+    
+        assertThrows(CannotDisseminateFormatException.class,
+            () -> underTest.handle(a(request().withVerb(ListRecords).withMetadataPrefix("abcd"))));
     }
 
-    @Test(expected = NoMatchesException.class)
-    public void noMatchRecords () throws Exception {
-        underTest.handle(request()
-                .withVerb(ListRecords)
-                .withMetadataPrefix(EXISTING_METADATA_FORMAT));
+    @Test
+    public void noMatchRecords() {
+        assertThrows(NoMatchesException.class,
+            () -> underTest.handle(request()
+                    .withVerb(ListRecords)
+                    .withMetadataPrefix(EXISTING_METADATA_FORMAT)));
     }
 
-    @Test(expected = DoesNotSupportSetsException.class)
-    public void setRequestAndSetsNotSupported () throws Exception {
+    @Test
+    public void setRequestAndSetsNotSupported() {
         theSetRepository().doesNotSupportSets();
-        underTest.handle(request()
-                .withVerb(ListRecords)
-                .withMetadataPrefix(EXISTING_METADATA_FORMAT)
-                .withSet("sad"));
+        assertThrows(DoesNotSupportSetsException.class,
+            () -> underTest.handle(request()
+                    .withVerb(ListRecords)
+                    .withMetadataPrefix(EXISTING_METADATA_FORMAT)
+                    .withSet("sad")));
     }
 
     @Test

@@ -8,59 +8,58 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
-import io.gdcc.xoai.dataprovider.model.Context;
-import io.gdcc.xoai.dataprovider.model.MetadataFormat;
-import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
-import io.gdcc.xoai.dataprovider.repository.InMemoryItemRepository;
-import io.gdcc.xoai.dataprovider.repository.InMemorySetRepository;
-import io.gdcc.xoai.dataprovider.repository.Repository;
-import io.gdcc.xoai.dataprovider.repository.RepositoryConfiguration;
 import io.gdcc.xoai.dataprovider.builder.OAIRequestParametersBuilder;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.DuplicateDefinitionException;
 import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
 import io.gdcc.xoai.dataprovider.filter.Filter;
-import io.gdcc.xoai.dataprovider.filter.FilterResolver;
-import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
+import io.gdcc.xoai.dataprovider.model.Context;
+import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.model.conditions.Condition;
-import org.dspace.xoai.exceptions.InvalidResumptionTokenException;
-import org.dspace.xoai.model.oaipmh.ResumptionToken;
-import org.dspace.xoai.services.impl.SimpleResumptionTokenFormat;
-import org.dspace.xoai.xml.XmlWritable;
-import org.dspace.xoai.xml.XmlWriter;
+import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
+import io.gdcc.xoai.dataprovider.repository.InMemoryItemRepository;
+import io.gdcc.xoai.dataprovider.repository.InMemorySetRepository;
+import io.gdcc.xoai.dataprovider.repository.Repository;
+import io.gdcc.xoai.dataprovider.repository.RepositoryConfiguration;
+import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
+import io.gdcc.xoai.xml.XmlWritable;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.xmlunit.matchers.EvaluateXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
 
 public abstract class AbstractHandlerTest {
 
     protected static final String EXISTING_METADATA_FORMAT = "xoai";
-    private Context context = new Context().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
-    private InMemorySetRepository setRepository = new InMemorySetRepository();
-    private InMemoryItemRepository itemRepository = new InMemoryItemRepository();
-    private RepositoryConfiguration repositoryConfiguration = new RepositoryConfiguration().withDefaults();
-    private Repository repository = new Repository()
+    private final Context context = new Context().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
+    private final InMemorySetRepository setRepository = new InMemorySetRepository();
+    private final InMemoryItemRepository itemRepository = new InMemoryItemRepository();
+    private final RepositoryConfiguration repositoryConfiguration = new RepositoryConfiguration().withDefaults();
+    private final Repository repository = new Repository()
             .withSetRepository(setRepository)
             .withItemRepository(itemRepository)
             .withResumptionTokenFormatter(new SimpleResumptionTokenFormat())
             .withConfiguration(repositoryConfiguration);
-
+    
+    protected static Matcher<? super String> xPath(String xpath, Matcher<String> stringMatcher) {
+        return EvaluateXPathMatcher.hasXPath(xpath, stringMatcher);
+    }
     protected String write(final XmlWritable handle) throws XMLStreamException, XmlWriteException {
-        return XmlWriter.toString(new XmlWritable() {
-            @Override
-            public void write(XmlWriter writer) throws XmlWriteException {
-                try {
-                    writer.writeStartElement("root");
-                    writer.writeNamespace("xsi", "something");
-                    writer.write(handle);
-                    writer.writeEndElement();
-                } catch (XMLStreamException e) {
-                    throw new XmlWriteException(e);
-                }
+        return XmlWriter.toString(writer -> {
+            try {
+                writer.writeStartElement("root");
+                writer.writeNamespace("xsi", "something");
+                writer.write(handle);
+                writer.writeEndElement();
+            } catch (XMLStreamException e) {
+                throw new XmlWriteException(e);
             }
         });
     }
@@ -97,12 +96,12 @@ public abstract class AbstractHandlerTest {
     }
 
     protected Matcher<String> asInteger(final Matcher<Integer> matcher) {
-        return new TypeSafeMatcher<String>() {
+        return new TypeSafeMatcher<>() {
             @Override
             protected boolean matchesSafely(String item) {
                 return matcher.matches(Integer.valueOf(item));
             }
-
+    
             @Override
             public void describeTo(Description description) {
                 description.appendDescriptionOf(matcher);
@@ -111,17 +110,7 @@ public abstract class AbstractHandlerTest {
     }
 
     protected Condition alwaysFalseCondition() {
-        return new Condition() {
-            @Override
-            public Filter getFilter(FilterResolver filterResolver) {
-                return new Filter() {
-                    @Override
-                    public boolean isItemShown(ItemIdentifier item) {
-                        return false;
-                    }
-                };
-            }
-        };
+        return filterResolver -> (Filter) item -> false;
     }
 
     protected String valueOf(ResumptionToken.Value resumptionToken) {
