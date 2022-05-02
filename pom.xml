@@ -13,7 +13,7 @@
     <modules>
         <module>xoai-common</module>
         <module>xoai-data-provider</module>
-        <module>xoai-service-provider</module>
+        <!--<module>xoai-service-provider</module>-->
         <module>xoai-xmlio</module>
     </modules>
 

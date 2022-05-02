@@ -32,5 +32,4 @@ jobs:
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-              # Remove "-pl '!xoai-service-provider'" once this module has been refactored!
-              run: mvn -B -Pcoverage -pl '!xoai-service-provider' verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+              run: mvn -B -Pcoverage verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
