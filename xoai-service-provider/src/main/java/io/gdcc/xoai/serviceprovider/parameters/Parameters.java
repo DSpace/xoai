@@ -13,7 +13,6 @@ import io.gdcc.xoai.model.oaipmh.Verb;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.util.URLEncoder;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,7 +92,7 @@ public class Parameters {
         if (identifier != null) string.add("identifier=" + encode(identifier));
         if (metadataPrefix != null) string.add("metadataPrefix=" + encode(metadataPrefix));
         if (resumptionToken != null) string.add("resumptionToken=" + encode(resumptionToken));
-        return baseUrl + "?" + StringUtils.join(string, URLEncoder.SEPARATOR);
+        return baseUrl + "?" + String.join(URLEncoder.SEPARATOR, string);
     }
 
     /**

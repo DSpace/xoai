@@ -54,7 +54,6 @@
         <!-- OLD DEPS - TO BE REMOVED! -->
         <mockito.version>1.9.5</mockito.version>
         <guava.version>15.0</guava.version>
-        <commons.lang3.version>3.1</commons.lang3.version>
         <log4j.version>1.2.14</log4j.version>
         <lyncode.xml-io>1.0.3</lyncode.xml-io>
         <lyncode.builder-commons>1.0.2</lyncode.builder-commons>
@@ -400,12 +399,6 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons.lang3.version}</version>
             </dependency>
             
             <dependency>
