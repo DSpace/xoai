@@ -34,7 +34,22 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-        
+    
+        <dependency>
+            <groupId>org.codehaus.woodstox</groupId>
+            <artifactId>stax2-api</artifactId>
+        </dependency>
+        <!--
+        We need an actual StAX2 implementation at runtime (thus the scope). Yet appservers like Payara already ship
+        their version and using it should be just fine, so we prevent packaging the dep in the JAR via <optional>.
+        (Someone might also want to switch to another StAX2 engine like Aalto.)
+        -->
+        <dependency>
+            <groupId>com.fasterxml.woodstox</groupId>
+            <artifactId>woodstox-core</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
