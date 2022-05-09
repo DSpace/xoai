@@ -42,7 +42,7 @@ import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.text;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.not;
 
-public class XmlReader {
+public class XmlReader implements AutoCloseable {
     // Using the STaX2 API here, but hiding behind STaX1
     private static final XMLInputFactory XML_INPUT_FACTORY = XMLInputFactory2.newFactory();
     private final XMLEventReader xmlEventParser;
@@ -59,7 +59,7 @@ public class XmlReader {
         return matcher.matches(getPeek());
     }
 
-    public void close () throws XmlReaderException {
+    public void close() throws XmlReaderException {
         try {
             xmlEventParser.close();
         } catch (XMLStreamException e) {
