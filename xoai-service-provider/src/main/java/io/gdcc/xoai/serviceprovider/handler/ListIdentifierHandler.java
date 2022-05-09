@@ -8,18 +8,17 @@
 
 package io.gdcc.xoai.serviceprovider.handler;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
+import io.gdcc.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.serviceprovider.client.OAIClient;
 import io.gdcc.xoai.serviceprovider.exceptions.InvalidOAIResponse;
 import io.gdcc.xoai.serviceprovider.exceptions.OAIRequestException;
-import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
-import io.gdcc.xoai.serviceprovider.parameters.Parameters;
-import org.apache.commons.io.IOUtils;
-import org.dspace.xoai.model.oaipmh.Header;
-import io.gdcc.xoai.serviceprovider.client.OAIClient;
 import io.gdcc.xoai.serviceprovider.lazy.Source;
 import io.gdcc.xoai.serviceprovider.model.Context;
+import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
+import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import io.gdcc.xoai.serviceprovider.parsers.ListIdentifiersParser;
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.events.XMLEvent;
@@ -28,46 +27,46 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
+import static io.gdcc.xoai.xmlio.matchers.QNameMatchers.localPart;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.aStartElement;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.anEndElement;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.elementName;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.text;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.AllOf.allOf;
 
 public class ListIdentifierHandler implements Source<Header> {
-    private Context context;
-    private ListIdentifiersParameters parameters;
-    private OAIClient client;
-    private String resumptionToken;
+    private final ListIdentifiersParameters parameters;
+    private final OAIClient client;
+    private String resumptionToken = null;
     private boolean ended = false;
 
     public ListIdentifierHandler(Context context, ListIdentifiersParameters parameters) {
-        this.context = context;
         this.parameters = parameters;
         this.client = context.getClient();
     }
 
     @Override
     public List<Header> nextIteration() {
-        List<Header> headers = new ArrayList<Header>();
-        InputStream stream = null;
-        try {
-            if (resumptionToken == null) { // First call
-                stream = client.execute(Parameters.parameters()
-                        .withVerb(ListIdentifiers)
-                        .include(parameters));
-            } else { // Resumption calls
-                stream = client.execute(Parameters.parameters()
-                        .withVerb(ListIdentifiers)
-                        .include(parameters)
-                        .withResumptionToken(resumptionToken));
-            }
-
-            XmlReader reader = new XmlReader(stream);
+        List<Header> headers = new ArrayList<>();
+    
+        Parameters requestParameters = Parameters.parameters().withVerb(ListIdentifiers).include(parameters);
+        // Resumption calls must include the resumption token
+        if (resumptionToken != null) {
+            requestParameters.withResumptionToken(resumptionToken);
+        }
+        
+        try (
+            InputStream stream = client.execute(requestParameters);
+            XmlReader reader = new XmlReader(stream)
+        ){
+            // TODO: this was written before Streams and Collections API. Refactor.
             ListIdentifiersParser parser = new ListIdentifiersParser(reader);
             while (parser.hasNext())
                 headers.add(parser.next());
-
+    
+            // TODO: this is the same as in ListRecordsHandler. Deduplicate.
             if (reader.current(resumptionToken())) {
                 if (reader.next(text(), anEndElement()).current(text())) {
                     String text = reader.getText();
@@ -77,16 +76,10 @@ public class ListIdentifierHandler implements Source<Header> {
                         resumptionToken = text;
                 } else ended = true;
             } else ended = true;
-            stream.close();
+            
             return headers;
-        } catch (XmlReaderException e) {
+        } catch (XmlReaderException | OAIRequestException | IOException e) {
             throw new InvalidOAIResponse(e);
-        } catch (OAIRequestException e) {
-            throw new InvalidOAIResponse(e);
-        } catch (IOException e) {
-            throw new InvalidOAIResponse(e);
-        } finally {
-            IOUtils.closeQuietly(stream);
         }
     }
 
