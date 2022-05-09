@@ -56,7 +56,6 @@
         <guava.version>15.0</guava.version>
         <commons.lang3.version>3.1</commons.lang3.version>
         <log4j.version>1.2.14</log4j.version>
-        <http-commons.version>4.5.3</http-commons.version>
         <lyncode.xml-io>1.0.3</lyncode.xml-io>
         <lyncode.builder-commons>1.0.2</lyncode.builder-commons>
         <lyncode.test-support>1.0.4</lyncode.test-support>
@@ -407,12 +406,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons.lang3.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${http-commons.version}</version>
             </dependency>
             
             <dependency>
