@@ -8,12 +8,12 @@
 
 package io.gdcc.xoai.serviceprovider;
 
-import org.dspace.xoai.dataprovider.filter.Filter;
-import org.dspace.xoai.dataprovider.filter.FilterResolver;
-import org.dspace.xoai.dataprovider.model.ItemIdentifier;
-import org.dspace.xoai.dataprovider.model.conditions.Condition;
-import org.dspace.xoai.model.oaipmh.Identify;
-import org.dspace.xoai.model.oaipmh.MetadataFormat;
+import io.gdcc.xoai.dataprovider.filter.Filter;
+import io.gdcc.xoai.dataprovider.filter.FilterResolver;
+import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
+import io.gdcc.xoai.dataprovider.model.conditions.Condition;
+import io.gdcc.xoai.model.oaipmh.Identify;
+import io.gdcc.xoai.model.oaipmh.MetadataFormat;
 import io.gdcc.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import io.gdcc.xoai.serviceprovider.exceptions.NoSetHierarchyException;
@@ -25,10 +25,10 @@ import org.junit.Test;
 
 import java.util.Iterator;
 
-import static com.lyncode.test.check.Assert.assertThat;
-import static org.dspace.xoai.dataprovider.model.InMemoryItem.item;
-import static org.dspace.xoai.dataprovider.model.MetadataFormat.identity;
-import static org.dspace.xoai.model.oaipmh.DeletedRecord.PERSISTENT;
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.item;
+import static io.gdcc.xoai.dataprovider.model.MetadataFormat.identity;
+import static io.gdcc.xoai.model.oaipmh.DeletedRecord.PERSISTENT;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 

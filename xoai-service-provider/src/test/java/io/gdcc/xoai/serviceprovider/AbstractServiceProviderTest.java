@@ -10,7 +10,7 @@ package io.gdcc.xoai.serviceprovider;
 
 import io.gdcc.xoai.serviceprovider.model.Context;
 
-import static org.dspace.xoai.dataprovider.model.MetadataFormat.identity;
+import static io.gdcc.xoai.dataprovider.model.MetadataFormat.identity;
 
 public abstract class AbstractServiceProviderTest extends AbstractInMemoryDataProviderTest {
 

@@ -8,6 +8,11 @@
 
 package io.gdcc.xoai.serviceprovider;
 
+import io.gdcc.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.model.oaipmh.Identify;
+import io.gdcc.xoai.model.oaipmh.MetadataFormat;
+import io.gdcc.xoai.model.oaipmh.Record;
+import io.gdcc.xoai.model.oaipmh.Set;
 import io.gdcc.xoai.serviceprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.serviceprovider.exceptions.EncapsulatedKnownException;
@@ -20,15 +25,12 @@ import io.gdcc.xoai.serviceprovider.handler.ListIdentifierHandler;
 import io.gdcc.xoai.serviceprovider.handler.ListMetadataFormatsHandler;
 import io.gdcc.xoai.serviceprovider.handler.ListRecordHandler;
 import io.gdcc.xoai.serviceprovider.handler.ListSetsHandler;
+import io.gdcc.xoai.serviceprovider.lazy.ItemIterator;
+import io.gdcc.xoai.serviceprovider.model.Context;
 import io.gdcc.xoai.serviceprovider.parameters.GetRecordParameters;
 import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
 import io.gdcc.xoai.serviceprovider.parameters.ListMetadataParameters;
 import io.gdcc.xoai.serviceprovider.parameters.ListRecordsParameters;
-import org.dspace.xoai.model.oaipmh.*;
-import org.dspace.xoai.serviceprovider.exceptions.*;
-import org.dspace.xoai.serviceprovider.handler.*;
-import io.gdcc.xoai.serviceprovider.lazy.ItemIterator;
-import io.gdcc.xoai.serviceprovider.model.Context;
 
 import java.util.Iterator;
 
