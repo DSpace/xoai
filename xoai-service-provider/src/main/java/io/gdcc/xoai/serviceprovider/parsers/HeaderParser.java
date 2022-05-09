@@ -8,18 +8,21 @@
 
 package io.gdcc.xoai.serviceprovider.parsers;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
-import org.dspace.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.model.oaipmh.Header;
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.events.XMLEvent;
 
-import static com.lyncode.xml.matchers.AttributeMatchers.attributeName;
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static org.dspace.xoai.model.oaipmh.Header.Status.DELETED;
+import static io.gdcc.xoai.model.oaipmh.Header.Status.DELETED;
 import static io.gdcc.xoai.serviceprovider.xml.IslandParsers.dateParser;
+import static io.gdcc.xoai.xmlio.matchers.AttributeMatchers.attributeName;
+import static io.gdcc.xoai.xmlio.matchers.QNameMatchers.localPart;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.aStartElement;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.anEndElement;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.elementName;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.text;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.AllOf.allOf;
 

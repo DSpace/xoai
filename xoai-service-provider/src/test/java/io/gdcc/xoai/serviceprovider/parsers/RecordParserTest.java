@@ -8,10 +8,10 @@
 
 package io.gdcc.xoai.serviceprovider.parsers;
 
-import com.lyncode.xml.XmlReader;
-import org.dspace.xoai.model.oaipmh.Record;
+import io.gdcc.xoai.model.oaipmh.Record;
 import io.gdcc.xoai.serviceprovider.model.Context;
 import io.gdcc.xoai.serviceprovider.model.Context.KnownTransformer;
+import io.gdcc.xoai.xmlio.XmlReader;
 import org.junit.Before;
 import org.junit.Test;
 

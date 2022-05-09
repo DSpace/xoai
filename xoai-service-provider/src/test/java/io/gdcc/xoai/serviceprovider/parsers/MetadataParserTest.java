@@ -8,8 +8,8 @@
 
 package io.gdcc.xoai.serviceprovider.parsers;
 
-import org.dspace.xoai.model.xoai.XOAIMetadata;
-import org.dspace.xoai.services.api.MetadataSearch;
+import io.gdcc.xoai.model.xoai.XOAIMetadata;
+import io.gdcc.xoai.services.api.MetadataSearch;
 import org.junit.Test;
 
 import java.io.InputStream;
