@@ -10,13 +10,9 @@ package io.gdcc.xoai.serviceprovider.exceptions;
 
 public class BadResumptionTokenException extends HarvestException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3469091780879436035L;
 
-	public BadResumptionTokenException() {
-	}
+	public BadResumptionTokenException() {}
 
 	public BadResumptionTokenException(String arg0) {
 		super(arg0);

@@ -10,13 +10,9 @@ package io.gdcc.xoai.serviceprovider.exceptions;
 
 public class BadArgumentException extends HarvestException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3852801418680298861L;
 
-	public BadArgumentException() {
-	}
+	public BadArgumentException() {}
 
 	public BadArgumentException(String arg0) {
 		super(arg0);

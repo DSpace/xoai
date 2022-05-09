@@ -9,8 +9,6 @@
 package io.gdcc.xoai.serviceprovider.exceptions;
 
 public class EncapsulatedKnownException extends RuntimeException {
-    private HarvestException exception;
-
     public EncapsulatedKnownException(HarvestException cause) {
         super(cause);
     }
