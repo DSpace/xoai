@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.serviceprovider.parameters;
 
-import org.dspace.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.serviceprovider.parameters;
 
-import org.dspace.xoai.model.oaipmh.Verb.Type;
+import io.gdcc.xoai.model.oaipmh.Verb.Type;
 import org.junit.Before;
 import org.junit.Test;
 

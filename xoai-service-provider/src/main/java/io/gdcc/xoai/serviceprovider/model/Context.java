@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.serviceprovider.model;
 
-import org.dspace.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.serviceprovider.client.OAIClient;
 
 import javax.xml.transform.Transformer;
