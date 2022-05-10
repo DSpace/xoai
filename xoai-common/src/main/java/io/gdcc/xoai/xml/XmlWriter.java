@@ -8,6 +8,7 @@
 
 package io.gdcc.xoai.xml;
 
+import io.gdcc.xoai.xmlio.XmlIoWriter;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
@@ -22,7 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 
-public class XmlWriter extends io.gdcc.xoai.xmlio.XmlWriter implements AutoCloseable {
+public class XmlWriter extends XmlIoWriter implements AutoCloseable {
     public static String toString(XmlWritable writable) throws XMLStreamException, XmlWriteException {
         try (
             OutputStream out = new ByteArrayOutputStream();

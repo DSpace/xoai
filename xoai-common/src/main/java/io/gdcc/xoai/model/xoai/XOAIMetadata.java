@@ -15,9 +15,9 @@
 
 package io.gdcc.xoai.model.xoai;
 
+import io.gdcc.xoai.xml.XmlWritable;
+import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.xmlio.XmlReader;
-import io.gdcc.xoai.xmlio.XmlWritable;
-import io.gdcc.xoai.xmlio.XmlWriter;
 import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.services.api.MetadataSearch;
