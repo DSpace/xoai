@@ -23,8 +23,10 @@ public class XMLUtils {
     static final TransformerFactory factory = TransformerFactory.newInstance();
     
     public static String format(String unformattedXml) {
+        final OutputStream out = new ByteArrayOutputStream();
+        
         try (
-            OutputStream out = new ByteArrayOutputStream();
+            out;
             InputStream in = new ByteArrayInputStream(unformattedXml.getBytes())
         ) {
             Transformer transformer = factory.newTransformer();
@@ -35,10 +37,11 @@ public class XMLUtils {
             StreamSource source = new StreamSource(in);
             
             transformer.transform(source, result);
-            return out.toString();
         } catch (Exception e) {
-            return "";
+            throw new IllegalArgumentException("Could not format given XML input", e);
         }
+    
+        return out.toString();
     }
     
 }
