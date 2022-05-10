@@ -158,7 +158,7 @@ public class XmlReader implements AutoCloseable {
         try {
             if (current(not(aStartElement())))
                 throw new XmlReaderException("Can only retrieve from starting elements");
-            XmlWriter writer = new XmlWriter(outputStream);
+            XmlIoWriter writer = new XmlIoWriter(outputStream);
             int count = 0;
             while (xmlEventParser.peek() != null) {
                 XMLEvent event = xmlEventParser.peek();

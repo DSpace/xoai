@@ -24,13 +24,13 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.OutputStream;
 
-public class XmlWriter implements XMLStreamWriter, AutoCloseable {
+public class XmlIoWriter implements XMLStreamWriter, AutoCloseable {
     // Using the STaX2 API here, but hiding behind STaX1
     private static final XMLOutputFactory factory = XMLOutputFactory2.newFactory();
     private final XMLStreamWriter writer;
     private final OutputStream outputStream;
 
-    public XmlWriter(OutputStream output) throws XMLStreamException {
+    public XmlIoWriter(OutputStream output) throws XMLStreamException {
         writer = factory.createXMLStreamWriter(output);
         this.outputStream = output;
     }
