@@ -25,7 +25,6 @@ import io.gdcc.xoai.services.impl.MetadataSearchImpl;
 import io.gdcc.xoai.xml.XSISchema;
 
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class XOAIMetadata implements XmlWritable {
     public static final String NAMESPACE_URI = "http://www.lyncode.com/xoai";
     public static final String SCHEMA_LOCATION = "http://www.lyncode.com/xsd/xoai.xsd";
 
-    protected List<Element> elements = new ArrayList<Element>();
+    protected List<Element> elements = new ArrayList<>();
 
     public List<Element> getElements() {
         return this.elements;
@@ -74,15 +73,11 @@ public class XOAIMetadata implements XmlWritable {
     }
 
     public String toString() {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
-            this.write(new XmlWriter(out));
-        } catch (XmlWriteException e) {
-            // don't do anything
-        } catch (XMLStreamException e) {
-            // don't do anything
+            return XmlWriter.toString(this);
+        } catch (XMLStreamException | XmlWriteException e) {
+            throw new IllegalStateException(e);
         }
-        return out.toString();
     }
 
     @Override
