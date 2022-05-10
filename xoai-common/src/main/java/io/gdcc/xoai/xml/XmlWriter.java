@@ -25,15 +25,20 @@ import java.util.Date;
 
 public class XmlWriter extends XmlIoWriter implements AutoCloseable {
     public static String toString(XmlWritable writable) throws XMLStreamException, XmlWriteException {
+        final OutputStream out = new ByteArrayOutputStream();
+        
         try (
-            OutputStream out = new ByteArrayOutputStream();
-            XmlWriter writer = new XmlWriter(out, defaultContext());
+            out;
+            XmlWriter writer = new XmlWriter(out, defaultContext())
         ) {
             writable.write(writer);
-            return out.toString();
         } catch (IOException e) {
             throw new XmlWriteException(e);
         }
+    
+        // the try-with-resources above will take care that writer and stream are closed before reading back
+        // the data, making sure everything has been flushed.
+        return out.toString();
     }
 
     public static WriterContext defaultContext () {
