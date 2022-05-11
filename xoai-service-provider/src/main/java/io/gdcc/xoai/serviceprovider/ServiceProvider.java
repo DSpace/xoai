@@ -35,10 +35,10 @@ import io.gdcc.xoai.serviceprovider.parameters.ListRecordsParameters;
 import java.util.Iterator;
 
 public class ServiceProvider {
-    private Context context;
-    private ListMetadataFormatsHandler listMetadataFormatsHandler;
-    private IdentifyHandler identifyHandler;
-    private GetRecordHandler getRecordHandler;
+    private final Context context;
+    private final ListMetadataFormatsHandler listMetadataFormatsHandler;
+    private final IdentifyHandler identifyHandler;
+    private final GetRecordHandler getRecordHandler;
 
     public ServiceProvider (Context context) {
         this.context = context;
@@ -68,31 +68,25 @@ public class ServiceProvider {
     public Iterator<Record> listRecords (ListRecordsParameters parameters) throws BadArgumentException {
         if (!parameters.areValid())
             throw new BadArgumentException("ListRecords verb requires the metadataPrefix");
-        return new ItemIterator<Record>(new ListRecordHandler(context, parameters));
+        return new ItemIterator<>(new ListRecordHandler(context, parameters));
     }
 
     public Iterator<Header> listIdentifiers (ListIdentifiersParameters parameters) throws BadArgumentException {
         if (!parameters.areValid())
             throw new BadArgumentException("ListIdentifiers verb requires the metadataPrefix");
-        return new ItemIterator<Header>(new ListIdentifierHandler(context, parameters));
+        return new ItemIterator<>(new ListIdentifierHandler(context, parameters));
     }
 
     public Iterator<Set> listSets () throws NoSetHierarchyException {
         try {
-            return new ItemIterator<Set>(new ListSetsHandler(context));
+            return new ItemIterator<>(new ListSetsHandler(context));
         } catch (EncapsulatedKnownException ex) {
-            throw get(ex, NoSetHierarchyException.class);
+            // send the root cause when the set hierarchy could not be found
+            if (ex.getCause() instanceof NoSetHierarchyException) {
+                throw (NoSetHierarchyException) ex.getCause();
+            } else {
+                throw ex;
+            }
         }
-    }
-
-    private <T extends HarvestException> boolean instanceOf (EncapsulatedKnownException exception, Class<T> exceptionClass) {
-        return exceptionClass.isInstance(exception.getCause());
-    }
-
-    private <T extends HarvestException> T get (EncapsulatedKnownException ex, Class<T> exceptionClass) {
-        if (instanceOf(ex, exceptionClass))
-            return (T) ex.getCause();
-        else
-            return null;
     }
 }
