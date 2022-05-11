@@ -59,25 +59,28 @@
         <!-- Official Maven Plugins -->
         <maven-plugin-api.version>3.8.2</maven-plugin-api.version>
         <maven-plugin-annotations.version>3.6.4</maven-plugin-annotations.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
-        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
+        <maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-plugin-plugin.version>3.6.4</maven-plugin-plugin.version>
-        <maven-site-plugin.version>3.11.0</maven-site-plugin.version>
+        <maven-site-plugin.version>4.0.0-M1</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-javadoc-plugin.version>3.3.2</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.4.0</maven-javadoc-plugin.version>
         <maven-flatten-plugin.version>1.2.7</maven-flatten-plugin.version>
         <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
         <maven-release-plugin.version>3.0.0-M5</maven-release-plugin.version>
-    
+        <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
+        
         <pomchecker-maven-plugin.version>1.2.0</pomchecker-maven-plugin.version>
         <nexus-staging-plugin.version>1.6.12</nexus-staging-plugin.version>
         <checkstyle-maven-plugin.version>3.1.2</checkstyle-maven-plugin.version>
         <checkstyle.version>9.3</checkstyle.version>
-        <spotbugs-maven-plugin.version>4.4.1</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.6.0.0</spotbugs-maven-plugin.version>
+        <jacoco.version>0.8.8</jacoco.version>
+        <sonar.version>3.9.1.2184</sonar.version>
     </properties>
 
     <licenses>
@@ -274,6 +277,26 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.3</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -392,8 +415,6 @@
         <profile>
             <id>coverage</id>
             <properties>
-                <jacoco.version>0.8.8</jacoco.version>
-                <sonar.version>3.9.1.2184</sonar.version>
                 <sonar.host.url>https://sonarcloud.io</sonar.host.url>
                 <sonar.organization>gdcc</sonar.organization>
                 <sonar.projectKey>gdcc_xoai</sonar.projectKey>
