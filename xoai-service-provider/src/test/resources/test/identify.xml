@@ -1,0 +1,18 @@
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
+		http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+    <responseDate>2022-05-11T16:00:14Z</responseDate>
+    <request verb="Identify">https://demo.dataverse.org/oai</request>
+    <Identify>
+        <repositoryName>Demo Dataverse Dataverse OAI Archive</repositoryName>
+        <baseURL>https://demo.dataverse.org/oai</baseURL>
+        <protocolVersion>2.0</protocolVersion>
+        <adminEmail>support@dataverse.org</adminEmail>
+        <earliestDatestamp>2022-04-07T15:34:45Z</earliestDatestamp>
+        <deletedRecord>transient</deletedRecord>
+        <granularity>YYYY-MM-DDThh:mm:ssZ</granularity>
+        <compression>gzip</compression>
+        <compression>deflate</compression>
+    </Identify>
+</OAI-PMH>
