@@ -159,11 +159,11 @@ public class XmlReader implements AutoCloseable {
             if (current(not(aStartElement())))
                 throw new XmlReaderException("Can only retrieve from starting elements");
             XmlIoWriter writer = new XmlIoWriter(outputStream);
-            int count = 0;
+            int depth = 0;
             while (xmlEventParser.peek() != null) {
                 XMLEvent event = xmlEventParser.peek();
                 if (event.isStartElement()) {
-                    count++;
+                    depth++;
                     StartElement start = event.asStartElement();
                     writer.writeStartElement(start.getName().getPrefix(), start.getName().getLocalPart(), start.getName().getNamespaceURI());
 
@@ -180,10 +180,26 @@ public class XmlReader implements AutoCloseable {
                     }
 
                 } else if (event.isEndElement()) {
+                    /*
+                    This was the original content. It lead to a breaking test in xoai-service-provider/RecordParserTest,
+                    where the end element of an <oai_dc:dc> element was not closed because the end element was
+                    not written due to count already being 0 when reaching the if clause. Leaving this here
+                    when we see any troubles arising from this change.
+                    
                     count--;
                     if (count == 0) {
                         break;
                     } else writer.writeEndElement();
+                     */
+                    
+                    // write the closing tag and decrease the depth
+                    writer.writeEndElement();
+                    depth -= 1;
+                    
+                    // if this was the end element of the outermost XML layer, break the loop here
+                    if (depth == 0) {
+                        break;
+                    }
                 } else if (event.isCharacters()) {
                     writer.writeCharacters(event.asCharacters().getData());
                 }
@@ -194,7 +210,8 @@ public class XmlReader implements AutoCloseable {
                     break;
             }
 
-            if (count > 0)
+            // when there wasn't enough closing elements, we're doomed.
+            if (depth > 0)
                 throw new XmlReaderException("Unterminated structure");
 
             writer.flush();
