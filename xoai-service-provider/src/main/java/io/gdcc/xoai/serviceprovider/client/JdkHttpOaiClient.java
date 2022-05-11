@@ -68,6 +68,8 @@ public final class JdkHttpOaiClient extends OAIClient {
                     new String(response.body().readAllBytes(), StandardCharsets.UTF_8));
             }
         } catch (IllegalArgumentException | IOException | InterruptedException ex) {
+            // Hint by SonarCloud: https://sonarcloud.io/organizations/gdcc/rules?open=java%3AS2142&rule_key=java%3AS2142
+            Thread.currentThread().interrupt();
             throw new OAIRequestException(ex);
         }
     }
@@ -173,15 +175,25 @@ public final class JdkHttpOaiClient extends OAIClient {
         private static SSLContext insecureContext() {
             TrustManager[] noopTrustManager = new TrustManager[]{
                 new X509TrustManager() {
-                    public void checkClientTrusted(X509Certificate[] xcs, String string) {}
-                    public void checkServerTrusted(X509Certificate[] xcs, String string) {}
+                    // This is insecure by design, we warn users and they need to do sth. to use it.
+                    // Safely ignore the Sonarcloud message.
+                    @SuppressWarnings("java:S4830")
+                    public void checkClientTrusted(X509Certificate[] xcs, String string) {
+                        // we want to accept every certificate - intentionally left blank
+                    }
+                    // This is insecure by design, we warn users and they need to do sth. to use it.
+                    // Safely ignore the Sonarcloud message.
+                    @SuppressWarnings("java:S4830")
+                    public void checkServerTrusted(X509Certificate[] xcs, String string) {
+                        // we want to accept every certificate - intentionally left blank
+                    }
                     public X509Certificate[] getAcceptedIssuers() {
-                        return null;
+                        return new X509Certificate[0];
                     }
                 }
             };
             try {
-                SSLContext sc = SSLContext.getInstance("ssl");
+                SSLContext sc = SSLContext.getInstance("TLSv1.2");
                 sc.init(null, noopTrustManager, null);
                 return sc;
             } catch (KeyManagementException | NoSuchAlgorithmException ex) {
