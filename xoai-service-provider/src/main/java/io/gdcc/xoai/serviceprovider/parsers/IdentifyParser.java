@@ -77,11 +77,6 @@ public class IdentifyParser {
     }
 
     private XmlReader.IslandParser<Description> descriptionParser() {
-        return new XmlReader.IslandParser<Description>() {
-            @Override
-            public Description parse(XmlReader reader) throws XmlReaderException {
-                return new Description(reader.retrieveCurrentAsString());
-            }
-        };
+        return reader -> new Description(reader.retrieveCurrentAsString());
     }
 }

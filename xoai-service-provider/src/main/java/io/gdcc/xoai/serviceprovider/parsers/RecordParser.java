@@ -52,12 +52,14 @@ public class RecordParser {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(content.getBytes());
             XSLPipeline pipeline = new XSLPipeline(inputStream, true)
                     .apply(context.getMetadataTransformer(metadataPrefix));
+            
             if (context.hasTransformer())
                 pipeline.apply(context.getTransformer());
+            
             try {
                 record.withMetadata(new Metadata(new MetadataParser().parse(pipeline.process())));
             } catch (TransformerException e) {
-                throw new InternalHarvestException("Unable to process transformer");
+                throw new InternalHarvestException("Unable to process transformer", e);
             }
         }
 
