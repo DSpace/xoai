@@ -10,7 +10,7 @@ package io.gdcc.xoai.serviceprovider.parsers;
 
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 import io.gdcc.xoai.services.api.MetadataSearch;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 

@@ -9,14 +9,14 @@
 package io.gdcc.xoai.serviceprovider.parameters;
 
 import io.gdcc.xoai.model.oaipmh.Verb.Type;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParametersToUrlTest {
 	
@@ -29,7 +29,7 @@ public class ParametersToUrlTest {
 		assertEquals(BASE_URL+"?verb=ListRecords",url);
 	}
 	
-	@Before
+	@BeforeEach
 	public void setUp(){
 		calendar = Calendar.getInstance();
 		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));

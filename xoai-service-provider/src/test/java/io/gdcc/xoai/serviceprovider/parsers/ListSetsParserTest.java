@@ -11,13 +11,13 @@ package io.gdcc.xoai.serviceprovider.parsers;
 import io.gdcc.xoai.model.oaipmh.Set;
 import io.gdcc.xoai.xmlio.XmlReader;
 import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ListSetsParserTest {
 	
