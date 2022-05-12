@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.serviceprovider.model;
 
-import org.dspace.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.serviceprovider.client.OAIClient;
 
 import javax.xml.transform.Transformer;
@@ -22,16 +22,16 @@ public class Context {
     private static final TransformerFactory factory = TransformerFactory.newInstance();
 
     private Transformer transformer;
-    private Map<String, Transformer> metadataTransformers = new HashMap<String, Transformer>();
+    private final Map<String, Transformer> metadataTransformers = new HashMap<>();
     private String baseUrl;
     private Granularity granularity;
     private OAIClient client;
 
     public Context() {
         try {
-            this.withMetadataTransformer("xoai", factory.newTransformer());
+            this.withMetadataTransformer("xoai", Context.factory.newTransformer());
         } catch (TransformerConfigurationException e) {
-            throw new RuntimeException("Unable to initialize identity transformer");
+            throw new IllegalStateException("Unable to initialize identity transformer", e);
         }
     }
 
@@ -95,7 +95,7 @@ public class Context {
     public enum KnownTransformer {
         OAI_DC("to_xoai/oai_dc.xsl");
 
-        private String location;
+        private final String location;
 
         KnownTransformer(String location) {
             this.location = location;
@@ -103,9 +103,9 @@ public class Context {
 
         public Transformer transformer () {
             try {
-                return factory.newTransformer(new StreamSource(this.getClass().getClassLoader().getResourceAsStream(location)));
+                return Context.factory.newTransformer(new StreamSource(this.getClass().getClassLoader().getResourceAsStream(location)));
             } catch (TransformerConfigurationException e) {
-                throw new RuntimeException("Unable to load resource file '"+location+"'", e);
+                throw new IllegalStateException("Unable to load resource file '" + location + "'", e);
             }
         }
     }

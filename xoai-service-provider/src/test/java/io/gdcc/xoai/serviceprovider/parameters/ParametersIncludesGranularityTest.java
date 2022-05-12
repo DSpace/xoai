@@ -8,10 +8,10 @@
 
 package io.gdcc.xoai.serviceprovider.parameters;
 
-import org.dspace.xoai.model.oaipmh.Granularity;
-import org.junit.Test;
+import io.gdcc.xoai.model.oaipmh.Granularity;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParametersIncludesGranularityTest {
 	

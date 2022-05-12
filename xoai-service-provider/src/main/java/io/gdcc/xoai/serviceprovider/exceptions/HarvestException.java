@@ -17,7 +17,6 @@ public class HarvestException extends Exception {
     private static final long serialVersionUID = -1824340625967423555L;
     private String url;
 
-
     public HarvestException() {
         url = "";
     }
@@ -38,7 +37,6 @@ public class HarvestException extends Exception {
     public void setURL(String url) {
         this.url = url;
     }
-
     public String getURL() {
         return this.url;
     }

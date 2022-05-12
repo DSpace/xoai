@@ -8,28 +8,28 @@
 
 package io.gdcc.xoai.serviceprovider;
 
-import com.lyncode.xml.exceptions.XmlWriteException;
-import org.dspace.xoai.dataprovider.DataProvider;
-import org.dspace.xoai.dataprovider.builder.OAIRequestParametersBuilder;
-import org.dspace.xoai.dataprovider.exceptions.OAIException;
-import org.dspace.xoai.dataprovider.model.Context;
-import org.dspace.xoai.dataprovider.repository.InMemoryItemRepository;
-import org.dspace.xoai.dataprovider.repository.InMemorySetRepository;
-import org.dspace.xoai.dataprovider.repository.Repository;
-import org.dspace.xoai.dataprovider.repository.RepositoryConfiguration;
+import io.gdcc.xoai.dataprovider.DataProvider;
+import io.gdcc.xoai.dataprovider.builder.OAIRequestParametersBuilder;
+import io.gdcc.xoai.dataprovider.exceptions.OAIException;
+import io.gdcc.xoai.dataprovider.model.Context;
+import io.gdcc.xoai.dataprovider.repository.InMemoryItemRepository;
+import io.gdcc.xoai.dataprovider.repository.InMemorySetRepository;
+import io.gdcc.xoai.dataprovider.repository.Repository;
+import io.gdcc.xoai.dataprovider.repository.RepositoryConfiguration;
 import io.gdcc.xoai.serviceprovider.client.OAIClient;
 import io.gdcc.xoai.serviceprovider.exceptions.OAIRequestException;
 import io.gdcc.xoai.serviceprovider.parameters.Parameters;
-import org.dspace.xoai.services.api.ResumptionTokenFormat;
-import org.dspace.xoai.services.impl.SimpleResumptionTokenFormat;
-import org.dspace.xoai.xml.XmlWriter;
+import io.gdcc.xoai.services.api.ResumptionTokenFormat;
+import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
+import io.gdcc.xoai.xml.XmlWriter;
+import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import static org.dspace.xoai.dataprovider.model.MetadataFormat.identity;
+import static io.gdcc.xoai.dataprovider.model.MetadataFormat.identity;
 
 public abstract class AbstractInMemoryDataProviderTest {
     protected static final String BASE_URL = "http://localhost";

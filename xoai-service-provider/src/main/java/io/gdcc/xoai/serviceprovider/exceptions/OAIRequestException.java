@@ -9,8 +9,8 @@
 package io.gdcc.xoai.serviceprovider.exceptions;
 
 public class OAIRequestException extends Exception {
-    public OAIRequestException() {
-    }
+    
+    public OAIRequestException() {}
 
     public OAIRequestException(String message) {
         super(message);

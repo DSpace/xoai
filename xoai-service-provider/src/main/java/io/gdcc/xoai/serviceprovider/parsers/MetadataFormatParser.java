@@ -8,20 +8,23 @@
 
 package io.gdcc.xoai.serviceprovider.parsers;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
+import io.gdcc.xoai.model.oaipmh.MetadataFormat;
 import io.gdcc.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import io.gdcc.xoai.serviceprovider.exceptions.InvalidOAIResponse;
-import org.dspace.xoai.model.oaipmh.MetadataFormat;
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.events.XMLEvent;
 import java.io.InputStream;
 
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
-import static org.dspace.xoai.model.oaipmh.Error.Code.ID_DOES_NOT_EXIST;
-import static org.dspace.xoai.model.oaipmh.Error.Code.NO_METADATA_FORMATS;
+import static io.gdcc.xoai.model.oaipmh.Error.Code.ID_DOES_NOT_EXIST;
+import static io.gdcc.xoai.model.oaipmh.Error.Code.NO_METADATA_FORMATS;
+import static io.gdcc.xoai.xmlio.matchers.QNameMatchers.localPart;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.aStartElement;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.elementName;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.text;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.theEndOfDocument;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 

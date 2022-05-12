@@ -8,10 +8,10 @@
 
 package io.gdcc.xoai.serviceprovider.xml;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
-import org.dspace.xoai.services.api.DateProvider;
-import org.dspace.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.services.api.DateProvider;
+import io.gdcc.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -21,14 +21,11 @@ public class IslandParsers {
 
 
     public static XmlReader.IslandParser<Date> dateParser() {
-        return new XmlReader.IslandParser<Date>() {
-            @Override
-            public Date parse(XmlReader reader) throws XmlReaderException {
-                try {
-                    return dateProvider.parse(reader.getText());
-                } catch (ParseException e) {
-                    throw new XmlReaderException(e);
-                }
+        return reader -> {
+            try {
+                return dateProvider.parse(reader.getText());
+            } catch (ParseException e) {
+                throw new XmlReaderException(e);
             }
         };
     }

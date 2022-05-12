@@ -8,19 +8,22 @@
 
 package io.gdcc.xoai.serviceprovider.parsers;
 
-import com.lyncode.xml.XmlReader;
-import com.lyncode.xml.exceptions.XmlReaderException;
+import io.gdcc.xoai.model.oaipmh.DeletedRecord;
+import io.gdcc.xoai.model.oaipmh.Description;
+import io.gdcc.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.model.oaipmh.Identify;
 import io.gdcc.xoai.serviceprovider.exceptions.InvalidOAIResponse;
-import org.dspace.xoai.model.oaipmh.DeletedRecord;
-import org.dspace.xoai.model.oaipmh.Description;
-import org.dspace.xoai.model.oaipmh.Granularity;
-import org.dspace.xoai.model.oaipmh.Identify;
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 
 import java.io.InputStream;
 
-import static com.lyncode.xml.matchers.QNameMatchers.localPart;
-import static com.lyncode.xml.matchers.XmlEventMatchers.*;
 import static io.gdcc.xoai.serviceprovider.xml.IslandParsers.dateParser;
+import static io.gdcc.xoai.xmlio.matchers.QNameMatchers.localPart;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.aStartElement;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.elementName;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.text;
+import static io.gdcc.xoai.xmlio.matchers.XmlEventMatchers.theEndOfDocument;
 import static org.hamcrest.CoreMatchers.allOf;
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -74,11 +77,6 @@ public class IdentifyParser {
     }
 
     private XmlReader.IslandParser<Description> descriptionParser() {
-        return new XmlReader.IslandParser<Description>() {
-            @Override
-            public Description parse(XmlReader reader) throws XmlReaderException {
-                return new Description(reader.retrieveCurrentAsString());
-            }
-        };
+        return reader -> new Description(reader.retrieveCurrentAsString());
     }
 }

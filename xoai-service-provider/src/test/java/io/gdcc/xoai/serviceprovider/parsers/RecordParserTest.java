@@ -8,16 +8,16 @@
 
 package io.gdcc.xoai.serviceprovider.parsers;
 
-import com.lyncode.xml.XmlReader;
-import org.dspace.xoai.model.oaipmh.Record;
+import io.gdcc.xoai.model.oaipmh.Record;
 import io.gdcc.xoai.serviceprovider.model.Context;
 import io.gdcc.xoai.serviceprovider.model.Context.KnownTransformer;
-import org.junit.Before;
-import org.junit.Test;
+import io.gdcc.xoai.xmlio.XmlReader;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RecordParserTest {
 	
@@ -25,7 +25,7 @@ public class RecordParserTest {
 	private Context context;
 	private RecordParser parser;
 
-	@Before
+	@BeforeEach
 	public void setUp(){
 		input = getClass().getClassLoader().getResourceAsStream(
 				"test/oai_dc-valid.xml");

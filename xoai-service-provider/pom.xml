@@ -20,53 +20,43 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.dspace</groupId>
+            <groupId>io.gdcc</groupId>
             <artifactId>xoai-common</artifactId>
             <version>${revision}</version>
         </dependency>
-
         <dependency>
-            <groupId>com.lyncode</groupId>
-            <artifactId>xml-io</artifactId>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-xmlio</artifactId>
+            <version>${revision}</version>
         </dependency>
-
+    
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
-
+    
+        <!-- TESTING DEPENDENCIES -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>wstx-asl</artifactId>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.dspace</groupId>
+            <groupId>io.gdcc</groupId>
             <artifactId>xoai-data-provider</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-data-provider</artifactId>
+            <version>${project.version}</version>
+            <type>test-jar</type>
             <scope>test</scope>
         </dependency>
-
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

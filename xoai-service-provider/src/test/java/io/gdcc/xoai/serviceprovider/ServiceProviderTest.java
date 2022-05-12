@@ -8,12 +8,12 @@
 
 package io.gdcc.xoai.serviceprovider;
 
-import org.dspace.xoai.dataprovider.filter.Filter;
-import org.dspace.xoai.dataprovider.filter.FilterResolver;
-import org.dspace.xoai.dataprovider.model.ItemIdentifier;
-import org.dspace.xoai.dataprovider.model.conditions.Condition;
-import org.dspace.xoai.model.oaipmh.Identify;
-import org.dspace.xoai.model.oaipmh.MetadataFormat;
+import io.gdcc.xoai.dataprovider.filter.Filter;
+import io.gdcc.xoai.dataprovider.filter.FilterResolver;
+import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
+import io.gdcc.xoai.dataprovider.model.conditions.Condition;
+import io.gdcc.xoai.model.oaipmh.Identify;
+import io.gdcc.xoai.model.oaipmh.MetadataFormat;
 import io.gdcc.xoai.serviceprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import io.gdcc.xoai.serviceprovider.exceptions.NoSetHierarchyException;
@@ -21,16 +21,17 @@ import io.gdcc.xoai.serviceprovider.parameters.GetRecordParameters;
 import io.gdcc.xoai.serviceprovider.parameters.ListIdentifiersParameters;
 import io.gdcc.xoai.serviceprovider.parameters.ListMetadataParameters;
 import io.gdcc.xoai.serviceprovider.parameters.ListRecordsParameters;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static com.lyncode.test.check.Assert.assertThat;
-import static org.dspace.xoai.dataprovider.model.InMemoryItem.item;
-import static org.dspace.xoai.dataprovider.model.MetadataFormat.identity;
-import static org.dspace.xoai.model.oaipmh.DeletedRecord.PERSISTENT;
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.item;
+import static io.gdcc.xoai.dataprovider.model.MetadataFormat.identity;
+import static io.gdcc.xoai.model.oaipmh.DeletedRecord.PERSISTENT;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ServiceProviderTest extends AbstractServiceProviderTest {
     private final ServiceProvider underTest = new ServiceProvider(theContext());
@@ -54,27 +55,27 @@ public class ServiceProviderTest extends AbstractServiceProviderTest {
         assertThat(metadataFormat.getMetadataPrefix(), equalTo(FORMAT));
     }
 
-    @Test(expected = IdDoesNotExistException.class)
+    @Test
     public void recordNotFoundForListMetadataFormats () throws Exception {
-        underTest.listMetadataFormats(ListMetadataParameters.request().withIdentifier("asd"));
+        assertThrows(IdDoesNotExistException.class, () -> underTest.listMetadataFormats(ListMetadataParameters.request().withIdentifier("asd")));
     }
 
-    @Test(expected = IdDoesNotExistException.class)
+    @Test
     public void recordNotFoundForGetRecord () throws Exception {
-        underTest.getRecord(GetRecordParameters.request().withIdentifier("asd").withMetadataFormatPrefix(FORMAT));
+        assertThrows(IdDoesNotExistException.class, () -> underTest.getRecord(GetRecordParameters.request().withIdentifier("asd").withMetadataFormatPrefix(FORMAT)));
     }
 
-    @Test(expected = CannotDisseminateFormatException.class)
+    @Test
     public void recordDoesNotSupportFormatForGetRecord () throws Exception {
         theDataProviderContext().withMetadataFormat(FORMAT, identity(), alwaysFalseCondition());
         theDataItemRepository().withItem(item().withDefaults().withIdentifier("asd").withSet("one"));
-        underTest.getRecord(GetRecordParameters.request().withIdentifier("asd").withMetadataFormatPrefix(FORMAT));
+        assertThrows(CannotDisseminateFormatException.class, () -> underTest.getRecord(GetRecordParameters.request().withIdentifier("asd").withMetadataFormatPrefix(FORMAT)));
     }
 
-    @Test(expected = NoSetHierarchyException.class)
+    @Test
     public void listSetsWithNoSupportForSets () throws Exception {
         theDataSetRepository().doesNotSupportSets();
-        underTest.listSets();
+        assertThrows(NoSetHierarchyException.class, underTest::listSets);
     }
 
     @Test

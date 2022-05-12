@@ -113,7 +113,7 @@ public class InMemoryItem implements Item {
         this
                 .with("identifier", randomAlphabetic(10))
                 .with("datestamp", new Date())
-                .with("sets", List.of(randomAlphabetic(3)))
+                .withSet(randomAlphabetic(3))
                 .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
         return this;
     }

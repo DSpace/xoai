@@ -8,7 +8,8 @@
 
 package io.gdcc.xoai.serviceprovider.handler;
 
-import com.lyncode.xml.exceptions.XmlReaderException;
+import io.gdcc.xoai.model.oaipmh.MetadataFormat;
+import io.gdcc.xoai.serviceprovider.client.OAIClient;
 import io.gdcc.xoai.serviceprovider.exceptions.IdDoesNotExistException;
 import io.gdcc.xoai.serviceprovider.exceptions.InvalidOAIResponse;
 import io.gdcc.xoai.serviceprovider.exceptions.OAIRequestException;
@@ -16,45 +17,33 @@ import io.gdcc.xoai.serviceprovider.model.Context;
 import io.gdcc.xoai.serviceprovider.parameters.ListMetadataParameters;
 import io.gdcc.xoai.serviceprovider.parameters.Parameters;
 import io.gdcc.xoai.serviceprovider.parsers.MetadataFormatParser;
-import org.apache.commons.io.IOUtils;
-import org.dspace.xoai.model.oaipmh.MetadataFormat;
-import io.gdcc.xoai.serviceprovider.client.OAIClient;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.dspace.xoai.model.oaipmh.Verb.Type.ListMetadataFormats;
+import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListMetadataFormats;
 
 public class ListMetadataFormatsHandler {
-    private OAIClient client;
+    private final OAIClient client;
 
     public ListMetadataFormatsHandler(Context context) {
         this.client = context.getClient();
     }
 
-
     public List<MetadataFormat> handle(ListMetadataParameters parameters) throws IdDoesNotExistException {
-        List<MetadataFormat> result = new ArrayList<MetadataFormat>();
-        InputStream stream = null;
-        try {
-            stream = client.execute(Parameters.parameters()
-                    .withVerb(ListMetadataFormats)
-                    .include(parameters));
+        List<MetadataFormat> result = new ArrayList<>();
+        Parameters requestParameters = Parameters.parameters().withVerb(ListMetadataFormats).include(parameters);
+        
+        try ( InputStream stream = client.execute(requestParameters) ) {
             MetadataFormatParser parser = new MetadataFormatParser(stream);
             while (parser.hasNext())
                 result.add(parser.next());
-            stream.close();
             return result;
-        } catch (XmlReaderException e) {
+        } catch (XmlReaderException | OAIRequestException | IOException e) {
             throw new InvalidOAIResponse(e);
-        } catch (OAIRequestException e) {
-            throw new InvalidOAIResponse(e);
-        } catch (IOException e) {
-            throw new InvalidOAIResponse(e);
-        } finally {
-            IOUtils.closeQuietly(stream);
         }
     }
 }

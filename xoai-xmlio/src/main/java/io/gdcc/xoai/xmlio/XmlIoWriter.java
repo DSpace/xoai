@@ -24,14 +24,15 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.OutputStream;
 
-public class XmlWriter implements XMLStreamWriter, AutoCloseable {
-    // Using the STaX2 API here, but hiding behind STaX1
-    private static final XMLOutputFactory factory = XMLOutputFactory2.newFactory();
+public class XmlIoWriter implements XMLStreamWriter, AutoCloseable {
     private final XMLStreamWriter writer;
     private final OutputStream outputStream;
-
-    public XmlWriter(OutputStream output) throws XMLStreamException {
-        writer = factory.createXMLStreamWriter(output);
+    
+    // Ignore SonarCloud warning here - it's used the way the library says we must use it.
+    // https://sonarcloud.io/organizations/gdcc/rules?open=java%3AS3252&rule_key=java%3AS3252
+    @SuppressWarnings("java:S3252")
+    public XmlIoWriter(OutputStream output) throws XMLStreamException {
+        this.writer = XMLOutputFactory2.newFactory().createXMLStreamWriter(output);
         this.outputStream = output;
     }
 
