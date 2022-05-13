@@ -165,7 +165,33 @@ public class ResumptionToken implements XmlWritable {
         public boolean hasMetadataPrefix() {
             return metadataPrefix != null;
         }
-
-
+    
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Value)) return false;
+            Value value = (Value) o;
+            return Objects.equals(getOffset(), value.getOffset()) &&
+                Objects.equals(getSetSpec(), value.getSetSpec()) &&
+                Objects.equals(getFrom(), value.getFrom()) &&
+                Objects.equals(getUntil(), value.getUntil()) &&
+                Objects.equals(getMetadataPrefix(), value.getMetadataPrefix());
+        }
+    
+        @Override
+        public int hashCode() {
+            return Objects.hash(getOffset(), getSetSpec(), getFrom(), getUntil(), getMetadataPrefix());
+        }
+    
+        @Override
+        public String toString() {
+            return "Value{" +
+                "offset=" + offset +
+                ", set='" + set + '\'' +
+                ", from=" + from +
+                ", until=" + until +
+                ", metadataPrefix='" + metadataPrefix + '\'' +
+                '}';
+        }
     }
 }
