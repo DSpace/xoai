@@ -28,6 +28,7 @@
 
     <name>XOAI : OAI-PMH Java Toolkit</name>
     <url>https://github.com/gdcc/xoai</url>
+    <description>An OAI-PMH data and/or service provider implementation, integration ready for your service.</description>
 
     <properties>
         <revision>5.0.0-SNAPSHOT</revision>

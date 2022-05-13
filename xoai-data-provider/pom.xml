@@ -18,6 +18,7 @@
 
     <name>XOAI Data Provider</name>
     <artifactId>xoai-data-provider</artifactId>
+    <description>OAI-PMH data provider implementation. Use it to build an OAI-PMH endpoint, providing your data records as harvestable resources.</description>
     
     <build>
         <plugins>
