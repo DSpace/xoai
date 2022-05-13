@@ -10,6 +10,7 @@ package io.gdcc.xoai.dataprovider.model;
 
 import io.gdcc.xoai.dataprovider.model.conditions.Condition;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -17,9 +18,15 @@ import javax.xml.transform.TransformerFactory;
 public class MetadataFormat {
     public static Transformer identity () {
         try {
-            return TransformerFactory.newInstance().newTransformer();
+            TransformerFactory factory = TransformerFactory.newInstance();
+            // Prohibit the use of all protocols by external entities.
+            // Protecting from SSRF etc.
+            // See https://sonarcloud.io/organizations/gdcc/rules?open=java%3AS2755&rule_key=java%3AS2755
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            return factory.newTransformer();
         } catch (TransformerConfigurationException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Could not setup the identity transformer", e);
         }
     }
 

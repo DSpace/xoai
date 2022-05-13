@@ -10,6 +10,7 @@
     <artifactId>xoai-xmlio</artifactId>
     <packaging>jar</packaging>
     <name>XOAI XML IO Commons</name>
+    <description>Basic XML IO routines used for XOAI OAI-PMH implementation. Forked from obsolete Lyncode sources.</description>
 
     <licenses>
         <license>

@@ -17,6 +17,7 @@
 
     <name>XOAI Service Provider</name>
     <artifactId>xoai-service-provider</artifactId>
+    <description>OAI-PMH service provider implementation. Use it as a harvesting client to read remote repositories.</description>
 
     <dependencies>
         <dependency>

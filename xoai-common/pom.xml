@@ -17,6 +17,7 @@
 
     <name>XOAI Commons</name>
     <artifactId>xoai-common</artifactId>
+    <description>OAI-PMH base functionality used for both data and service providers.</description>
 
     <dependencies>
         <dependency>

@@ -21,74 +21,60 @@ import java.util.regex.Pattern;
 
 public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
     
+    private static final String partSeparator = "|";
+    private static final String valueSeparator = "::";
+    private static final String offset = "offset";
+    private static final String set = "set";
+    private static final String from = "from";
+    private static final String until = "until";
+    private static final String metadataPrefix = "prefix";
+    
+    @Override
     public ResumptionToken.Value parse(String resumptionToken) throws InvalidResumptionTokenException {
-        if (resumptionToken == null) {
-            return new ResumptionToken.Value();
+    
+        ResumptionToken.Value token = new ResumptionToken.Value();
+        String decodedToken = base64Decode(resumptionToken);
+        
+        if (decodedToken == null || decodedToken.isBlank()) {
+            return token;
         }
         
-        int offset = 0;
-        String set = null;
-        Date from = null;
-        Date until = null;
-        String metadataPrefix = null;
-        
-        if (resumptionToken.trim().equals("")) {
-            return new ResumptionToken.Value();
-        } else {
-            String s = base64Decode(resumptionToken);
-            String[] pieces = s.split(Pattern.quote("|"));
-            try {
-                if (pieces.length > 0) {
-                    offset = Integer.parseInt(pieces[0].substring(2));
-                    if (pieces.length > 1) {
-                        set = pieces[1].substring(2);
-                        if (set.equals(""))
-                            set = null;
-                    }
-                    if (pieces.length > 2) {
-                        from = stringToDate(pieces[2].substring(2));
-                    }
-                    if (pieces.length > 3) {
-                        until = stringToDate(pieces[3].substring(2));
-                    }
-                    if (pieces.length > 4) {
-                        metadataPrefix = pieces[4].substring(2);
-                        if (metadataPrefix.equals("")) {
-                            metadataPrefix = null;
-                        }
-                    }
-                } else
-                    throw new InvalidResumptionTokenException();
-            } catch (Exception ex) {
-                throw new InvalidResumptionTokenException(ex);
+        for (String part : decodedToken.split(Pattern.quote(partSeparator))) {
+            String[] keyValue = part.split(valueSeparator);
+            if (keyValue.length != 2 || keyValue[1].isEmpty()) {
+                throw new InvalidResumptionTokenException("Invalid token part '" + part + "'");
+            }
+            
+            switch (keyValue[0]) {
+                case offset:
+                    token.withOffset(Integer.parseInt(keyValue[1])); break;
+                case set:
+                    token.withSetSpec(keyValue[1]); break;
+                case from:
+                    token.withFrom(stringToDate(keyValue[1])); break;
+                case until:
+                    token.withUntil(stringToDate(keyValue[1])); break;
+                case metadataPrefix:
+                    token.withMetadataPrefix(keyValue[1]); break;
+                default:
+                    throw new InvalidResumptionTokenException("Unknown key '" + keyValue[0] + "' found");
             }
         }
         
-        return new ResumptionToken.Value()
-                .withUntil(until)
-                .withFrom(from)
-                .withMetadataPrefix(metadataPrefix)
-                .withOffset(offset)
-                .withSetSpec(set);
+        return token;
     }
 
     @Override
     public String format(ResumptionToken.Value resumptionToken) {
-        String s = "1:" + resumptionToken.getOffset();
-        s += "|2:";
-        if (resumptionToken.hasSetSpec())
-            s += resumptionToken.getSetSpec();
-        s += "|3:";
-        if (resumptionToken.hasFrom())
-            s += dateToString(resumptionToken.getFrom());
-        s += "|4:";
-        if (resumptionToken.hasUntil())
-            s += dateToString(resumptionToken.getUntil());
-        s += "|5:";
-        if (resumptionToken.hasMetadataPrefix())
-            s += resumptionToken.getMetadataPrefix();
+        String token = "";
+        
+        token += resumptionToken.hasOffset() ? offset + valueSeparator + resumptionToken.getOffset() : "";
+        token += resumptionToken.hasSetSpec() ? partSeparator + set + valueSeparator + resumptionToken.getSetSpec() : "";
+        token += resumptionToken.hasFrom() ? partSeparator + from + valueSeparator + dateToString(resumptionToken.getFrom()) : "";
+        token += resumptionToken.hasUntil() ? partSeparator + until + valueSeparator + dateToString(resumptionToken.getUntil()) : "";
+        token += resumptionToken.hasMetadataPrefix() ? partSeparator + metadataPrefix + valueSeparator + resumptionToken.getMetadataPrefix() : "";
 
-        return base64Encode(s);
+        return base64Encode(token);
     }
 
 
@@ -98,7 +84,7 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
         return formatDate.format(date);
     }
 
-    private Date stringToDate(String string) {
+    private Date stringToDate(String string) throws InvalidResumptionTokenException {
         SimpleDateFormat formatDate = new SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss'Z'");
         try {
@@ -109,7 +95,7 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
             try {
                 return formatDate.parse(string);
             } catch (ParseException ex1) {
-                return null;
+                throw new InvalidResumptionTokenException(ex1);
             }
         }
     }
@@ -119,20 +105,18 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
      * @param value The Base64 encoded string
      * @return A decoded String (may be empty)
      */
-    private static String base64Decode(String value) {
+    static String base64Decode(String value) {
         if (value == null) {
-            throw new IllegalArgumentException("Value to be Base64-decoded may not be null.");
+            return null;
         }
-        
         byte[] decodedValue = Base64.getDecoder().decode(value);
         return new String(decodedValue, StandardCharsets.UTF_8);
     }
     
-    private static String base64Encode(String value) {
+    static String base64Encode(String value) {
         if (value == null) {
-            throw new IllegalArgumentException("Value to be Base64-encoded may not be null.");
+            return null;
         }
-        
         return Base64.getEncoder().encodeToString(value.getBytes(StandardCharsets.UTF_8));
     }
 

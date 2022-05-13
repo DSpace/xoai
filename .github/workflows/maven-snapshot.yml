@@ -1,0 +1,36 @@
+name: Snapshot to Maven Central Repository
+on:
+    push:
+        branches:
+            - branch-5.0
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        if: ${{ !contains(github.event.head_commit.message, '[maven-release-plugin]') }}
+        strategy:
+            matrix:
+                java: [11,17]
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up Maven Central Repository
+              uses: actions/setup-java@v3
+              with:
+                  java-version: ${{ matrix.java }}
+                  distribution: 'adopt'
+                  server-id: ossrh
+                  server-username: MAVEN_USERNAME
+                  server-password: MAVEN_PASSWORD
+            - name: Cache Maven packages
+              uses: actions/cache@v3
+              with:
+                  path: ~/.m2
+                  key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+                  restore-keys: ${{ runner.os }}-m2
+            - name: Build, test, verify and publish snapshot
+              run: mvn -B verify -Djdk.version=${{ matrix.java }}
+            - name: Publish snapshot
+              if: ${{ matrix.java == '11' }}
+              run: mvn deploy -DskipUT -DskipIT -Djdk.version=${{ matrix.java }}
+              env:
+                  MAVEN_USERNAME: ${{ secrets.DATAVERSEBOT_SONATYPE_USERNAME }}
+                  MAVEN_PASSWORD: ${{ secrets.DATAVERSEBOT_SONATYPE_TOKEN }}

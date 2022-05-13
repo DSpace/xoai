@@ -28,6 +28,7 @@
 
     <name>XOAI : OAI-PMH Java Toolkit</name>
     <url>https://github.com/gdcc/xoai</url>
+    <description>An OAI-PMH data and/or service provider implementation, integration ready for your service.</description>
 
     <properties>
         <revision>5.0.0-SNAPSHOT</revision>
@@ -41,6 +42,8 @@
         <project.language>en</project.language>
         <project.region>US</project.region>
         <argLine>-Duser.timezone=${project.timezone} -Dfile.encoding=${project.build.sourceEncoding} -Duser.language=${project.language} -Duser.region=${project.region}</argLine>
+        <skipUT>false</skipUT>
+        <skipIT>false</skipIT>
         
         <!-- Dependencies -->
         <jakarta.jaxb.version>2.3.3</jakarta.jaxb.version>
@@ -224,6 +227,17 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- TESTING -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>${skipUT}</skipTests>
+                </configuration>
+            </plugin>
+            
+            <!-- RELEASING -->
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -277,6 +291,8 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <!-- META -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
