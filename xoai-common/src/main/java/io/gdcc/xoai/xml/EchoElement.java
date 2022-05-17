@@ -8,36 +8,56 @@
 
 package io.gdcc.xoai.xml;
 
+import io.gdcc.xoai.xmlio.XmlReader;
+import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
-import org.codehaus.stax2.XMLInputFactory2;
 
 import javax.xml.namespace.QName;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.Namespace;
 import javax.xml.stream.events.XMLEvent;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.Stack;
 
 public class EchoElement implements XmlWritable {
-    // Using the STaX2 API here, but hiding behind STaX1
-    private static final XMLInputFactory factory = XMLInputFactory2.newFactory();
-    private final Stack<Set<String>> declaredPrefixes = new Stack<>();
+    private final Deque<Set<String>> declaredPrefixes = new ArrayDeque<>();
     private final String xmlString;
+    private final InputStream xmlInputStream;
 
-    public EchoElement(String xmlString) {
+    public EchoElement(final String xmlString) {
         this.xmlString = xmlString;
+        this.xmlInputStream = null;
     }
-
+    
+    public EchoElement(final InputStream xmlInputStream) {
+        this.xmlInputStream = xmlInputStream;
+        this.xmlString = null;
+    }
+    
     @Override
-    public void write(XmlWriter writer) throws XmlWriteException {
-        try {
-            XMLEventReader reader = factory.createXMLEventReader(new ByteArrayInputStream(xmlString.getBytes()));
+    public void write(final XmlWriter writer) throws XmlWriteException {
+        if (xmlInputStream != null) {
+            write(writer, xmlInputStream);
+        } else if (xmlString != null) {
+            write(writer, new ByteArrayInputStream(xmlString.getBytes(StandardCharsets.UTF_8)));
+        } else {
+            throw new XmlWriteException("Cannot write XML when none given (both stream and string null)");
+        }
+    }
+    
+    private void write(final XmlWriter writer, final InputStream inStream) throws XmlWriteException {
+        try (
+            inStream;
+            XmlReader reader = new XmlReader(inStream)
+        ){
             while (reader.hasNext()) {
                 XMLEvent event = reader.nextEvent();
 
@@ -56,11 +76,9 @@ public class EchoElement implements XmlWritable {
                     }
 
                     // Copy attributes
-                    @SuppressWarnings("unchecked")
-                    Iterator<Attribute> it = event.asStartElement().getAttributes();
-
-                    while (it.hasNext()) {
-                        Attribute attr = it.next();
+                    Iterator<Attribute> itAttributes = event.asStartElement().getAttributes();
+                    while (itAttributes.hasNext()) {
+                        Attribute attr = itAttributes.next();
                         QName attrName = attr.getName();
                         addNamespaceIfRequired(writer, attrName);
                         writer.writeAttribute(attrName.getPrefix(), attrName.getNamespaceURI(), attrName.getLocalPart(), attr.getValue());
@@ -72,8 +90,8 @@ public class EchoElement implements XmlWritable {
                     writer.writeCharacters(event.asCharacters().getData());
                 }
             }
-        } catch (XMLStreamException e) {
-            throw new XmlWriteException("Error trying to output '"+this.xmlString+"'", e);
+        } catch (XMLStreamException | XmlReaderException | IOException e) {
+            throw new XmlWriteException("Error trying to write XML", e);
         }
     }
 
