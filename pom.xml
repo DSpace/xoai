@@ -15,6 +15,7 @@
         <module>xoai-data-provider</module>
         <module>xoai-service-provider</module>
         <module>xoai-xmlio</module>
+        <module>report</module>
     </modules>
 
     <groupId>io.gdcc</groupId>
@@ -435,6 +436,8 @@
                 <sonar.organization>gdcc</sonar.organization>
                 <sonar.projectKey>gdcc_xoai</sonar.projectKey>
                 <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
+                <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+                <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
             </properties>
             <build>
                 <pluginManagement>
@@ -457,17 +460,6 @@
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <formats>
-                                        <format>XML</format>
-                                    </formats>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
