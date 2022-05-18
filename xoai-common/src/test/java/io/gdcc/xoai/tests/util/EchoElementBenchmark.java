@@ -1,10 +1,12 @@
 package io.gdcc.xoai.tests.util;
 
+import io.gdcc.xoai.util.ReplacingInputStream;
+import io.gdcc.xoai.xml.CopyElement;
+import io.gdcc.xoai.xml.CopyElementTest;
 import io.gdcc.xoai.xml.EchoElement;
 import io.gdcc.xoai.xml.XmlWriter;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -40,8 +42,8 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.SECONDS)
 @Fork(1)
-@Warmup(iterations = 2)
-@Measurement(iterations = 4)
+@Warmup(iterations = 1)
+@Measurement(iterations = 3)
 public class EchoElementBenchmark {
     
     @Test
@@ -112,13 +114,29 @@ public class EchoElementBenchmark {
      * than the other test. (~40x on a NVMe disk) It uses a very limited amount of memory, as the buffer is rather small.
      */
     @Benchmark
-    public void writeWithStream(EchoBenchmarkState state) throws IOException {
+    public void dvStreamCopy(EchoBenchmarkState state) throws IOException {
         // Copied from http://github.com/IQSS/dataverse/blob/e8435ac1fe73cda2b0e1e50c398370b8aa5eb94a/src/main/java/edu/harvard/iq/dataverse/harvest/server/xoai/Xrecord.java#L138-L146
         
         int bufsize;
         byte[] buffer = new byte[4 * 8192];
     
         while ((bufsize = state.fileStream.read(buffer)) != -1) {
+            state.outputStream.write(buffer, 0, bufsize);
+            state.outputStream.flush();
+        }
+        state.outputStream.close();
+    }
+    
+    @Benchmark
+    public void dvStreamReplace(EchoBenchmarkState state) throws IOException {
+        // Copied from http://github.com/IQSS/dataverse/blob/e8435ac1fe73cda2b0e1e50c398370b8aa5eb94a/src/main/java/edu/harvard/iq/dataverse/harvest/server/xoai/Xrecord.java#L138-L146
+        // and http://github.com/IQSS/dataverse/blob/e8435ac1fe73cda2b0e1e50c398370b8aa5eb94a/src/main/java/edu/harvard/iq/dataverse/harvest/server/xoai/Xrecord.java#L88-L92
+        ReplacingInputStream inputStream = new ReplacingInputStream(state.fileStream, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "");
+        
+        int bufsize;
+        byte[] buffer = new byte[4 * 8192];
+        
+        while ((bufsize = inputStream.read(buffer)) != -1) {
             state.outputStream.write(buffer, 0, bufsize);
             state.outputStream.flush();
         }
@@ -133,12 +151,40 @@ public class EchoElementBenchmark {
      * the StAX API uses much more and larger buffers internally. (But it's not copying the input stream to memory before)
      */
     @Benchmark
-    public void writeWithEchoElement(EchoBenchmarkState state) throws XmlWriteException, XMLStreamException, IOException {
+    public void echoElement(EchoBenchmarkState state) throws XmlWriteException, XMLStreamException, IOException {
         state.xmlWriter.write(new EchoElement(state.fileStream));
         state.xmlWriter.close();
         state.outputStream.close();
     }
     
+    
+    @Benchmark
+    public void copyElementStreamCopy(EchoBenchmarkState state) throws XmlWriteException, XMLStreamException, IOException {
+        state.xmlWriter.writeElement("test", new CopyElementTest.CopyElementStreamCopy(state.fileStream));
+        state.xmlWriter.close();
+        state.outputStream.close();
+    }
+    
+    @Benchmark
+    public void copyElementStreamReplace(EchoBenchmarkState state) throws XmlWriteException, XMLStreamException, IOException {
+        state.xmlWriter.writeElement("test", new CopyElementTest.CopyElementStreamReplace(state.fileStream));
+        state.xmlWriter.close();
+        state.outputStream.close();
+    }
+    
+    @Benchmark
+    public void copyElementBuffered(EchoBenchmarkState state) throws XmlWriteException, XMLStreamException, IOException {
+        state.xmlWriter.writeElement("test", new CopyElementTest.CopyElementBuffered(state.fileStream));
+        state.xmlWriter.close();
+        state.outputStream.close();
+    }
+    
+    @Benchmark
+    public void copyElementFixHeadOnly(EchoBenchmarkState state) throws XmlWriteException, XMLStreamException, IOException {
+        state.xmlWriter.writeElement("test", new CopyElement(state.fileStream));
+        state.xmlWriter.close();
+        state.outputStream.close();
+    }
     
     /**
      * Generate a larger XML blob by replicating an existing source XML file until it has the desired size.
