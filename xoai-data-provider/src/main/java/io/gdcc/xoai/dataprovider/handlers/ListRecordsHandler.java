@@ -28,26 +28,15 @@ import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.model.Set;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-
 import io.gdcc.xoai.model.oaipmh.About;
 import io.gdcc.xoai.model.oaipmh.Header;
 import io.gdcc.xoai.model.oaipmh.ListRecords;
 import io.gdcc.xoai.model.oaipmh.Metadata;
 import io.gdcc.xoai.model.oaipmh.Record;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
-import io.gdcc.xoai.xml.XSLPipeline;
-import io.gdcc.xoai.xml.XmlWriter;
-import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.transform.TransformerException;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 

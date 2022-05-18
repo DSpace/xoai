@@ -25,7 +25,6 @@ import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.model.Set;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
-
 import io.gdcc.xoai.model.oaipmh.Header;
 import io.gdcc.xoai.model.oaipmh.ListIdentifiers;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
