@@ -13,7 +13,11 @@ import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.filter.ScopedFilter;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemsResults;
+import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
+import io.gdcc.xoai.dataprovider.model.MetadataFormat;
+import io.gdcc.xoai.model.oaipmh.Metadata;
 
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -25,19 +29,40 @@ import java.util.List;
  */
 public interface ItemRepository {
     /**
-     * Gets an item from the data source.
+     * Gets an item from the data source without {@link io.gdcc.xoai.model.oaipmh.Metadata}.
      *
      * @param identifier Unique identifier of the item
-     * @return ItemHelper
+     * @return An {@link ItemIdentifier} to work with
      * @throws IdDoesNotExistException
      *
      * @throws OAIException
      *
      * @see <a href="client://www.openarchives.org/OAI/openarchivesprotocol.html#UniqueIdentifier">Unique identifier definition</a>
      */
-    Item getItem(String identifier)
+    ItemIdentifier getItem(String identifier)
             throws IdDoesNotExistException, OAIException;
-
+    
+    /**
+     * Gets an item from the data source, but indicate the metadata format we are seeking.
+     * This may be used to return an {@link Item} already containing {@link io.gdcc.xoai.model.oaipmh.Metadata},
+     * which makes {@link io.gdcc.xoai.dataprovider.handlers.GetRecordHandler} and
+     * {@link io.gdcc.xoai.dataprovider.handlers.ListRecordsHandler} skip the build of such to compile the reply.
+     *
+     * @see Metadata#needsProcessing()
+     * @see Metadata#copyFromStream(InputStream)
+     * @see io.gdcc.xoai.xml.CopyElement
+     *
+     * @param identifier Unique identifier of the item
+     * @return An {@link Item} to work with, probably containing {@link io.gdcc.xoai.model.oaipmh.Metadata}
+     * @throws IdDoesNotExistException In case there is no record within the source matching the identifier
+     * @throws OAIException In case source internal errors happen
+     *
+     * @see <a href="client://www.openarchives.org/OAI/openarchivesprotocol.html#UniqueIdentifier">Unique identifier definition</a>
+     */
+    Item getItem(String identifier, MetadataFormat format)
+        throws IdDoesNotExistException, OAIException;
+    
+    
     /**
      * Gets a paged list of identifiers. The metadata prefix parameter is internally converted to a list of filters.
      * That is, when configuring XOAI, it is possible to associate to each metadata format a list of filters.

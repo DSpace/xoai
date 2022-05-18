@@ -14,7 +14,7 @@ import io.gdcc.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.handlers.helpers.ItemRepositoryHelper;
 import io.gdcc.xoai.dataprovider.model.Context;
-import io.gdcc.xoai.dataprovider.model.Item;
+import io.gdcc.xoai.dataprovider.model.ItemIdentifier;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.repository.Repository;
@@ -42,7 +42,7 @@ public class ListMetadataFormatsHandler extends VerbHandler<ListMetadataFormats>
         ListMetadataFormats result = new ListMetadataFormats();
 
         if (params.hasIdentifier()) {
-            Item item = itemRepositoryHelper.getItem(params.getIdentifier());
+            ItemIdentifier item = itemRepositoryHelper.getItem(params.getIdentifier());
             List<MetadataFormat> metadataFormats = getContext().formatFor(getRepository().getFilterResolver(), item);
             if (metadataFormats.isEmpty())
                 throw new NoMetadataFormatsException();
