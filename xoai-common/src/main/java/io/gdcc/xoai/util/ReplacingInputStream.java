@@ -14,8 +14,9 @@ import java.util.Objects;
  * Slightly adapted to avoid Apache Commons Lang3 dependency
  *
  * @author jillesvangurp
+ * @deprecated This should not be used anywhere - it's very slow and of limited use for XOAI
  */
-@Deprecated
+@Deprecated(forRemoval = true, since = "2022-05-18")
 public class ReplacingInputStream extends FilterInputStream {
     
     // while matching, this is where the bytes go.
