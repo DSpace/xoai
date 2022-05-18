@@ -17,6 +17,7 @@ import io.gdcc.xoai.dataprovider.exceptions.NoMetadataFormatsException;
 import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.handlers.helpers.ItemHelper;
 import io.gdcc.xoai.dataprovider.handlers.helpers.ItemRepositoryHelper;
+import io.gdcc.xoai.dataprovider.handlers.helpers.MetadataHelper;
 import io.gdcc.xoai.dataprovider.handlers.helpers.PreconditionHelper;
 import io.gdcc.xoai.dataprovider.handlers.helpers.ResumptionTokenHelper;
 import io.gdcc.xoai.dataprovider.handlers.helpers.SetRepositoryHelper;
@@ -159,41 +160,20 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
             header.withStatus(Header.Status.DELETED);
 
         if (!item.isDeleted()) {
-            Metadata metadata;
-            try {
-                if (getContext().hasTransformer()) {
-                    metadata = new Metadata(toPipeline(item)
-                            .apply(getContext().getTransformer())
-                            .apply(format.getTransformer())
-                            .process());
-                } else {
-                    metadata = new Metadata(toPipeline(item)
-                            .apply(format.getTransformer())
-                            .process());
-                }
-            } catch (XMLStreamException | XmlWriteException | IOException | TransformerException e) {
-                throw new OAIException(e);
+            // Next up: <metadata> response part. Skip the pipeline on request by the source.
+            // Skip the metadata transformation on request by the source repository.
+            Metadata metadata = item.getMetadata();
+            if (! metadata.needsProcessing()) {
+                record.withMetadata(metadata);
+            } else {
+                record.withMetadata(MetadataHelper.process(metadata, format, getContext()));
             }
     
-            record.withMetadata(metadata);
-
-            log.debug("Outputting ItemAbout");
-            if (item.getAbout() != null) {
-                for (About about : item.getAbout()) {
-                    record.withAbout(about);
-                }
+            // Last add the <about> section if present (protocol spec says: optional and repeatable)
+            for (About about : item.getAbout()) {
+                record.withAbout(about);
             }
         }
         return record;
-    }
-
-
-    private XSLPipeline toPipeline(Item item) throws XmlWriteException, XMLStreamException {
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        XmlWriter writer = new XmlWriter(output);
-        Metadata metadata = item.getMetadata();
-        metadata.write(writer);
-        writer.close();
-        return new XSLPipeline(new ByteArrayInputStream(output.toByteArray()), true);
     }
 }
