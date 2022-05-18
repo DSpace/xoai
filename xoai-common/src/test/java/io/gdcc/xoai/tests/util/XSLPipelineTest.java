@@ -28,18 +28,31 @@ public class XSLPipelineTest {
     private static final TransformerFactory tFactory = TransformerFactory.newInstance();
     private static final String TEST_XML = "<test />";
 
-    private ByteArrayInputStream input = new ByteArrayInputStream(TEST_XML.getBytes());
+    private final ByteArrayInputStream input = new ByteArrayInputStream(TEST_XML.getBytes());
 
     @Test
-    public void shouldGiveTheSameIfNoTransformationIsApplied() throws Exception {
+    void shouldGiveTheSameIfNoTransformationIsApplied() throws Exception {
         XSLPipeline underTest = new XSLPipeline(input, true);
         
         String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
         assertThat(TEST_XML, equalTo(result));
     }
+    
+    @Test
+    void shouldReturnUnchangedWhenAddingNullTransformer() throws Exception {
+        //given
+        XSLPipeline underTest = new XSLPipeline(input, true);
+        
+        //when
+        underTest.apply(null);
+        String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
+        
+        //then
+        assertThat(TEST_XML, equalTo(result));
+    }
 
     @Test
-    public void shouldTransformWithXmlDeclarationOnTop() throws TransformerException, IOException {
+    void shouldTransformWithXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, false);
         underTest.apply(identityTransformer());
         
@@ -48,14 +61,13 @@ public class XSLPipelineTest {
     }
 
     @Test
-    public void shouldTransformWithoutXmlDeclarationOnTop() throws TransformerException, IOException {
+    void shouldTransformWithoutXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, true);
         underTest.apply(identityTransformer());
     
         String result = new String(underTest.process().readAllBytes(), StandardCharsets.UTF_8);
         assertThat(result, not(containsString("<?xml")));
     }
-
 
 
     protected Transformer identityTransformer() {
