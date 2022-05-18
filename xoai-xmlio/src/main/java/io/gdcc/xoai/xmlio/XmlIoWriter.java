@@ -19,7 +19,6 @@ package io.gdcc.xoai.xmlio;
 import org.codehaus.stax2.XMLOutputFactory2;
 
 import javax.xml.namespace.NamespaceContext;
-import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.OutputStream;
