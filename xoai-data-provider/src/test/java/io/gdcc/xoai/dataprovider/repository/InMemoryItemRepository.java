@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.randomItem;
 import static java.lang.Math.min;
 import static java.util.Arrays.asList;
 
@@ -43,7 +44,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     public InMemoryItemRepository withRandomItems(int number) {
         for (int i = 0; i < number; i++)
-            list.add(InMemoryItem.randomItem());
+            list.add(randomItem());
         return this;
     }
 

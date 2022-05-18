@@ -8,13 +8,13 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import io.gdcc.xoai.dataprovider.model.InMemoryItem;
-import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.exceptions.IdDoesNotExistException;
 import io.gdcc.xoai.dataprovider.exceptions.InternalOAIException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMetadataFormatsException;
+import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import org.junit.jupiter.api.Test;
 
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.randomItem;
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListMetadataFormats;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -49,7 +49,7 @@ public class ListMetadataFormatsHandlerTest extends AbstractHandlerTest {
 
     @Test
     public void noFormatForItem() {
-        theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
+        theItemRepository().withItem(randomItem().withIdentifier("1"));
         aContext().withMetadataFormat("xoai", MetadataFormat.identity(), alwaysFalseCondition());
         ListMetadataFormatsHandler underTest = new ListMetadataFormatsHandler(theContext(), theRepository());
         
@@ -60,7 +60,7 @@ public class ListMetadataFormatsHandlerTest extends AbstractHandlerTest {
 
     @Test
     public void validResponseForAnItem() throws Exception{
-        theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
+        theItemRepository().withItem(randomItem().withIdentifier("1"));
         aContext().withMetadataFormat("xoai", MetadataFormat.identity());
         ListMetadataFormatsHandler underTest = new ListMetadataFormatsHandler(theContext(), theRepository());
         String result = write(underTest.handle(a(request().withVerb(ListMetadataFormats).withIdentifier("1"))));

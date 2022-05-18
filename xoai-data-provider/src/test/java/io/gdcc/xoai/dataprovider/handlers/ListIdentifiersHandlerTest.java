@@ -8,14 +8,14 @@
 
 package io.gdcc.xoai.dataprovider.handlers;
 
-import io.gdcc.xoai.dataprovider.model.InMemoryItem;
-import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import io.gdcc.xoai.dataprovider.exceptions.BadArgumentException;
 import io.gdcc.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import io.gdcc.xoai.dataprovider.exceptions.DoesNotSupportSetsException;
 import io.gdcc.xoai.dataprovider.exceptions.NoMatchesException;
+import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 import org.junit.jupiter.api.Test;
 
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.randomItem;
 import static io.gdcc.xoai.model.oaipmh.Verb.Type.ListIdentifiers;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,7 +31,7 @@ public class ListIdentifiersHandlerTest extends AbstractHandlerTest {
 
     @Test
     public void cannotDisseminateFormat() {
-        theItemRepository().withItem(InMemoryItem.item().withDefaults().withIdentifier("1"));
+        theItemRepository().withItem(randomItem().withIdentifier("1"));
         aContext().withMetadataFormat(EXISTING_METADATA_FORMAT, MetadataFormat.identity());
         assertThrows(CannotDisseminateFormatException.class,
             () -> underTest.handle(a(request().withVerb(ListIdentifiers).withMetadataPrefix("abcd"))));
