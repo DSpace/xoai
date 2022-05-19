@@ -14,7 +14,8 @@ import java.util.Objects;
  * Slightly adapted to avoid Apache Commons Lang3 dependency
  *
  * @author jillesvangurp
- * @deprecated This should not be used anywhere - it's very slow and of limited use for XOAI
+ * @deprecated This should not be used anywhere - it's very slow and of limited use for XOAI.
+ *             It's solely used for benchmarking.
  */
 @Deprecated(forRemoval = true, since = "2022-05-18")
 public class ReplacingInputStream extends FilterInputStream {
