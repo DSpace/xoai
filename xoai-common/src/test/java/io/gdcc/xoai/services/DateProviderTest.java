@@ -6,16 +6,16 @@
  * http://www.dspace.org/license/
  */
 
-package io.gdcc.xoai.services.impl.metadataSearcherMultipleFields;
+package io.gdcc.xoai.services;
 
 import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.jupiter.api.Test;
 
+import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,16 +29,16 @@ import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class UTCDateProviderTest {
+public class DateProviderTest {
     private static final Instant DATE = Instant.now();
     private static final String SECOND_FORMAT = "([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z";
-    DateProvider underTest = new UTCDateProvider();
 
     @Test
     void shouldUseUTCDateFormat() {
-        String result = underTest.format(DATE);
+        String result = DateProvider.format(DATE, Granularity.Second);
 
         assertThat(result, matchesPattern(SECOND_FORMAT));
     
@@ -66,8 +66,8 @@ public class UTCDateProviderTest {
         Instant expected = LocalDate.of(2022, 5, 19).atTime(0, 0).toInstant(ZoneOffset.UTC);
         Instant expected10 = LocalDate.of(2022, 5, 19).atTime(10, 1, 2).toInstant(ZoneOffset.UTC);
     
-        assertEquals(expected, underTest.parse(localDate));
-        assertEquals(expected10, underTest.parse(timestamp));
+        assertEquals(expected, DateProvider.parse(localDate, Granularity.Day));
+        assertEquals(expected10, DateProvider.parse(timestamp, Granularity.Second));
     }
     
     @Test
@@ -75,7 +75,7 @@ public class UTCDateProviderTest {
         Instant subject = LocalDate.of(2022, 5, 19).atTime(10, 1, 2).toInstant(ZoneOffset.UTC);
         String expected = "2022-05-19";
         
-        assertEquals(expected, underTest.format(subject, Granularity.Day));
+        assertEquals(expected, DateProvider.format(subject, Granularity.Day));
     }
     
     @Test
@@ -83,7 +83,7 @@ public class UTCDateProviderTest {
         Instant subject = LocalDate.of(2022, 5, 19).atTime(10, 1, 2).toInstant(ZoneOffset.UTC);
         String expected = "2022-05-19T10:01:02Z";
         
-        assertEquals(expected, underTest.format(subject, Granularity.Second));
+        assertEquals(expected, DateProvider.format(subject, Granularity.Second));
     }
     
     /**
@@ -92,19 +92,27 @@ public class UTCDateProviderTest {
      */
     @Test
     void checkEqualOrBetween() {
-        String fromString = "2022-05-19";
-        String untilString = "2022-05-19";
+        Instant from = DateProvider.parse("2022-05-19", Granularity.Day);
+        Instant until = DateProvider.parse("2022-05-19", Granularity.Day);
     
-        assertEquals(underTest.parse(untilString), underTest.parse(fromString));
-        assertFalse(underTest.parse(untilString).isAfter(underTest.parse(fromString)));
-        assertFalse(underTest.parse(untilString).isBefore(underTest.parse(fromString)));
+        assertEquals(from, until);
+        assertFalse(from.isAfter(until));
+        assertFalse(until.isBefore(from));
         
-        fromString = "2022-05-19T10:00:00Z";
-        untilString = "2022-05-19T10:01:00Z";
+        from = DateProvider.parse("2022-05-19T10:00:00Z", Granularity.Second);
+        until = DateProvider.parse("2022-05-19T10:01:00Z", Granularity.Second);
     
-        assertNotEquals(underTest.parse(untilString), underTest.parse(fromString));
-        assertTrue(underTest.parse(untilString).isAfter(underTest.parse(fromString)));
-        assertFalse(underTest.parse(untilString).isBefore(underTest.parse(fromString)));
+        assertNotEquals(from, until);
+        assertTrue(until.isAfter(from));
+        assertFalse(until.isBefore(from));
+    }
+    
+    @Test
+    void checkWrongFormatFails() {
+        assertThrows(NullPointerException.class, () -> DateProvider.parse(null, Granularity.Second));
+        assertThrows(DateTimeException.class, () -> DateProvider.parse("foobar", Granularity.Second));
+        assertThrows(DateTimeException.class, () -> DateProvider.parse("2022-05-19", Granularity.Second));
+        assertThrows(DateTimeException.class, () -> DateProvider.parse("2022-05-19T10:00:00Z", Granularity.Day));
     }
 
     private Matcher<String> toInt (final Matcher<Integer> integerMatcher) {
