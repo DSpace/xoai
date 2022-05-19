@@ -24,8 +24,8 @@ class SimpleResumptionTokenFormatTest {
         expected.withOffset(1);
         expected.withSetSpec("test");
         expected.withMetadataPrefix("oai_dc");
-        expected.withFrom(Date.from(Instant.now().truncatedTo(ChronoUnit.MINUTES)));
-        expected.withUntil(Date.from(Instant.now().truncatedTo(ChronoUnit.MINUTES)));
+        expected.withFrom(Instant.now().truncatedTo(ChronoUnit.MINUTES));
+        expected.withUntil(Instant.now().truncatedTo(ChronoUnit.MINUTES));
         
         // when
         ResumptionToken.Value result = format.parse(format.format(expected));

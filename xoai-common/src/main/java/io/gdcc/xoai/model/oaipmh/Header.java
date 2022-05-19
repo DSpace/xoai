@@ -13,13 +13,13 @@ import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Header implements XmlWritable {
     protected String identifier;
-    protected Date datestamp;
+    protected Instant datestamp;
     protected List<String> setSpec = new ArrayList<>();
     protected Status status;
 
@@ -32,11 +32,11 @@ public class Header implements XmlWritable {
         return this;
     }
 
-    public Date getDatestamp() {
+    public Instant getDatestamp() {
         return datestamp;
     }
 
-    public Header withDatestamp(Date value) {
+    public Header withDatestamp(Instant value) {
         this.datestamp = value;
         return this;
     }

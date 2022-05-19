@@ -18,7 +18,7 @@ import org.xmlunit.matchers.HasXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
+import java.time.Instant;
 
 
 public abstract class AbstractOAIPMHTest {
@@ -43,7 +43,7 @@ public abstract class AbstractOAIPMHTest {
         return EvaluateXPathMatcher.hasXPath("/root" + xpath, stringMatcher);
     }
 
-    protected String toDateTime(Date date) {
+    protected String toDateTime(Instant date) {
         return new UTCDateProvider().format(date, Granularity.Second);
     }
 }

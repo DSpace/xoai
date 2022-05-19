@@ -11,52 +11,56 @@ package io.gdcc.xoai.services.impl;
 import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.services.api.DateProvider;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.DateTimeException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Map;
 
-public class UTCDateProvider implements DateProvider {
+public final class UTCDateProvider implements DateProvider {
+    
+    private static final Map<Granularity, DateTimeFormatter> formatMap = Map.of(
+        Granularity.Day, DateTimeFormatter.ISO_LOCAL_DATE,
+        Granularity.Second, DateTimeFormatter.ofPattern("YYYY-MM-dd'T'HH:mm:ss'Z'")
+    );
+    
+    /**
+     * Format an {@link Instant} as UTC instant ({@link Granularity#Second}). Example: "2022-05-19T10:00:00Z"
+     * @param date The instant to format. By definition, an {@link Instant} is not zoned and always in UTC!
+     * @return
+     */
     @Override
-    public String format(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return format.format(date);
+    public String format(Instant date) {
+        return format(date, Granularity.Second);
     }
 
     @Override
-    public Date now() {
-        return new Date();
+    public Instant now() {
+        return Instant.now().truncatedTo(ChronoUnit.SECONDS);
     }
 
     @Override
-    public String format(Date date, Granularity granularity) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        if (granularity == Granularity.Day)
-            format = new SimpleDateFormat("yyyy-MM-dd");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return format.format(date);
+    public String format(Instant date, Granularity granularity) {
+        LocalDateTime dateTime = LocalDateTime.ofInstant(date, ZoneOffset.UTC);
+        return formatMap.get(granularity).format(dateTime);
     }
 
     @Override
-    public Date parse(String date, Granularity granularity) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        if (granularity == Granularity.Day)
-            format = new SimpleDateFormat("yyyy-MM-dd");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return format.parse(date);
+    public Instant parse(String date, Granularity granularity) {
+        return Instant.from(formatMap.get(granularity).parse(date));
     }
 
     @Override
-    public Date parse(String string) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+    public Instant parse(String string) {
         try {
-            return format.parse(string);
-        } catch (ParseException e) {
-            format = new SimpleDateFormat("yyyy-MM-dd");
-            format.setTimeZone(TimeZone.getTimeZone("UTC"));
-            return format.parse(string);
+            return Instant.parse(string);
+        } catch (DateTimeException e) {
+            return LocalDate.parse(string, formatMap.get(Granularity.Day))
+                .atStartOfDay()
+                .toInstant(ZoneOffset.UTC);
         }
     }
 }

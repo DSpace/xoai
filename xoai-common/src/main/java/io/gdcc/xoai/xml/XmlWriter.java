@@ -21,7 +21,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Date;
+import java.time.Instant;
 
 public class XmlWriter extends XmlIoWriter implements AutoCloseable {
     public static String toString(XmlWritable writable) throws XMLStreamException, XmlWriteException {
@@ -72,7 +72,7 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
 
 
 
-    public void writeDate(Date date) throws XmlWriteException {
+    public void writeDate(Instant date) throws XmlWriteException {
         try {
             this.writeCharacters(dateProvider.format(date, writerContext.granularity));
         } catch (XMLStreamException e) {
@@ -80,7 +80,7 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
         }
     }
 
-    public void writeDate(Date date, Granularity granularity) throws XmlWriteException {
+    public void writeDate(Instant date, Granularity granularity) throws XmlWriteException {
         try {
             this.writeCharacters(dateProvider.format(date, granularity));
         } catch (XMLStreamException e) {
@@ -110,14 +110,14 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
         }
     }
 
-    public void writeElement(String elementName, Date date, Granularity granularity) throws XmlWriteException {
+    public void writeElement(String elementName, Instant date, Granularity granularity) throws XmlWriteException {
         this.writeElement(elementName, dateProvider.format(date, granularity));
     }
-    public void writeElement(String elementName, Date date) throws XmlWriteException {
+    public void writeElement(String elementName, Instant date) throws XmlWriteException {
         this.writeElement(elementName, dateProvider.format(date, writerContext.granularity));
     }
 
-    public void writeAttribute(String name, Date date) throws XmlWriteException {
+    public void writeAttribute(String name, Instant date) throws XmlWriteException {
         try {
             this.writeAttribute(name, dateProvider.format(date, writerContext.granularity));
         } catch (XMLStreamException e) {
@@ -125,7 +125,7 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
         }
     }
 
-    public void writeAttribute(String name, Date value, Granularity granularity) throws XmlWriteException {
+    public void writeAttribute(String name, Instant value, Granularity granularity) throws XmlWriteException {
         try {
             this.writeAttribute(name, dateProvider.format(value, granularity));
         } catch (XMLStreamException e) {

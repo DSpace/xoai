@@ -21,7 +21,7 @@ import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
-import java.util.Date;
+import java.time.Instant;
 
 public class Request implements XmlWritable {
 
@@ -29,8 +29,8 @@ public class Request implements XmlWritable {
     private String verbType;
     private String identifier;
     private String metadataPrefix;
-    private Date from;
-    private Date until;
+    private Instant from;
+    private Instant until;
     private String set;
     private String resumptionToken;
     private String fromString;
@@ -80,20 +80,20 @@ public class Request implements XmlWritable {
         return this;
     }
 
-    public Date getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
-    public Request withFrom(Date value) {
+    public Request withFrom(Instant value) {
         this.from = value;
         return this;
     }
 
-    public Date getUntil() {
+    public Instant getUntil() {
         return until;
     }
 
-    public Request withUntil(Date value) {
+    public Request withUntil(Instant value) {
         this.until = value;
         return this;
     }
