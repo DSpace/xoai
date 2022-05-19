@@ -47,7 +47,7 @@ public class SetRepositoryHelper {
                 if (!res.hasTotalResults())
                     return new ListSetsResult(res.hasMore(), results);
                 else
-                    return new ListSetsResult(res.hasMore(), results, res.getTotalResults() + statics.size());
+                    return new ListSetsResult(res.hasMore(), results, res.getTotal() + statics.size());
             }
         } else {
             log.debug("Offset greater or equal than static sets size");
@@ -57,7 +57,7 @@ public class SetRepositoryHelper {
             if (!res.hasTotalResults())
                 return new ListSetsResult(res.hasMore(), results);
             else
-                return new ListSetsResult(res.hasMore(), results, res.getTotalResults() + statics.size());
+                return new ListSetsResult(res.hasMore(), results, res.getTotal() + statics.size());
         }
     }
 

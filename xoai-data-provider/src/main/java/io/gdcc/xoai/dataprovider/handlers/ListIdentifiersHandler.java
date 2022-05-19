@@ -103,7 +103,10 @@ public class ListIdentifiersHandler extends VerbHandler<ListIdentifiers> {
 
         ResumptionTokenHelper resumptionTokenHelper = new ResumptionTokenHelper(currentResumptionToken,
                 getRepository().getConfiguration().getMaxListIdentifiers());
-        result.withResumptionToken(resumptionTokenHelper.resolve(listItemIdentifiersResult.hasMore()));
+        result.withResumptionToken(
+            resumptionTokenHelper
+                .withTotalResults(listItemIdentifiersResult.getTotal())
+                .resolve(listItemIdentifiersResult.hasMore()));
 
         return result;
     }

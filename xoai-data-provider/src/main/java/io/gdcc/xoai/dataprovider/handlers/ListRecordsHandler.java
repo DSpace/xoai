@@ -119,7 +119,10 @@ public class ListRecordsHandler extends VerbHandler<ListRecords> {
 
         ResumptionTokenHelper resumptionTokenHelper = new ResumptionTokenHelper(currentResumptionToken,
                 getRepository().getConfiguration().getMaxListRecords());
-        res.withResumptionToken(resumptionTokenHelper.resolve(result.hasMore()));
+        res.withResumptionToken(
+            resumptionTokenHelper
+                .withTotalResults(result.getTotal())
+                .resolve(result.hasMore()));
 
         return res;
     }

@@ -23,7 +23,11 @@ public class ResumptionTokenHelper {
     }
 
     public ResumptionTokenHelper withTotalResults(long totalResults) {
-        this.totalResults = totalResults;
+        // Only add when we have results - is -1 otherwise,
+        // see ListSetsResult, ListItemIdentifiersResult and ListItemsResult classes
+        if (totalResults > 0) {
+            this.totalResults = totalResults;
+        }
         return this;
     }
 
