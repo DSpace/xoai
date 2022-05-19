@@ -9,22 +9,18 @@
 package io.gdcc.xoai.serviceprovider.xml;
 
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.xmlio.XmlReader;
 import io.gdcc.xoai.xmlio.exceptions.XmlReaderException;
 
-import java.text.ParseException;
-import java.util.Date;
+import java.time.DateTimeException;
+import java.time.Instant;
 
 public class IslandParsers {
-    private static DateProvider dateProvider = new UTCDateProvider();
-
-
-    public static XmlReader.IslandParser<Date> dateParser() {
+    public static XmlReader.IslandParser<Instant> dateParser() {
         return reader -> {
             try {
-                return dateProvider.parse(reader.getText());
-            } catch (ParseException e) {
+                return DateProvider.parse(reader.getText());
+            } catch (DateTimeException e) {
                 throw new XmlReaderException(e);
             }
         };

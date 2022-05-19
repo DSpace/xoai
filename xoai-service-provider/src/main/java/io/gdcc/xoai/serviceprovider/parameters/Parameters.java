@@ -11,18 +11,15 @@ package io.gdcc.xoai.serviceprovider.parameters;
 import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.model.oaipmh.Verb;
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.util.URLEncoder;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static io.gdcc.xoai.util.URLEncoder.encode;
 
 public class Parameters {
-    private static DateProvider formatter = new UTCDateProvider();
-
     public static Parameters parameters () {
         return new Parameters();
     }
@@ -30,8 +27,8 @@ public class Parameters {
     private Verb.Type verb;
     private String metadataPrefix;
     private String set;
-    private Date from;
-    private Date until;
+    private Instant from;
+    private Instant until;
     private String identifier;
     private String resumptionToken;
 	private String granularity;
@@ -41,13 +38,13 @@ public class Parameters {
         return this;
     }
 
-    public Parameters withUntil(Date until) {
+    public Parameters withUntil(Instant until) {
         this.until = until;
         return this;
     }
 
 
-    public Parameters withFrom(Date from) {
+    public Parameters withFrom(Instant from) {
         this.from = from;
         return this;
     }
@@ -87,8 +84,8 @@ public class Parameters {
         string.add("verb=" + this.verb.name());
         Granularity granularity = granularity();
         if (set != null) string.add("set=" + encode(set));
-        if (from != null) string.add("from=" + encode(formatter.format(from,granularity)));
-        if (until != null) string.add("until=" + encode(formatter.format(until,granularity)));
+        if (from != null) string.add("from=" + encode(DateProvider.format(from, granularity)));
+        if (until != null) string.add("until=" + encode(DateProvider.format(until, granularity)));
         if (identifier != null) string.add("identifier=" + encode(identifier));
         if (metadataPrefix != null) string.add("metadataPrefix=" + encode(metadataPrefix));
         if (resumptionToken != null) string.add("resumptionToken=" + encode(resumptionToken));
@@ -107,9 +104,7 @@ public class Parameters {
 				if(granularity.equals(possibleGranularity.toString())){
 					return possibleGranularity;
 				}
-				
 			}
-			
 		}
 		return Granularity.Second;
 	}
@@ -157,11 +152,11 @@ public class Parameters {
         return set;
     }
 
-    public Date getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
-    public Date getUntil() {
+    public Instant getUntil() {
         return until;
     }
 
@@ -173,10 +168,10 @@ public class Parameters {
         return resumptionToken;
     }
 
-	public void withGranularity(String granularity) {
+	public Parameters withGranularity(String granularity) {
 		this.granularity = granularity;
-		
-	}
+        return this;
+    }
 
 	public Object getGranularity() {
 		return granularity;

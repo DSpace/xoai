@@ -8,10 +8,11 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
+import io.gdcc.xoai.services.api.DateProvider;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import java.time.Instant;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -19,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class HeaderTest extends AbstractOAIPMHTest {
 
-    private static final Date DATE = new Date();
+    private static final Instant DATE = DateProvider.now();
 
     @Test
     public void testWrite() throws Exception {

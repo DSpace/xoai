@@ -13,11 +13,10 @@ import io.gdcc.xoai.dataprovider.exceptions.IllegalVerbException;
 import io.gdcc.xoai.dataprovider.exceptions.UnknownParameterException;
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 
-import java.text.ParseException;
+import java.time.DateTimeException;
+import java.time.Instant;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +58,6 @@ public class OAIRequest {
     }
 
     private final Map<String, List<String>> map;
-    private final DateProvider dateProvider = new UTCDateProvider();
 
     public OAIRequest(Map<String, List<String>> map) {
         this.map = map;
@@ -91,11 +89,11 @@ public class OAIRequest {
         }
     }
 
-    public Date getDate(Parameter parameter) throws BadArgumentException {
+    public Instant getDate(Parameter parameter) throws BadArgumentException {
         if (!has(parameter)) return null;
         try {
-            return dateProvider.parse(get(parameter));
-        } catch (ParseException e) {
+            return DateProvider.parse(get(parameter));
+        } catch (DateTimeException e) {
             throw new BadArgumentException("The " + parameter + " parameter given is not valid");
         }
     }

@@ -11,8 +11,8 @@ package io.gdcc.xoai.model.oaipmh;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XmlWriter;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Identify implements Verb {
@@ -20,7 +20,7 @@ public class Identify implements Verb {
     protected String baseURL;
     protected String protocolVersion = "1.0";
     protected List<String> adminEmails = new ArrayList<>();
-    protected Date earliestDatestamp;
+    protected Instant earliestDatestamp;
     protected DeletedRecord deletedRecord = DeletedRecord.NO;
     protected Granularity granularity = Granularity.Second;
     protected List<String> compressions = new ArrayList<>();
@@ -57,11 +57,11 @@ public class Identify implements Verb {
         return this.adminEmails;
     }
 
-    public Date getEarliestDatestamp() {
+    public Instant getEarliestDatestamp() {
         return earliestDatestamp;
     }
 
-    public Identify withEarliestDatestamp(Date value) {
+    public Identify withEarliestDatestamp(Instant value) {
         this.earliestDatestamp = value;
         return this;
     }

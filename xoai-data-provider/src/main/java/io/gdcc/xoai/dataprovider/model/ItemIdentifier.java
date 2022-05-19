@@ -9,7 +9,7 @@
 package io.gdcc.xoai.dataprovider.model;
 
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -33,7 +33,7 @@ public interface ItemIdentifier {
      * @return OAI-PMH records datestamp
      * @see <a href="client://www.openarchives.org/OAI/openarchivesprotocol.html#Record">Record definition</a>
      */
-    Date getDatestamp();
+    Instant getDatestamp();
 
     /**
      * Exposes the list of sets (using the set_spec) that contains the item (OAI-PMH records).

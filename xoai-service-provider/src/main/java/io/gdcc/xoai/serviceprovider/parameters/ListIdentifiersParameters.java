@@ -8,7 +8,7 @@
 
 package io.gdcc.xoai.serviceprovider.parameters;
 
-import java.util.Date;
+import java.time.Instant;
 
 public class ListIdentifiersParameters {
     public static ListIdentifiersParameters request() {
@@ -19,8 +19,8 @@ public class ListIdentifiersParameters {
 
     private String metadataPrefix;
     private String setSpec;
-    private Date from;
-    private Date until;
+    private Instant from;
+    private Instant until;
 	private String granularity;
 
     public String getMetadataPrefix() {
@@ -41,20 +41,20 @@ public class ListIdentifiersParameters {
         return this;
     }
 
-    public Date getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
-    public ListIdentifiersParameters withFrom(Date from) {
+    public ListIdentifiersParameters withFrom(Instant from) {
         this.from = from;
         return this;
     }
 
-    public Date getUntil() {
+    public Instant getUntil() {
         return until;
     }
 
-    public ListIdentifiersParameters withUntil(Date until) {
+    public ListIdentifiersParameters withUntil(Instant until) {
         this.until = until;
         return this;
     }

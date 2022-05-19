@@ -17,8 +17,8 @@ import io.gdcc.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemsResults;
 import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static io.gdcc.xoai.dataprovider.model.InMemoryItem.randomItem;
@@ -68,17 +68,17 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, Date from) throws OAIException {
+    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, Instant from) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemIdentifiersResult getItemIdentifiersUntil(List<ScopedFilter> filters, int offset, int length, Date until) throws OAIException {
+    public ListItemIdentifiersResult getItemIdentifiersUntil(List<ScopedFilter> filters, int offset, int length, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, Date from, Date until) throws OAIException {
+    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, Instant from, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -88,17 +88,17 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, String setSpec, Date from) throws OAIException {
+    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, String setSpec, Instant from) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemIdentifiersResult getItemIdentifiersUntil(List<ScopedFilter> filters, int offset, int length, String setSpec, Date until) throws OAIException {
+    public ListItemIdentifiersResult getItemIdentifiersUntil(List<ScopedFilter> filters, int offset, int length, String setSpec, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, String setSpec, Date from, Date until) throws OAIException {
+    public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length, String setSpec, Instant from, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -108,17 +108,17 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, Date from) throws OAIException {
+    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, Instant from) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemsResults getItemsUntil(List<ScopedFilter> filters, int offset, int length, Date until) throws OAIException {
+    public ListItemsResults getItemsUntil(List<ScopedFilter> filters, int offset, int length, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, Date from, Date until) throws OAIException {
+    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, Instant from, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -128,17 +128,17 @@ public class InMemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, String setSpec, Date from) throws OAIException {
+    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, String setSpec, Instant from) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemsResults getItemsUntil(List<ScopedFilter> filters, int offset, int length, String setSpec, Date until) throws OAIException {
+    public ListItemsResults getItemsUntil(List<ScopedFilter> filters, int offset, int length, String setSpec, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, String setSpec, Date from, Date until) throws OAIException {
+    public ListItemsResults getItems(List<ScopedFilter> filters, int offset, int length, String setSpec, Instant from, Instant until) throws OAIException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

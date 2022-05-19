@@ -44,7 +44,7 @@ public class ListSetsResult {
         return this.total > 0;
     }
 
-    public int getTotalResults() {
+    public int getTotal() {
         return this.total;
     }
 }

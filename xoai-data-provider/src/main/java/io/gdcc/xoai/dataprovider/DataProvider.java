@@ -31,7 +31,6 @@ import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.model.oaipmh.OAIPMH;
 import io.gdcc.xoai.model.oaipmh.Request;
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.types.Builder;
 
 import org.slf4j.Logger;
@@ -53,7 +52,6 @@ public class DataProvider {
     }
 
     private final Repository repository;
-    private final DateProvider dateProvider;
 
     private final IdentifyHandler identifyHandler;
     private final GetRecordHandler getRecordHandler;
@@ -65,7 +63,6 @@ public class DataProvider {
 
     public DataProvider (Context context, Repository repository) {
         this.repository = repository;
-        this.dateProvider = new UTCDateProvider();
 
         this.identifyHandler = new IdentifyHandler(context, repository);
         this.listSetsHandler = new ListSetsHandler(context, repository);
@@ -93,7 +90,7 @@ public class DataProvider {
 
         OAIPMH response = new OAIPMH()
                 .withRequest(request)
-                .withResponseDate(dateProvider.now());
+                .withResponseDate(DateProvider.now());
         try {
             OAICompiledRequest parameters = compileParameters(requestParameters);
 

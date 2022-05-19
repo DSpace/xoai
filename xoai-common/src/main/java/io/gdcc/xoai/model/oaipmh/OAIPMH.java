@@ -8,14 +8,15 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
+import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XSISchema;
 import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -23,12 +24,12 @@ public class OAIPMH implements XmlWritable {
     public static final String NAMESPACE_URI = "http://www.openarchives.org/OAI/2.0/";
     public static final String SCHEMA_LOCATION = "http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd";
 
-    private Date responseDate = new Date();
+    private Instant responseDate = DateProvider.now();
     private final List<Error> errors = new ArrayList<>();
     private Request request;
     private Verb verb;
 
-    public Date getResponseDate() {
+    public Instant getResponseDate() {
         return responseDate;
     }
 
@@ -36,7 +37,7 @@ public class OAIPMH implements XmlWritable {
         return request;
     }
 
-    public OAIPMH withResponseDate(Date responseDate) {
+    public OAIPMH withResponseDate(Instant responseDate) {
         this.responseDate = responseDate;
         return this;
     }

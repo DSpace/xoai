@@ -8,17 +8,17 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
+import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import org.hamcrest.Matcher;
 import org.xmlunit.matchers.EvaluateXPathMatcher;
 import org.xmlunit.matchers.HasXPathMatcher;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
-import java.util.Date;
+import java.time.Instant;
 
 
 public abstract class AbstractOAIPMHTest {
@@ -43,7 +43,7 @@ public abstract class AbstractOAIPMHTest {
         return EvaluateXPathMatcher.hasXPath("/root" + xpath, stringMatcher);
     }
 
-    protected String toDateTime(Date date) {
-        return new UTCDateProvider().format(date, Granularity.Second);
+    protected String toDateTime(Instant date) {
+        return DateProvider.format(date, Granularity.Second);
     }
 }

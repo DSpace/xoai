@@ -9,14 +9,14 @@
 package io.gdcc.xoai.services.impl;
 
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
+import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.util.Base64;
-import java.util.Date;
 import java.util.regex.Pattern;
 
 public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
@@ -45,19 +45,28 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
                 throw new InvalidResumptionTokenException("Invalid token part '" + part + "'");
             }
             
-            switch (keyValue[0]) {
-                case offset:
-                    token.withOffset(Integer.parseInt(keyValue[1])); break;
-                case set:
-                    token.withSetSpec(keyValue[1]); break;
-                case from:
-                    token.withFrom(stringToDate(keyValue[1])); break;
-                case until:
-                    token.withUntil(stringToDate(keyValue[1])); break;
-                case metadataPrefix:
-                    token.withMetadataPrefix(keyValue[1]); break;
-                default:
-                    throw new InvalidResumptionTokenException("Unknown key '" + keyValue[0] + "' found");
+            try {
+                switch (keyValue[0]) {
+                    case offset:
+                        token.withOffset(Integer.parseInt(keyValue[1]));
+                        break;
+                    case set:
+                        token.withSetSpec(keyValue[1]);
+                        break;
+                    case from:
+                        token.withFrom(DateProvider.parse(keyValue[1], Granularity.Second));
+                        break;
+                    case until:
+                        token.withUntil(DateProvider.parse(keyValue[1], Granularity.Second));
+                        break;
+                    case metadataPrefix:
+                        token.withMetadataPrefix(keyValue[1]);
+                        break;
+                    default:
+                        throw new InvalidResumptionTokenException("Unknown key '" + keyValue[0] + "' found");
+                }
+            } catch (DateTimeException e) {
+                throw new InvalidResumptionTokenException(e);
             }
         }
         
@@ -70,34 +79,11 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
         
         token += resumptionToken.hasOffset() ? offset + valueSeparator + resumptionToken.getOffset() : "";
         token += resumptionToken.hasSetSpec() ? partSeparator + set + valueSeparator + resumptionToken.getSetSpec() : "";
-        token += resumptionToken.hasFrom() ? partSeparator + from + valueSeparator + dateToString(resumptionToken.getFrom()) : "";
-        token += resumptionToken.hasUntil() ? partSeparator + until + valueSeparator + dateToString(resumptionToken.getUntil()) : "";
+        token += resumptionToken.hasFrom() ? partSeparator + from + valueSeparator + DateProvider.format(resumptionToken.getFrom()) : "";
+        token += resumptionToken.hasUntil() ? partSeparator + until + valueSeparator + DateProvider.format(resumptionToken.getUntil()) : "";
         token += resumptionToken.hasMetadataPrefix() ? partSeparator + metadataPrefix + valueSeparator + resumptionToken.getMetadataPrefix() : "";
 
         return base64Encode(token);
-    }
-
-
-    private String dateToString(Date date) {
-        SimpleDateFormat formatDate = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss'Z'");
-        return formatDate.format(date);
-    }
-
-    private Date stringToDate(String string) throws InvalidResumptionTokenException {
-        SimpleDateFormat formatDate = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss'Z'");
-        try {
-            return formatDate.parse(string);
-        } catch (ParseException ex) {
-            formatDate = new SimpleDateFormat(
-                    "yyyy-MM-dd");
-            try {
-                return formatDate.parse(string);
-            } catch (ParseException ex1) {
-                throw new InvalidResumptionTokenException(ex1);
-            }
-        }
     }
     
     /**

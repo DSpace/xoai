@@ -17,7 +17,6 @@ import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.types.Builder;
 
 import org.hamcrest.Description;
@@ -26,10 +25,9 @@ import org.hamcrest.TypeSafeMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.ParseException;
-import java.util.Calendar;
+import java.time.DateTimeException;
+import java.time.Instant;
 import java.util.Collection;
-import java.util.Date;
 
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.From;
 import static io.gdcc.xoai.dataprovider.parameters.OAIRequest.Parameter.Identifier;
@@ -63,15 +61,13 @@ public class OAICompiledRequest {
         return new OAICompiledRequest(request.build(), formatter);
     }
 
-    private static final DateProvider dateProvider = new UTCDateProvider();
-
     private final Type verbType;
     private ResumptionToken.Value resumptionToken;
     private final String identifier;
     private String metadataPrefix;
     private String set;
-    private Date until;
-    private Date from;
+    private Instant until;
+    private Instant from;
 
     private OAICompiledRequest(OAIRequest request)
             throws IllegalVerbException, BadArgumentException,
@@ -174,17 +170,7 @@ public class OAICompiledRequest {
         return (this.until != null);
     }
 
-    private Date getDate(String date, String param) throws BadArgumentException {
-        if (date == null) return null;
-        try {
-            return dateProvider.parse(date);
-        } catch (ParseException e) {
-            throw new BadArgumentException("The " + param
-                    + " parameter given is not valid");
-        }
-    }
-
-    public Date getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
@@ -192,7 +178,7 @@ public class OAICompiledRequest {
         return resumptionToken;
     }
 
-    public Date getUntil() {
+    public Instant getUntil() {
         return until;
     }
 
@@ -263,13 +249,8 @@ public class OAICompiledRequest {
     }
 
     private void validateDates() throws BadArgumentException {
-        Calendar from = Calendar.getInstance();
-        Calendar until = Calendar.getInstance();
-
-        from.setTime(this.from);
-        until.setTime(this.until);
-
-        if (from.after(until)) throw new BadArgumentException("The 'from' date must be less then the 'until' one");
+        if (from.isAfter(until))
+            throw new BadArgumentException("The 'from' date must be less then the 'until' one");
     }
 
     private void loadResumptionToken(ResumptionToken.Value resumptionToken) {

@@ -13,13 +13,13 @@ import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
 
 import javax.xml.stream.XMLStreamException;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Objects;
 
 public class ResumptionToken implements XmlWritable {
 
     private final Value value;
-    private Date expirationDate;
+    private Instant expirationInstant;
     private Long completeListSize;
     private Long cursor;
 
@@ -34,12 +34,12 @@ public class ResumptionToken implements XmlWritable {
         return value;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
+    public Instant getExpirationInstant() {
+        return expirationInstant;
     }
 
-    public ResumptionToken withExpirationDate(Date value) {
-        this.expirationDate = value;
+    public ResumptionToken withExpirationInstant(Instant value) {
+        this.expirationInstant = value;
         return this;
     }
 
@@ -64,8 +64,8 @@ public class ResumptionToken implements XmlWritable {
     @Override
     public void write(XmlWriter writer) throws XmlWriteException {
         try {
-            if (this.expirationDate != null)
-                writer.writeAttribute("expirationDate", this.expirationDate, Granularity.Second);
+            if (this.expirationInstant != null)
+                writer.writeAttribute("expirationInstant", this.expirationInstant, Granularity.Second);
             if (this.completeListSize != null)
                 writer.writeAttribute("completeListSize", "" + this.completeListSize);
             if (this.cursor != null)
@@ -80,8 +80,8 @@ public class ResumptionToken implements XmlWritable {
     public static class Value {
         private Long offset;
         private String set;
-        private Date from;
-        private Date until;
+        private Instant from;
+        private Instant until;
         private String metadataPrefix;
 
         public boolean isEmpty () {
@@ -102,12 +102,12 @@ public class ResumptionToken implements XmlWritable {
             return this;
         }
 
-        public Value withFrom (Date from) {
+        public Value withFrom (Instant from) {
             this.from = from;
             return this;
         }
 
-        public Value withUntil (Date until) {
+        public Value withUntil (Instant until) {
             this.until = until;
             return this;
         }
@@ -133,11 +133,11 @@ public class ResumptionToken implements XmlWritable {
             return set;
         }
 
-        public Date getFrom() {
+        public Instant getFrom() {
             return from;
         }
 
-        public Date getUntil() {
+        public Instant getUntil() {
             return until;
         }
 

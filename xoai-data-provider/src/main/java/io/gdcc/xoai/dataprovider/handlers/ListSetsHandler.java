@@ -64,7 +64,10 @@ public class ListSetsHandler extends VerbHandler<ListSets> {
 
         ResumptionTokenHelper resumptionTokenHelper = new ResumptionTokenHelper(currentResumptionToken,
                 getRepository().getConfiguration().getMaxListSets());
-        result.withResumptionToken(resumptionTokenHelper.resolve(listSetsResult.hasMore()));
+        result.withResumptionToken(
+            resumptionTokenHelper
+                .withTotalResults(listSetsResult.getTotal())
+                .resolve(listSetsResult.hasMore()));
 
         return result;
     }

@@ -9,19 +9,18 @@
 package io.gdcc.xoai.serviceprovider.parameters;
 
 import io.gdcc.xoai.model.oaipmh.Verb.Type;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParametersToUrlTest {
 	
 	private static final String BASE_URL = "http://base.org";
-	private Calendar calendar;
+	
 	@Test
 	public void toUrl(){
 		Parameters parameters = new Parameters().withVerb(Type.ListRecords);
@@ -29,19 +28,14 @@ public class ParametersToUrlTest {
 		assertEquals(BASE_URL+"?verb=ListRecords",url);
 	}
 	
-	@BeforeEach
-	public void setUp(){
-		calendar = Calendar.getInstance();
-		calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
-	}
-	
 	@Test
 	public void fromUntilDatesPassed(){
-		Parameters parameters = new Parameters().withVerb(Type.ListRecords);
-		calendar.set(2011, Calendar.APRIL, 07,9,30,0);
-		Date date = calendar.getTime();
+		Instant date = LocalDateTime.of(2011, 4, 7, 9, 30, 0).toInstant(ZoneOffset.UTC);
 		
-		parameters.withFrom(date).withUntil(date);
+		Parameters parameters = new Parameters()
+			.withVerb(Type.ListRecords)
+			.withFrom(date)
+			.withUntil(date);
 		
 		String url = parameters.toUrl(BASE_URL);
 		assertEquals(BASE_URL+"?verb=ListRecords"+"&from=2011-04-07T09%3A30%3A00Z"+"&until=2011-04-07T09%3A30%3A00Z",url);
@@ -49,15 +43,16 @@ public class ParametersToUrlTest {
 	
 	@Test
 	public void differentGranularityIsRespected(){
-		Parameters parameters = new Parameters().withVerb(Type.ListRecords);
-		calendar.set(2013, Calendar.JANUARY, 9);
-		Date date = calendar.getTime();
+		Instant date = LocalDateTime.of(2011, 4, 7, 9, 30, 0).toInstant(ZoneOffset.UTC);
 		
-		parameters.withFrom(date).withUntil(date);
-		parameters.withGranularity("YYYY-MM-DD");
+		Parameters parameters = new Parameters()
+			.withVerb(Type.ListRecords)
+			.withFrom(date)
+			.withUntil(date)
+			.withGranularity("YYYY-MM-DD");
 		
 		String url = parameters.toUrl(BASE_URL);
-		assertEquals(BASE_URL+"?verb=ListRecords"+"&from=2013-01-09"+"&until=2013-01-09",url);
+		assertEquals(BASE_URL+"?verb=ListRecords"+"&from=2011-04-07"+"&until=2011-04-07", url);
 	}
 	
 	
