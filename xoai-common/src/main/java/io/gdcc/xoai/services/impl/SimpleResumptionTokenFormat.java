@@ -9,6 +9,7 @@
 package io.gdcc.xoai.services.impl;
 
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
+import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
@@ -27,7 +28,6 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
     private static final String from = "from";
     private static final String until = "until";
     private static final String metadataPrefix = "prefix";
-    private static final DateProvider dateProvider = new UTCDateProvider();
     
     @Override
     public ResumptionToken.Value parse(String resumptionToken) throws InvalidResumptionTokenException {
@@ -54,10 +54,10 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
                         token.withSetSpec(keyValue[1]);
                         break;
                     case from:
-                        token.withFrom(dateProvider.parse(keyValue[1]));
+                        token.withFrom(DateProvider.parse(keyValue[1], Granularity.Second));
                         break;
                     case until:
-                        token.withUntil(dateProvider.parse(keyValue[1]));
+                        token.withUntil(DateProvider.parse(keyValue[1], Granularity.Second));
                         break;
                     case metadataPrefix:
                         token.withMetadataPrefix(keyValue[1]);
@@ -79,8 +79,8 @@ public class SimpleResumptionTokenFormat implements ResumptionTokenFormat {
         
         token += resumptionToken.hasOffset() ? offset + valueSeparator + resumptionToken.getOffset() : "";
         token += resumptionToken.hasSetSpec() ? partSeparator + set + valueSeparator + resumptionToken.getSetSpec() : "";
-        token += resumptionToken.hasFrom() ? partSeparator + from + valueSeparator + dateProvider.format(resumptionToken.getFrom()) : "";
-        token += resumptionToken.hasUntil() ? partSeparator + until + valueSeparator + dateProvider.format(resumptionToken.getUntil()) : "";
+        token += resumptionToken.hasFrom() ? partSeparator + from + valueSeparator + DateProvider.format(resumptionToken.getFrom()) : "";
+        token += resumptionToken.hasUntil() ? partSeparator + until + valueSeparator + DateProvider.format(resumptionToken.getUntil()) : "";
         token += resumptionToken.hasMetadataPrefix() ? partSeparator + metadataPrefix + valueSeparator + resumptionToken.getMetadataPrefix() : "";
 
         return base64Encode(token);

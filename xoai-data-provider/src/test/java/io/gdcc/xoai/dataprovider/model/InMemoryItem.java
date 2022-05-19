@@ -12,6 +12,7 @@ import io.gdcc.xoai.model.oaipmh.About;
 import io.gdcc.xoai.model.oaipmh.Metadata;
 import io.gdcc.xoai.model.xoai.Element;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
+import io.gdcc.xoai.services.api.DateProvider;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -95,7 +96,7 @@ public class InMemoryItem implements Item {
         InMemoryItem item = new InMemoryItem();
         return item
             .with("identifier", randomAlphabetic(10))
-            .with("datestamp", Instant.now().truncatedTo(ChronoUnit.SECONDS))
+            .with("datestamp", DateProvider.now())
             .withSet(randomAlphabetic(3))
             .with("deleted", Integer.parseInt(randomNumeric(1)) > 5)
             .withMetadata(new Metadata(generateXoaiMetadata(item.values)));

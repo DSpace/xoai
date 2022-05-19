@@ -54,7 +54,7 @@ class SimpleResumptionTokenFormatTest {
         "    ",
         "\t\t\t",
         "offset::1|",
-        "until::2022-05-13"
+        "until::2022-05-13T10:00:00Z"
     })
     void validParse(String token) {
         String encoded = SimpleResumptionTokenFormat.base64Encode(token);

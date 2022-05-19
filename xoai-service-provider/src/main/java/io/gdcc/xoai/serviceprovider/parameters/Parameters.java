@@ -11,7 +11,6 @@ package io.gdcc.xoai.serviceprovider.parameters;
 import io.gdcc.xoai.model.oaipmh.Granularity;
 import io.gdcc.xoai.model.oaipmh.Verb;
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.util.URLEncoder;
 
 import java.time.Instant;
@@ -21,8 +20,6 @@ import java.util.List;
 import static io.gdcc.xoai.util.URLEncoder.encode;
 
 public class Parameters {
-    private static DateProvider formatter = new UTCDateProvider();
-
     public static Parameters parameters () {
         return new Parameters();
     }
@@ -87,8 +84,8 @@ public class Parameters {
         string.add("verb=" + this.verb.name());
         Granularity granularity = granularity();
         if (set != null) string.add("set=" + encode(set));
-        if (from != null) string.add("from=" + encode(formatter.format(from,granularity)));
-        if (until != null) string.add("until=" + encode(formatter.format(until,granularity)));
+        if (from != null) string.add("from=" + encode(DateProvider.format(from, granularity)));
+        if (until != null) string.add("until=" + encode(DateProvider.format(until, granularity)));
         if (identifier != null) string.add("identifier=" + encode(identifier));
         if (metadataPrefix != null) string.add("metadataPrefix=" + encode(metadataPrefix));
         if (resumptionToken != null) string.add("resumptionToken=" + encode(resumptionToken));

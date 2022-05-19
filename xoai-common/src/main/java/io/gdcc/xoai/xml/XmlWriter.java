@@ -15,7 +15,6 @@ import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayOutputStream;
@@ -54,19 +53,16 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
             this.formatter = formatter;
         }
     }
-
-    private final DateProvider dateProvider;
+    
     private final WriterContext writerContext;
 
     public XmlWriter(OutputStream output) throws XMLStreamException {
         super(output);
-        this.dateProvider = new UTCDateProvider();
         this.writerContext = defaultContext();
     }
 
     public XmlWriter(OutputStream output, WriterContext writerContext) throws XMLStreamException {
         super(output);
-        this.dateProvider = new UTCDateProvider();
         this.writerContext = writerContext;
     }
 
@@ -74,7 +70,7 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
 
     public void writeDate(Instant date) throws XmlWriteException {
         try {
-            this.writeCharacters(dateProvider.format(date, writerContext.granularity));
+            this.writeCharacters(DateProvider.format(date, writerContext.granularity));
         } catch (XMLStreamException e) {
             throw new XmlWriteException(e);
         }
@@ -82,7 +78,7 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
 
     public void writeDate(Instant date, Granularity granularity) throws XmlWriteException {
         try {
-            this.writeCharacters(dateProvider.format(date, granularity));
+            this.writeCharacters(DateProvider.format(date, granularity));
         } catch (XMLStreamException e) {
             throw new XmlWriteException(e);
         }
@@ -111,15 +107,15 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
     }
 
     public void writeElement(String elementName, Instant date, Granularity granularity) throws XmlWriteException {
-        this.writeElement(elementName, dateProvider.format(date, granularity));
+        this.writeElement(elementName, DateProvider.format(date, granularity));
     }
     public void writeElement(String elementName, Instant date) throws XmlWriteException {
-        this.writeElement(elementName, dateProvider.format(date, writerContext.granularity));
+        this.writeElement(elementName, DateProvider.format(date, writerContext.granularity));
     }
 
     public void writeAttribute(String name, Instant date) throws XmlWriteException {
         try {
-            this.writeAttribute(name, dateProvider.format(date, writerContext.granularity));
+            this.writeAttribute(name, DateProvider.format(date, writerContext.granularity));
         } catch (XMLStreamException e) {
             throw new XmlWriteException(e);
         }
@@ -127,7 +123,7 @@ public class XmlWriter extends XmlIoWriter implements AutoCloseable {
 
     public void writeAttribute(String name, Instant value, Granularity granularity) throws XmlWriteException {
         try {
-            this.writeAttribute(name, dateProvider.format(value, granularity));
+            this.writeAttribute(name, DateProvider.format(value, granularity));
         } catch (XMLStreamException e) {
             throw new XmlWriteException(e);
         }

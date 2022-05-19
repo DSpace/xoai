@@ -17,7 +17,6 @@ import io.gdcc.xoai.model.oaipmh.ResumptionToken;
 import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.api.ResumptionTokenFormat;
 import io.gdcc.xoai.services.impl.SimpleResumptionTokenFormat;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.types.Builder;
 
 import org.hamcrest.Description;
@@ -61,8 +60,6 @@ public class OAICompiledRequest {
     public static OAICompiledRequest compile (Builder<OAIRequest> request, ResumptionTokenFormat formatter) throws BadArgumentException, InvalidResumptionTokenException, UnknownParameterException, IllegalVerbException, DuplicateDefinitionException {
         return new OAICompiledRequest(request.build(), formatter);
     }
-
-    private static final DateProvider dateProvider = new UTCDateProvider();
 
     private final Type verbType;
     private ResumptionToken.Value resumptionToken;
@@ -171,16 +168,6 @@ public class OAICompiledRequest {
 
     public boolean hasUntil() {
         return (this.until != null);
-    }
-
-    private Instant getDate(String date, String param) throws BadArgumentException {
-        if (date == null) return null;
-        try {
-            return dateProvider.parse(date);
-        } catch (DateTimeException e) {
-            throw new BadArgumentException("The " + param
-                    + " parameter given is not valid");
-        }
     }
 
     public Instant getFrom() {

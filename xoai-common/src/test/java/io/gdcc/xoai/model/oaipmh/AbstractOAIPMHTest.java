@@ -8,10 +8,10 @@
 
 package io.gdcc.xoai.model.oaipmh;
 
+import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XmlWritable;
 import io.gdcc.xoai.xml.XmlWriter;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import org.hamcrest.Matcher;
 import org.xmlunit.matchers.EvaluateXPathMatcher;
 import org.xmlunit.matchers.HasXPathMatcher;
@@ -44,6 +44,6 @@ public abstract class AbstractOAIPMHTest {
     }
 
     protected String toDateTime(Instant date) {
-        return new UTCDateProvider().format(date, Granularity.Second);
+        return DateProvider.format(date, Granularity.Second);
     }
 }

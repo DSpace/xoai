@@ -9,7 +9,6 @@
 package io.gdcc.xoai.model.oaipmh;
 
 import io.gdcc.xoai.services.api.DateProvider;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.xmlio.exceptions.XmlWriteException;
 import io.gdcc.xoai.xml.XSISchema;
 import io.gdcc.xoai.xml.XmlWritable;
@@ -24,11 +23,8 @@ import java.util.List;
 public class OAIPMH implements XmlWritable {
     public static final String NAMESPACE_URI = "http://www.openarchives.org/OAI/2.0/";
     public static final String SCHEMA_LOCATION = "http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd";
-    
-    // Provide a sane default for the timestamps
-    private static final DateProvider dateProvider = new UTCDateProvider();
 
-    private Instant responseDate = dateProvider.now();
+    private Instant responseDate = DateProvider.now();
     private final List<Error> errors = new ArrayList<>();
     private Request request;
     private Verb verb;

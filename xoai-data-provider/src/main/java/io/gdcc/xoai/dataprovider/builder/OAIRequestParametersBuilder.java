@@ -16,7 +16,7 @@ import io.gdcc.xoai.dataprovider.parameters.OAICompiledRequest;
 import io.gdcc.xoai.dataprovider.parameters.OAIRequest;
 import io.gdcc.xoai.exceptions.InvalidResumptionTokenException;
 import io.gdcc.xoai.model.oaipmh.Verb;
-import io.gdcc.xoai.services.impl.UTCDateProvider;
+import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.types.Builder;
 
 import java.time.Instant;
@@ -28,7 +28,6 @@ import java.util.Map;
 import static java.util.Arrays.asList;
 
 public class OAIRequestParametersBuilder implements Builder<OAIRequest> {
-    private final UTCDateProvider utcDateProvider = new UTCDateProvider();
     private final Map<String, List<String>> params = new HashMap<>();
 
     public OAIRequestParametersBuilder with(String name, String... values) {
@@ -59,7 +58,7 @@ public class OAIRequestParametersBuilder implements Builder<OAIRequest> {
 
     public OAIRequestParametersBuilder withFrom(Instant date) {
         if (date != null)
-            return with("from", utcDateProvider.format(date));
+            return with("from", DateProvider.format(date));
         else
             return without("from");
     }
@@ -71,7 +70,7 @@ public class OAIRequestParametersBuilder implements Builder<OAIRequest> {
 
     public OAIRequestParametersBuilder withUntil(Instant date) {
         if (date != null)
-            return with("until", utcDateProvider.format(date));
+            return with("until", DateProvider.format(date));
         else
             return without("until");
     }

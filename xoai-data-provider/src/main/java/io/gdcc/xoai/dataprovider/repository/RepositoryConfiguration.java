@@ -10,6 +10,7 @@ package io.gdcc.xoai.dataprovider.repository;
 
 import io.gdcc.xoai.model.oaipmh.DeletedRecord;
 import io.gdcc.xoai.model.oaipmh.Granularity;
+import io.gdcc.xoai.services.api.DateProvider;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -139,7 +140,7 @@ public class RepositoryConfiguration {
 
     public RepositoryConfiguration withDefaults () {
         this.repositoryName = "Repository";
-        this.earliestDate = Instant.now().truncatedTo(ChronoUnit.SECONDS);
+        this.earliestDate = DateProvider.now();
         this.adminEmails.add("sample@test.com");
         this.baseUrl = "http://localhost";
         this.maxListIdentifiers = 100;
