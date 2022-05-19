@@ -14,8 +14,8 @@ import io.gdcc.xoai.services.api.DateProvider;
 import io.gdcc.xoai.services.impl.UTCDateProvider;
 import io.gdcc.xoai.util.URLEncoder;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static io.gdcc.xoai.util.URLEncoder.encode;
@@ -30,8 +30,8 @@ public class Parameters {
     private Verb.Type verb;
     private String metadataPrefix;
     private String set;
-    private Date from;
-    private Date until;
+    private Instant from;
+    private Instant until;
     private String identifier;
     private String resumptionToken;
 	private String granularity;
@@ -41,13 +41,13 @@ public class Parameters {
         return this;
     }
 
-    public Parameters withUntil(Date until) {
+    public Parameters withUntil(Instant until) {
         this.until = until;
         return this;
     }
 
 
-    public Parameters withFrom(Date from) {
+    public Parameters withFrom(Instant from) {
         this.from = from;
         return this;
     }
@@ -107,9 +107,7 @@ public class Parameters {
 				if(granularity.equals(possibleGranularity.toString())){
 					return possibleGranularity;
 				}
-				
 			}
-			
 		}
 		return Granularity.Second;
 	}
@@ -157,11 +155,11 @@ public class Parameters {
         return set;
     }
 
-    public Date getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
-    public Date getUntil() {
+    public Instant getUntil() {
         return until;
     }
 
@@ -173,10 +171,10 @@ public class Parameters {
         return resumptionToken;
     }
 
-	public void withGranularity(String granularity) {
+	public Parameters withGranularity(String granularity) {
 		this.granularity = granularity;
-		
-	}
+        return this;
+    }
 
 	public Object getGranularity() {
 		return granularity;
