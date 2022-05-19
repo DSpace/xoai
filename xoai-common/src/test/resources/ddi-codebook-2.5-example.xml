@@ -1,0 +1,297 @@
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd">
+  <docDscr>
+    <citation>
+      <titlStmt>
+        <titl xml:lang="FR">Cohorte blessures scolaires en fonction du genre</titl>
+        <subTitl/>
+        <parTitl xml:lang="EN">School-Related Injuries as a Function of Gender</parTitl>
+        <IDNo>PEF4194</IDNo>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="ITMO Santé Publique, Aviesan">Portail Épidémiologie-France</AuthEnty>
+        <othId/>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="PEF-HD" affiliation="ITMO Santé Publique, Aviesan">Portail Épidémiologie-France | Health Databases</producer>
+        <copyright>Portail Épidémiologie-France 2016</copyright>
+        <prodDate date="2016-05-31">31/05/2016</prodDate>
+        <prodPlac>https://epidemiologie-france.aviesan.fr/</prodPlac>
+        <software/>
+        <fundAg/>
+        <grantNo/>
+      </prodStmt>
+      <distStmt>
+        <distrbtr>Portail Épidémiologie-France</distrbtr>
+        <contact email="portail-epidemiologie@inserm.fr">Portail Epidemiologie-France</contact>
+        <depositr>Bruno Falissard</depositr>
+        <depDate xml:lang="FR">09/10/2012</depDate>
+        <depDate xml:lang="EN">12/05/2015</depDate>
+        <distDate>22/07/2014</distDate>
+      </distStmt>
+      <serStmt>
+        <serInfo/>
+      </serStmt>
+      <verStmt>
+        <version xml:lang="FR" date="22/07/2014">2</version>
+        <version xml:lang="EN" date="12/05/2015">2</version>
+        <verResp>Bruno Falissard</verResp>
+        <notes/>
+      </verStmt>
+      <biblCit/>
+      <holdings xml:lang="FR" location="Portail Epidemiologie-France" URI="http://epidemiologie-france.aviesan.fr/en/content/view/full/83334">Cohorte blessures scolaires en fonction du genre</holdings>
+      <holdings xml:lang="EN" location="Portail Epidemiologie-France" URI="http://epidemiologie-france.aviesan.fr/en/content/view/full/87516">School-Related Injuries as a Function of Gender</holdings>
+      <notes/>
+    </citation>
+    <guide/>
+    <docStatus/>
+    <notes/>
+  </docDscr>
+  <stdyDscr>
+    <citation>
+      <titlStmt>
+        <titl xml:lang="FR">Cohorte blessures scolaires en fonction du genre</titl>
+        <subTitl/>
+        <altTitl xml:lang="FR"/>
+        <altTitl xml:lang="EN"/>
+        <parTitl xml:lang="EN">School-Related Injuries as a Function of Gender</parTitl>
+        <IDNo/>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="INSERM - Institut National de la Santé et de la Recherche">Bruno Falissard</AuthEnty>
+        <AuthEnty affiliation="INSERM - Institut National de la Santé et de la Recherche">Nearkasen Chau</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer role="Public">INSERM - Institut National de la Santé et de la Recherche Médicale </producer>
+        <copyright/>
+        <prodDate/>
+        <prodPlac>U 669 - INSERM - Institut National de la Santé et de la Recherche - Inserm U669 Maison de Solenn 97 boulevard du Port Royal 75679 Paris Cedex</prodPlac>
+        <prodPlac>U 669 - INSERM - Institut National de la Santé et de la Recherche - 8 rue du Breuil, F-54180 Heillecourt</prodPlac>
+        <software/>
+        <fundAg xml:lang="FR" role="Publique">Public</fundAg>
+        <fundAg xml:lang="EN" role="Public">Public.</fundAg>
+        <grantNo/>
+      </prodStmt>
+      <distStmt>
+        <distrbtr>INSERM - Institut National de la Santé et de la Recherche</distrbtr>
+        <distrbtr>INSERM - Institut National de la Santé et de la Recherche</distrbtr>
+        <contact affiliation="INSERM - Institut National de la Santé et de la Recherche" email="falissard_b@wanadoo.fr">Bruno Falissard</contact>
+        <contact affiliation="INSERM - Institut National de la Santé et de la Recherche" email="nearkasen.chau@wanadoo.fr">Nearkasen Chau</contact>
+        <depositr>Bruno Falissard</depositr>
+        <depDate xml:lang="FR">09/10/2012</depDate>
+        <depDate xml:lang="EN">12/05/2015</depDate>
+        <distDate xml:lang="FR">22/07/2014</distDate>
+        <distDate xml:lang="EN">12/05/2015</distDate>
+      </distStmt>
+      <serStmt>
+        <serName/>
+        <serInfo/>
+      </serStmt>
+      <verStmt>
+        <version xml:lang="FR" date="22/07/2014">2</version>
+        <version xml:lang="EN" date="12/05/2015">2</version>
+        <verResp>Bruno Falissard</verResp>
+        <notes/>
+      </verStmt>
+      <biblCit/>
+      <holdings/>
+      <notes/>
+    </citation>
+    <studyAuthorization>
+      <authorizingAgency>CNIL</authorizingAgency>
+      <authorizationStatement xml:lang="FR">N°CNIL: SPSG9410414S</authorizationStatement>
+      <authorizationStatement xml:lang="EN">CNIL No.: SPSG9410414S</authorizationStatement>
+    </studyAuthorization>
+    <stdyInfo>
+      <studyBudget/>
+      <subject>
+        <keyword xml:lang="FR">blessures scolaires</keyword>
+        <keyword xml:lang="FR">genre</keyword>
+        <keyword xml:lang="FR">sexe</keyword>
+        <keyword xml:lang="FR">sport</keyword>
+        <keyword xml:lang="FR">famille</keyword>
+        <keyword xml:lang="FR">caractéristiques individuelles</keyword>
+        <keyword xml:lang="FR">école</keyword>
+        <keyword xml:lang="EN">school-related injuries</keyword>
+        <keyword xml:lang="EN">type</keyword>
+        <keyword xml:lang="EN">sex</keyword>
+        <keyword xml:lang="EN">individual characteristics</keyword>
+        <keyword xml:lang="EN">sport</keyword>
+        <keyword xml:lang="EN">family</keyword>
+        <keyword xml:lang="EN">school</keyword>
+        <topcClas xml:lang="FR">Médecine générale</topcClas>
+        <topcClas xml:lang="EN">General practice</topcClas>
+        <topcClas xml:lang="FR"/>
+        <topcClas xml:lang="EN"/>
+      </subject>
+      <abstract xml:lang="FR">Objectif de la base de données : Etudier les caractéristiques et les facteurs de risque des blessures (accidents) scolaires</abstract>
+      <abstract xml:lang="EN">Database objective : To study the characteristics and risk factors of school-related injuries (accidents).</abstract>
+      <sumDscr>
+        <timePrd/>
+        <collDate event="start">1995</collDate>
+        <collDate event="end">1996</collDate>
+        <collDate xml:lang="FR">Collecte des données terminée</collDate>
+        <collDate xml:lang="EN">Data collection completed</collDate>
+        <nation>France</nation>
+        <geogCover xml:lang="FR">Lorraine</geogCover>
+        <geogCover xml:lang="EN">Lorraine</geogCover>
+        <geogUnit>Régional</geogUnit>
+        <anlyUnit xml:lang="fr">individuel
+                </anlyUnit>
+        <anlyUnit xml:lang="en">individuals
+                </anlyUnit>
+        <universe xml:lang="FR" clusion="I">Elèves inscrits dans les établissements prenant part à l'étude</universe>
+        <universe xml:lang="EN" clusion="I">Pupils registered in institutions participating in the study.</universe>
+        <universe xml:lang="FR">Nombre d'individus : 3294</universe>
+        <universe xml:lang="EN">Number of individuals: 3,294</universe>
+        <universe xml:lang="FR">Recrutement via une sélection de services ou établissements de santé</universe>
+        <universe xml:lang="EN">Recruiting through a selection of health institutions and services</universe>
+        <universe xml:lang="FR" level="Tranche d'âge">Enfance (6 à 13 ans)</universe>
+        <universe xml:lang="FR" level="Tranche d'âge">Adolescence (13 à 18 ans)</universe>
+        <universe xml:lang="EN" level="Age range">Childhood (6 to 13 years)</universe>
+        <universe xml:lang="EN" level="Age range">Adolescence (13 to 18 years)</universe>
+        <universe xml:lang="FR" level="Type de population">Population générale</universe>
+        <universe xml:lang="EN" level="Population type">General population</universe>
+        <universe xml:lang="FR" level="Sexe">Masculin</universe>
+        <universe xml:lang="FR" level="Sexe">Féminin</universe>
+        <universe xml:lang="EN" level="Sex">Male</universe>
+        <universe xml:lang="EN" level="Sex">Female</universe>
+        <dataKind xml:lang="FR">Bases de données issues d’enquêtes</dataKind>
+        <dataKind xml:lang="EN">Study databases</dataKind>
+        <dataKind xml:lang="FR">Etudes de cohortes</dataKind>
+        <dataKind xml:lang="EN">Cohort study</dataKind>
+        <dataKind xml:lang="FR">Données cliniques : </dataKind>
+        <dataKind xml:lang="FR">Données déclaratives : Auto-questionnaire papierFace à face</dataKind>
+        <dataKind xml:lang="FR">Données administratives : sexe, date de naissance, caractéristiques familiales</dataKind>
+        <dataKind xml:lang="EN">Clinical data: </dataKind>
+        <dataKind xml:lang="EN">Declarative data: Paper self-questionnaireFace to face interview</dataKind>
+        <dataKind xml:lang="EN">Administrative data: sex, date of birth and family characteristics.</dataKind>
+        <dataKind xml:lang="FR">Evénements de santé/morbidité</dataKind>
+        <dataKind xml:lang="FR">Autres</dataKind>
+        <dataKind xml:lang="EN">Health event/morbidity</dataKind>
+        <dataKind xml:lang="EN">Others</dataKind>
+        <dataKind xml:lang="FR"/>
+        <dataKind xml:lang="EN"/>
+        <dataKind xml:lang="FR">auto représentation de la personnalité, situation familiale, consommation de substance, fatigue chronique</dataKind>
+        <dataKind xml:lang="EN">Personality, family background, substance use and chronic fatigue were self-represented.</dataKind>
+      </sumDscr>
+      <qualityStatement>
+        <standardsCompliance>
+          <standard>
+            <standardName/>
+            <producer/>
+          </standard>
+          <complianceDescription/>
+        </standardsCompliance>
+        <otherQualityStatement xml:lang="FR"/>
+        <otherQualityStatement xml:lang="EN"/>
+        <otherQualityStatement xml:lang="FR"/>
+        <otherQualityStatement xml:lang="EN"/>
+      </qualityStatement>
+      <notes/>
+      <exPostEvaluation>
+        <evaluator/>
+        <evaluationProcess/>
+        <outcomes/>
+      </exPostEvaluation>
+    </stdyInfo>
+    <studyDevelopment>
+      <developmentActivity>
+        <description/>
+        <participant/>
+        <resource>
+          <dataSrc/>
+          <dataSrc/>
+          <dataSrc/>
+          <dataSrc/>
+          <srcOrig/>
+          <srcChar/>
+          <srcDocu/>
+        </resource>
+        <outcome/>
+      </developmentActivity>
+    </studyDevelopment>
+    <method>
+      <dataColl>
+        <timeMeth method="http://www.ddialliance.org/Specification/DDI-CV/TimeMethod_1.2_Genericode1.0_DDI-CVProfile1.0.xml">Longitudinal: Cohort/Event-based</timeMeth>
+        <dataCollector affiliation="INSERM - Institut National de la Santé et de la Recherche">Bruno Falissard</dataCollector>
+        <dataCollector affiliation="INSERM - Institut National de la Santé et de la Recherche">Nearkasen Chau</dataCollector>
+        <collectorTraining/>
+        <frequenc xml:lang="FR">A l'infirmerie: chaque blessure est déclarée et détaillée</frequenc>
+        <frequenc xml:lang="EN">At the infirmary: each injury is reported and documented.</frequenc>
+        <sampProc xml:lang="FR">Tirage au sort des établissement (2 collèges, 2 lycées)</sampProc>
+        <sampProc xml:lang="EN">Random selection from the institution: 2 collèges (first 4 years of secondary school) and 2 lycées (further secondary school education).</sampProc>
+        <deviat/>
+        <collMode xml:lang="FR">Questionnaire au début de l'année scolaire puis suivi par le bureau des infirmiers à chaque blessure déclarée</collMode>
+        <collMode xml:lang="EN">Questionnaire at the beginning of academic year and subsequent follow-up by the nurses' office for each reported injury.</collMode>
+        <collMode xml:lang="FR">Examen médical : </collMode>
+        <collMode xml:lang="EN">Medical registration: </collMode>
+        <collMode xml:lang="FR">Auto-questionnaire papierFace à face : L'enquête utilisait un auto-questionnaire rempli en classe, en début d'année scolaire, en ce qui concernait les caractéristiques du sujet et des facteurs de risque. Puis un questionnaire face à face a été rempli par les infirmières scolaires pour chaque accident survenu durant l'année scolaire en présence de l'élève concerné. Un processus spécifique permet de garder l'anonymat des élèves : l'infirmerie connait le nom et le n° d'anonymat de l'élève mais n'a pas accès aux données tandis que que l'équipe de recherche ne connait pas le nom de l'élève.</collMode>
+        <collMode xml:lang="EN">Paper self-questionnaireFace to face interview: L'enquête utilisait un auto-questionnaire rempli en classe, en début d'année scolaire, en ce qui concernait les caractéristiques du sujet et des facteurs de risque. Puis un questionnaire face à face a été rempli par les infirmières scolaires pour chaque accident survenu durant l'année scolaire en présence de l'élève concerné. Un processus spécifique permet de garder l'anonymat des élèves : l'infirmerie connait le nom et le n° d'anonymat de l'élève mais n'a pas accès aux données tandis que que l'équipe de recherche ne connait pas le nom de l'élève.</collMode>
+        <collMode xml:lang="FR"/>
+        <collMode xml:lang="EN"/>
+        <collMode xml:lang="FR">sexe, date de naissance, caractéristiques familiales</collMode>
+        <collMode xml:lang="EN">sex, date of birth and family characteristics.</collMode>
+        <resInstru/>
+        <instrumentDevelopment/>
+        <sources>
+          <dataSrc/>
+          <srcOrig/>
+          <srcChar/>
+          <srcDocu/>
+        </sources>
+        <collSitu/>
+        <actMin/>
+        <ConOps/>
+        <weight/>
+        <cleanOps/>
+      </dataColl>
+      <notes/>
+      <anlyInfo>
+        <respRate/>
+        <EstSmpErr/>
+        <dataAppr/>
+      </anlyInfo>
+      <stdyClas/>
+      <dataProcessing/>
+      <codingInstructions>
+        <txt/>
+        <command/>
+      </codingInstructions>
+    </method>
+    <dataAccs>
+      <setAvail>
+        <accsPlac/>
+        <origArch/>
+        <avlStatus xml:lang="FR">Publications</avlStatus>
+        <avlStatus xml:lang="EN">Publications.</avlStatus>
+        <collSize/>
+        <complete/>
+        <fileQnty/>
+        <notes/>
+      </setAvail>
+      <useStmt>
+        <confDec/>
+        <specPerm/>
+        <restrctn xml:lang="FR">Publications</restrctn>
+        <restrctn xml:lang="EN">Publications.</restrctn>
+        <contact/>
+        <citReq/>
+        <deposReq/>
+        <conditions xml:lang="FR">Publications</conditions>
+        <conditions xml:lang="EN">Publications.</conditions>
+        <disclaimer/>
+      </useStmt>
+      <notes/>
+    </dataAccs>
+    <othrStdyMat>
+      <relMat xml:lang="FR"/>
+      <relMat xml:lang="FR"/>
+      <relStdy/>
+      <relPubl xml:lang="FR">http://tinyurl.com/Pubmed-Blessures-scolaires</relPubl>
+      <relPubl xml:lang="EN">http://tinyurl.com/Pubmed-Blessures-scolaires</relPubl>
+      <othRefs xml:lang="FR"/>
+      <othRefs xml:lang="EN"/>
+    </othrStdyMat>
+    <notes/>
+  </stdyDscr>
+</codeBook>

@@ -47,7 +47,7 @@ public class XmlReader implements AutoCloseable {
     private static final XMLInputFactory XML_INPUT_FACTORY = XMLInputFactory2.newFactory();
     private final XMLEventReader xmlEventParser;
 
-    public XmlReader(InputStream stream) throws XmlReaderException {
+    public XmlReader(final InputStream stream) throws XmlReaderException {
         try {
             this.xmlEventParser = XML_INPUT_FACTORY.createXMLEventReader(stream);
         } catch (XMLStreamException e) {
@@ -56,7 +56,7 @@ public class XmlReader implements AutoCloseable {
     }
 
     public boolean current (Matcher<XMLEvent> matcher) throws XmlReaderException {
-        return matcher.matches(getPeek());
+        return matcher.matches(peek());
     }
 
     public void close() throws XmlReaderException {
@@ -68,23 +68,23 @@ public class XmlReader implements AutoCloseable {
     }
 
     public QName getName () throws XmlReaderException {
-        if (getPeek().isStartElement())
-            return getPeek().asStartElement().getName();
-        else if (getPeek().isEndElement())
-            return getPeek().asEndElement().getName();
+        if (peek().isStartElement())
+            return peek().asStartElement().getName();
+        else if (peek().isEndElement())
+            return peek().asEndElement().getName();
         else throw new XmlReaderException("Current event has no name");
     }
 
     public String getText() throws XmlReaderException {
         if (current(text()))
-            return getPeek().asCharacters().getData();
+            return peek().asCharacters().getData();
         else
             throw new XmlReaderException("Current element is not text");
     }
 
     public String getAttributeValue(Matcher<QName> nameMatcher) throws XmlReaderException {
-        if (getPeek().isStartElement()) {
-            Iterator<Attribute> attributes = getPeek().asStartElement().getAttributes();
+        if (peek().isStartElement()) {
+            Iterator<Attribute> attributes = peek().asStartElement().getAttributes();
             while (attributes.hasNext()) {
                 Attribute attribute = attributes.next();
                 if (nameMatcher.matches(attribute.getName()))
@@ -97,8 +97,8 @@ public class XmlReader implements AutoCloseable {
 
     public <T> Map<T, String> getAttributes(ExtractFunction<QName, T> extractFunction) throws XmlReaderException {
         HashMap<T, String> map = new HashMap<T, String>();
-        if (getPeek().isStartElement()) {
-            Iterator<Attribute> attributes = getPeek().asStartElement().getAttributes();
+        if (peek().isStartElement()) {
+            Iterator<Attribute> attributes = peek().asStartElement().getAttributes();
             while (attributes.hasNext()) {
                 Attribute attribute = attributes.next();
                 map.put(extractFunction.apply(attribute.getName()), attribute.getValue());
@@ -108,7 +108,7 @@ public class XmlReader implements AutoCloseable {
     }
 
     public boolean hasAttribute (final Matcher<Attribute> matcher) throws XmlReaderException {
-        return hasAttributeMatcher(matcher).matches(getPeek().asStartElement().getAttributes());
+        return hasAttributeMatcher(matcher).matches(peek().asStartElement().getAttributes());
     }
 
     private TypeSafeMatcher<Iterator<Attribute>> hasAttributeMatcher(final Matcher<Attribute> matcher) {
@@ -132,7 +132,7 @@ public class XmlReader implements AutoCloseable {
     public final XmlReader next(Matcher<XMLEvent>... possibleEvents) throws XmlReaderException {
         try {
             xmlEventParser.nextEvent();
-            while (!anyOf(possibleEvents).matches(getPeek()))
+            while (!anyOf(possibleEvents).matches(peek()))
                 xmlEventParser.nextEvent();
 
             return this;
@@ -145,12 +145,24 @@ public class XmlReader implements AutoCloseable {
         return islandParser.parse(this);
     }
 
-    private XMLEvent getPeek() throws XmlReaderException {
+    private XMLEvent peek() throws XmlReaderException {
         try {
             return this.xmlEventParser.peek();
         } catch (XMLStreamException e) {
             throw new XmlReaderException(e);
         }
+    }
+    
+    public XMLEvent nextEvent() throws XmlReaderException {
+        try {
+            return this.xmlEventParser.nextEvent();
+        } catch (XMLStreamException e) {
+            throw new XmlReaderException(e);
+        }
+    }
+    
+    public boolean hasNext() {
+        return this.xmlEventParser.hasNext();
     }
 
     public String retrieveCurrentAsString () throws XmlReaderException {

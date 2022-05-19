@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static io.gdcc.xoai.util.Randoms.randomAlphabetic;
@@ -26,63 +27,11 @@ import static io.gdcc.xoai.util.Randoms.randomNumeric;
 public class InMemoryItem implements Item {
     
     private final Map<String, Object> values = new HashMap<>();
+    private Metadata metadata;
     
-    public static InMemoryItem item () {
-        return new InMemoryItem();
-    }
-
-    public static InMemoryItem randomItem() {
-        return new InMemoryItem()
-                .with("identifier", randomAlphabetic(10))
-                .with("datestamp", new Date())
-                .withSet(randomAlphabetic(3))
-                .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
-    }
-
-    public InMemoryItem with(String name, Object value) {
-        values.put(name, value);
-        return this;
-    }
-    
-    @SuppressWarnings("unchecked")
-    public InMemoryItem withSet(String spec) {
-        if (values.containsKey("sets")) {
-            ((List<String>) values.get("sets")).add(spec);
-        } else {
-            values.put("sets", new ArrayList<>(List.of(spec)));
-        }
-        return this;
-    }
-
-    @Override
-    public List<About> getAbout() {
-        return new ArrayList<>();
-    }
-
     @Override
     public Metadata getMetadata() {
-        return new Metadata(toMetadata());
-    }
-    
-    @SuppressWarnings("unchecked")
-    private XOAIMetadata toMetadata() {
-        XOAIMetadata builder = new XOAIMetadata();
-        for (String key : values.keySet()) {
-            Element elementBuilder = new Element(key);
-            Object value = values.get(key);
-            if (value instanceof String)
-                elementBuilder.withField(key, (String) value);
-            else if (value instanceof Date)
-                elementBuilder.withField(key, value.toString());
-            else if (value instanceof List) {
-                List<String> obj = (List<String>) value;
-                int i = 1;
-                for (String e : obj)
-                    elementBuilder.withField(key + (i++), e);
-            }
-            builder.withElement(elementBuilder);
-        }
-        return builder;
+        return metadata;
     }
 
     @Override
@@ -109,17 +58,66 @@ public class InMemoryItem implements Item {
         return (Boolean) values.get("deleted");
     }
 
-    public InMemoryItem withDefaults() {
-        this
-                .with("identifier", randomAlphabetic(10))
-                .with("datestamp", new Date())
-                .withSet(randomAlphabetic(3))
-                .with("deleted", Integer.parseInt(randomNumeric(1)) > 5);
+    // BUILDERS
+    
+    private InMemoryItem with(String name, Object value) {
+        values.put(name, value);
         return this;
     }
-
+    
     public InMemoryItem withIdentifier(String identifier) {
-        this.with("identifier", identifier);
+        return this.with("identifier", identifier);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public InMemoryItem withSet(String spec) {
+        if (values.containsKey("sets")) {
+            ((List<String>) values.get("sets")).add(spec);
+        } else {
+            values.put("sets", new ArrayList<>(List.of(spec)));
+        }
         return this;
+    }
+    
+    public InMemoryItem withMetadata(Metadata metadata) {
+        Objects.requireNonNull(metadata, "Metadata may not be null");
+        this.metadata = metadata;
+        return this;
+    }
+    
+    public InMemoryItem withDeleted(Boolean deleted) {
+        return this.with("deleted", deleted);
+    }
+    
+    // GENERATORS
+    public static InMemoryItem randomItem() {
+        InMemoryItem item = new InMemoryItem();
+        return item
+            .with("identifier", randomAlphabetic(10))
+            .with("datestamp", new Date())
+            .withSet(randomAlphabetic(3))
+            .with("deleted", Integer.parseInt(randomNumeric(1)) > 5)
+            .withMetadata(new Metadata(generateXoaiMetadata(item.values)));
+    }
+    
+    @SuppressWarnings("unchecked")
+    private static XOAIMetadata generateXoaiMetadata(Map<String, Object> values) {
+        XOAIMetadata builder = new XOAIMetadata();
+        for (String key : values.keySet()) {
+            Element elementBuilder = new Element(key);
+            Object value = values.get(key);
+            if (value instanceof String)
+                elementBuilder.withField(key, (String) value);
+            else if (value instanceof Date)
+                elementBuilder.withField(key, value.toString());
+            else if (value instanceof List) {
+                List<String> obj = (List<String>) value;
+                int i = 1;
+                for (String e : obj)
+                    elementBuilder.withField(key + (i++), e);
+            }
+            builder.withElement(elementBuilder);
+        }
+        return builder;
     }
 }

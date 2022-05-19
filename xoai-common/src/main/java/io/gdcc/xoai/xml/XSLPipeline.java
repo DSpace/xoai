@@ -30,6 +30,10 @@ public class XSLPipeline {
     }
 
     public XSLPipeline apply(Transformer xslTransformer) {
+        // When trying to add null, just ignore - no harm done.
+        if (xslTransformer == null) {
+            return this;
+        }
         transformers.add(xslTransformer);
         return this;
     }

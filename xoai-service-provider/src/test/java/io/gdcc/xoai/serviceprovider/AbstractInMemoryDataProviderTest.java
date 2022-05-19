@@ -35,19 +35,19 @@ public abstract class AbstractInMemoryDataProviderTest {
     protected static final String BASE_URL = "http://localhost";
     protected static final String FORMAT = "xoai";
 
-    private InMemoryItemRepository itemRepository = new InMemoryItemRepository();
-    private InMemorySetRepository setRepository = new InMemorySetRepository();
-    private ResumptionTokenFormat resumptionTokenFormat = new SimpleResumptionTokenFormat();
-    private RepositoryConfiguration repositoryConfiguration = new RepositoryConfiguration()
+    private final InMemoryItemRepository itemRepository = new InMemoryItemRepository();
+    private final InMemorySetRepository setRepository = new InMemorySetRepository();
+    private final ResumptionTokenFormat resumptionTokenFormat = new SimpleResumptionTokenFormat();
+    private final RepositoryConfiguration repositoryConfiguration = new RepositoryConfiguration()
             .withDefaults()
             .withBaseUrl(BASE_URL);
-    private Context context = new Context().withMetadataFormat(FORMAT, identity());
-    private Repository repository = new Repository()
+    private final Context context = new Context().withMetadataFormat(FORMAT, identity());
+    private final Repository repository = new Repository()
             .withConfiguration(repositoryConfiguration)
             .withSetRepository(setRepository)
             .withItemRepository(itemRepository)
             .withResumptionTokenFormatter(resumptionTokenFormat);
-    private DataProvider dataProvider = new DataProvider(theDataProviderContext(), theDataRepository());
+    private final DataProvider dataProvider = new DataProvider(theDataProviderContext(), theDataRepository());
 
     protected Context theDataProviderContext () {
         return context;
@@ -88,14 +88,10 @@ public abstract class AbstractInMemoryDataProviderTest {
                     writer.close();
 //                    System.out.println(outputStream.toString());
                     return new ByteArrayInputStream(outputStream.toByteArray());
-                } catch (OAIException e) {
-                    throw new OAIRequestException(e);
-                } catch (XmlWriteException e) {
-                    throw new OAIRequestException(e);
-                } catch (XMLStreamException e) {
+                } catch (OAIException | XMLStreamException | XmlWriteException e) {
                     throw new OAIRequestException(e);
                 }
-
+    
             }
         };
     }

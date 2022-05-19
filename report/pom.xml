@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ The contents of this file are subject to the license and copyright
+  ~ detailed in the LICENSE and NOTICE files at the root of the source
+  ~ tree and available online at
+  ~
+  ~ http://www.dspace.org/license/
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>xoai</artifactId>
+        <groupId>io.gdcc</groupId>
+        <version>${revision}</version>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <name>Report Aggregator</name>
+    <artifactId>report</artifactId>
+    <description>Only used to aggregate some reports into one</description>
+    
+    <packaging>pom</packaging>
+    
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>report-aggregate</goal>
+                                </goals>
+                                <configuration>
+                                    <formats>
+                                        <format>XML</format>
+                                    </formats>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
+    <dependencies>
+        <dependency>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-xmlio</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-common</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-data-provider</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.gdcc</groupId>
+            <artifactId>xoai-service-provider</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+</project>

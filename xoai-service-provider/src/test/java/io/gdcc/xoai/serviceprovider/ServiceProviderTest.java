@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static io.gdcc.xoai.dataprovider.model.InMemoryItem.item;
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.randomItem;
 import static io.gdcc.xoai.dataprovider.model.MetadataFormat.identity;
 import static io.gdcc.xoai.model.oaipmh.DeletedRecord.PERSISTENT;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -68,7 +68,7 @@ public class ServiceProviderTest extends AbstractServiceProviderTest {
     @Test
     public void recordDoesNotSupportFormatForGetRecord () throws Exception {
         theDataProviderContext().withMetadataFormat(FORMAT, identity(), alwaysFalseCondition());
-        theDataItemRepository().withItem(item().withDefaults().withIdentifier("asd").withSet("one"));
+        theDataItemRepository().withItem(randomItem().withIdentifier("asd").withSet("one"));
         assertThrows(CannotDisseminateFormatException.class, () -> underTest.getRecord(GetRecordParameters.request().withIdentifier("asd").withMetadataFormatPrefix(FORMAT)));
     }
 

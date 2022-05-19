@@ -15,11 +15,13 @@ import io.gdcc.xoai.dataprovider.exceptions.OAIException;
 import io.gdcc.xoai.dataprovider.filter.ScopedFilter;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemIdentifiersResult;
 import io.gdcc.xoai.dataprovider.handlers.results.ListItemsResults;
+import io.gdcc.xoai.dataprovider.model.MetadataFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static io.gdcc.xoai.dataprovider.model.InMemoryItem.randomItem;
 import static java.lang.Math.min;
 import static java.util.Arrays.asList;
 
@@ -42,7 +44,7 @@ public class InMemoryItemRepository implements ItemRepository {
 
     public InMemoryItemRepository withRandomItems(int number) {
         for (int i = 0; i < number; i++)
-            list.add(InMemoryItem.randomItem());
+            list.add(randomItem());
         return this;
     }
 
@@ -54,7 +56,12 @@ public class InMemoryItemRepository implements ItemRepository {
         }
         throw new IdDoesNotExistException();
     }
-
+    
+    @Override
+    public Item getItem(String identifier, MetadataFormat format) throws IdDoesNotExistException, OAIException {
+        return getItem(identifier);
+    }
+    
     @Override
     public ListItemIdentifiersResult getItemIdentifiers(List<ScopedFilter> filters, int offset, int length) throws OAIException {
         return new ListItemIdentifiersResult(offset + length < list.size(), new ArrayList<>(list.subList(offset, min(offset + length, list.size()))));

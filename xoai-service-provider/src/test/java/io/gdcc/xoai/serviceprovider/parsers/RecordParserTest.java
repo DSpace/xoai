@@ -40,7 +40,7 @@ public class RecordParserTest {
 		parser = new RecordParser(context, "oai_dc");
 		XmlReader reader = new XmlReader(input);
 		Record record = parser.parse(reader);
-		assertEquals(2,record.getMetadata().getValue().searcher().findAll("dc.rights").size());
+		assertEquals(2,record.getMetadata().getXoaiMetadata().searcher().findAll("dc.rights").size());
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ public class RecordParserTest {
 		parser = new RecordParser(context, "oai_dc");
 		XmlReader reader = new XmlReader(input);
 		Record record = parser.parse(reader);
-		assertEquals(2,record.getMetadata().getValue().searcher().findAll("dc.rights:xml:lang").size());
+		assertEquals(2,record.getMetadata().getXoaiMetadata().searcher().findAll("dc.rights:xml:lang").size());
 	}
 	
 	@Test
@@ -60,8 +60,8 @@ public class RecordParserTest {
 		parser = new RecordParser(context, "oai_dc");
 		XmlReader reader = new XmlReader(input);
 		Record record = parser.parse(reader);
-		assertEquals(1,record.getMetadata().getValue().searcher().findAll("dc.title").size());
-		assertEquals("Article Title-additional CDATA",record.getMetadata().getValue().searcher().findOne("dc.title"));
+		assertEquals(1,record.getMetadata().getXoaiMetadata().searcher().findAll("dc.title").size());
+		assertEquals("Article Title-additional CDATA",record.getMetadata().getXoaiMetadata().searcher().findOne("dc.title"));
 	}
 
 }
