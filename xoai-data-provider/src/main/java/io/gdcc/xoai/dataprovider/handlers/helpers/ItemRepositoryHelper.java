@@ -19,8 +19,8 @@ import io.gdcc.xoai.dataprovider.repository.ItemRepository;
 import io.gdcc.xoai.dataprovider.filter.Scope;
 import io.gdcc.xoai.dataprovider.filter.ScopedFilter;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ItemRepositoryHelper {
@@ -38,7 +38,7 @@ public class ItemRepositoryHelper {
     }
 
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
-                                                        int offset, int length, String metadataPrefix, Date from)
+                                                        int offset, int length, String metadataPrefix, Instant from)
             throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         return itemRepository.getItemIdentifiers(filters, offset, length, from);
@@ -57,13 +57,13 @@ public class ItemRepositoryHelper {
 
     public ListItemIdentifiersResult getItemIdentifiersUntil(
             Context context, int offset, int length, String metadataPrefix,
-            Date until) throws OAIException {
+            Instant until) throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         return itemRepository.getItemIdentifiersUntil(filters, offset, length, until);
     }
 
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
-                                                        int offset, int length, String metadataPrefix, Date from, Date until)
+                                                        int offset, int length, String metadataPrefix, Instant from, Instant until)
             throws OAIException {
         return itemRepository.getItemIdentifiers(getScopedFilters(context, metadataPrefix), offset, length, from, until);
     }
@@ -81,7 +81,7 @@ public class ItemRepositoryHelper {
 
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
                                                         int offset, int length, String metadataPrefix, String setSpec,
-                                                        Date from) throws OAIException {
+                                                        Instant from) throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         if (context.isStaticSet(setSpec)) {
             filters.add(new ScopedFilter(context.getSet(setSpec).getCondition(), Scope.Set));
@@ -93,7 +93,7 @@ public class ItemRepositoryHelper {
 
     public ListItemIdentifiersResult getItemIdentifiersUntil(
             Context context, int offset, int length, String metadataPrefix,
-            String setSpec, Date until) throws OAIException {
+            String setSpec, Instant until) throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         if (context.isStaticSet(setSpec)) {
             filters.add(new ScopedFilter(context.getSet(setSpec).getCondition(), Scope.Set));
@@ -105,7 +105,7 @@ public class ItemRepositoryHelper {
 
     public ListItemIdentifiersResult getItemIdentifiers(Context context,
                                                         int offset, int length, String metadataPrefix, String setSpec,
-                                                        Date from, Date until) throws OAIException {
+                                                        Instant from, Instant until) throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         if (context.isStaticSet(setSpec)) {
             filters.add(new ScopedFilter(context.getSet(setSpec).getCondition(), Scope.Set));
@@ -124,21 +124,21 @@ public class ItemRepositoryHelper {
     }
 
     public ListItemsResults getItems(Context context, int offset,
-                                     int length, String metadataPrefix, Date from)
+                                     int length, String metadataPrefix, Instant from)
             throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         return itemRepository.getItems(filters, offset, length, from);
     }
 
     public ListItemsResults getItemsUntil(Context context, int offset,
-                                          int length, String metadataPrefix, Date until)
+                                          int length, String metadataPrefix, Instant until)
             throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         return itemRepository.getItemsUntil(filters, offset, length, until);
     }
 
     public ListItemsResults getItems(Context context, int offset,
-                                     int length, String metadataPrefix, Date from, Date until)
+                                     int length, String metadataPrefix, Instant from, Instant until)
             throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         return itemRepository.getItems(filters, offset, length, from, until);
@@ -157,7 +157,7 @@ public class ItemRepositoryHelper {
     }
 
     public ListItemsResults getItems(Context context, int offset,
-                                     int length, String metadataPrefix, String setSpec, Date from)
+                                     int length, String metadataPrefix, String setSpec, Instant from)
             throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         if (context.isStaticSet(setSpec)) {
@@ -168,7 +168,7 @@ public class ItemRepositoryHelper {
     }
 
     public ListItemsResults getItemsUntil(Context context, int offset,
-                                          int length, String metadataPrefix, String setSpec, Date until)
+                                          int length, String metadataPrefix, String setSpec, Instant until)
             throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         if (context.isStaticSet(setSpec)) {
@@ -179,8 +179,8 @@ public class ItemRepositoryHelper {
     }
 
     public ListItemsResults getItems(Context context, int offset,
-                                     int length, String metadataPrefix, String setSpec, Date from,
-                                     Date until) throws OAIException {
+                                     int length, String metadataPrefix, String setSpec, Instant from,
+                                     Instant until) throws OAIException {
         List<ScopedFilter> filters = getScopedFilters(context, metadataPrefix);
         if (context.isStaticSet(setSpec)) {
             filters.add(new ScopedFilter(context.getSet(setSpec).getCondition(), Scope.Set));

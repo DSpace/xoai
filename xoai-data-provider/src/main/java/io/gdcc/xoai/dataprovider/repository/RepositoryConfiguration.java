@@ -11,8 +11,9 @@ package io.gdcc.xoai.dataprovider.repository;
 import io.gdcc.xoai.model.oaipmh.DeletedRecord;
 import io.gdcc.xoai.model.oaipmh.Granularity;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -21,7 +22,7 @@ public class RepositoryConfiguration {
     private String repositoryName;
     private final List<String> adminEmails = new ArrayList<>();
     private String baseUrl;
-    private Date earliestDate;
+    private Instant earliestDate;
     private int maxListIdentifiers;
     private int maxListSets;
     private int maxListRecords;
@@ -42,7 +43,7 @@ public class RepositoryConfiguration {
         return baseUrl;
     }
 
-    public Date getEarliestDate() {
+    public Instant getEarliestDate() {
         return earliestDate;
     }
 
@@ -119,7 +120,7 @@ public class RepositoryConfiguration {
         return this;
     }
 
-    public RepositoryConfiguration withEarliestDate(Date earliestDate) {
+    public RepositoryConfiguration withEarliestDate(Instant earliestDate) {
         this.earliestDate = earliestDate;
         return this;
     }
@@ -138,7 +139,7 @@ public class RepositoryConfiguration {
 
     public RepositoryConfiguration withDefaults () {
         this.repositoryName = "Repository";
-        this.earliestDate = new Date();
+        this.earliestDate = Instant.now().truncatedTo(ChronoUnit.SECONDS);
         this.adminEmails.add("sample@test.com");
         this.baseUrl = "http://localhost";
         this.maxListIdentifiers = 100;

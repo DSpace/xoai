@@ -13,8 +13,9 @@ import io.gdcc.xoai.model.oaipmh.Metadata;
 import io.gdcc.xoai.model.xoai.Element;
 import io.gdcc.xoai.model.xoai.XOAIMetadata;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +41,8 @@ public class InMemoryItem implements Item {
     }
 
     @Override
-    public Date getDatestamp() {
-        return (Date) values.get("datestamp");
+    public Instant getDatestamp() {
+        return (Instant) values.get("datestamp");
     }
 
     @Override
@@ -94,7 +95,7 @@ public class InMemoryItem implements Item {
         InMemoryItem item = new InMemoryItem();
         return item
             .with("identifier", randomAlphabetic(10))
-            .with("datestamp", new Date())
+            .with("datestamp", Instant.now().truncatedTo(ChronoUnit.SECONDS))
             .withSet(randomAlphabetic(3))
             .with("deleted", Integer.parseInt(randomNumeric(1)) > 5)
             .withMetadata(new Metadata(generateXoaiMetadata(item.values)));
@@ -108,7 +109,7 @@ public class InMemoryItem implements Item {
             Object value = values.get(key);
             if (value instanceof String)
                 elementBuilder.withField(key, (String) value);
-            else if (value instanceof Date)
+            else if (value instanceof Instant)
                 elementBuilder.withField(key, value.toString());
             else if (value instanceof List) {
                 List<String> obj = (List<String>) value;
