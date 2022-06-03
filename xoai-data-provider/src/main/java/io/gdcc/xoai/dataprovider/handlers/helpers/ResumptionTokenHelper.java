@@ -40,7 +40,7 @@ public class ResumptionTokenHelper {
             } else {
                 ResumptionToken resumptionToken = new ResumptionToken();
                 // add 0.0f to make it a floating operation instead of an integer division (Math.round() expects float!)
-                resumptionToken.withCursor(round((current.getOffset() + 0.0f + maxPerPage) / maxPerPage));
+                resumptionToken.withCursor(round((current.getOffset() + 0.0f) / maxPerPage));
                 if (totalResults != null)
                     resumptionToken.withCompleteListSize(totalResults);
                 return resumptionToken;
@@ -56,7 +56,7 @@ public class ResumptionTokenHelper {
         if (totalResults != null)
             resumptionToken.withCompleteListSize(totalResults);
         // add 0.0f to make it a floating operation instead of an integer division (Math.round() expects float!)
-        resumptionToken.withCursor(round((resumptionToken.getValue().getOffset() +0.0f) / maxPerPage));
+        resumptionToken.withCursor(round((resumptionToken.getValue().getOffset() +0.0f - maxPerPage) / maxPerPage));
         return resumptionToken;
     }
 }
