@@ -6,7 +6,7 @@ XOAI is the most powerful and flexible OAI-PMH Java Toolkit (initially developed
 implement OAI-PMH data and service providers.
 
 --- 
-:warning: **XOAI IS NOT ACTIVELY MAINTAINED:**  The DSpace project adopted XOAI when the original creator had to abandon it. However, XOAI currently doesn't have a "product owner" or any funding for active support. DSpace itself still uses XOAI v3, and has yet to proritize an upgrade to the latest version of XOAI. Therefore, this project only receives attention/updates when someone from the DSpace team can prioritize it.
+:warning: **XOAI IS NOT ACTIVELY MAINTAINED:**  The DSpace project adopted XOAI when the original creator had to abandon it. However, XOAI currently doesn't have a "product owner" or any funding for active support. DSpace itself still uses XOAI v3 (see [3.x branch](https://github.com/DSpace/xoai/tree/3.x)), and has yet to proritize an upgrade to the latest version of XOAI. Therefore, this project only receives attention/updates when someone from the DSpace team can prioritize it.
 
 If you'd like to contribute or help maintain this project, please get in touch via an issue ticket.
 
