@@ -26,6 +26,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
@@ -48,17 +49,17 @@ public class MetadataFormatManager {
                                  FilterManager filterManager) throws ConfigurationException {
         contexts = new HashMap<String, MetadataFormat>();
         for (FormatConfiguration format : config) {
-            Transformer transformer = null;
+            Templates templates = null;
 
             try {
-                transformer = resolver.getTransformer(format.getXslt());
+                templates = resolver.getTemplates(format.getXslt());
             } catch (TransformerConfigurationException e) {
                 throw new ConfigurationException(e.getMessage(), e);
             } catch (IOException e) {
                 throw new ConfigurationException(e.getMessage(), e);
             }
 
-            MetadataFormat metadataFormat = new MetadataFormat(format.getPrefix(), transformer, format.getNamespace(), format.getSchemaLocation());
+            MetadataFormat metadataFormat = new MetadataFormat(format.getPrefix(), templates, format.getNamespace(), format.getSchemaLocation());
             if (format.hasFilter())
                 metadataFormat.setFilter(filterManager.getFilter(format.getFilter().getReference()));
             contexts.put(format.getId(), metadataFormat);

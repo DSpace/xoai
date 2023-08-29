@@ -7,9 +7,10 @@ import org.hamcrest.Matcher;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.Transformer;
+import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayOutputStream;
 
 public abstract class XmlTest {
@@ -27,9 +28,10 @@ public abstract class XmlTest {
         return output.toString();
     }
 
-    protected Transformer identityTransformer() {
+    protected Templates identityTemplate() {
         try {
-            return tFactory.newTransformer();
+            return tFactory.newTemplates(new StreamSource(
+                    this.getClass().getClassLoader().getResourceAsStream("identity_transform.xsl")));
         } catch (TransformerConfigurationException e) {
             throw new RuntimeException(e.getMessage(), e);
         }

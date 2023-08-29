@@ -30,14 +30,14 @@ public class XSLPipelineTest extends XmlTest {
     @Test
     public void shouldTransformWithXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, false);
-        underTest.apply(identityTransformer());
+        underTest.apply(identityTemplate());
         assertThat(IOUtils.toString(underTest.getTransformed()), containsString("<?xml"));
     }
 
     @Test
     public void shouldTransformWithoutXmlDeclarationOnTop() throws TransformerException, IOException {
         XSLPipeline underTest = new XSLPipeline(input, true);
-        underTest.apply(identityTransformer());
+        underTest.apply(identityTemplate());
         assertThat(IOUtils.toString(underTest.getTransformed()), not(containsString("<?xml")));
     }
 }

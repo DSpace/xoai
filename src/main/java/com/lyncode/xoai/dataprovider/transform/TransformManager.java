@@ -42,8 +42,8 @@ public class TransformManager {
             for (TransformerConfiguration t : transformerConfigurations) {
                 try {
                     _contexts.put(t.getId(),
-                            new MetadataTransformer(new XSLTransformer(
-                                    resolver.getTransformer(t.getXslt())
+                            new MetadataTransformer(new XSLTemplates(
+                                    resolver.getTemplates(t.getXslt())
                             ))
                     );
                 } catch (TransformerConfigurationException e) {
