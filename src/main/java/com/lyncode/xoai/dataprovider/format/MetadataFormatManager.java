@@ -27,7 +27,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;

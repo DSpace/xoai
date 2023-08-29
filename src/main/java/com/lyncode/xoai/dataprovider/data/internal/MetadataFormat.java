@@ -20,7 +20,6 @@ import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
 import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 
 import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
 
 /**
 

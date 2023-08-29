@@ -3,7 +3,6 @@ package com.lyncode.xoai.dataprovider.services.impl;
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 
 import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
