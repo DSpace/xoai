@@ -50,7 +50,7 @@ public class XOAIManager {
         format = new MetadataFormatManager(resolver, config.getFormats(), filter);
         set = new StaticSetManager(config.getSets(), filter);
         listSetsSize = config.getMaxListSetsSize();
-        listIdentifiersSize = config.getMaxListRecordsSize();
+        listIdentifiersSize = config.getMaxListIdentifiersSize();
         listRecordsSize = config.getMaxListRecordsSize();
         identation = config.getIndented();
         styleSheet = config.getStylesheet();
