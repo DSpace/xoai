@@ -11,8 +11,8 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.DescriptionType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.IdentifyType;
 import com.lyncode.xoai.dataprovider.xml.xoaidescription.XOAIDescription;
 import com.lyncode.xoai.util.MarshallingUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.List;

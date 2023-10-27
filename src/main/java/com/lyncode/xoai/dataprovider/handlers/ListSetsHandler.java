@@ -13,8 +13,8 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.ListSetsType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.ResumptionTokenType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.SetType;
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 

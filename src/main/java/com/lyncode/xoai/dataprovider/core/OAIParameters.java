@@ -22,8 +22,8 @@ import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.services.api.ResumptionTokenFormatter;
 import com.lyncode.xoai.dataprovider.services.impl.BaseDateProvider;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.text.ParseException;
 import java.util.Calendar;

@@ -23,8 +23,8 @@ import com.lyncode.xoai.dataprovider.exceptions.ConfigurationException;
 import com.lyncode.xoai.dataprovider.filter.FilterManager;
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
