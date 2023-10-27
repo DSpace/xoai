@@ -5,11 +5,12 @@ import com.lyncode.xoai.serviceprovider.parser.AboutItemParser;
 import com.lyncode.xoai.serviceprovider.parser.AboutSetParser;
 import com.lyncode.xoai.serviceprovider.parser.DescriptionParser;
 import com.lyncode.xoai.serviceprovider.parser.MetadataParser;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 public abstract class OAIServiceConfiguration<M extends MetadataParser, A extends AboutItemParser, D extends DescriptionParser, S extends AboutSetParser> {
-    private static Logger log = Logger.getLogger(OAIServiceConfiguration.class);
+    private static Logger log = LogManager.getLogger(OAIServiceConfiguration.class);
     private static final int INTERVAL = 1000;
 
     private DateProvider formatter;

@@ -12,8 +12,8 @@ import com.lyncode.xoai.dataprovider.services.api.DateProvider;
 import com.lyncode.xoai.dataprovider.services.api.RepositoryConfiguration;
 import com.lyncode.xoai.dataprovider.services.api.ResumptionTokenFormatter;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerException;

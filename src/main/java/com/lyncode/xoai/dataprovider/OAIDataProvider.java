@@ -34,8 +34,8 @@ import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMH;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.OAIPMHtype;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.RequestType;
 import com.lyncode.xoai.dataprovider.xml.oaipmh.VerbType;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.OutputStream;

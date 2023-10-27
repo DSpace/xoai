@@ -2,8 +2,8 @@ package com.lyncode.xoai.dataprovider.core;
 
 import com.lyncode.xoai.dataprovider.xml.xoai.Metadata;
 import com.lyncode.xoai.dataprovider.xml.xoai.XOAIParser;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;

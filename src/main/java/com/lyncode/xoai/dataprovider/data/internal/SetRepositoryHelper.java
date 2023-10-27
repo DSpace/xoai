@@ -5,8 +5,8 @@ import com.lyncode.xoai.dataprovider.core.Set;
 import com.lyncode.xoai.dataprovider.core.XOAIContext;
 import com.lyncode.xoai.dataprovider.services.api.SetRepository;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.List;

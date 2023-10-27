@@ -23,8 +23,8 @@ import com.lyncode.xoai.dataprovider.data.internal.MetadataTransformer;
 import com.lyncode.xoai.dataprovider.exceptions.CannotDisseminateFormatException;
 import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 import com.lyncode.xoai.dataprovider.sets.StaticSet;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
