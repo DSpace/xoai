@@ -16,28 +16,28 @@
 
 package com.lyncode.xoai.dataprovider.data.internal;
 
-import com.lyncode.xoai.dataprovider.transform.XSLTransformer;
+import com.lyncode.xoai.dataprovider.transform.XSLTemplates;
 
 /**
 
  * @version 3.1.0
  */
 public class MetadataTransformer {
-    private XSLTransformer xslTransformer;
+    private XSLTemplates xslTemplates;
 
     public MetadataTransformer() {
-        xslTransformer = null;
+        xslTemplates = null;
     }
 
-    public MetadataTransformer(XSLTransformer xsltTransformer) {
-        this.xslTransformer = xsltTransformer;
+    public MetadataTransformer(XSLTemplates xslTemplates) {
+        this.xslTemplates = xslTemplates;
     }
 
-    public boolean hasTransformer() {
-        return (this.xslTransformer != null);
+    public boolean hasXslTemplates() {
+        return (this.xslTemplates != null);
     }
 
-    public XSLTransformer getXslTransformer() {
-        return this.xslTransformer;
+    public XSLTemplates getXslTemplates() {
+        return this.xslTemplates;
     }
 }

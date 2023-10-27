@@ -19,7 +19,7 @@ package com.lyncode.xoai.dataprovider.data.internal;
 import com.lyncode.xoai.dataprovider.data.ItemIdentifier;
 import com.lyncode.xoai.dataprovider.filter.conditions.Condition;
 
-import javax.xml.transform.Transformer;
+import javax.xml.transform.Templates;
 
 /**
 
@@ -27,14 +27,14 @@ import javax.xml.transform.Transformer;
  */
 public class MetadataFormat {
     private String prefix;
-    private Transformer xsltTransformer;
+    private Templates xsltTemplates;
     private String namespace;
     private String schemaLocation;
     private Condition filter;
 
-    public MetadataFormat(String prefix, Transformer transformer, String namespace, String schemaLocation) {
+    public MetadataFormat(String prefix, Templates xsltTemplates, String namespace, String schemaLocation) {
         this.prefix = prefix;
-        this.xsltTransformer = transformer;
+        this.xsltTemplates = xsltTemplates;
         this.namespace = namespace;
         this.schemaLocation = schemaLocation;
     }
@@ -43,8 +43,8 @@ public class MetadataFormat {
         return prefix;
     }
 
-    public Transformer getTransformer() {
-        return xsltTransformer;
+    public Templates getXsltTemplates() {
+        return xsltTemplates;
     }
 
     public String getNamespace() {

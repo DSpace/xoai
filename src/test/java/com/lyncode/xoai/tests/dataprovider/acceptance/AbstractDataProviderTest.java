@@ -35,6 +35,7 @@ import org.junit.Before;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -70,7 +71,9 @@ public abstract class AbstractDataProviderTest {
 
     @Before
     public void setUp() throws IOException, TransformerConfigurationException, ParseException {
-        when(resourceResolver.getTransformer(XOAI_XSLT_LOCATION)).thenReturn(tFactory.newTransformer());
+        when(resourceResolver.getTemplates(XOAI_XSLT_LOCATION)).
+                thenReturn(tFactory.newTemplates(new StreamSource(
+                        this.getClass().getClassLoader().getResourceAsStream("identity_transform.xsl"))));
 
         configuration = new Configuration().withIndented(true);
 

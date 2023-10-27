@@ -1,6 +1,7 @@
 package com.lyncode.xoai.util;
 
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
@@ -19,8 +20,9 @@ public class XSLPipeline {
         this.omitXMLDeclaration = omitXMLDeclaration;
     }
 
-    public XSLPipeline apply(Transformer xslTransformer) throws TransformerException {
+    public XSLPipeline apply(Templates xslTemplates) throws TransformerException {
         outputStream = new ByteArrayOutputStream();
+        Transformer xslTransformer = xslTemplates.newTransformer();
         xslTransformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, (omitXMLDeclaration) ? "yes" : "no");
         xslTransformer.transform(new StreamSource(inputStream), new StreamResult(outputStream));
         inputStream = new ByteArrayInputStream(outputStream.toByteArray());

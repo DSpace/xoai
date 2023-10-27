@@ -150,14 +150,14 @@ public class ListRecordsHandler extends VerbHandler<ListRecordsType> {
         if (!item.isDeleted()) {
             MetadataType metadata = null;
             try {
-                if (context.getTransformer().hasTransformer()) {
+                if (context.getTransformer().hasXslTemplates()) {
                     metadata = new MetadataType(itemHelperWrap.toPipeline(true)
-                            .apply(context.getTransformer().getXslTransformer().getValue())
-                            .apply(format.getTransformer())
+                            .apply(context.getTransformer().getXslTemplates().getValue())
+                            .apply(format.getXsltTemplates())
                             .getTransformed());
                 } else {
                     metadata = new MetadataType(itemHelperWrap.toPipeline(true)
-                            .apply(format.getTransformer())
+                            .apply(format.getXsltTemplates())
                             .getTransformed());
                 }
             } catch (WritingXmlException e) {
