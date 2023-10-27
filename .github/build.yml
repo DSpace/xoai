@@ -1,0 +1,52 @@
+# XOAI Continuous Integration/Build via GitHub Actions
+# Concepts borrowed from
+# https://docs.github.com/en/free-pro-team@latest/actions/guides/building-and-testing-java-with-maven
+name: Build
+
+# Run this Build for all pushes / PRs to current branch
+on: [push, pull_request]
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      # Give Maven 1GB of memory to work with
+      MAVEN_OPTS: "-Xmx1024M"
+    name: Run Tests
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+
+      # https://github.com/actions/setup-java
+      - name: Install JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: 'temurin'
+
+      # https://github.com/actions/cache
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          # Cache entire ~/.m2/repository
+          path: ~/.m2/repository
+          # Cache key is hash of all pom.xml files. Therefore any changes to POMs will invalidate cache
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
+      # Run parallel Maven builds based on the above 'strategy.matrix'
+      - name: Run Maven Tests
+        run: mvn --no-transfer-progress -V test
+
+      # If previous step failed, save results of tests to downloadable artifact for this job
+      # (This artifact is downloadable at the bottom of any job's summary page)
+      - name: Upload Results of Test to Artifact
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test results
+          path: "**/target/surefire-reports/**"
