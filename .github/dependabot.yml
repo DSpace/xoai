@@ -1,0 +1,55 @@
+#-------------------
+# DSpace's dependabot rules. 
+# Enables maven updates for all dependencies on a weekly basis for primary branch.
+#-------------------
+version: 2
+updates:
+  ###############
+  ## Main branch
+  ###############
+  - package-ecosystem: "maven"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "02:00"
+    # Allow up to 10 open PRs for dependencies
+    open-pull-requests-limit: 10
+    # Group together some upgrades in a single PR
+    groups:
+      # Group together all Build Tools in a single PR
+      build-tools:
+        applies-to: version-updates
+        patterns:
+        - "org.apache.maven.plugins:*"
+        - "*:*-maven-plugin"
+        - "*:maven-*-plugin"
+        - "org.sonatype.plugins:*"
+        update-types:
+        - "minor"
+        - "patch"
+      test-tools:
+        applies-to: version-updates
+        patterns:
+        - "junit:*"
+        - "org.hamcrest:*"
+        - "org.mockito:*"
+        - "org.dom4j:*"
+        update-types:
+        - "minor"
+        - "patch"
+      # Group together all Apache Commons deps in a single PR
+      apache-commons:
+        applies-to: version-updates
+        patterns:
+        - "org.apache.commons:*"
+        - "commons-*:commons-*"
+        update-types:
+        - "minor"
+        - "patch"
+    ignore:
+      # Don't try to auto-update any DSpace dependencies
+      - dependency-name: "org.dspace:*"
+      - dependency-name: "org.dspace.*:*"
+      # Ignore all major version updates for all dependencies. We'll only automate minor/patch updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
