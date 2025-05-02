@@ -21,6 +21,10 @@ public class OAIPMHParser extends ElementParser<OAIPMHtype> {
     private static final String NAME = "OAI-PMH";
     private static final String RESPONSE_DATE = "responseDate";
     private static XMLInputFactory factory = XMLInputFactory2.newInstance();
+    static {
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, false); // Disable DTD processing
+        factory.setProperty("javax.xml.stream.isSupportingExternalEntities", false); // Disable external entities
+    }
 
     private static void untilFirstStartElement(XMLEventReader reader) throws XMLStreamException {
         while (reader.peek() != null && !reader.peek().isStartElement() && !reader.peek().isEndDocument())
