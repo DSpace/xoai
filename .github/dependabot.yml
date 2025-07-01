@@ -23,7 +23,7 @@ updates:
         - "org.apache.maven.plugins:*"
         - "*:*-maven-plugin"
         - "*:maven-*-plugin"
-        - "org.sonatype.plugins:*"
+        - "org.sonatype.*:*"
         update-types:
         - "minor"
         - "patch"
