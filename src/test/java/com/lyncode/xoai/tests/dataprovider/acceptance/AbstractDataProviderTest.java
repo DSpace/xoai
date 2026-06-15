@@ -24,6 +24,7 @@ import com.lyncode.xoai.dataprovider.xml.xoaiconfig.FormatConfiguration;
 import com.lyncode.xoai.tests.helpers.AbstractIdentifyBuilder;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedItemRepository;
 import com.lyncode.xoai.tests.helpers.stubs.StubbedSetRepository;
+import com.lyncode.xoai.util.XMLUtils;
 import org.codehaus.stax2.XMLOutputFactory2;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -54,9 +55,6 @@ public abstract class AbstractDataProviderTest {
     private static final String XOAI_SCHEMA_LOCATION = "schemaLocation";
     private static final String XOAI_XSLT_LOCATION = "xoai-schema-location";
 
-    private static TransformerFactory tFactory = TransformerFactory.newInstance();
-
-
     private OAIDataProvider dataProvider;
     private XOAIManager manager;
     private FilterResolver filterResolver = mock(FilterResolver.class);
@@ -71,6 +69,8 @@ public abstract class AbstractDataProviderTest {
 
     @Before
     public void setUp() throws IOException, TransformerConfigurationException, ParseException {
+        TransformerFactory tFactory = XMLUtils.getTransformerFactory();
+
         when(resourceResolver.getTemplates(XOAI_XSLT_LOCATION)).
                 thenReturn(tFactory.newTemplates(new StreamSource(
                         this.getClass().getClassLoader().getResourceAsStream("identity_transform.xsl"))));
