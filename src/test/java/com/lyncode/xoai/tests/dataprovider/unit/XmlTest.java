@@ -3,6 +3,7 @@ package com.lyncode.xoai.tests.dataprovider.unit;
 import com.lyncode.builder.MapBuilder;
 import com.lyncode.test.matchers.xml.XPathMatchers;
 import com.lyncode.xoai.dataprovider.xml.XmlOutputContext;
+import com.lyncode.xoai.util.XMLUtils;
 import org.hamcrest.Matcher;
 
 import javax.xml.stream.XMLStreamException;
@@ -14,8 +15,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.ByteArrayOutputStream;
 
 public abstract class XmlTest {
-    private static TransformerFactory tFactory = TransformerFactory.newInstance();
-
     private ByteArrayOutputStream output;
     private XmlOutputContext context;
 
@@ -30,6 +29,7 @@ public abstract class XmlTest {
 
     protected Templates identityTemplate() {
         try {
+            TransformerFactory tFactory = XMLUtils.getTransformerFactory();
             return tFactory.newTemplates(new StreamSource(
                     this.getClass().getClassLoader().getResourceAsStream("identity_transform.xsl")));
         } catch (TransformerConfigurationException e) {

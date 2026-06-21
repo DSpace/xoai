@@ -2,6 +2,7 @@ package com.lyncode.xoai.dataprovider.services.impl;
 
 import com.lyncode.xoai.dataprovider.services.api.ResourceResolver;
 
+import com.lyncode.xoai.util.XMLUtils;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -12,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class FileResourceResolver implements ResourceResolver {
-    private static TransformerFactory tFactory = TransformerFactory.newInstance();
     private String basePath;
 
     public FileResourceResolver(String basePath) {
@@ -27,6 +27,7 @@ public class FileResourceResolver implements ResourceResolver {
 
     @Override
     public Templates getTemplates(String path) throws IOException, TransformerConfigurationException {
+        TransformerFactory tFactory = XMLUtils.getTransformerFactory();
         return tFactory.newTemplates(new StreamSource(getResource(path)));
     }
 }
