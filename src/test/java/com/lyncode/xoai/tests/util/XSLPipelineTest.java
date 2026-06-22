@@ -38,4 +38,13 @@ public class XSLPipelineTest extends XmlTest {
         underTest.apply(identityTemplate());
         assertThat(IOUtils.toString(underTest.getTransformed()), not(containsString("<?xml")));
     }
+
+    @Test
+    public void shouldSupportMethodChainingOnApply() throws TransformerException, IOException {
+        String result = IOUtils.toString(
+                new XSLPipeline(input, true)
+                        .apply(identityTemplate())
+                        .getTransformed());
+        assertThat(result, not(containsString("<?xml")));
+    }
 }
