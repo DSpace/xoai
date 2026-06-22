@@ -6,7 +6,6 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
@@ -16,7 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class XSLPipelineTest extends XmlTest {
-    private static final TransformerFactory tFactory = TransformerFactory.newInstance();
     private static final String TEST_XML = "<test />";
 
     private ByteArrayInputStream input = new ByteArrayInputStream(TEST_XML.getBytes());
@@ -44,7 +42,7 @@ public class XSLPipelineTest extends XmlTest {
     @Test
     public void shouldSupportMethodChainingOnApply() throws TransformerException, IOException {
         String result = IOUtils.toString(
-                new XSLPipeline(new ByteArrayInputStream(TEST_XML.getBytes()), true)
+                new XSLPipeline(input, true)
                         .apply(identityTemplate())
                         .getTransformed());
         assertThat(result, not(containsString("<?xml")));
