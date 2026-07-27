@@ -19,7 +19,7 @@ jobs:
     steps:
       # https://github.com/actions/checkout
       - name: Checkout codebase
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # https://github.com/actions/setup-java
       - name: Install JDK 11
